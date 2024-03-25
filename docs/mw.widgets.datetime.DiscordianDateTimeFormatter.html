@@ -1,0 +1,3817 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]><html lang="en" class="js-off lte-ie8"><![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="js-off ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en" class="js-off">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Class: DiscordianDateTimeFormatter, MediaWiki frontend code, JSDoc</title>
+    <script>
+document.documentElement.className = document.documentElement.className.replace(/\bjs-off\b/,'js-on'); // no BEM notation thx to IE
+    </script>
+    <!--[if lt IE 9]>
+      <script>window.html5={'shivCSS':false};</script>
+      <script src="wmf/js/vendor/ie/html5shiv-3.7.3.min.js"></script>
+      <script src="wmf/js/vendor/ie/respond-1.4.2.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="styles/jsdoc-wmf-theme.css">
+    <script src="scripts/lib/prettify/prettify.js"> </script>
+    <script src="scripts/lib/prettify/lang-css.js"> </script>
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link rel="preload" href="wmf/fonts/Charter_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="wmf/fonts/Lato_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <script src="scripts/fonts-loader.js" async=""></script>
+</head>
+
+<body class="page--home">
+	<header id="header" class="header" role="banner">
+		<div class="content-box">
+			<a href="#content" class="is-aural is-focusable">Jump to content</a>
+			<a href="#nav--main" class="is-aural is-focusable">Jump to navigation</a>
+			<div class="header__title">
+				<span class="site-title"><a href="./"><span class="site-logo"></span>MediaWiki frontend code</a></span>
+				<label class="btn--nav-main" for="trigger--nav-main" aria-hidden="true" title="Show main menu">
+					<i></i> <span>Menu</span>
+				</label>
+			</div>
+     		<div id="search-container" class="search-container">
+  <input type="search" id="lunr-search" class="search-input" role="combobox" aria-autocomplete="list" aria-controls="search-results" aria-expanded="false" aria-activedescendant="selected-search-result" placeholder="Search">
+  <ul id="search-results" class="search-results role="listbox"></ul>
+</div>
+<script src="lunr-data.js"></script>
+<script src="scripts/lib/lunr.js"></script>
+<script src="scripts/lunrSearch.js"></script>
+
+		</div>
+	</header>
+	<div class="page">
+		<div class="content-box flex-cols">
+			<div class="flex-col flex-col--start">
+				<input type="checkbox" id="trigger--nav-main" class="trigger--nav-main">
+				<nav id="nav--main" class="nav nav--main" role="navigation">
+					<ol><li class="nav__item"><a href="index.html">Home</a></li><li class="nav__item"><a href="modules.html">Modules</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="module-moment.html">moment</a></li></ul></li><li class="nav__item"><a href="namespaces.html">Namespaces</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="Hooks.html">Hooks</a></li><li class="nav__sub-item"><a href="jQueryPlugins.html">jQueryPlugins</a></li><li class="nav__sub-item"><a href="mw.html">mw</a></li><li class="nav__sub-item"><a href="mw.cldr.html">mw.cldr</a></li><li class="nav__sub-item"><a href="mw.cookie.html">mw.cookie</a></li><li class="nav__sub-item"><a href="mw.errorLogger.html">mw.errorLogger</a></li><li class="nav__sub-item"><a href="mw.experiments.html">mw.experiments</a></li><li class="nav__sub-item"><a href="mw.html.html">mw.html</a></li><li class="nav__sub-item"><a href="mw.htmlform.html">mw.htmlform</a></li><li class="nav__sub-item"><a href="mw.language.html">mw.language</a></li><li class="nav__sub-item"><a href="mw.loader.html">mw.loader</a></li><li class="nav__sub-item"><a href="mw.log.html">mw.log</a></li><li class="nav__sub-item"><a href="mw.messagePoster.html">mw.messagePoster</a></li><li class="nav__sub-item"><a href="mw.notification.html">mw.notification</a></li><li class="nav__sub-item"><a href="mw.searchSuggest.html">mw.searchSuggest</a></li><li class="nav__sub-item"><a href="mw.tempUserCreated.html">mw.tempUserCreated</a></li><li class="nav__sub-item"><a href="mw.template.html">mw.template</a></li><li class="nav__sub-item"><a href="mw.user.html">mw.user</a></li><li class="nav__sub-item"><a href="mw.util.html">mw.util</a></li><li class="nav__sub-item"><a href="mw.widgets.html">mw.widgets</a></li><li class="nav__sub-item"><a href="window.html">window</a></li></ul></li><li class="nav__item is-on"><a>Classes</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="Hook.html">Hook</a></li><li class="nav__sub-item"><a href="MessagePosterFactory.html">MessagePosterFactory</a></li><li class="nav__sub-item"><a href="Notification.html">Notification</a></li><li class="nav__sub-item"><a href="Vue.html">Vue</a></li><li class="nav__sub-item"><a href="mediawiki.inspect.html">mediawiki.inspect</a></li><li class="nav__sub-item"><a href="module-mediawiki.storage-SafeStorage.html">mediawiki.storage~SafeStorage</a></li><li class="nav__sub-item"><a href="mw.Api.html">mw.Api</a></li><li class="nav__sub-item"><a href="mw.Debug.html">mw.Debug</a></li><li class="nav__sub-item"><a href="mw.Feedback.html">mw.Feedback</a></li><li class="nav__sub-item"><a href="mw.Feedback.Dialog.html">mw.Feedback.Dialog</a></li><li class="nav__sub-item"><a href="mw.ForeignApi.html">mw.ForeignApi</a></li><li class="nav__sub-item"><a href="mw.ForeignRest.html">mw.ForeignRest</a></li><li class="nav__sub-item"><a href="mw.ForeignStructuredUpload.html">mw.ForeignStructuredUpload</a></li><li class="nav__sub-item"><a href="mw.ForeignStructuredUpload.BookletLayout.html">mw.ForeignStructuredUpload.BookletLayout</a></li><li class="nav__sub-item"><a href="mw.ForeignUpload.html">mw.ForeignUpload</a></li><li class="nav__sub-item"><a href="mw.GallerySlideshow.html">mw.GallerySlideshow</a></li><li class="nav__sub-item"><a href="mw.Map.html">mw.Map</a></li><li class="nav__sub-item"><a href="mw.Message.html">mw.Message</a></li><li class="nav__sub-item"><a href="mw.Rest.html">mw.Rest</a></li><li class="nav__sub-item"><a href="mw.Title.html">mw.Title</a></li><li class="nav__sub-item"><a href="mw.Upload.html">mw.Upload</a></li><li class="nav__sub-item"><a href="mw.Upload.BookletLayout.html">mw.Upload.BookletLayout</a></li><li class="nav__sub-item"><a href="mw.Upload.Dialog.html">mw.Upload.Dialog</a></li><li class="nav__sub-item"><a href="mw.Uri.html">mw.Uri</a></li><li class="nav__sub-item"><a href="mw.html.Raw.html">mw.html.Raw</a></li><li class="nav__sub-item"><a href="mw.htmlform.ActionFieldLayout.html">mw.htmlform.ActionFieldLayout</a></li><li class="nav__sub-item"><a href="mw.htmlform.Element.html">mw.htmlform.Element</a></li><li class="nav__sub-item"><a href="mw.htmlform.FieldLayout.html">mw.htmlform.FieldLayout</a></li><li class="nav__sub-item"><a href="mw.messagePoster.MessagePoster.html">mw.messagePoster.MessagePoster</a></li><li class="nav__sub-item"><a href="mw.messagePoster.WikitextMessagePoster.html">mw.messagePoster.WikitextMessagePoster</a></li><li class="nav__sub-item"><a href="mw.widgets.APIResultsProvider.html">mw.widgets.APIResultsProvider</a></li><li class="nav__sub-item"><a href="mw.widgets.APIResultsQueue.html">mw.widgets.APIResultsQueue</a></li><li class="nav__sub-item"><a href="mw.widgets.AbandonEditDialog.html">mw.widgets.AbandonEditDialog</a></li><li class="nav__sub-item"><a href="mw.widgets.CalendarWidget.html">mw.widgets.CalendarWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.CategoryMultiselectWidget.html">mw.widgets.CategoryMultiselectWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.CategoryTagItemWidget.html">mw.widgets.CategoryTagItemWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.CheckMatrixWidget.html">mw.widgets.CheckMatrixWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.ComplexNamespaceInputWidget.html">mw.widgets.ComplexNamespaceInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.ComplexTitleInputWidget.html">mw.widgets.ComplexTitleInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.CopyTextLayout.html">mw.widgets.CopyTextLayout</a></li><li class="nav__sub-item"><a href="mw.widgets.DateInputWidget.html">mw.widgets.DateInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.ExpiryWidget.html">mw.widgets.ExpiryWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaResourceProvider.html">mw.widgets.MediaResourceProvider</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaResourceQueue.html">mw.widgets.MediaResourceQueue</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaResultWidget.html">mw.widgets.MediaResultWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaSearchProvider.html">mw.widgets.MediaSearchProvider</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaSearchQueue.html">mw.widgets.MediaSearchQueue</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaSearchWidget.html">mw.widgets.MediaSearchWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaUserUploadsProvider.html">mw.widgets.MediaUserUploadsProvider</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaUserUploadsQueue.html">mw.widgets.MediaUserUploadsQueue</a></li><li class="nav__sub-item"><a href="mw.widgets.NamespaceInputWidget.html">mw.widgets.NamespaceInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.NamespacesMenuOptionWidget.html">mw.widgets.NamespacesMenuOptionWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.NamespacesMultiselectWidget.html">mw.widgets.NamespacesMultiselectWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidget.html">mw.widgets.RowWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidgetModel.html">mw.widgets.RowWidgetModel</a></li><li class="nav__sub-item"><a href="mw.widgets.SearchInputWidget.html">mw.widgets.SearchInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.SelectWithInputWidget.html">mw.widgets.SelectWithInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.SizeFilterWidget.html">mw.widgets.SizeFilterWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.StashedFileWidget.html">mw.widgets.StashedFileWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidget.html">mw.widgets.TableWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidgetModel.html">mw.widgets.TableWidgetModel</a></li><li class="nav__sub-item"><a href="mw.widgets.TagMultiselectWidget.html">mw.widgets.TagMultiselectWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.TitleInputWidget.html">mw.widgets.TitleInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.TitleOptionWidget.html">mw.widgets.TitleOptionWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.TitleSearchWidget.html">mw.widgets.TitleSearchWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.TitleWidget.html">mw.widgets.TitleWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.TitlesMultiselectWidget.html">mw.widgets.TitlesMultiselectWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.ToggleSwitchWidget.html">mw.widgets.ToggleSwitchWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.UserInputWidget.html">mw.widgets.UserInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.UsersMultiselectWidget.html">mw.widgets.UsersMultiselectWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.CalendarWidget.html">mw.widgets.datetime.CalendarWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.DateTimeFormatter.html">mw.widgets.datetime.DateTimeFormatter</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.DateTimeInputWidget.html">mw.widgets.datetime.DateTimeInputWidget</a></li><li class="nav__sub-item is-on"><a href="mw.widgets.datetime.DiscordianDateTimeFormatter.html">mw.widgets.datetime.DiscordianDateTimeFormatter</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.ProlepticGregorianDateTimeFormatter.html">mw.widgets.datetime.ProlepticGregorianDateTimeFormatter</a></li></ul></li><li class="nav__item"><a>Events</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="Hooks.html#~event:'RcFilters.highlight.enable'">Hooks~'RcFilters.highlight.enable'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'RcFilters.popup.open'">Hooks~'RcFilters.popup.open'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'editRecovery.loadEnd'">Hooks~'editRecovery.loadEnd'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'htmlform.enhance'">Hooks~'htmlform.enhance'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'postEdit'">Hooks~'postEdit'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'postEdit.afterRemoval'">Hooks~'postEdit.afterRemoval'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'skin.logout'">Hooks~'skin.logout'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'structuredChangeFilters.ui.initialized'">Hooks~'structuredChangeFilters.ui.initialized'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'util.addPortlet'">Hooks~'util.addPortlet'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'util.addPortletLink'">Hooks~'util.addPortletLink'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.categories'">Hooks~'wikipage.categories'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.collapsibleContent'">Hooks~'wikipage.collapsibleContent'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.content'">Hooks~'wikipage.content'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.diff'">Hooks~'wikipage.diff'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.diff.diffTypeSwitch'">Hooks~'wikipage.diff.diffTypeSwitch'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.diff.wikitextDiffBody'">Hooks~'wikipage.diff.wikitextDiffBody'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.editform'">Hooks~'wikipage.editform'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.indicators'">Hooks~'wikipage.indicators'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.tableOfContents'">Hooks~'wikipage.tableOfContents'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.watchlistChange'">Hooks~'wikipage.watchlistChange'</a></li><li class="nav__sub-item"><a href="mw.Upload.BookletLayout.html#.event:fileSaved">mw.Upload.BookletLayout.fileSaved</a></li><li class="nav__sub-item"><a href="mw.Upload.BookletLayout.html#.event:fileUploadProgress">mw.Upload.BookletLayout.fileUploadProgress</a></li><li class="nav__sub-item"><a href="mw.Upload.BookletLayout.html#.event:fileUploaded">mw.Upload.BookletLayout.fileUploaded</a></li><li class="nav__sub-item"><a href="mw.Upload.BookletLayout.html#.event:infoValid">mw.Upload.BookletLayout.infoValid</a></li><li class="nav__sub-item"><a href="mw.Upload.BookletLayout.html#.event:uploadValid">mw.Upload.BookletLayout.uploadValid</a></li><li class="nav__sub-item"><a href="mw.widgets.CalendarWidget.html#.event:change">mw.widgets.CalendarWidget.change</a></li><li class="nav__sub-item"><a href="mw.widgets.DateInputWidget.html#.event:deactivate">mw.widgets.DateInputWidget.deactivate</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidget.html#.event:deleteButtonClick">mw.widgets.RowWidget.deleteButtonClick</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidget.html#.event:inputChange">mw.widgets.RowWidget.inputChange</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidget.html#.event:labelUpdate">mw.widgets.RowWidget.labelUpdate</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidgetModel.html#.event:clear">mw.widgets.RowWidgetModel.clear</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidgetModel.html#.event:insertCell">mw.widgets.RowWidgetModel.insertCell</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidgetModel.html#.event:labelUpdate">mw.widgets.RowWidgetModel.labelUpdate</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidgetModel.html#.event:removeCell">mw.widgets.RowWidgetModel.removeCell</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidgetModel.html#.event:valueChange">mw.widgets.RowWidgetModel.valueChange</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidget.html#.event:change">mw.widgets.TableWidget.change</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidget.html#.event:removeRow">mw.widgets.TableWidget.removeRow</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidgetModel.html#.event:clear">mw.widgets.TableWidgetModel.clear</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidgetModel.html#.event:insertColumn">mw.widgets.TableWidgetModel.insertColumn</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidgetModel.html#.event:insertRow">mw.widgets.TableWidgetModel.insertRow</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidgetModel.html#.event:removeColumn">mw.widgets.TableWidgetModel.removeColumn</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidgetModel.html#.event:removeRow">mw.widgets.TableWidgetModel.removeRow</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidgetModel.html#.event:valueChange">mw.widgets.TableWidgetModel.valueChange</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.CalendarWidget.html#.event:change">mw.widgets.datetime.CalendarWidget.change</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.CalendarWidget.html#.event:focusChanged">mw.widgets.datetime.CalendarWidget.focusChanged</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.CalendarWidget.html#.event:page">mw.widgets.datetime.CalendarWidget.page</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.DateTimeFormatter.html#.event:local">mw.widgets.datetime.DateTimeFormatter.local</a></li></ul></li></ol>
+				</nav>
+			</div>
+			<div class="flex-col flex-col--end">
+				<main id="content" class="content" role="main">
+
+    
+
+
+
+
+<section>
+
+<header>
+    <h1><span class="attribs"><span class="type-signature"></span></span>
+        <span class="ancestors"><a href="mw.html">mw</a><a href="mw.widgets.html">.widgets</a><a href="mw.widgets.datetime.html">.datetime</a>.</span>DiscordianDateTimeFormatter</h1>
+    
+        
+            <div class="class-description"><p>Provides various methods needed for formatting dates and times. This
+implementation implements the <a href="https://en.wikipedia.org/wiki/Discordian_calendar">Discordian calendar</a>,
+mainly for testing with something very different from the usual Gregorian
+calendar.</p>
+<p>Being intended mainly for testing, niceties like i18n and better
+configurability have been omitted.</p></div>
+            
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+        
+<div class="member  member--has-toggle-box">
+
+    
+    <h2>Constructor</h2>
+    
+
+    
+    <details id="toggle-DiscordianDateTimeFormatter" class="toggle-box" open>
+    <summary>
+        <h3 class="name" id="DiscordianDateTimeFormatter">
+            new mw.widgets.datetime.DiscordianDateTimeFormatter<span class="signature">(config<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span><span class="type-signature"></span>
+            <a href="#DiscordianDateTimeFormatter">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>A DateTimeFormatter for the Discordian calendar.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>config</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 Object
+</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Configuration options</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets.datetime_DiscordianDateTimeFormatter.js.html">mediawiki.widgets.datetime/DiscordianDateTimeFormatter.js</a>, <a href="mediawiki.widgets.datetime_DiscordianDateTimeFormatter.js.html#line20">line 20</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        A DateTimeFormatter for the Discordian calendar.
+    </div>
+
+</div>
+
+    
+    </div>
+
+    
+        <h2 class="subsection-title">Extends</h2>
+
+        
+
+
+    <ul>
+        <li><a href="mw.widgets.datetime.DateTimeFormatter.html">mw.widgets.datetime.DateTimeFormatter</a></li>
+    </ul>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h2 class="subsection-title">Methods</h2>
+
+        
+            
+<div class="member  method--inherited member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-adjustComponent" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="adjustComponent">
+            adjustComponent<span class="signature">(date, component, delta, mode)</span><span class="type-signature"> &rarr; {Date}</span><span class="type-signature"></span>
+            <a href="#adjustComponent">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Adjust a date.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>date</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 Date
+</span>
+|
+
+<span class="param-type">
+	 <code>null</code>
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>To be adjusted</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>component</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 string
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>To adjust</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>delta</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 number
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Adjustment amount</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>mode</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 string
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Adjustment mode:</p>
+<ul>
+<li>'overflow': &quot;Jan 32&quot; =&gt; &quot;Feb 1&quot;, &quot;Jan 33&quot; =&gt; &quot;Feb 2&quot;, &quot;Feb 0&quot; =&gt; &quot;Jan 31&quot;, etc.</li>
+<li>'wrap': &quot;Jan 32&quot; =&gt; &quot;Jan 1&quot;, &quot;Jan 33&quot; =&gt; &quot;Jan 2&quot;, &quot;Jan 0&quot; =&gt; &quot;Jan 31&quot;, etc.</li>
+<li>'clip': &quot;Jan 32&quot; =&gt; &quot;Jan 31&quot;, &quot;Feb 32&quot; =&gt; &quot;Feb 28&quot; (or 29), &quot;Feb 0&quot; =&gt; &quot;Feb 1&quot;, etc.</li>
+</ul></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="mw.widgets.datetime.DateTimeFormatter.html#adjustComponent">mw.widgets.datetime.DateTimeFormatter#adjustComponent</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets.datetime_DateTimeFormatter.js.html">mediawiki.widgets.datetime/DateTimeFormatter.js</a>, <a href="mediawiki.widgets.datetime_DateTimeFormatter.js.html#line484">line 484</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+<div class="param-desc">
+    <p>Adjusted date</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 Date
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Adjust a date.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  method--inherited member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-datePartIsEqual" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="datePartIsEqual">
+            datePartIsEqual<span class="signature">(date1, date2)</span><span class="type-signature"> &rarr; {boolean}</span><span class="type-signature"></span>
+            <a href="#datePartIsEqual">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Test whether the date parts of two Dates are equal.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>date1</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 Date
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>date2</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 Date
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="mw.widgets.datetime.DateTimeFormatter.html#datePartIsEqual">mw.widgets.datetime.DateTimeFormatter#datePartIsEqual</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets.datetime_DateTimeFormatter.js.html">mediawiki.widgets.datetime/DateTimeFormatter.js</a>, <a href="mediawiki.widgets.datetime_DateTimeFormatter.js.html#line523">line 523</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 boolean
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Test whether the date parts of two Dates are equal.
+    </div>
+
+</div>
+
+        
+            
+<div class="member method--protected method--inherited member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-formatSpecValue" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="formatSpecValue">
+            formatSpecValue<span class="signature">(v)</span><span class="type-signature"> &rarr; {string}</span><span class="type-signature"><span class="type-signature__attrib type-signature__attrib--protected">protected</span></span>
+            <a href="#formatSpecValue">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Format a value for a field specification.</p>
+<p>'this' must be the field specification object. The intention is that you
+could just assign this function as the 'formatValue' for each field spec.</p>
+<p>Besides the publicly-documented fields, uses the following:</p>
+<ul>
+<li>values: Enumerated values for the field</li>
+<li>zeropad: Whether to pad the number with zeros.</li>
+</ul>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>v</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 any
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="mw.widgets.datetime.DateTimeFormatter.html#formatSpecValue">mw.widgets.datetime.DateTimeFormatter#formatSpecValue</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets.datetime_DateTimeFormatter.js.html">mediawiki.widgets.datetime/DateTimeFormatter.js</a>, <a href="mediawiki.widgets.datetime_DateTimeFormatter.js.html#line373">line 373</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 string
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Format a value for a field specification.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  method--inherited member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-getCalendarData" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="getCalendarData">
+            getCalendarData<span class="signature">(current)</span><span class="type-signature"> &rarr; {<a href="mw.widgets.datetime.DateTimeFormatter.html#~CalendarGridData">CalendarGridData</a>}</span><span class="type-signature"></span>
+            <a href="#getCalendarData">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Get data for a calendar grid.</p>
+<p>A &quot;day&quot; object is:</p>
+<ul>
+<li>display: {string} Display text for the day.</li>
+<li>date: {Date} Date to use when the day is selected.</li>
+<li>extra: {string|null} 'prev' or 'next' on days used to fill out the weeks
+at the start and end of the month.</li>
+</ul>
+<p>In any one result object, 'extra' + 'display' will always be unique.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>current</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 Date
+</span>
+|
+
+<span class="param-type">
+	 <code>null</code>
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Current date</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="mw.widgets.datetime.DateTimeFormatter.html#getCalendarData">mw.widgets.datetime.DateTimeFormatter#getCalendarData</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets.datetime_DateTimeFormatter.js.html">mediawiki.widgets.datetime/DateTimeFormatter.js</a>, <a href="mediawiki.widgets.datetime_DateTimeFormatter.js.html#line634">line 634</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+<div class="param-desc">
+    <p>Data</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 <a href="mw.widgets.datetime.DateTimeFormatter.html#~CalendarGridData">CalendarGridData</a>
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Get data for a calendar grid.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  method--inherited member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-getCalendarHeadings" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="getCalendarHeadings">
+            getCalendarHeadings<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>}</span><span class="type-signature"></span>
+            <a href="#getCalendarHeadings">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Get the column headings (weekday abbreviations) for a calendar grid.</p>
+<p>Null-valued columns are hidden if getCalendarData() returns no &quot;day&quot; object
+for all days in that column.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="mw.widgets.datetime.DateTimeFormatter.html#getCalendarHeadings">mw.widgets.datetime.DateTimeFormatter#getCalendarHeadings</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets.datetime_DateTimeFormatter.js.html">mediawiki.widgets.datetime/DateTimeFormatter.js</a>, <a href="mediawiki.widgets.datetime_DateTimeFormatter.js.html#line498">line 498</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+<div class="param-desc">
+    <p>string or null</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Get the column headings (weekday abbreviations) for a calendar grid.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-getComponentsFromDate" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="getComponentsFromDate">
+            getComponentsFromDate<span class="signature">(date)</span><span class="type-signature"> &rarr; {Object}</span><span class="type-signature"></span>
+            <a href="#getComponentsFromDate">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Get components from a Date object.</p>
+<p>Components are:</p>
+<ul>
+<li>Year {number}</li>
+<li>Season {number} 1-5</li>
+<li>Day {number|string} 1-73 or 'tib'</li>
+<li>DOW {number} 0-4, or -1 on St. Tib's Day</li>
+<li>Hour {number} 0-23</li>
+<li>Minute {number} 0-59</li>
+<li>Second {number} 0-59</li>
+<li>Millisecond {number} 0-999</li>
+<li>intercalary {string} '1' on St. Tib's Day</li>
+</ul>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>date</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 Date
+</span>
+|
+
+<span class="param-type">
+	 <code>null</code>
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="mw.widgets.datetime.DateTimeFormatter.html#getComponentsFromDate">mw.widgets.datetime.DateTimeFormatter#getComponentsFromDate</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets.datetime_DiscordianDateTimeFormatter.js.html">mediawiki.widgets.datetime/DiscordianDateTimeFormatter.js</a>, <a href="mediawiki.widgets.datetime_DiscordianDateTimeFormatter.js.html#line221">line 221</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+<div class="param-desc">
+    <p>Components</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 Object
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Get components from a Date object.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  method--inherited member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-getDateFromComponents" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="getDateFromComponents">
+            getDateFromComponents<span class="signature">(components)</span><span class="type-signature"> &rarr; {Date}</span><span class="type-signature"></span>
+            <a href="#getDateFromComponents">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Get a Date object from components.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>components</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 Object
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Date components</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="mw.widgets.datetime.DateTimeFormatter.html#getDateFromComponents">mw.widgets.datetime.DateTimeFormatter#getDateFromComponents</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets.datetime_DateTimeFormatter.js.html">mediawiki.widgets.datetime/DateTimeFormatter.js</a>, <a href="mediawiki.widgets.datetime_DateTimeFormatter.js.html#line467">line 467</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 Date
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Get a Date object from components.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  method--inherited member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-getDefaultDate" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="getDefaultDate">
+            getDefaultDate<span class="signature">()</span><span class="type-signature"> &rarr; {Date}</span><span class="type-signature"></span>
+            <a href="#getDefaultDate">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Get the default date.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="mw.widgets.datetime.DateTimeFormatter.html#getDefaultDate">mw.widgets.datetime.DateTimeFormatter#getDefaultDate</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets.datetime_DateTimeFormatter.js.html">mediawiki.widgets.datetime/DateTimeFormatter.js</a>, <a href="mediawiki.widgets.datetime_DateTimeFormatter.js.html#line159">line 159</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 Date
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Get the default date.
+    </div>
+
+</div>
+
+        
+            
+<div class="member method--protected member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-getFieldForTag" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="getFieldForTag">
+            getFieldForTag<span class="signature">(tag, params)</span><span class="type-signature"> &rarr; {<a href="mw.widgets.datetime.DateTimeFormatter.html#~FieldSpecificationObject">FieldSpecificationObject</a>}</span><span class="type-signature"><span class="type-signature__attrib type-signature__attrib--protected">protected</span></span>
+            <a href="#getFieldForTag">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Turn a tag into a field specification object.</p>
+<p>Additional fields implemented here are:</p>
+<ul>
+<li>${year|#}: Year as a number</li>
+<li>${season|#}: Season as a number</li>
+<li>${season|full}: Season as a string</li>
+<li>${day|#}: Day of the month as a number</li>
+<li>${day|0}: Day of the month as a number with leading 0</li>
+<li>${dow|full}: Day of the week as a string</li>
+<li>${hour|#}: Hour as a number</li>
+<li>${hour|0}: Hour as a number with leading 0</li>
+<li>${minute|#}: Minute as a number</li>
+<li>${minute|0}: Minute as a number with leading 0</li>
+<li>${second|#}: Second as a number</li>
+<li>${second|0}: Second as a number with leading 0</li>
+<li>${millisecond|#}: Millisecond as a number</li>
+<li>${millisecond|0}: Millisecond as a number, zero-padded to 3 digits</li>
+</ul>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>tag</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 string
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>params</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>.&lt;string>
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="mw.widgets.datetime.DateTimeFormatter.html#getFieldForTag">mw.widgets.datetime.DateTimeFormatter#getFieldForTag</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets.datetime_DiscordianDateTimeFormatter.js.html">mediawiki.widgets.datetime/DiscordianDateTimeFormatter.js</a>, <a href="mediawiki.widgets.datetime_DiscordianDateTimeFormatter.js.html#line69">line 69</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+<div class="param-desc">
+    <p>Field specification object, or null if the tag+params are unrecognized.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 <a href="mw.widgets.datetime.DateTimeFormatter.html#~FieldSpecificationObject">FieldSpecificationObject</a>
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Turn a tag into a field specification object.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  method--inherited member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-getFieldSpec" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="getFieldSpec">
+            getFieldSpec<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>}</span><span class="type-signature"></span>
+            <a href="#getFieldSpec">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Fetch the field specification array for this object.</p>
+<p>See <code>parseFieldSpec</code> for details on the return value structure.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="mw.widgets.datetime.DateTimeFormatter.html#getFieldSpec">mw.widgets.datetime.DateTimeFormatter#getFieldSpec</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets.datetime_DateTimeFormatter.js.html">mediawiki.widgets.datetime/DateTimeFormatter.js</a>, <a href="mediawiki.widgets.datetime_DateTimeFormatter.js.html#line170">line 170</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Fetch the field specification array for this object.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  method--inherited member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-getLocal" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="getLocal">
+            getLocal<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span><span class="type-signature"></span>
+            <a href="#getLocal">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Whether dates are in local time or UTC.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="mw.widgets.datetime.DateTimeFormatter.html#getLocal">mw.widgets.datetime.DateTimeFormatter#getLocal</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets.datetime_DateTimeFormatter.js.html">mediawiki.widgets.datetime/DateTimeFormatter.js</a>, <a href="mediawiki.widgets.datetime_DateTimeFormatter.js.html#line129">line 129</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+<div class="param-desc">
+    <p>True if local time</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 boolean
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Whether dates are in local time or UTC.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  method--inherited member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-localChangesDatePart" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="localChangesDatePart">
+            localChangesDatePart<span class="signature">(date)</span><span class="type-signature"> &rarr; {boolean}</span><span class="type-signature"></span>
+            <a href="#localChangesDatePart">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Test whether toggleLocal() changes the date part.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>date</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 Date
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="mw.widgets.datetime.DateTimeFormatter.html#localChangesDatePart">mw.widgets.datetime.DateTimeFormatter#localChangesDatePart</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets.datetime_DateTimeFormatter.js.html">mediawiki.widgets.datetime/DateTimeFormatter.js</a>, <a href="mediawiki.widgets.datetime_DateTimeFormatter.js.html#line570">line 570</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 boolean
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Test whether toggleLocal() changes the date part.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  method--inherited member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-mergeDateAndTime" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="mergeDateAndTime">
+            mergeDateAndTime<span class="signature">(datepart, timepart)</span><span class="type-signature"> &rarr; {Date}</span><span class="type-signature"></span>
+            <a href="#mergeDateAndTime">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Create a new Date by merging the date part from one with the time part from
+another.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>datepart</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 Date
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>timepart</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 Date
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="mw.widgets.datetime.DateTimeFormatter.html#mergeDateAndTime">mw.widgets.datetime.DateTimeFormatter#mergeDateAndTime</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets.datetime_DateTimeFormatter.js.html">mediawiki.widgets.datetime/DateTimeFormatter.js</a>, <a href="mediawiki.widgets.datetime_DateTimeFormatter.js.html#line586">line 586</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 Date
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        <p>Create a new Date by merging the date part from one with the time part from
+another.</p>
+    </div>
+
+</div>
+
+        
+            
+<div class="member method--protected method--inherited member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-parseFieldSpec" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="parseFieldSpec">
+            parseFieldSpec<span class="signature">(format)</span><span class="type-signature"> &rarr; {<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>}</span><span class="type-signature"><span class="type-signature__attrib type-signature__attrib--protected">protected</span></span>
+            <a href="#parseFieldSpec">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Parse a format string into a field specification.</p>
+<p>The input is a string containing tags formatted as ${tag|param|param...}
+(for editable fields) and $!{tag|param|param...} (for non-editable fields).
+Most tags are defined by <code>getFieldForTag</code>, but a few
+are defined here:</p>
+<ul>
+<li>${intercalary|X|text}: Text that is only displayed when the 'intercalary'
+component is X.</li>
+<li>${not-intercalary|X|text}: Text that is displayed unless the 'intercalary'
+component is X.</li>
+</ul>
+<p>Elements of the returned array are strings or objects. Strings are meant to
+be displayed as-is. Objects are as returned by <code>getFieldForTag</code>.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>format</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 string
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="mw.widgets.datetime.DateTimeFormatter.html#parseFieldSpec">mw.widgets.datetime.DateTimeFormatter#parseFieldSpec</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets.datetime_DateTimeFormatter.js.html">mediawiki.widgets.datetime/DateTimeFormatter.js</a>, <a href="mediawiki.widgets.datetime_DateTimeFormatter.js.html#line193">line 193</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Parse a format string into a field specification.
+    </div>
+
+</div>
+
+        
+            
+<div class="member method--protected method--inherited member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-parseSpecValue" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="parseSpecValue">
+            parseSpecValue<span class="signature">(v)</span><span class="type-signature"> &rarr; {number|string|<code>null</code>}</span><span class="type-signature"><span class="type-signature__attrib type-signature__attrib--protected">protected</span></span>
+            <a href="#parseSpecValue">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Parse a value for a field specification.</p>
+<p>'this' must be the field specification object. The intention is that you
+could just assign this function as the 'parseValue' for each field spec.</p>
+<p>Besides the publicly-documented fields, uses the following:</p>
+<ul>
+<li>values: Enumerated values for the field</li>
+</ul>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>v</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 string
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="mw.widgets.datetime.DateTimeFormatter.html#parseSpecValue">mw.widgets.datetime.DateTimeFormatter#parseSpecValue</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets.datetime_DateTimeFormatter.js.html">mediawiki.widgets.datetime/DateTimeFormatter.js</a>, <a href="mediawiki.widgets.datetime_DateTimeFormatter.js.html#line408">line 408</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 number
+</span>
+|
+
+<span class="param-type">
+	 string
+</span>
+|
+
+<span class="param-type">
+	 <code>null</code>
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Parse a value for a field specification.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  method--inherited member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-sameCalendarGrid" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="sameCalendarGrid">
+            sameCalendarGrid<span class="signature">(date1, date2)</span><span class="type-signature"> &rarr; {boolean}</span><span class="type-signature"></span>
+            <a href="#sameCalendarGrid">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Test whether two dates are in the same calendar grid.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>date1</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 Date
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>date2</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 Date
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="mw.widgets.datetime.DateTimeFormatter.html#sameCalendarGrid">mw.widgets.datetime.DateTimeFormatter#sameCalendarGrid</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets.datetime_DateTimeFormatter.js.html">mediawiki.widgets.datetime/DateTimeFormatter.js</a>, <a href="mediawiki.widgets.datetime_DateTimeFormatter.js.html#line511">line 511</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 boolean
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Test whether two dates are in the same calendar grid.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  method--inherited member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-timePartIsEqual" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="timePartIsEqual">
+            timePartIsEqual<span class="signature">(date1, date2)</span><span class="type-signature"> &rarr; {boolean}</span><span class="type-signature"></span>
+            <a href="#timePartIsEqual">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Test whether the time parts of two Dates are equal.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>date1</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 Date
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>date2</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 Date
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="mw.widgets.datetime.DateTimeFormatter.html#timePartIsEqual">mw.widgets.datetime.DateTimeFormatter#timePartIsEqual</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets.datetime_DateTimeFormatter.js.html">mediawiki.widgets.datetime/DateTimeFormatter.js</a>, <a href="mediawiki.widgets.datetime_DateTimeFormatter.js.html#line546">line 546</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 boolean
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Test whether the time parts of two Dates are equal.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  method--inherited member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-toggleLocal" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="toggleLocal">
+            toggleLocal<span class="signature">(flag<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="mw.widgets.datetime.DateTimeFormatter.html">mw.widgets.datetime.DateTimeFormatter</a>}</span><span class="type-signature"></span>
+            <a href="#toggleLocal">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Toggle whether dates are in local time or UTC.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>flag</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 boolean
+</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Set the flag instead of toggling it</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="mw.widgets.datetime.DateTimeFormatter.html#toggleLocal">mw.widgets.datetime.DateTimeFormatter#toggleLocal</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets.datetime_DateTimeFormatter.js.html">mediawiki.widgets.datetime/DateTimeFormatter.js</a>, <a href="mediawiki.widgets.datetime_DateTimeFormatter.js.html#line141">line 141</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<h4>Fires:</h4>
+<ul>
+    <li><a href="mw.widgets.datetime.DateTimeFormatter.html#.event:local">mw.widgets.datetime.DateTimeFormatter.event:local</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 <a href="mw.widgets.datetime.DateTimeFormatter.html">mw.widgets.datetime.DateTimeFormatter</a>
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Toggle whether dates are in local time or UTC.
+    </div>
+
+</div>
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+				</main>
+			</div>
+		</div>
+	</div>
+	<footer id="footer" class="footer">
+		<div class="content-box">
+			<ul class="footer__list">
+				<li><a href="https://gerrit.wikimedia.org/g/mediawiki/core/">Contribute</a></li>
+			</ul>
+			<p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Mon Mar 25 2024 12:56:27 GMT-0700 (Pacific Daylight Time)</p>
+			<p><a href="https://wikimediafoundation.org/" class="lnk--wikimedia-project">A Wikimedia Foundation project</a></p>
+		</div>
+	</footer>
+
+<script src="scripts/redirect.js"></script>
+<script>
+var arr = function(aa) { return Array.prototype.slice.call(aa); };
+arr(document.querySelectorAll("nav > ol > li a:not([href])")).map(function(el) {
+  var li = el;
+  while (li && li.tagName !== 'LI') { li = li.parentNode; }
+  el.addEventListener('click', function(event) {
+    if (li.classList.contains('is-on')) {
+      li.classList.remove('is-on');
+      return;
+    }
+    arr(document.querySelectorAll("nav li.nav__item.is-on")).map(function(el2) {
+      el2.classList.remove('is-on');
+    });
+    li.classList.add('is-on');
+  });
+});
+</script>
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/open-member.js"> </script>
+</body>
+</html>

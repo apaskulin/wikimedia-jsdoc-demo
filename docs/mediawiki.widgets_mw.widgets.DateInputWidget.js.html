@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]><html lang="en" class="js-off lte-ie8"><![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="js-off ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en" class="js-off">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Source: mediawiki.widgets/mw.widgets.DateInputWidget.js, MediaWiki frontend code, JSDoc</title>
+    <script>
+document.documentElement.className = document.documentElement.className.replace(/\bjs-off\b/,'js-on'); // no BEM notation thx to IE
+    </script>
+    <!--[if lt IE 9]>
+      <script>window.html5={'shivCSS':false};</script>
+      <script src="wmf/js/vendor/ie/html5shiv-3.7.3.min.js"></script>
+      <script src="wmf/js/vendor/ie/respond-1.4.2.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="styles/jsdoc-wmf-theme.css">
+    <script src="scripts/lib/prettify/prettify.js"> </script>
+    <script src="scripts/lib/prettify/lang-css.js"> </script>
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link rel="preload" href="wmf/fonts/Charter_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="wmf/fonts/Lato_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <script src="scripts/fonts-loader.js" async=""></script>
+</head>
+
+<body class="page--home">
+	<header id="header" class="header" role="banner">
+		<div class="content-box">
+			<a href="#content" class="is-aural is-focusable">Jump to content</a>
+			<a href="#nav--main" class="is-aural is-focusable">Jump to navigation</a>
+			<div class="header__title">
+				<span class="site-title"><a href="./"><span class="site-logo"></span>MediaWiki frontend code</a></span>
+				<label class="btn--nav-main" for="trigger--nav-main" aria-hidden="true" title="Show main menu">
+					<i></i> <span>Menu</span>
+				</label>
+			</div>
+     		<div id="search-container" class="search-container">
+  <input type="search" id="lunr-search" class="search-input" role="combobox" aria-autocomplete="list" aria-controls="search-results" aria-expanded="false" aria-activedescendant="selected-search-result" placeholder="Search">
+  <ul id="search-results" class="search-results role="listbox"></ul>
+</div>
+<script src="lunr-data.js"></script>
+<script src="scripts/lib/lunr.js"></script>
+<script src="scripts/lunrSearch.js"></script>
+
+		</div>
+	</header>
+	<div class="page">
+		<div class="content-box flex-cols">
+			<div class="flex-col flex-col--start">
+				<input type="checkbox" id="trigger--nav-main" class="trigger--nav-main">
+				<nav id="nav--main" class="nav nav--main" role="navigation">
+					<ol><li class="nav__item"><a href="index.html">Home</a></li><li class="nav__item"><a href="modules.html">Modules</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="module-moment.html">moment</a></li></ul></li><li class="nav__item"><a href="namespaces.html">Namespaces</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="Hooks.html">Hooks</a></li><li class="nav__sub-item"><a href="jQueryPlugins.html">jQueryPlugins</a></li><li class="nav__sub-item"><a href="mw.html">mw</a></li><li class="nav__sub-item"><a href="mw.cldr.html">mw.cldr</a></li><li class="nav__sub-item"><a href="mw.cookie.html">mw.cookie</a></li><li class="nav__sub-item"><a href="mw.errorLogger.html">mw.errorLogger</a></li><li class="nav__sub-item"><a href="mw.experiments.html">mw.experiments</a></li><li class="nav__sub-item"><a href="mw.html.html">mw.html</a></li><li class="nav__sub-item"><a href="mw.htmlform.html">mw.htmlform</a></li><li class="nav__sub-item"><a href="mw.language.html">mw.language</a></li><li class="nav__sub-item"><a href="mw.loader.html">mw.loader</a></li><li class="nav__sub-item"><a href="mw.log.html">mw.log</a></li><li class="nav__sub-item"><a href="mw.messagePoster.html">mw.messagePoster</a></li><li class="nav__sub-item"><a href="mw.notification.html">mw.notification</a></li><li class="nav__sub-item"><a href="mw.searchSuggest.html">mw.searchSuggest</a></li><li class="nav__sub-item"><a href="mw.tempUserCreated.html">mw.tempUserCreated</a></li><li class="nav__sub-item"><a href="mw.template.html">mw.template</a></li><li class="nav__sub-item"><a href="mw.user.html">mw.user</a></li><li class="nav__sub-item"><a href="mw.util.html">mw.util</a></li><li class="nav__sub-item"><a href="mw.widgets.html">mw.widgets</a></li><li class="nav__sub-item"><a href="window.html">window</a></li></ul></li><li class="nav__item"><a>Classes</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="Hook.html">Hook</a></li><li class="nav__sub-item"><a href="MessagePosterFactory.html">MessagePosterFactory</a></li><li class="nav__sub-item"><a href="Notification.html">Notification</a></li><li class="nav__sub-item"><a href="Vue.html">Vue</a></li><li class="nav__sub-item"><a href="mediawiki.inspect.html">mediawiki.inspect</a></li><li class="nav__sub-item"><a href="module-mediawiki.storage-SafeStorage.html">mediawiki.storage~SafeStorage</a></li><li class="nav__sub-item"><a href="mw.Api.html">mw.Api</a></li><li class="nav__sub-item"><a href="mw.Debug.html">mw.Debug</a></li><li class="nav__sub-item"><a href="mw.Feedback.html">mw.Feedback</a></li><li class="nav__sub-item"><a href="mw.Feedback.Dialog.html">mw.Feedback.Dialog</a></li><li class="nav__sub-item"><a href="mw.ForeignApi.html">mw.ForeignApi</a></li><li class="nav__sub-item"><a href="mw.ForeignRest.html">mw.ForeignRest</a></li><li class="nav__sub-item"><a href="mw.ForeignStructuredUpload.html">mw.ForeignStructuredUpload</a></li><li class="nav__sub-item"><a href="mw.ForeignStructuredUpload.BookletLayout.html">mw.ForeignStructuredUpload.BookletLayout</a></li><li class="nav__sub-item"><a href="mw.ForeignUpload.html">mw.ForeignUpload</a></li><li class="nav__sub-item"><a href="mw.GallerySlideshow.html">mw.GallerySlideshow</a></li><li class="nav__sub-item"><a href="mw.Map.html">mw.Map</a></li><li class="nav__sub-item"><a href="mw.Message.html">mw.Message</a></li><li class="nav__sub-item"><a href="mw.Rest.html">mw.Rest</a></li><li class="nav__sub-item"><a href="mw.Title.html">mw.Title</a></li><li class="nav__sub-item"><a href="mw.Upload.html">mw.Upload</a></li><li class="nav__sub-item"><a href="mw.Upload.BookletLayout.html">mw.Upload.BookletLayout</a></li><li class="nav__sub-item"><a href="mw.Upload.Dialog.html">mw.Upload.Dialog</a></li><li class="nav__sub-item"><a href="mw.Uri.html">mw.Uri</a></li><li class="nav__sub-item"><a href="mw.html.Raw.html">mw.html.Raw</a></li><li class="nav__sub-item"><a href="mw.htmlform.ActionFieldLayout.html">mw.htmlform.ActionFieldLayout</a></li><li class="nav__sub-item"><a href="mw.htmlform.Element.html">mw.htmlform.Element</a></li><li class="nav__sub-item"><a href="mw.htmlform.FieldLayout.html">mw.htmlform.FieldLayout</a></li><li class="nav__sub-item"><a href="mw.messagePoster.MessagePoster.html">mw.messagePoster.MessagePoster</a></li><li class="nav__sub-item"><a href="mw.messagePoster.WikitextMessagePoster.html">mw.messagePoster.WikitextMessagePoster</a></li><li class="nav__sub-item"><a href="mw.widgets.APIResultsProvider.html">mw.widgets.APIResultsProvider</a></li><li class="nav__sub-item"><a href="mw.widgets.APIResultsQueue.html">mw.widgets.APIResultsQueue</a></li><li class="nav__sub-item"><a href="mw.widgets.AbandonEditDialog.html">mw.widgets.AbandonEditDialog</a></li><li class="nav__sub-item"><a href="mw.widgets.CalendarWidget.html">mw.widgets.CalendarWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.CategoryMultiselectWidget.html">mw.widgets.CategoryMultiselectWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.CategoryTagItemWidget.html">mw.widgets.CategoryTagItemWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.CheckMatrixWidget.html">mw.widgets.CheckMatrixWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.ComplexNamespaceInputWidget.html">mw.widgets.ComplexNamespaceInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.ComplexTitleInputWidget.html">mw.widgets.ComplexTitleInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.CopyTextLayout.html">mw.widgets.CopyTextLayout</a></li><li class="nav__sub-item"><a href="mw.widgets.DateInputWidget.html">mw.widgets.DateInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.ExpiryWidget.html">mw.widgets.ExpiryWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaResourceProvider.html">mw.widgets.MediaResourceProvider</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaResourceQueue.html">mw.widgets.MediaResourceQueue</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaResultWidget.html">mw.widgets.MediaResultWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaSearchProvider.html">mw.widgets.MediaSearchProvider</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaSearchQueue.html">mw.widgets.MediaSearchQueue</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaSearchWidget.html">mw.widgets.MediaSearchWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaUserUploadsProvider.html">mw.widgets.MediaUserUploadsProvider</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaUserUploadsQueue.html">mw.widgets.MediaUserUploadsQueue</a></li><li class="nav__sub-item"><a href="mw.widgets.NamespaceInputWidget.html">mw.widgets.NamespaceInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.NamespacesMenuOptionWidget.html">mw.widgets.NamespacesMenuOptionWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.NamespacesMultiselectWidget.html">mw.widgets.NamespacesMultiselectWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidget.html">mw.widgets.RowWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidgetModel.html">mw.widgets.RowWidgetModel</a></li><li class="nav__sub-item"><a href="mw.widgets.SearchInputWidget.html">mw.widgets.SearchInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.SelectWithInputWidget.html">mw.widgets.SelectWithInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.SizeFilterWidget.html">mw.widgets.SizeFilterWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.StashedFileWidget.html">mw.widgets.StashedFileWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidget.html">mw.widgets.TableWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidgetModel.html">mw.widgets.TableWidgetModel</a></li><li class="nav__sub-item"><a href="mw.widgets.TagMultiselectWidget.html">mw.widgets.TagMultiselectWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.TitleInputWidget.html">mw.widgets.TitleInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.TitleOptionWidget.html">mw.widgets.TitleOptionWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.TitleSearchWidget.html">mw.widgets.TitleSearchWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.TitleWidget.html">mw.widgets.TitleWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.TitlesMultiselectWidget.html">mw.widgets.TitlesMultiselectWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.ToggleSwitchWidget.html">mw.widgets.ToggleSwitchWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.UserInputWidget.html">mw.widgets.UserInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.UsersMultiselectWidget.html">mw.widgets.UsersMultiselectWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.CalendarWidget.html">mw.widgets.datetime.CalendarWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.DateTimeFormatter.html">mw.widgets.datetime.DateTimeFormatter</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.DateTimeInputWidget.html">mw.widgets.datetime.DateTimeInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.DiscordianDateTimeFormatter.html">mw.widgets.datetime.DiscordianDateTimeFormatter</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.ProlepticGregorianDateTimeFormatter.html">mw.widgets.datetime.ProlepticGregorianDateTimeFormatter</a></li></ul></li><li class="nav__item"><a>Events</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="Hooks.html#~event:'RcFilters.highlight.enable'">Hooks~'RcFilters.highlight.enable'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'RcFilters.popup.open'">Hooks~'RcFilters.popup.open'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'editRecovery.loadEnd'">Hooks~'editRecovery.loadEnd'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'htmlform.enhance'">Hooks~'htmlform.enhance'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'postEdit'">Hooks~'postEdit'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'postEdit.afterRemoval'">Hooks~'postEdit.afterRemoval'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'skin.logout'">Hooks~'skin.logout'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'structuredChangeFilters.ui.initialized'">Hooks~'structuredChangeFilters.ui.initialized'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'util.addPortlet'">Hooks~'util.addPortlet'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'util.addPortletLink'">Hooks~'util.addPortletLink'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.categories'">Hooks~'wikipage.categories'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.collapsibleContent'">Hooks~'wikipage.collapsibleContent'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.content'">Hooks~'wikipage.content'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.diff'">Hooks~'wikipage.diff'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.diff.diffTypeSwitch'">Hooks~'wikipage.diff.diffTypeSwitch'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.diff.wikitextDiffBody'">Hooks~'wikipage.diff.wikitextDiffBody'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.editform'">Hooks~'wikipage.editform'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.indicators'">Hooks~'wikipage.indicators'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.tableOfContents'">Hooks~'wikipage.tableOfContents'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.watchlistChange'">Hooks~'wikipage.watchlistChange'</a></li><li class="nav__sub-item"><a href="mw.Upload.BookletLayout.html#.event:fileSaved">mw.Upload.BookletLayout.fileSaved</a></li><li class="nav__sub-item"><a href="mw.Upload.BookletLayout.html#.event:fileUploadProgress">mw.Upload.BookletLayout.fileUploadProgress</a></li><li class="nav__sub-item"><a href="mw.Upload.BookletLayout.html#.event:fileUploaded">mw.Upload.BookletLayout.fileUploaded</a></li><li class="nav__sub-item"><a href="mw.Upload.BookletLayout.html#.event:infoValid">mw.Upload.BookletLayout.infoValid</a></li><li class="nav__sub-item"><a href="mw.Upload.BookletLayout.html#.event:uploadValid">mw.Upload.BookletLayout.uploadValid</a></li><li class="nav__sub-item"><a href="mw.widgets.CalendarWidget.html#.event:change">mw.widgets.CalendarWidget.change</a></li><li class="nav__sub-item"><a href="mw.widgets.DateInputWidget.html#.event:deactivate">mw.widgets.DateInputWidget.deactivate</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidget.html#.event:deleteButtonClick">mw.widgets.RowWidget.deleteButtonClick</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidget.html#.event:inputChange">mw.widgets.RowWidget.inputChange</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidget.html#.event:labelUpdate">mw.widgets.RowWidget.labelUpdate</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidgetModel.html#.event:clear">mw.widgets.RowWidgetModel.clear</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidgetModel.html#.event:insertCell">mw.widgets.RowWidgetModel.insertCell</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidgetModel.html#.event:labelUpdate">mw.widgets.RowWidgetModel.labelUpdate</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidgetModel.html#.event:removeCell">mw.widgets.RowWidgetModel.removeCell</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidgetModel.html#.event:valueChange">mw.widgets.RowWidgetModel.valueChange</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidget.html#.event:change">mw.widgets.TableWidget.change</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidget.html#.event:removeRow">mw.widgets.TableWidget.removeRow</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidgetModel.html#.event:clear">mw.widgets.TableWidgetModel.clear</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidgetModel.html#.event:insertColumn">mw.widgets.TableWidgetModel.insertColumn</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidgetModel.html#.event:insertRow">mw.widgets.TableWidgetModel.insertRow</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidgetModel.html#.event:removeColumn">mw.widgets.TableWidgetModel.removeColumn</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidgetModel.html#.event:removeRow">mw.widgets.TableWidgetModel.removeRow</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidgetModel.html#.event:valueChange">mw.widgets.TableWidgetModel.valueChange</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.CalendarWidget.html#.event:change">mw.widgets.datetime.CalendarWidget.change</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.CalendarWidget.html#.event:focusChanged">mw.widgets.datetime.CalendarWidget.focusChanged</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.CalendarWidget.html#.event:page">mw.widgets.datetime.CalendarWidget.page</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.DateTimeFormatter.html#.event:local">mw.widgets.datetime.DateTimeFormatter.local</a></li></ul></li></ol>
+				</nav>
+			</div>
+			<div class="flex-col flex-col--end">
+				<main id="content" class="content" role="main">
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint sourcefile linenums"><code>/*!
+ * MediaWiki Widgets – DateInputWidget class.
+ *
+ * @copyright 2011-2015 MediaWiki Widgets Team and others; see AUTHORS.txt
+ * @license The MIT License (MIT); see LICENSE.txt
+ */
+/* global moment */
+( function () {
+
+	/**
+	 * Creates an mw.widgets.DateInputWidget object.
+	 *
+	 * @example
+	 * // Date input widget showcase
+	 * var fieldset = new OO.ui.FieldsetLayout( {
+	 *   items: [
+	 *     new OO.ui.FieldLayout(
+	 *       new mw.widgets.DateInputWidget(),
+	 *       {
+	 *         align: 'top',
+	 *         label: 'Select date'
+	 *       }
+	 *     ),
+	 *     new OO.ui.FieldLayout(
+	 *       new mw.widgets.DateInputWidget( { precision: 'month' } ),
+	 *       {
+	 *         align: 'top',
+	 *         label: 'Select month'
+	 *       }
+	 *     ),
+	 *     new OO.ui.FieldLayout(
+	 *       new mw.widgets.DateInputWidget( {
+	 *         inputFormat: 'DD.MM.YYYY',
+	 *         displayFormat: 'Do [of] MMMM [anno Domini] YYYY'
+	 *       } ),
+	 *       {
+	 *         align: 'top',
+	 *         label: 'Select date (custom formats)'
+	 *       }
+	 *     )
+	 *   ]
+	 * } );
+	 * $( document.body ).append( fieldset.$element );
+	 *
+	 * // The value is stored in 'YYYY-MM-DD' or 'YYYY-MM' format
+	 *
+	 * @example
+	 * // Accessing values in a date input widget
+	 * var dateInput = new mw.widgets.DateInputWidget();
+	 * var $label = $( '&lt;p>' );
+	 * $( document.body ).append( $label, dateInput.$element );
+	 * dateInput.on( 'change', function () {
+	 *   // The value will always be a valid date or empty string, malformed input is ignored
+	 *   var date = dateInput.getValue();
+	 *   $label.text( 'Selected date: ' + ( date || '(none)' ) );
+	 * } );
+	 *
+	 * @class
+	 * @extends OO.ui.TextInputWidget
+	 * @mixes OO.ui.mixin.IndicatorElement
+	 *
+	 * @constructor
+	 * @param {Object} [config] Configuration options
+	 * @param {string} [config.precision='day'] Date precision to use, 'day' or 'month'
+	 * @param {string} [config.value] Day or month date (depending on `precision`), in the format 'YYYY-MM-DD'
+	 *     or 'YYYY-MM'. If not given or empty string, no date is selected.
+	 * @param {string} [config.inputFormat] Date format string to use for the textual input field. Displayed
+	 *     while the widget is active, and the user can type in a date in this format. Should be short
+	 *     and easy to type. When not given, defaults to 'YYYY-MM-DD' or 'YYYY-MM', depending on
+	 *     `precision`.
+	 * @param {string} [config.displayFormat] Date format string to use for the clickable label. Displayed
+	 *     while the widget is inactive. Should be as unambiguous as possible (for example, prefer to
+	 *     spell out the month, rather than rely on the order), even if that makes it longer. When not
+	 *     given, the default is language-specific.
+	 * @param {boolean} [config.longDisplayFormat=false] If a custom displayFormat is not specified, use
+	 *     unabbreviated day of the week and month names in the default language-specific displayFormat.
+	 * @param {string} [config.placeholderLabel=No date selected] Placeholder text shown when the widget is not
+	 *     selected. Default text taken from message `mw-widgets-dateinput-no-date`.
+	 * @param {string} [config.placeholderDateFormat] User-visible date format string displayed in the textual input
+	 *     field when it's empty. Should be the same as `inputFormat`, but translated to the user's
+	 *     language. When not given, defaults to a translated version of 'YYYY-MM-DD' or 'YYYY-MM',
+	 *     depending on `precision`.
+	 * @param {boolean} [config.required=false] Mark the field as required. Implies `indicator: 'required'`.
+	 * @param {string} [config.mustBeAfter] Validates the date to be after this. In the 'YYYY-MM-DD' format.
+	 * @param {string} [config.mustBeBefore] Validates the date to be before this. In the 'YYYY-MM-DD' format.
+	 * @param {jQuery} [config.$overlay] Render the calendar into a separate layer. This configuration is
+	 *     useful in cases where the expanded calendar is larger than its container. The specified
+	 *     overlay layer is usually on top of the container and has a larger area. By default, the
+	 *     calendar uses relative positioning.
+	 * @param {Object} [config.calendar] Configuration options for the this input's
+	 *     {@link mw.widgets.CalendarWidget CalendarWidget}.
+	 */
+	mw.widgets.DateInputWidget = function MWWDateInputWidget( config ) {
+		// Config initialization
+		config = $.extend( {
+			precision: 'day',
+			longDisplayFormat: false,
+			required: false,
+			placeholderLabel: mw.msg( 'mw-widgets-dateinput-no-date' )
+		}, config );
+		if ( config.required ) {
+			if ( config.indicator === undefined ) {
+				config.indicator = 'required';
+			}
+		}
+
+		var placeholderDateFormat;
+		if ( config.placeholderDateFormat ) {
+			placeholderDateFormat = config.placeholderDateFormat;
+		} else if ( config.inputFormat ) {
+			// We have no way to display a translated placeholder for custom formats
+			placeholderDateFormat = '';
+		} else {
+			// The following messages are used here:
+			// * mw-widgets-dateinput-placeholder-day
+			// * mw-widgets-dateinput-placeholder-month
+			placeholderDateFormat = mw.msg( 'mw-widgets-dateinput-placeholder-' + config.precision );
+		}
+
+		// Properties (must be set before parent constructor, which calls #setValue)
+		this.$handle = $( '&lt;div>' );
+		this.innerLabel = new OO.ui.LabelWidget();
+		this.textInput = new OO.ui.TextInputWidget( {
+			required: config.required,
+			placeholder: placeholderDateFormat,
+			validate: this.validateDate.bind( this )
+		} );
+		this.calendar = new mw.widgets.CalendarWidget( $.extend( {
+			lazyInitOnToggle: true,
+			// Can't pass `$floatableContainer: this.$element` here, the latter is not set yet.
+			// Instead we call setFloatableContainer() below.
+			precision: config.precision
+		}, config.calendar ) );
+		this.inCalendar = 0;
+		this.inTextInput = 0;
+		this.closing = false;
+		this.inputFormat = config.inputFormat;
+		this.displayFormat = config.displayFormat;
+		this.longDisplayFormat = config.longDisplayFormat;
+		this.required = config.required;
+		this.placeholderLabel = config.placeholderLabel;
+		// Validate and set min and max dates as properties
+
+		if ( config.mustBeAfter !== undefined ) {
+			var mustBeAfter = moment( config.mustBeAfter, 'YYYY-MM-DD' );
+			if ( mustBeAfter.isValid() ) {
+				this.mustBeAfter = mustBeAfter;
+			}
+		}
+		if ( config.mustBeBefore !== undefined ) {
+			var mustBeBefore = moment( config.mustBeBefore, 'YYYY-MM-DD' );
+			if ( mustBeBefore.isValid() ) {
+				this.mustBeBefore = mustBeBefore;
+			}
+		}
+		// Parent constructor
+		mw.widgets.DateInputWidget.super.call( this, config );
+
+		// Mixin constructors
+		OO.ui.mixin.IndicatorElement.call( this, config );
+
+		// Events
+		this.calendar.connect( this, {
+			change: 'onCalendarChange'
+		} );
+		this.textInput.connect( this, {
+			enter: 'onEnter',
+			change: 'onTextInputChange'
+		} );
+		this.$element.on( {
+			focusout: this.onBlur.bind( this )
+		} );
+		this.calendar.$element.on( {
+			focusout: this.onBlur.bind( this ),
+			click: this.onCalendarClick.bind( this ),
+			keypress: this.onCalendarKeyPress.bind( this )
+		} );
+		this.$handle.on( {
+			click: this.onClick.bind( this ),
+			keypress: this.onKeyPress.bind( this ),
+			focus: this.onFocus.bind( this )
+		} );
+
+		// Initialization
+		// Move 'tabindex' from this.$input (which is invisible) to the visible handle
+		if ( !this.isDisabled() ) {
+			this.setTabIndexedElement( this.$handle );
+		}
+		this.$handle
+			.append( this.innerLabel.$element, this.$indicator )
+			.addClass( 'mw-widget-dateInputWidget-handle' );
+		this.calendar.$element
+			.addClass( 'mw-widget-dateInputWidget-calendar' );
+		this.$element
+			.addClass( 'mw-widget-dateInputWidget' )
+			.append( this.$handle, this.textInput.$element, this.calendar.$element );
+
+		var $overlay = config.$overlay === true ? OO.ui.getDefaultOverlay() : config.$overlay;
+
+		if ( $overlay ) {
+			this.calendar.setFloatableContainer( this.$element );
+			$overlay.append( this.calendar.$element );
+
+			// The text input and calendar are not in DOM order, so fix up focus transitions.
+			this.textInput.$input.on( 'keydown', function ( e ) {
+				if ( e.which === OO.ui.Keys.TAB ) {
+					if ( e.shiftKey ) {
+						// Tabbing backward from text input: normal browser behavior
+					} else {
+						// Tabbing forward from text input: just focus the calendar
+						this.calendar.$element.trigger( 'focus' );
+						return false;
+					}
+				}
+			}.bind( this ) );
+			this.calendar.$element.on( 'keydown', function ( e ) {
+				if ( e.which === OO.ui.Keys.TAB ) {
+					if ( e.shiftKey ) {
+						// Tabbing backward from calendar: just focus the text input
+						this.textInput.$input.trigger( 'focus' );
+						return false;
+					} else {
+						// Tabbing forward from calendar: focus the text input, then allow normal browser
+						// behavior to move focus to next focusable after it
+						this.textInput.$input.trigger( 'focus' );
+					}
+				}
+			}.bind( this ) );
+		}
+
+		// Set handle label and hide stuff
+		this.updateUI();
+		this.textInput.toggle( false );
+		this.calendar.toggle( false );
+
+		// Hide unused &lt;input> from PHP after infusion is done
+		// See InputWidget#reusePreInfuseDOM about config.$input
+		if ( config.$input ) {
+			config.$input.addClass( 'oo-ui-element-hidden' );
+		}
+	};
+
+	/* Inheritance */
+
+	OO.inheritClass( mw.widgets.DateInputWidget, OO.ui.TextInputWidget );
+	OO.mixinClass( mw.widgets.DateInputWidget, OO.ui.mixin.IndicatorElement );
+
+	/* Events */
+
+	/**
+	 * Fired when the widget is deactivated (when the calendar is closed). This can happen because
+	 * the user selected a value, or because the user blurred the widget.
+	 *
+	 * @event mw.widgets.DateInputWidget.deactivate
+	 * @param {boolean} userSelected Whether the deactivation happened because the user selected a value
+	 */
+
+	/* Methods */
+
+	/**
+	 * @inheritdoc
+	 * @protected
+	 */
+	mw.widgets.DateInputWidget.prototype.getInputElement = function () {
+		return $( '&lt;input>' ).attr( 'type', 'hidden' );
+	};
+
+	/**
+	 * Respond to calendar date change events.
+	 *
+	 * @private
+	 */
+	mw.widgets.DateInputWidget.prototype.onCalendarChange = function () {
+		this.inCalendar++;
+		if ( !this.inTextInput ) {
+			// If this is caused by user typing in the input field, do not set anything.
+			// The value may be invalid (see #onTextInputChange), but displayable on the calendar.
+			this.setValue( this.calendar.getDate() );
+		}
+		this.inCalendar--;
+	};
+
+	/**
+	 * Respond to text input value change events.
+	 *
+	 * @private
+	 */
+	mw.widgets.DateInputWidget.prototype.onTextInputChange = function () {
+		var
+			widget = this,
+			value = this.textInput.getValue(),
+			mom = moment( value, this.getInputFormat() ),
+			valid = this.isValidDate( value );
+		this.inTextInput++;
+
+		if ( value === '' ) {
+			// No date selected
+			widget.setValue( '' );
+		} else if ( valid ) {
+			// Well-formed date value, parse and set it
+			// Use English locale to avoid number formatting
+			widget.setValue( mom.locale( 'en' ).format( widget.getInternalFormat() ) );
+		} else {
+			// Not well-formed, but possibly partial? Try updating the calendar, but do not set the
+			// internal value. Generally this only makes sense when 'inputFormat' is little-endian (e.g.
+			// 'YYYY-MM-DD'), but that's hard to check for, and might be difficult to handle the parsing
+			// right for weird formats. So limit this trick to only when we're using the default
+			// 'inputFormat', which is the same as the internal format, 'YYYY-MM-DD'.
+			if ( widget.getInputFormat() === widget.getInternalFormat() ) {
+				widget.calendar.setMoment( mom );
+			}
+		}
+		widget.inTextInput--;
+
+	};
+
+	/**
+	 * @inheritdoc
+	 */
+	mw.widgets.DateInputWidget.prototype.setValue = function ( value ) {
+		var oldValue = this.value;
+
+		if ( !moment( value, this.getInternalFormat() ).isValid() ) {
+			value = '';
+		}
+
+		mw.widgets.DateInputWidget.super.prototype.setValue.call( this, value );
+
+		if ( this.value !== oldValue ) {
+			this.updateUI();
+			this.setValidityFlag();
+		}
+
+		return this;
+	};
+
+	/**
+	 * Handle text input and calendar blur events.
+	 *
+	 * @private
+	 */
+	mw.widgets.DateInputWidget.prototype.onBlur = function () {
+		var widget = this;
+		setTimeout( function () {
+			var $focussed = $( ':focus' );
+			// Deactivate unless the focus moved to something else inside this widget
+			if (
+				!OO.ui.contains( widget.$element[ 0 ], $focussed[ 0 ], true ) &amp;&amp;
+				// Calendar might be in an $overlay
+				!OO.ui.contains( widget.calendar.$element[ 0 ], $focussed[ 0 ], true )
+			) {
+				widget.deactivate();
+			}
+		}, 0 );
+	};
+
+	/**
+	 * @inheritdoc
+	 */
+	mw.widgets.DateInputWidget.prototype.focus = function () {
+		this.activate();
+		return this;
+	};
+
+	/**
+	 * @inheritdoc
+	 */
+	mw.widgets.DateInputWidget.prototype.blur = function () {
+		this.deactivate();
+		return this;
+	};
+
+	/**
+	 * Update the contents of the label, text input and status of calendar to reflect selected value.
+	 *
+	 * @private
+	 */
+	mw.widgets.DateInputWidget.prototype.updateUI = function () {
+		if ( this.getValue() === '' ) {
+			this.textInput.setValue( '' );
+			this.calendar.setDate( null );
+			this.innerLabel.setLabel( this.placeholderLabel );
+			this.$element.addClass( 'mw-widget-dateInputWidget-empty' );
+		} else {
+			var moment = this.getMoment();
+			if ( !this.inTextInput ) {
+				this.textInput.setValue( moment.format( this.getInputFormat() ) );
+			}
+			if ( !this.inCalendar ) {
+				this.calendar.setDate( this.getValue() );
+			}
+			this.innerLabel.setLabel( moment.format( this.getDisplayFormat() ) );
+			this.$element.removeClass( 'mw-widget-dateInputWidget-empty' );
+		}
+	};
+
+	/**
+	 * Deactivate this input field for data entry. Closes the calendar and hides the text field.
+	 *
+	 * @private
+	 * @param {boolean} [userSelected] Whether we are deactivating because the user selected a value
+	 */
+	mw.widgets.DateInputWidget.prototype.deactivate = function ( userSelected ) {
+		this.$element.removeClass( 'mw-widget-dateInputWidget-active' );
+		this.$handle.show();
+		this.textInput.toggle( false );
+		this.calendar.toggle( false );
+		this.setValidityFlag();
+
+		if ( userSelected ) {
+			// Prevent focusing the handle from reopening the calendar
+			this.closing = true;
+			this.$handle.trigger( 'focus' );
+			this.closing = false;
+		}
+
+		this.emit( 'deactivate', !!userSelected );
+	};
+
+	/**
+	 * Activate this input field for data entry. Opens the calendar and shows the text field.
+	 *
+	 * @private
+	 */
+	mw.widgets.DateInputWidget.prototype.activate = function () {
+		this.calendar.resetUI();
+		this.$element.addClass( 'mw-widget-dateInputWidget-active' );
+		this.$handle.hide();
+		this.textInput.toggle( true );
+		this.calendar.toggle( true );
+
+		this.textInput.$input.trigger( 'focus' );
+	};
+
+	/**
+	 * Get the date format to be used for handle label when the input is inactive.
+	 *
+	 * @private
+	 * @return {string} Format string
+	 */
+	mw.widgets.DateInputWidget.prototype.getDisplayFormat = function () {
+		if ( this.displayFormat !== undefined ) {
+			return this.displayFormat;
+		}
+
+		if ( this.calendar.getPrecision() === 'month' ) {
+			return 'MMMM YYYY';
+		} else {
+			// The formats Moment.js provides:
+			// * ll:   Month name, day of month, year
+			// * lll:  Month name, day of month, year, time
+			// * llll: Month name, day of month, day of week, year, time
+			//
+			// The format we want:
+			// * ????: Month name, day of month, day of week, year
+			//
+			// We try to construct it as 'llll - (lll - ll)' and hope for the best.
+			// This seems to work well for many languages (maybe even all?).
+
+			var localeData = moment.localeData( moment.locale() );
+			var llll = localeData.longDateFormat( 'llll' );
+			var lll = localeData.longDateFormat( 'lll' );
+			var ll = localeData.longDateFormat( 'll' );
+			var format = llll.replace( lll.replace( ll, '' ), '' );
+
+			if ( this.longDisplayFormat ) {
+				// Replace MMM to MMMM and ddd to dddd but don't change MMMM and dddd
+				format = format.replace( /MMMM?/, 'MMMM' ).replace( /dddd?/, 'dddd' );
+			}
+
+			return format;
+		}
+	};
+
+	/**
+	 * Get the date format to be used for the text field when the input is active.
+	 *
+	 * @private
+	 * @return {string} Format string
+	 */
+	mw.widgets.DateInputWidget.prototype.getInputFormat = function () {
+		if ( this.inputFormat !== undefined ) {
+			return this.inputFormat;
+		}
+
+		return {
+			day: 'YYYY-MM-DD',
+			month: 'YYYY-MM'
+		}[ this.calendar.getPrecision() ];
+	};
+
+	/**
+	 * Get the date format to be used internally for the value. This is not configurable in any way,
+	 * and always either 'YYYY-MM-DD' or 'YYYY-MM'.
+	 *
+	 * @private
+	 * @return {string} Format string
+	 */
+	mw.widgets.DateInputWidget.prototype.getInternalFormat = function () {
+		return {
+			day: 'YYYY-MM-DD',
+			month: 'YYYY-MM'
+		}[ this.calendar.getPrecision() ];
+	};
+
+	/**
+	 * Get the Moment object for current value.
+	 *
+	 * @return {Object} Moment object
+	 */
+	mw.widgets.DateInputWidget.prototype.getMoment = function () {
+		return moment( this.getValue(), this.getInternalFormat() );
+	};
+
+	/**
+	 * Handle mouse click events.
+	 *
+	 * @private
+	 * @param {jQuery.Event} e Mouse click event
+	 * @return {boolean} False to cancel the default event
+	 */
+	mw.widgets.DateInputWidget.prototype.onClick = function ( e ) {
+		if ( !this.isDisabled() &amp;&amp; !this.isReadOnly() &amp;&amp; e.which === 1 ) {
+			this.activate();
+		}
+		return false;
+	};
+
+	/**
+	 * Handle key press events.
+	 *
+	 * @private
+	 * @param {jQuery.Event} e Key press event
+	 * @return {boolean} False to cancel the default event
+	 */
+	mw.widgets.DateInputWidget.prototype.onKeyPress = function ( e ) {
+		if ( !this.isDisabled() &amp;&amp; !this.isReadOnly() &amp;&amp;
+			( e.which === OO.ui.Keys.SPACE || e.which === OO.ui.Keys.ENTER )
+		) {
+			this.activate();
+			return false;
+		}
+	};
+
+	/**
+	 * Handle focus events.
+	 *
+	 * @private
+	 */
+	mw.widgets.DateInputWidget.prototype.onFocus = function () {
+		if ( !this.isDisabled() &amp;&amp; !this.isReadOnly() &amp;&amp; !this.closing ) {
+			this.activate();
+		}
+	};
+
+	/**
+	 * Handle calendar key press events.
+	 *
+	 * @private
+	 * @param {jQuery.Event} e Key press event
+	 * @return {boolean} False to cancel the default event
+	 */
+	mw.widgets.DateInputWidget.prototype.onCalendarKeyPress = function ( e ) {
+		if ( !this.isDisabled() &amp;&amp; e.which === OO.ui.Keys.ENTER ) {
+			this.deactivate( true );
+			return false;
+		}
+	};
+
+	/**
+	 * Handle calendar click events.
+	 *
+	 * @private
+	 * @param {jQuery.Event} e Mouse click event
+	 * @return {boolean} False to cancel the default event
+	 */
+	mw.widgets.DateInputWidget.prototype.onCalendarClick = function ( e ) {
+		var targetClass = this.calendar.getPrecision() === 'month' ?
+			'mw-widget-calendarWidget-month' :
+			'mw-widget-calendarWidget-day';
+		if (
+			!this.isDisabled() &amp;&amp;
+			e.which === 1 &amp;&amp;
+			// eslint-disable-next-line no-jquery/no-class-state
+			$( e.target ).hasClass( targetClass )
+		) {
+			this.deactivate( true );
+			return false;
+		}
+	};
+
+	/**
+	 * Handle text input enter events.
+	 *
+	 * @private
+	 */
+	mw.widgets.DateInputWidget.prototype.onEnter = function () {
+		this.deactivate( true );
+	};
+
+	/**
+	 * @private
+	 * @param {string} date Date string, to be valid, must be in 'YYYY-MM-DD' or 'YYYY-MM' format or
+	 *     (unless the field is required) empty
+	 * @return {boolean}
+	 */
+	mw.widgets.DateInputWidget.prototype.validateDate = function ( date ) {
+		var isValid;
+		if ( date === '' ) {
+			isValid = !this.required;
+		} else {
+			isValid = this.isValidDate( date ) &amp;&amp; this.isInRange( date );
+		}
+		return isValid;
+	};
+
+	/**
+	 * @private
+	 * @param {string} date Date string, to be valid, must be in 'YYYY-MM-DD' or 'YYYY-MM' format
+	 * @return {boolean}
+	 */
+	mw.widgets.DateInputWidget.prototype.isValidDate = function ( date ) {
+		// "Half-strict mode": for example, for the format 'YYYY-MM-DD', 2015-1-3 instead of 2015-01-03
+		// is okay, but 2015-01 isn't, and neither is 2015-01-foo. Use Moment's "fuzzy" mode and check
+		// parsing flags for the details (stolen from implementation of moment#isValid).
+		var
+			mom = moment( date, this.getInputFormat() ),
+			flags = mom.parsingFlags();
+
+		return mom.isValid() &amp;&amp; flags.charsLeftOver === 0 &amp;&amp; flags.unusedTokens.length === 0;
+	};
+
+	/**
+	 * Validates if the date is within the range configured with {@link #cfg-mustBeAfter}
+	 * and {@link #cfg-mustBeBefore}.
+	 *
+	 * @private
+	 * @param {string} date Date string, to be valid, must be empty (no date selected) or in
+	 *     'YYYY-MM-DD' or 'YYYY-MM' format to be valid
+	 * @return {boolean}
+	 */
+	mw.widgets.DateInputWidget.prototype.isInRange = function ( date ) {
+		if ( this.mustBeAfter === undefined &amp;&amp; this.mustBeBefore === undefined ) {
+			return true;
+		}
+		var momentDate = moment( date, 'YYYY-MM-DD' );
+		var isAfter = ( this.mustBeAfter === undefined || momentDate.isAfter( this.mustBeAfter ) );
+		var isBefore = ( this.mustBeBefore === undefined || momentDate.isBefore( this.mustBeBefore ) );
+		return isAfter &amp;&amp; isBefore;
+	};
+
+	/**
+	 * Get the validity of current value.
+	 *
+	 * This method returns a promise that resolves if the value is valid and rejects if
+	 * it isn't. Uses {@link #validateDate}.
+	 *
+	 * @return {jQuery.Promise} A promise that resolves if the value is valid, rejects if not.
+	 */
+	mw.widgets.DateInputWidget.prototype.getValidity = function () {
+		var isValid = this.validateDate( this.getValue() );
+
+		if ( isValid ) {
+			return $.Deferred().resolve().promise();
+		} else {
+			return $.Deferred().reject().promise();
+		}
+	};
+
+	/**
+	 * Sets the 'invalid' flag appropriately.
+	 *
+	 * @param {boolean} [isValid] Optionally override validation result
+	 */
+	mw.widgets.DateInputWidget.prototype.setValidityFlag = function ( isValid ) {
+		var widget = this,
+			setFlag = function ( valid ) {
+				if ( !valid ) {
+					widget.$input.attr( 'aria-invalid', 'true' );
+				} else {
+					widget.$input.removeAttr( 'aria-invalid' );
+				}
+				widget.setFlags( { invalid: !valid } );
+			};
+
+		if ( isValid !== undefined ) {
+			setFlag( isValid );
+		} else {
+			this.getValidity().then( function () {
+				setFlag( true );
+			}, function () {
+				setFlag( false );
+			} );
+		}
+	};
+
+}() );
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+				</main>
+			</div>
+		</div>
+	</div>
+	<footer id="footer" class="footer">
+		<div class="content-box">
+			<ul class="footer__list">
+				<li><a href="https://gerrit.wikimedia.org/g/mediawiki/core/">Contribute</a></li>
+			</ul>
+			<p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Mon Mar 25 2024 12:56:26 GMT-0700 (Pacific Daylight Time)</p>
+			<p><a href="https://wikimediafoundation.org/" class="lnk--wikimedia-project">A Wikimedia Foundation project</a></p>
+		</div>
+	</footer>
+
+<script src="scripts/redirect.js"></script>
+<script>
+var arr = function(aa) { return Array.prototype.slice.call(aa); };
+arr(document.querySelectorAll("nav > ol > li a:not([href])")).map(function(el) {
+  var li = el;
+  while (li && li.tagName !== 'LI') { li = li.parentNode; }
+  el.addEventListener('click', function(event) {
+    if (li.classList.contains('is-on')) {
+      li.classList.remove('is-on');
+      return;
+    }
+    arr(document.querySelectorAll("nav li.nav__item.is-on")).map(function(el2) {
+      el2.classList.remove('is-on');
+    });
+    li.classList.add('is-on');
+  });
+});
+</script>
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/open-member.js"> </script>
+</body>
+</html>

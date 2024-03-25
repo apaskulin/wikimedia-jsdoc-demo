@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]><html lang="en" class="js-off lte-ie8"><![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="js-off ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en" class="js-off">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Source: mediawiki.widgets/mw.widgets.UsersMultiselectWidget.js, MediaWiki frontend code, JSDoc</title>
+    <script>
+document.documentElement.className = document.documentElement.className.replace(/\bjs-off\b/,'js-on'); // no BEM notation thx to IE
+    </script>
+    <!--[if lt IE 9]>
+      <script>window.html5={'shivCSS':false};</script>
+      <script src="wmf/js/vendor/ie/html5shiv-3.7.3.min.js"></script>
+      <script src="wmf/js/vendor/ie/respond-1.4.2.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="styles/jsdoc-wmf-theme.css">
+    <script src="scripts/lib/prettify/prettify.js"> </script>
+    <script src="scripts/lib/prettify/lang-css.js"> </script>
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link rel="preload" href="wmf/fonts/Charter_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="wmf/fonts/Lato_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <script src="scripts/fonts-loader.js" async=""></script>
+</head>
+
+<body class="page--home">
+	<header id="header" class="header" role="banner">
+		<div class="content-box">
+			<a href="#content" class="is-aural is-focusable">Jump to content</a>
+			<a href="#nav--main" class="is-aural is-focusable">Jump to navigation</a>
+			<div class="header__title">
+				<span class="site-title"><a href="./"><span class="site-logo"></span>MediaWiki frontend code</a></span>
+				<label class="btn--nav-main" for="trigger--nav-main" aria-hidden="true" title="Show main menu">
+					<i></i> <span>Menu</span>
+				</label>
+			</div>
+     		<div id="search-container" class="search-container">
+  <input type="search" id="lunr-search" class="search-input" role="combobox" aria-autocomplete="list" aria-controls="search-results" aria-expanded="false" aria-activedescendant="selected-search-result" placeholder="Search">
+  <ul id="search-results" class="search-results role="listbox"></ul>
+</div>
+<script src="lunr-data.js"></script>
+<script src="scripts/lib/lunr.js"></script>
+<script src="scripts/lunrSearch.js"></script>
+
+		</div>
+	</header>
+	<div class="page">
+		<div class="content-box flex-cols">
+			<div class="flex-col flex-col--start">
+				<input type="checkbox" id="trigger--nav-main" class="trigger--nav-main">
+				<nav id="nav--main" class="nav nav--main" role="navigation">
+					<ol><li class="nav__item"><a href="index.html">Home</a></li><li class="nav__item"><a href="modules.html">Modules</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="module-moment.html">moment</a></li></ul></li><li class="nav__item"><a href="namespaces.html">Namespaces</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="Hooks.html">Hooks</a></li><li class="nav__sub-item"><a href="jQueryPlugins.html">jQueryPlugins</a></li><li class="nav__sub-item"><a href="mw.html">mw</a></li><li class="nav__sub-item"><a href="mw.cldr.html">mw.cldr</a></li><li class="nav__sub-item"><a href="mw.cookie.html">mw.cookie</a></li><li class="nav__sub-item"><a href="mw.errorLogger.html">mw.errorLogger</a></li><li class="nav__sub-item"><a href="mw.experiments.html">mw.experiments</a></li><li class="nav__sub-item"><a href="mw.html.html">mw.html</a></li><li class="nav__sub-item"><a href="mw.htmlform.html">mw.htmlform</a></li><li class="nav__sub-item"><a href="mw.language.html">mw.language</a></li><li class="nav__sub-item"><a href="mw.loader.html">mw.loader</a></li><li class="nav__sub-item"><a href="mw.log.html">mw.log</a></li><li class="nav__sub-item"><a href="mw.messagePoster.html">mw.messagePoster</a></li><li class="nav__sub-item"><a href="mw.notification.html">mw.notification</a></li><li class="nav__sub-item"><a href="mw.searchSuggest.html">mw.searchSuggest</a></li><li class="nav__sub-item"><a href="mw.tempUserCreated.html">mw.tempUserCreated</a></li><li class="nav__sub-item"><a href="mw.template.html">mw.template</a></li><li class="nav__sub-item"><a href="mw.user.html">mw.user</a></li><li class="nav__sub-item"><a href="mw.util.html">mw.util</a></li><li class="nav__sub-item"><a href="mw.widgets.html">mw.widgets</a></li><li class="nav__sub-item"><a href="window.html">window</a></li></ul></li><li class="nav__item"><a>Classes</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="Hook.html">Hook</a></li><li class="nav__sub-item"><a href="MessagePosterFactory.html">MessagePosterFactory</a></li><li class="nav__sub-item"><a href="Notification.html">Notification</a></li><li class="nav__sub-item"><a href="Vue.html">Vue</a></li><li class="nav__sub-item"><a href="mediawiki.inspect.html">mediawiki.inspect</a></li><li class="nav__sub-item"><a href="module-mediawiki.storage-SafeStorage.html">mediawiki.storage~SafeStorage</a></li><li class="nav__sub-item"><a href="mw.Api.html">mw.Api</a></li><li class="nav__sub-item"><a href="mw.Debug.html">mw.Debug</a></li><li class="nav__sub-item"><a href="mw.Feedback.html">mw.Feedback</a></li><li class="nav__sub-item"><a href="mw.Feedback.Dialog.html">mw.Feedback.Dialog</a></li><li class="nav__sub-item"><a href="mw.ForeignApi.html">mw.ForeignApi</a></li><li class="nav__sub-item"><a href="mw.ForeignRest.html">mw.ForeignRest</a></li><li class="nav__sub-item"><a href="mw.ForeignStructuredUpload.html">mw.ForeignStructuredUpload</a></li><li class="nav__sub-item"><a href="mw.ForeignStructuredUpload.BookletLayout.html">mw.ForeignStructuredUpload.BookletLayout</a></li><li class="nav__sub-item"><a href="mw.ForeignUpload.html">mw.ForeignUpload</a></li><li class="nav__sub-item"><a href="mw.GallerySlideshow.html">mw.GallerySlideshow</a></li><li class="nav__sub-item"><a href="mw.Map.html">mw.Map</a></li><li class="nav__sub-item"><a href="mw.Message.html">mw.Message</a></li><li class="nav__sub-item"><a href="mw.Rest.html">mw.Rest</a></li><li class="nav__sub-item"><a href="mw.Title.html">mw.Title</a></li><li class="nav__sub-item"><a href="mw.Upload.html">mw.Upload</a></li><li class="nav__sub-item"><a href="mw.Upload.BookletLayout.html">mw.Upload.BookletLayout</a></li><li class="nav__sub-item"><a href="mw.Upload.Dialog.html">mw.Upload.Dialog</a></li><li class="nav__sub-item"><a href="mw.Uri.html">mw.Uri</a></li><li class="nav__sub-item"><a href="mw.html.Raw.html">mw.html.Raw</a></li><li class="nav__sub-item"><a href="mw.htmlform.ActionFieldLayout.html">mw.htmlform.ActionFieldLayout</a></li><li class="nav__sub-item"><a href="mw.htmlform.Element.html">mw.htmlform.Element</a></li><li class="nav__sub-item"><a href="mw.htmlform.FieldLayout.html">mw.htmlform.FieldLayout</a></li><li class="nav__sub-item"><a href="mw.messagePoster.MessagePoster.html">mw.messagePoster.MessagePoster</a></li><li class="nav__sub-item"><a href="mw.messagePoster.WikitextMessagePoster.html">mw.messagePoster.WikitextMessagePoster</a></li><li class="nav__sub-item"><a href="mw.widgets.APIResultsProvider.html">mw.widgets.APIResultsProvider</a></li><li class="nav__sub-item"><a href="mw.widgets.APIResultsQueue.html">mw.widgets.APIResultsQueue</a></li><li class="nav__sub-item"><a href="mw.widgets.AbandonEditDialog.html">mw.widgets.AbandonEditDialog</a></li><li class="nav__sub-item"><a href="mw.widgets.CalendarWidget.html">mw.widgets.CalendarWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.CategoryMultiselectWidget.html">mw.widgets.CategoryMultiselectWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.CategoryTagItemWidget.html">mw.widgets.CategoryTagItemWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.CheckMatrixWidget.html">mw.widgets.CheckMatrixWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.ComplexNamespaceInputWidget.html">mw.widgets.ComplexNamespaceInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.ComplexTitleInputWidget.html">mw.widgets.ComplexTitleInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.CopyTextLayout.html">mw.widgets.CopyTextLayout</a></li><li class="nav__sub-item"><a href="mw.widgets.DateInputWidget.html">mw.widgets.DateInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.ExpiryWidget.html">mw.widgets.ExpiryWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaResourceProvider.html">mw.widgets.MediaResourceProvider</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaResourceQueue.html">mw.widgets.MediaResourceQueue</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaResultWidget.html">mw.widgets.MediaResultWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaSearchProvider.html">mw.widgets.MediaSearchProvider</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaSearchQueue.html">mw.widgets.MediaSearchQueue</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaSearchWidget.html">mw.widgets.MediaSearchWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaUserUploadsProvider.html">mw.widgets.MediaUserUploadsProvider</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaUserUploadsQueue.html">mw.widgets.MediaUserUploadsQueue</a></li><li class="nav__sub-item"><a href="mw.widgets.NamespaceInputWidget.html">mw.widgets.NamespaceInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.NamespacesMenuOptionWidget.html">mw.widgets.NamespacesMenuOptionWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.NamespacesMultiselectWidget.html">mw.widgets.NamespacesMultiselectWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidget.html">mw.widgets.RowWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidgetModel.html">mw.widgets.RowWidgetModel</a></li><li class="nav__sub-item"><a href="mw.widgets.SearchInputWidget.html">mw.widgets.SearchInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.SelectWithInputWidget.html">mw.widgets.SelectWithInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.SizeFilterWidget.html">mw.widgets.SizeFilterWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.StashedFileWidget.html">mw.widgets.StashedFileWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidget.html">mw.widgets.TableWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidgetModel.html">mw.widgets.TableWidgetModel</a></li><li class="nav__sub-item"><a href="mw.widgets.TagMultiselectWidget.html">mw.widgets.TagMultiselectWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.TitleInputWidget.html">mw.widgets.TitleInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.TitleOptionWidget.html">mw.widgets.TitleOptionWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.TitleSearchWidget.html">mw.widgets.TitleSearchWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.TitleWidget.html">mw.widgets.TitleWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.TitlesMultiselectWidget.html">mw.widgets.TitlesMultiselectWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.ToggleSwitchWidget.html">mw.widgets.ToggleSwitchWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.UserInputWidget.html">mw.widgets.UserInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.UsersMultiselectWidget.html">mw.widgets.UsersMultiselectWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.CalendarWidget.html">mw.widgets.datetime.CalendarWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.DateTimeFormatter.html">mw.widgets.datetime.DateTimeFormatter</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.DateTimeInputWidget.html">mw.widgets.datetime.DateTimeInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.DiscordianDateTimeFormatter.html">mw.widgets.datetime.DiscordianDateTimeFormatter</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.ProlepticGregorianDateTimeFormatter.html">mw.widgets.datetime.ProlepticGregorianDateTimeFormatter</a></li></ul></li><li class="nav__item"><a>Events</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="Hooks.html#~event:'RcFilters.highlight.enable'">Hooks~'RcFilters.highlight.enable'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'RcFilters.popup.open'">Hooks~'RcFilters.popup.open'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'editRecovery.loadEnd'">Hooks~'editRecovery.loadEnd'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'htmlform.enhance'">Hooks~'htmlform.enhance'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'postEdit'">Hooks~'postEdit'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'postEdit.afterRemoval'">Hooks~'postEdit.afterRemoval'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'skin.logout'">Hooks~'skin.logout'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'structuredChangeFilters.ui.initialized'">Hooks~'structuredChangeFilters.ui.initialized'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'util.addPortlet'">Hooks~'util.addPortlet'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'util.addPortletLink'">Hooks~'util.addPortletLink'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.categories'">Hooks~'wikipage.categories'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.collapsibleContent'">Hooks~'wikipage.collapsibleContent'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.content'">Hooks~'wikipage.content'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.diff'">Hooks~'wikipage.diff'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.diff.diffTypeSwitch'">Hooks~'wikipage.diff.diffTypeSwitch'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.diff.wikitextDiffBody'">Hooks~'wikipage.diff.wikitextDiffBody'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.editform'">Hooks~'wikipage.editform'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.indicators'">Hooks~'wikipage.indicators'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.tableOfContents'">Hooks~'wikipage.tableOfContents'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.watchlistChange'">Hooks~'wikipage.watchlistChange'</a></li><li class="nav__sub-item"><a href="mw.Upload.BookletLayout.html#.event:fileSaved">mw.Upload.BookletLayout.fileSaved</a></li><li class="nav__sub-item"><a href="mw.Upload.BookletLayout.html#.event:fileUploadProgress">mw.Upload.BookletLayout.fileUploadProgress</a></li><li class="nav__sub-item"><a href="mw.Upload.BookletLayout.html#.event:fileUploaded">mw.Upload.BookletLayout.fileUploaded</a></li><li class="nav__sub-item"><a href="mw.Upload.BookletLayout.html#.event:infoValid">mw.Upload.BookletLayout.infoValid</a></li><li class="nav__sub-item"><a href="mw.Upload.BookletLayout.html#.event:uploadValid">mw.Upload.BookletLayout.uploadValid</a></li><li class="nav__sub-item"><a href="mw.widgets.CalendarWidget.html#.event:change">mw.widgets.CalendarWidget.change</a></li><li class="nav__sub-item"><a href="mw.widgets.DateInputWidget.html#.event:deactivate">mw.widgets.DateInputWidget.deactivate</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidget.html#.event:deleteButtonClick">mw.widgets.RowWidget.deleteButtonClick</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidget.html#.event:inputChange">mw.widgets.RowWidget.inputChange</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidget.html#.event:labelUpdate">mw.widgets.RowWidget.labelUpdate</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidgetModel.html#.event:clear">mw.widgets.RowWidgetModel.clear</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidgetModel.html#.event:insertCell">mw.widgets.RowWidgetModel.insertCell</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidgetModel.html#.event:labelUpdate">mw.widgets.RowWidgetModel.labelUpdate</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidgetModel.html#.event:removeCell">mw.widgets.RowWidgetModel.removeCell</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidgetModel.html#.event:valueChange">mw.widgets.RowWidgetModel.valueChange</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidget.html#.event:change">mw.widgets.TableWidget.change</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidget.html#.event:removeRow">mw.widgets.TableWidget.removeRow</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidgetModel.html#.event:clear">mw.widgets.TableWidgetModel.clear</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidgetModel.html#.event:insertColumn">mw.widgets.TableWidgetModel.insertColumn</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidgetModel.html#.event:insertRow">mw.widgets.TableWidgetModel.insertRow</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidgetModel.html#.event:removeColumn">mw.widgets.TableWidgetModel.removeColumn</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidgetModel.html#.event:removeRow">mw.widgets.TableWidgetModel.removeRow</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidgetModel.html#.event:valueChange">mw.widgets.TableWidgetModel.valueChange</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.CalendarWidget.html#.event:change">mw.widgets.datetime.CalendarWidget.change</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.CalendarWidget.html#.event:focusChanged">mw.widgets.datetime.CalendarWidget.focusChanged</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.CalendarWidget.html#.event:page">mw.widgets.datetime.CalendarWidget.page</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.DateTimeFormatter.html#.event:local">mw.widgets.datetime.DateTimeFormatter.local</a></li></ul></li></ol>
+				</nav>
+			</div>
+			<div class="flex-col flex-col--end">
+				<main id="content" class="content" role="main">
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint sourcefile linenums"><code>/*!
+ * MediaWiki Widgets - UsersMultiselectWidget class.
+ *
+ * @copyright 2017 MediaWiki Widgets Team and others; see AUTHORS.txt
+ * @license The MIT License (MIT); see LICENSE.txt
+ */
+( function () {
+
+	/**
+	 * UsersMultiselectWidget can be used to input list of users in a single
+	 * line.
+	 *
+	 * If used inside HTML form the results will be sent as the list of
+	 * newline-separated usernames.
+	 *
+	 * This can be configured to accept IP addresses and/or ranges as well as
+	 * usernames.
+	 *
+	 * @class
+	 * @extends OO.ui.MenuTagMultiselectWidget
+	 *
+	 * @constructor
+	 * @param {Object} [config] Configuration options
+	 * @param {mw.Api} [config.api] Instance of mw.Api (or subclass thereof) to use for queries
+	 * @param {number} [config.imit=10] Number of results to show in autocomplete menu
+	 * @param {string} [config.name] Name of input to submit results (when used in HTML forms)
+	 * @param {boolean} [config.ipAllowed=false] Show IP addresses in autocomplete menu
+	 *  If false, single IP addresses are not allowed, even if IP ranges are allowed.
+	 * @param {boolean} [config.ipRangeAllowed=false] Show IP ranges in autocomplete menu
+	 * @param {Object} [config.ipRangeLimits] Maximum allowed IP ranges (defaults match HTMLUserTextField.php)
+	 * @param {number} [config.ipRangeLimits.IPv4 = 16] Maximum allowed IPv4 range
+	 * @param {number} [config.ipRangeLimits.IPv6 = 32] Maximum allowed IPv6 range
+	 */
+	mw.widgets.UsersMultiselectWidget = function MwWidgetsUsersMultiselectWidget( config ) {
+		// Config initialization
+		config = $.extend( {
+			limit: 10,
+			ipAllowed: false,
+			ipRangeAllowed: false,
+			ipRangeLimits: {
+				IPv4: 16,
+				IPv6: 32
+			}
+		}, config );
+
+		// Parent constructor
+		mw.widgets.UsersMultiselectWidget.super.call( this, $.extend( {}, config, {} ) );
+
+		// Mixin constructors
+		OO.ui.mixin.PendingElement.call( this, $.extend( {}, config, { $pending: this.$handle } ) );
+
+		// Properties
+		this.limit = config.limit;
+		this.ipAllowed = config.ipAllowed;
+		this.ipRangeAllowed = config.ipRangeAllowed;
+		this.ipRangeLimits = config.ipRangeLimits;
+
+		if ( 'name' in config ) {
+			// Use this instead of &lt;input type="hidden">, because hidden inputs do not have separate
+			// 'value' and 'defaultValue' properties. The script on Special:Preferences
+			// (mw.special.preferences.confirmClose) checks this property to see if a field was changed.
+			this.$hiddenInput = $( '&lt;textarea>' )
+				.addClass( 'oo-ui-element-hidden' )
+				.attr( 'name', config.name )
+				.appendTo( this.$element );
+			// Update with preset values
+			this.updateHiddenInput();
+			// Set the default value (it might be different from just being empty)
+			this.$hiddenInput.prop( 'defaultValue', this.getSelectedUsernames().join( '\n' ) );
+		}
+
+		// Events
+		// When list of selected usernames changes, update hidden input
+		this.connect( this, {
+			change: 'updateHiddenInput'
+		} );
+
+		// API init
+		this.api = config.api || new mw.Api();
+	};
+
+	/* Setup */
+
+	OO.inheritClass( mw.widgets.UsersMultiselectWidget, OO.ui.MenuTagMultiselectWidget );
+	OO.mixinClass( mw.widgets.UsersMultiselectWidget, OO.ui.mixin.PendingElement );
+
+	/* Methods */
+
+	/**
+	 * Get currently selected usernames.
+	 *
+	 * @return {string[]} usernames
+	 */
+	mw.widgets.UsersMultiselectWidget.prototype.getSelectedUsernames = function () {
+		return this.getValue();
+	};
+
+	/**
+	 * Update autocomplete menu with items.
+	 *
+	 * @private
+	 */
+	mw.widgets.UsersMultiselectWidget.prototype.updateMenuItems = function () {
+		var inputValue = this.input.getValue();
+
+		if ( inputValue === this.inputValue ) {
+			// Do not restart api query if nothing has changed in the input
+			return;
+		} else {
+			this.inputValue = inputValue;
+		}
+
+		this.api.abort(); // Abort all unfinished api requests
+
+		if ( inputValue.length > 0 ) {
+			this.pushPending();
+
+			var isValidIp, isValidRange;
+			if ( this.ipAllowed || this.ipRangeAllowed ) {
+				isValidIp = mw.util.isIPAddress( inputValue, false );
+				isValidRange = !isValidIp &amp;&amp;
+					mw.util.isIPAddress( inputValue, true ) &amp;&amp;
+					this.validateIpRange( inputValue );
+			}
+
+			if ( this.ipAllowed &amp;&amp; isValidIp || this.ipRangeAllowed &amp;&amp; isValidRange ) {
+				this.menu.clearItems();
+				this.menu.addItems( [
+					new OO.ui.MenuOptionWidget( {
+						data: inputValue,
+						label: inputValue
+					} )
+				] );
+				this.menu.toggle( true );
+				this.popPending();
+			} else {
+				this.api.get( {
+					action: 'query',
+					list: 'allusers',
+					auprefix: inputValue,
+					aulimit: this.limit
+				} ).done( function ( response ) {
+					var suggestions = response.query.allusers,
+						selected = this.getSelectedUsernames();
+
+					// Remove usernames, which are already selected from suggestions
+					suggestions = suggestions.map( function ( user ) {
+						if ( selected.indexOf( user.name ) === -1 ) {
+							return new OO.ui.MenuOptionWidget( {
+								data: user.name,
+								label: user.name,
+								id: user.name
+							} );
+						}
+						return undefined;
+					} ).filter( function ( item ) {
+						return item !== undefined;
+					} );
+
+					// Remove all items from menu add fill it with new
+					this.menu.clearItems();
+					this.menu.addItems( suggestions );
+
+					if ( suggestions.length ) {
+						// Enable Narrator focus on menu item, see T250762.
+						this.menu.$focusOwner.attr( 'aria-activedescendant', suggestions[ 0 ].$element.attr( 'id' ) );
+					}
+
+					// Make the menu visible; it might not be if it was previously empty
+					this.menu.toggle( true );
+
+					this.popPending();
+				}.bind( this ) ).fail( this.popPending.bind( this ) );
+			}
+
+		} else {
+			this.menu.clearItems();
+		}
+	};
+
+	/**
+	 * @private
+	 * @param {string} ipRange Valid IPv4 or IPv6 range
+	 * @return {boolean} The IP range is within the size limit
+	 */
+	mw.widgets.UsersMultiselectWidget.prototype.validateIpRange = function ( ipRange ) {
+		ipRange = ipRange.split( '/' );
+
+		return mw.util.isIPv4Address( ipRange[ 0 ] ) &amp;&amp; +ipRange[ 1 ] >= this.ipRangeLimits.IPv4 ||
+			mw.util.isIPv6Address( ipRange[ 0 ] ) &amp;&amp; +ipRange[ 1 ] >= this.ipRangeLimits.IPv6;
+	};
+
+	mw.widgets.UsersMultiselectWidget.prototype.onInputChange = function () {
+		mw.widgets.UsersMultiselectWidget.super.prototype.onInputChange.apply( this, arguments );
+
+		this.updateMenuItems();
+	};
+
+	/**
+	 * If used inside HTML form, then update hiddenInput with list of
+	 * newline-separated usernames.
+	 *
+	 * @private
+	 */
+	mw.widgets.UsersMultiselectWidget.prototype.updateHiddenInput = function () {
+		if ( '$hiddenInput' in this ) {
+			this.$hiddenInput.val( this.getSelectedUsernames().join( '\n' ) );
+			// Trigger a 'change' event as if a user edited the text
+			// (it is not triggered when changing the value from JS code).
+			this.$hiddenInput.trigger( 'change' );
+		}
+	};
+
+	/**
+	 * We have an empty menu when the input is empty, override the implementation from
+	 * MenuTagMultiselectWidget to avoid error and make tags editable.
+	 *
+	 * Only editable when the input is empty.
+	 */
+	mw.widgets.UsersMultiselectWidget.prototype.onTagSelect = function () {
+		if ( this.hasInput &amp;&amp; !this.input.getValue() ) {
+			OO.ui.TagMultiselectWidget.prototype.onTagSelect.apply( this, arguments );
+		}
+	};
+
+}() );
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+				</main>
+			</div>
+		</div>
+	</div>
+	<footer id="footer" class="footer">
+		<div class="content-box">
+			<ul class="footer__list">
+				<li><a href="https://gerrit.wikimedia.org/g/mediawiki/core/">Contribute</a></li>
+			</ul>
+			<p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Mon Mar 25 2024 12:56:26 GMT-0700 (Pacific Daylight Time)</p>
+			<p><a href="https://wikimediafoundation.org/" class="lnk--wikimedia-project">A Wikimedia Foundation project</a></p>
+		</div>
+	</footer>
+
+<script src="scripts/redirect.js"></script>
+<script>
+var arr = function(aa) { return Array.prototype.slice.call(aa); };
+arr(document.querySelectorAll("nav > ol > li a:not([href])")).map(function(el) {
+  var li = el;
+  while (li && li.tagName !== 'LI') { li = li.parentNode; }
+  el.addEventListener('click', function(event) {
+    if (li.classList.contains('is-on')) {
+      li.classList.remove('is-on');
+      return;
+    }
+    arr(document.querySelectorAll("nav li.nav__item.is-on")).map(function(el2) {
+      el2.classList.remove('is-on');
+    });
+    li.classList.add('is-on');
+  });
+});
+</script>
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/open-member.js"> </script>
+</body>
+</html>

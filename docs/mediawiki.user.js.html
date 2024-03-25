@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]><html lang="en" class="js-off lte-ie8"><![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="js-off ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en" class="js-off">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Source: mediawiki.user.js, MediaWiki frontend code, JSDoc</title>
+    <script>
+document.documentElement.className = document.documentElement.className.replace(/\bjs-off\b/,'js-on'); // no BEM notation thx to IE
+    </script>
+    <!--[if lt IE 9]>
+      <script>window.html5={'shivCSS':false};</script>
+      <script src="wmf/js/vendor/ie/html5shiv-3.7.3.min.js"></script>
+      <script src="wmf/js/vendor/ie/respond-1.4.2.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="styles/jsdoc-wmf-theme.css">
+    <script src="scripts/lib/prettify/prettify.js"> </script>
+    <script src="scripts/lib/prettify/lang-css.js"> </script>
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link rel="preload" href="wmf/fonts/Charter_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="wmf/fonts/Lato_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <script src="scripts/fonts-loader.js" async=""></script>
+</head>
+
+<body class="page--home">
+	<header id="header" class="header" role="banner">
+		<div class="content-box">
+			<a href="#content" class="is-aural is-focusable">Jump to content</a>
+			<a href="#nav--main" class="is-aural is-focusable">Jump to navigation</a>
+			<div class="header__title">
+				<span class="site-title"><a href="./"><span class="site-logo"></span>MediaWiki frontend code</a></span>
+				<label class="btn--nav-main" for="trigger--nav-main" aria-hidden="true" title="Show main menu">
+					<i></i> <span>Menu</span>
+				</label>
+			</div>
+     		<div id="search-container" class="search-container">
+  <input type="search" id="lunr-search" class="search-input" role="combobox" aria-autocomplete="list" aria-controls="search-results" aria-expanded="false" aria-activedescendant="selected-search-result" placeholder="Search">
+  <ul id="search-results" class="search-results role="listbox"></ul>
+</div>
+<script src="lunr-data.js"></script>
+<script src="scripts/lib/lunr.js"></script>
+<script src="scripts/lunrSearch.js"></script>
+
+		</div>
+	</header>
+	<div class="page">
+		<div class="content-box flex-cols">
+			<div class="flex-col flex-col--start">
+				<input type="checkbox" id="trigger--nav-main" class="trigger--nav-main">
+				<nav id="nav--main" class="nav nav--main" role="navigation">
+					<ol><li class="nav__item"><a href="index.html">Home</a></li><li class="nav__item"><a href="modules.html">Modules</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="module-moment.html">moment</a></li></ul></li><li class="nav__item"><a href="namespaces.html">Namespaces</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="Hooks.html">Hooks</a></li><li class="nav__sub-item"><a href="jQueryPlugins.html">jQueryPlugins</a></li><li class="nav__sub-item"><a href="mw.html">mw</a></li><li class="nav__sub-item"><a href="mw.cldr.html">mw.cldr</a></li><li class="nav__sub-item"><a href="mw.cookie.html">mw.cookie</a></li><li class="nav__sub-item"><a href="mw.errorLogger.html">mw.errorLogger</a></li><li class="nav__sub-item"><a href="mw.experiments.html">mw.experiments</a></li><li class="nav__sub-item"><a href="mw.html.html">mw.html</a></li><li class="nav__sub-item"><a href="mw.htmlform.html">mw.htmlform</a></li><li class="nav__sub-item"><a href="mw.language.html">mw.language</a></li><li class="nav__sub-item"><a href="mw.loader.html">mw.loader</a></li><li class="nav__sub-item"><a href="mw.log.html">mw.log</a></li><li class="nav__sub-item"><a href="mw.messagePoster.html">mw.messagePoster</a></li><li class="nav__sub-item"><a href="mw.notification.html">mw.notification</a></li><li class="nav__sub-item"><a href="mw.searchSuggest.html">mw.searchSuggest</a></li><li class="nav__sub-item"><a href="mw.tempUserCreated.html">mw.tempUserCreated</a></li><li class="nav__sub-item"><a href="mw.template.html">mw.template</a></li><li class="nav__sub-item"><a href="mw.user.html">mw.user</a></li><li class="nav__sub-item"><a href="mw.util.html">mw.util</a></li><li class="nav__sub-item"><a href="mw.widgets.html">mw.widgets</a></li><li class="nav__sub-item"><a href="window.html">window</a></li></ul></li><li class="nav__item"><a>Classes</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="Hook.html">Hook</a></li><li class="nav__sub-item"><a href="MessagePosterFactory.html">MessagePosterFactory</a></li><li class="nav__sub-item"><a href="Notification.html">Notification</a></li><li class="nav__sub-item"><a href="Vue.html">Vue</a></li><li class="nav__sub-item"><a href="mediawiki.inspect.html">mediawiki.inspect</a></li><li class="nav__sub-item"><a href="module-mediawiki.storage-SafeStorage.html">mediawiki.storage~SafeStorage</a></li><li class="nav__sub-item"><a href="mw.Api.html">mw.Api</a></li><li class="nav__sub-item"><a href="mw.Debug.html">mw.Debug</a></li><li class="nav__sub-item"><a href="mw.Feedback.html">mw.Feedback</a></li><li class="nav__sub-item"><a href="mw.Feedback.Dialog.html">mw.Feedback.Dialog</a></li><li class="nav__sub-item"><a href="mw.ForeignApi.html">mw.ForeignApi</a></li><li class="nav__sub-item"><a href="mw.ForeignRest.html">mw.ForeignRest</a></li><li class="nav__sub-item"><a href="mw.ForeignStructuredUpload.html">mw.ForeignStructuredUpload</a></li><li class="nav__sub-item"><a href="mw.ForeignStructuredUpload.BookletLayout.html">mw.ForeignStructuredUpload.BookletLayout</a></li><li class="nav__sub-item"><a href="mw.ForeignUpload.html">mw.ForeignUpload</a></li><li class="nav__sub-item"><a href="mw.GallerySlideshow.html">mw.GallerySlideshow</a></li><li class="nav__sub-item"><a href="mw.Map.html">mw.Map</a></li><li class="nav__sub-item"><a href="mw.Message.html">mw.Message</a></li><li class="nav__sub-item"><a href="mw.Rest.html">mw.Rest</a></li><li class="nav__sub-item"><a href="mw.Title.html">mw.Title</a></li><li class="nav__sub-item"><a href="mw.Upload.html">mw.Upload</a></li><li class="nav__sub-item"><a href="mw.Upload.BookletLayout.html">mw.Upload.BookletLayout</a></li><li class="nav__sub-item"><a href="mw.Upload.Dialog.html">mw.Upload.Dialog</a></li><li class="nav__sub-item"><a href="mw.Uri.html">mw.Uri</a></li><li class="nav__sub-item"><a href="mw.html.Raw.html">mw.html.Raw</a></li><li class="nav__sub-item"><a href="mw.htmlform.ActionFieldLayout.html">mw.htmlform.ActionFieldLayout</a></li><li class="nav__sub-item"><a href="mw.htmlform.Element.html">mw.htmlform.Element</a></li><li class="nav__sub-item"><a href="mw.htmlform.FieldLayout.html">mw.htmlform.FieldLayout</a></li><li class="nav__sub-item"><a href="mw.messagePoster.MessagePoster.html">mw.messagePoster.MessagePoster</a></li><li class="nav__sub-item"><a href="mw.messagePoster.WikitextMessagePoster.html">mw.messagePoster.WikitextMessagePoster</a></li><li class="nav__sub-item"><a href="mw.widgets.APIResultsProvider.html">mw.widgets.APIResultsProvider</a></li><li class="nav__sub-item"><a href="mw.widgets.APIResultsQueue.html">mw.widgets.APIResultsQueue</a></li><li class="nav__sub-item"><a href="mw.widgets.AbandonEditDialog.html">mw.widgets.AbandonEditDialog</a></li><li class="nav__sub-item"><a href="mw.widgets.CalendarWidget.html">mw.widgets.CalendarWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.CategoryMultiselectWidget.html">mw.widgets.CategoryMultiselectWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.CategoryTagItemWidget.html">mw.widgets.CategoryTagItemWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.CheckMatrixWidget.html">mw.widgets.CheckMatrixWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.ComplexNamespaceInputWidget.html">mw.widgets.ComplexNamespaceInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.ComplexTitleInputWidget.html">mw.widgets.ComplexTitleInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.CopyTextLayout.html">mw.widgets.CopyTextLayout</a></li><li class="nav__sub-item"><a href="mw.widgets.DateInputWidget.html">mw.widgets.DateInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.ExpiryWidget.html">mw.widgets.ExpiryWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaResourceProvider.html">mw.widgets.MediaResourceProvider</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaResourceQueue.html">mw.widgets.MediaResourceQueue</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaResultWidget.html">mw.widgets.MediaResultWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaSearchProvider.html">mw.widgets.MediaSearchProvider</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaSearchQueue.html">mw.widgets.MediaSearchQueue</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaSearchWidget.html">mw.widgets.MediaSearchWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaUserUploadsProvider.html">mw.widgets.MediaUserUploadsProvider</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaUserUploadsQueue.html">mw.widgets.MediaUserUploadsQueue</a></li><li class="nav__sub-item"><a href="mw.widgets.NamespaceInputWidget.html">mw.widgets.NamespaceInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.NamespacesMenuOptionWidget.html">mw.widgets.NamespacesMenuOptionWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.NamespacesMultiselectWidget.html">mw.widgets.NamespacesMultiselectWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidget.html">mw.widgets.RowWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidgetModel.html">mw.widgets.RowWidgetModel</a></li><li class="nav__sub-item"><a href="mw.widgets.SearchInputWidget.html">mw.widgets.SearchInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.SelectWithInputWidget.html">mw.widgets.SelectWithInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.SizeFilterWidget.html">mw.widgets.SizeFilterWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.StashedFileWidget.html">mw.widgets.StashedFileWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidget.html">mw.widgets.TableWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidgetModel.html">mw.widgets.TableWidgetModel</a></li><li class="nav__sub-item"><a href="mw.widgets.TagMultiselectWidget.html">mw.widgets.TagMultiselectWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.TitleInputWidget.html">mw.widgets.TitleInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.TitleOptionWidget.html">mw.widgets.TitleOptionWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.TitleSearchWidget.html">mw.widgets.TitleSearchWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.TitleWidget.html">mw.widgets.TitleWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.TitlesMultiselectWidget.html">mw.widgets.TitlesMultiselectWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.ToggleSwitchWidget.html">mw.widgets.ToggleSwitchWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.UserInputWidget.html">mw.widgets.UserInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.UsersMultiselectWidget.html">mw.widgets.UsersMultiselectWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.CalendarWidget.html">mw.widgets.datetime.CalendarWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.DateTimeFormatter.html">mw.widgets.datetime.DateTimeFormatter</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.DateTimeInputWidget.html">mw.widgets.datetime.DateTimeInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.DiscordianDateTimeFormatter.html">mw.widgets.datetime.DiscordianDateTimeFormatter</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.ProlepticGregorianDateTimeFormatter.html">mw.widgets.datetime.ProlepticGregorianDateTimeFormatter</a></li></ul></li><li class="nav__item"><a>Events</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="Hooks.html#~event:'RcFilters.highlight.enable'">Hooks~'RcFilters.highlight.enable'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'RcFilters.popup.open'">Hooks~'RcFilters.popup.open'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'editRecovery.loadEnd'">Hooks~'editRecovery.loadEnd'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'htmlform.enhance'">Hooks~'htmlform.enhance'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'postEdit'">Hooks~'postEdit'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'postEdit.afterRemoval'">Hooks~'postEdit.afterRemoval'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'skin.logout'">Hooks~'skin.logout'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'structuredChangeFilters.ui.initialized'">Hooks~'structuredChangeFilters.ui.initialized'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'util.addPortlet'">Hooks~'util.addPortlet'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'util.addPortletLink'">Hooks~'util.addPortletLink'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.categories'">Hooks~'wikipage.categories'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.collapsibleContent'">Hooks~'wikipage.collapsibleContent'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.content'">Hooks~'wikipage.content'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.diff'">Hooks~'wikipage.diff'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.diff.diffTypeSwitch'">Hooks~'wikipage.diff.diffTypeSwitch'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.diff.wikitextDiffBody'">Hooks~'wikipage.diff.wikitextDiffBody'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.editform'">Hooks~'wikipage.editform'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.indicators'">Hooks~'wikipage.indicators'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.tableOfContents'">Hooks~'wikipage.tableOfContents'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.watchlistChange'">Hooks~'wikipage.watchlistChange'</a></li><li class="nav__sub-item"><a href="mw.Upload.BookletLayout.html#.event:fileSaved">mw.Upload.BookletLayout.fileSaved</a></li><li class="nav__sub-item"><a href="mw.Upload.BookletLayout.html#.event:fileUploadProgress">mw.Upload.BookletLayout.fileUploadProgress</a></li><li class="nav__sub-item"><a href="mw.Upload.BookletLayout.html#.event:fileUploaded">mw.Upload.BookletLayout.fileUploaded</a></li><li class="nav__sub-item"><a href="mw.Upload.BookletLayout.html#.event:infoValid">mw.Upload.BookletLayout.infoValid</a></li><li class="nav__sub-item"><a href="mw.Upload.BookletLayout.html#.event:uploadValid">mw.Upload.BookletLayout.uploadValid</a></li><li class="nav__sub-item"><a href="mw.widgets.CalendarWidget.html#.event:change">mw.widgets.CalendarWidget.change</a></li><li class="nav__sub-item"><a href="mw.widgets.DateInputWidget.html#.event:deactivate">mw.widgets.DateInputWidget.deactivate</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidget.html#.event:deleteButtonClick">mw.widgets.RowWidget.deleteButtonClick</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidget.html#.event:inputChange">mw.widgets.RowWidget.inputChange</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidget.html#.event:labelUpdate">mw.widgets.RowWidget.labelUpdate</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidgetModel.html#.event:clear">mw.widgets.RowWidgetModel.clear</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidgetModel.html#.event:insertCell">mw.widgets.RowWidgetModel.insertCell</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidgetModel.html#.event:labelUpdate">mw.widgets.RowWidgetModel.labelUpdate</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidgetModel.html#.event:removeCell">mw.widgets.RowWidgetModel.removeCell</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidgetModel.html#.event:valueChange">mw.widgets.RowWidgetModel.valueChange</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidget.html#.event:change">mw.widgets.TableWidget.change</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidget.html#.event:removeRow">mw.widgets.TableWidget.removeRow</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidgetModel.html#.event:clear">mw.widgets.TableWidgetModel.clear</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidgetModel.html#.event:insertColumn">mw.widgets.TableWidgetModel.insertColumn</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidgetModel.html#.event:insertRow">mw.widgets.TableWidgetModel.insertRow</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidgetModel.html#.event:removeColumn">mw.widgets.TableWidgetModel.removeColumn</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidgetModel.html#.event:removeRow">mw.widgets.TableWidgetModel.removeRow</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidgetModel.html#.event:valueChange">mw.widgets.TableWidgetModel.valueChange</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.CalendarWidget.html#.event:change">mw.widgets.datetime.CalendarWidget.change</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.CalendarWidget.html#.event:focusChanged">mw.widgets.datetime.CalendarWidget.focusChanged</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.CalendarWidget.html#.event:page">mw.widgets.datetime.CalendarWidget.page</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.DateTimeFormatter.html#.event:local">mw.widgets.datetime.DateTimeFormatter.local</a></li></ul></li></ol>
+				</nav>
+			</div>
+			<div class="flex-col flex-col--end">
+				<main id="content" class="content" role="main">
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint sourcefile linenums"><code>/**
+ * User library provided by 'mediawiki.user' ResourceLoader module.
+ *
+ * @namespace mw.user
+ */
+( function () {
+	var userInfoPromise, tempUserNamePromise, pageviewRandomId, sessionId;
+	var CLIENTPREF_COOKIE_NAME = 'mwclientpreferences';
+	var CLIENTPREF_SUFFIX = '-clientpref-';
+	var CLIENTPREF_DELIMITER = ',';
+
+	/**
+	 * Get the current user's groups or rights
+	 *
+	 * @private
+	 * @return {jQuery.Promise}
+	 */
+	function getUserInfo() {
+		if ( !userInfoPromise ) {
+			userInfoPromise = new mw.Api().getUserInfo();
+		}
+		return userInfoPromise;
+	}
+
+	/**
+	 * Save the feature value to the client preferences cookie.
+	 *
+	 * @private
+	 * @param {string} feature
+	 * @param {string} value
+	 */
+	function saveClientPrefs( feature, value ) {
+		var existingCookie = mw.cookie.get( CLIENTPREF_COOKIE_NAME ) || '';
+		var data = {};
+		existingCookie.split( CLIENTPREF_DELIMITER ).forEach( function ( keyValuePair ) {
+			var m = keyValuePair.match( /^([\w-]+)-clientpref-(\w+)$/ );
+			if ( m ) {
+				data[ m[ 1 ] ] = m[ 2 ];
+			}
+		} );
+		data[ feature ] = value;
+
+		var newCookie = Object.keys( data ).map( function ( key ) {
+			return key + CLIENTPREF_SUFFIX + data[ key ];
+		} ).join( CLIENTPREF_DELIMITER );
+		mw.cookie.set( CLIENTPREF_COOKIE_NAME, newCookie );
+	}
+
+	/**
+	 * Check if the feature name is composed of valid characters.
+	 *
+	 * A valid feature name may contain letters, numbers, and "-" characters.
+	 *
+	 * @private
+	 * @param {string} value
+	 * @return {boolean}
+	 */
+	function isValidFeatureName( value ) {
+		return value.match( /^[a-zA-Z0-9-]+$/ ) !== null;
+	}
+
+	/**
+	 * Check if the value is composed of valid characters.
+	 *
+	 * @private
+	 * @param {string} value
+	 * @return {boolean}
+	 */
+	function isValidFeatureValue( value ) {
+		return value.match( /^[a-zA-Z0-9]+$/ ) !== null;
+	}
+
+	// mw.user with the properties options and tokens gets defined in mediawiki.base.js.
+	Object.assign( mw.user, /** @lends mw.user */{
+
+		/**
+		 * Generate a random user session ID.
+		 *
+		 * This information would potentially be stored in a cookie to identify a user during a
+		 * session or series of sessions. Its uniqueness should not be depended on unless the
+		 * browser supports the crypto API.
+		 *
+		 * Known problems with `Math.random()`:
+		 * Using the `Math.random` function we have seen sets
+		 * with 1% of non uniques among 200,000 values with Safari providing most of these.
+		 * Given the prevalence of Safari in mobile the percentage of duplicates in
+		 * mobile usages of this code is probably higher.
+		 *
+		 * Rationale:
+		 * We need about 80 bits to make sure that probability of collision
+		 * on 155 billion  is &lt;= 1%
+		 *
+		 * See {@link https://en.wikipedia.org/wiki/Birthday_attack#Mathematics}
+		 *
+		 * `n(p;H) = n(0.01,2^80)= sqrt (2 * 2^80 * ln(1/(1-0.01)))`
+		 *
+		 * @return {string} 80 bit integer (20 characters) in hex format, padded
+		 */
+		generateRandomSessionId: function () {
+			var rnds, i,
+				// Support: IE 11
+				crypto = window.crypto || window.msCrypto;
+
+			// We first attempt to generate a set of random values using the WebCrypto API's
+			// getRandomValues method. If the WebCrypto API is not supported, the Uint16Array
+			// type does not exist, or getRandomValues fails (T263041), an exception will be
+			// thrown, which we'll catch and fall back to using Math.random.
+			try {
+				// Initialize a typed array containing 5 0-initialized 16-bit integers.
+				// Note that Uint16Array is array-like but does not implement Array.
+
+				rnds = new Uint16Array( 5 );
+				// Overwrite the array elements with cryptographically strong random values.
+				// https://developer.mozilla.org/en-US/docs/Web/API/Crypto/getRandomValues
+				// NOTE: this operation can fail internally (T263041), so the try-catch block
+				// must be preserved even after WebCrypto is supported in all modern (Grade A)
+				// browsers.
+				crypto.getRandomValues( rnds );
+			} catch ( e ) {
+				rnds = new Array( 5 );
+				// 0x10000 is 2^16 so the operation below will return a number
+				// between 2^16 and zero
+				for ( i = 0; i &lt; 5; i++ ) {
+					rnds[ i ] = Math.floor( Math.random() * 0x10000 );
+				}
+			}
+
+			// Convert the 5 16bit-numbers into 20 characters (4 hex per 16 bits).
+			// Concatenation of two random integers with entropy n and m
+			// returns a string with entropy n+m if those strings are independent.
+			// Tested that below code is faster than array + loop + join.
+			return ( rnds[ 0 ] + 0x10000 ).toString( 16 ).slice( 1 ) +
+				( rnds[ 1 ] + 0x10000 ).toString( 16 ).slice( 1 ) +
+				( rnds[ 2 ] + 0x10000 ).toString( 16 ).slice( 1 ) +
+				( rnds[ 3 ] + 0x10000 ).toString( 16 ).slice( 1 ) +
+				( rnds[ 4 ] + 0x10000 ).toString( 16 ).slice( 1 );
+		},
+
+		/**
+		 * A sticky generateRandomSessionId for the current JS execution context,
+		 * cached within this class (also known as a page view token).
+		 *
+		 * @since 1.32
+		 * @return {string} 80 bit integer in hex format, padded
+		 */
+		getPageviewToken: function () {
+			if ( !pageviewRandomId ) {
+				pageviewRandomId = mw.user.generateRandomSessionId();
+			}
+
+			return pageviewRandomId;
+		},
+
+		/**
+		 * Get the current user's database id.
+		 *
+		 * Not to be confused with {@link mw.user#id id}.
+		 *
+		 * @return {number} Current user's id, or 0 if user is anonymous
+		 */
+		getId: function () {
+			return mw.config.get( 'wgUserId' ) || 0;
+		},
+
+		/**
+		 * Check whether the user is a normal non-temporary registered user.
+		 *
+		 * @return {boolean}
+		 */
+		isNamed: function () {
+			return !mw.user.isAnon() &amp;&amp; !mw.user.isTemp();
+		},
+
+		/**
+		 * Check whether the user is an autocreated temporary user.
+		 *
+		 * @return {boolean}
+		 */
+		isTemp: function () {
+			return mw.config.get( 'wgUserIsTemp' ) || false;
+		},
+
+		/**
+		 * Get the current user's name.
+		 *
+		 * @return {string|null} User name string or null if user is anonymous
+		 */
+		getName: function () {
+			return mw.config.get( 'wgUserName' );
+		},
+
+		/**
+		 * Acquire a temporary user username and stash it in the current session, if temp account creation
+		 * is enabled and the current user is logged out. If a name has already been stashed, returns the
+		 * same name.
+		 *
+		 * If the user later performs an action that results in temp account creation, the stashed username
+		 * will be used for their account. It may also be used in previews. However, the account is not
+		 * created yet, and the name is not visible to other users.
+		 *
+		 * @return {jQuery.Promise} Promise resolved with the username if we succeeded,
+		 *   or resolved with `null` if we failed
+		 */
+		acquireTempUserName: function () {
+			if ( tempUserNamePromise !== undefined ) {
+				// Return the existing promise if we already tried. Do not retry even if we failed.
+				return tempUserNamePromise;
+			}
+
+			if ( mw.config.get( 'wgUserId' ) ) {
+				// User is logged in (or has a temporary account), nothing to do
+				tempUserNamePromise = $.Deferred().resolve( null );
+			} else if ( mw.config.get( 'wgTempUserName' ) ) {
+				// Temporary user username already acquired
+				tempUserNamePromise = $.Deferred().resolve( mw.config.get( 'wgTempUserName' ) );
+			} else {
+				var api = new mw.Api();
+				tempUserNamePromise = api.post( { action: 'acquiretempusername' } ).then( function ( resp ) {
+					mw.config.set( 'wgTempUserName', resp.acquiretempusername );
+					return resp.acquiretempusername;
+				} ).catch( function () {
+					// Ignore failures. The temp name should not be necessary for anything to work.
+					return null;
+				} );
+			}
+
+			return tempUserNamePromise;
+		},
+
+		/**
+		 * Get date user registered, if available.
+		 *
+		 * @return {boolean|null|Date} False for anonymous users, null if data is
+		 *  unavailable, or Date for when the user registered.
+		 */
+		getRegistration: function () {
+			var registration;
+			if ( mw.user.isAnon() ) {
+				return false;
+			}
+			registration = mw.config.get( 'wgUserRegistration' );
+			// Registration may be unavailable if the user signed up before MediaWiki
+			// began tracking this.
+			return !registration ? null : new Date( registration );
+		},
+
+		/**
+		 * Get date user first registered, if available.
+		 * @return {boolean|null|Date} False for anonymous users, null if data is
+		 *  unavailable, or Date for when the user registered. For temporary users
+		 *  that is when their temporary account was created.
+		 */
+		getFirstRegistration: function () {
+			if ( mw.user.isAnon() ) {
+				return false;
+			}
+			var registration = mw.config.get( 'wgUserFirstRegistration' );
+			// Registration may be unavailable if the user signed up before MediaWiki
+			// began tracking this.
+			return registration ? new Date( registration ) : null;
+		},
+
+		/**
+		 * Check whether the current user is anonymous.
+		 *
+		 * @return {boolean}
+		 */
+		isAnon: function () {
+			return mw.user.getName() === null;
+		},
+
+		/**
+		 * Retrieve a random ID, generating it if needed.
+		 *
+		 * This ID is shared across windows, tabs, and page views. It is persisted
+		 * for the duration of one browser session (until the browser app is closed),
+		 * unless the user evokes a "restore previous session" feature that some browsers have.
+		 *
+		 * **Note:** Server-side code must never interpret or modify this value.
+		 *
+		 * @return {string} Random session ID (20 hex characters)
+		 */
+		sessionId: function () {
+			if ( sessionId === undefined ) {
+				sessionId = mw.cookie.get( 'mwuser-sessionId' );
+				// Validate that the value is 20 hex characters, as it is user-controlled,
+				// and we also used different formats in the past (T283881)
+				if ( sessionId === null || !/^[0-9a-f]{20}$/.test( sessionId ) ) {
+					sessionId = mw.user.generateRandomSessionId();
+					// Setting the `expires` field to `null` means that the cookie should
+					// persist (shared across windows and tabs) until the browser is closed.
+					mw.cookie.set( 'mwuser-sessionId', sessionId, { expires: null } );
+				}
+			}
+			return sessionId;
+		},
+
+		/**
+		 * Get the current user's name or the session ID.
+		 *
+		 * Not to be confused with {@link mw.user#getId getId}.
+		 *
+		 * @return {string} User name or random session ID
+		 */
+		id: function () {
+			return mw.user.getName() || mw.user.sessionId();
+		},
+
+		/**
+		 * Get the current user's groups.
+		 *
+		 * @param {Function} [callback]
+		 * @return {jQuery.Promise}
+		 */
+		getGroups: function ( callback ) {
+			var userGroups = mw.config.get( 'wgUserGroups', [] );
+
+			// Uses promise for backwards compatibility
+			return $.Deferred().resolve( userGroups ).then( callback );
+		},
+
+		/**
+		 * Get the current user's rights.
+		 *
+		 * @param {Function} [callback]
+		 * @return {jQuery.Promise}
+		 */
+		getRights: function ( callback ) {
+			return getUserInfo().then(
+				function ( userInfo ) {
+					return userInfo.rights;
+				},
+				function () {
+					return [];
+				}
+			).then( callback );
+		},
+
+		/**
+		 * Manage client preferences.
+		 *
+		 * For skins that enable the `clientPrefEnabled` option (see Skin class in PHP),
+		 * this feature allows you to store preferences in the browser session that will
+		 * switch one or more the classes on the HTML document.
+		 *
+		 * This is only supported for unregistered users. For registered users, skins
+		 * and extensions must use user preferences (e.g. hidden or API-only options)
+		 * and swap class names server-side through the Skin interface.
+		 *
+		 * This feature is limited to page views by unregistered users. For logged-in requests,
+		 * store preferences in the database instead, via UserOptionsManager or `mw.Api.saveOption`
+		 * (may be hidden or API-only to exclude from Special:Preferences), and then include the
+		 * desired classes directly in Skin::getHtmlElementAttributes.
+		 *
+		 * Classes toggled by this feature must be named as `&lt;feature>-clientpref-&lt;value>`,
+		 * where `value` contains only alphanumerical characters (a-z, A-Z, and 0-9), and `feature`
+		 * can also include hyphens.
+		 *
+		 * @namespace mw.user.clientPrefs
+		 */
+		clientPrefs: {
+			/**
+			 * Change the class on the HTML document element, and save the value in a cookie.
+			 *
+			 * @memberof mw.user.clientPrefs
+			 * @param {string} feature
+			 * @param {string} value
+			 * @return {boolean} True if feature was stored successfully, false if the value
+			 *   uses a forbidden character or the feature is not recognised
+			 *   e.g. a matching class was not defined on the HTML document element.
+			 */
+			set: function ( feature, value ) {
+				if ( mw.user.isNamed() ) {
+					// Avoid storing an unused cookie and returning true when the setting
+					// wouldn't actually be applied.
+					// Encourage future-proof and server-first implementations.
+					// Encourage feature parity for logged-in users.
+					throw new Error( 'clientPrefs are for unregistered users only' );
+				}
+				if ( !isValidFeatureName( feature ) || !isValidFeatureValue( value ) ) {
+					return false;
+				}
+				var currentValue = mw.user.clientPrefs.get( feature );
+				// the feature is not recognized
+				if ( !currentValue ) {
+					return false;
+				}
+				var oldFeatureClass = feature + CLIENTPREF_SUFFIX + currentValue;
+				var newFeatureClass = feature + CLIENTPREF_SUFFIX + value;
+				// The following classes are removed here:
+				// * feature-name-clientpref-&lt;old-feature-value>
+				// * e.g. vector-font-size--clientpref-small
+				document.documentElement.classList.remove( oldFeatureClass );
+				// The following classes are added here:
+				// * feature-name-clientpref-&lt;feature-value>
+				// * e.g. vector-font-size--clientpref-xlarge
+				document.documentElement.classList.add( newFeatureClass );
+				saveClientPrefs( feature, value );
+				return true;
+			},
+
+			/**
+			 * Retrieve the current value of the feature from the HTML document element.
+			 *
+			 * @memberof mw.user.clientPrefs
+			 * @param {string} feature
+			 * @return {string|boolean} returns boolean if the feature is not recognized
+			 *  returns string if a feature was found.
+			 */
+			get: function ( feature ) {
+				var featurePrefix = feature + CLIENTPREF_SUFFIX;
+				var docClass = document.documentElement.className;
+				// eslint-disable-next-line security/detect-non-literal-regexp
+				var featureRegEx = new RegExp(
+					'(^| )' + mw.util.escapeRegExp( featurePrefix ) + '([a-zA-Z0-9]+)( |$)'
+				);
+				var match = docClass.match( featureRegEx );
+
+				// check no further matches if we replaced this occurance.
+				var isAmbiguous = docClass.replace( featureRegEx, '$1$3' ).match( featureRegEx ) !== null;
+				return !isAmbiguous &amp;&amp; match ? match[ 2 ] : false;
+			}
+		}
+	} );
+
+}() );
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+				</main>
+			</div>
+		</div>
+	</div>
+	<footer id="footer" class="footer">
+		<div class="content-box">
+			<ul class="footer__list">
+				<li><a href="https://gerrit.wikimedia.org/g/mediawiki/core/">Contribute</a></li>
+			</ul>
+			<p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Mon Mar 25 2024 12:56:26 GMT-0700 (Pacific Daylight Time)</p>
+			<p><a href="https://wikimediafoundation.org/" class="lnk--wikimedia-project">A Wikimedia Foundation project</a></p>
+		</div>
+	</footer>
+
+<script src="scripts/redirect.js"></script>
+<script>
+var arr = function(aa) { return Array.prototype.slice.call(aa); };
+arr(document.querySelectorAll("nav > ol > li a:not([href])")).map(function(el) {
+  var li = el;
+  while (li && li.tagName !== 'LI') { li = li.parentNode; }
+  el.addEventListener('click', function(event) {
+    if (li.classList.contains('is-on')) {
+      li.classList.remove('is-on');
+      return;
+    }
+    arr(document.querySelectorAll("nav li.nav__item.is-on")).map(function(el2) {
+      el2.classList.remove('is-on');
+    });
+    li.classList.add('is-on');
+  });
+});
+</script>
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/open-member.js"> </script>
+</body>
+</html>

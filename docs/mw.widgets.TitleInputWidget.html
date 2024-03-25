@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]><html lang="en" class="js-off lte-ie8"><![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="js-off ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en" class="js-off">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Class: TitleInputWidget, MediaWiki frontend code, JSDoc</title>
+    <script>
+document.documentElement.className = document.documentElement.className.replace(/\bjs-off\b/,'js-on'); // no BEM notation thx to IE
+    </script>
+    <!--[if lt IE 9]>
+      <script>window.html5={'shivCSS':false};</script>
+      <script src="wmf/js/vendor/ie/html5shiv-3.7.3.min.js"></script>
+      <script src="wmf/js/vendor/ie/respond-1.4.2.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="styles/jsdoc-wmf-theme.css">
+    <script src="scripts/lib/prettify/prettify.js"> </script>
+    <script src="scripts/lib/prettify/lang-css.js"> </script>
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link rel="preload" href="wmf/fonts/Charter_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="wmf/fonts/Lato_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <script src="scripts/fonts-loader.js" async=""></script>
+</head>
+
+<body class="page--home">
+	<header id="header" class="header" role="banner">
+		<div class="content-box">
+			<a href="#content" class="is-aural is-focusable">Jump to content</a>
+			<a href="#nav--main" class="is-aural is-focusable">Jump to navigation</a>
+			<div class="header__title">
+				<span class="site-title"><a href="./"><span class="site-logo"></span>MediaWiki frontend code</a></span>
+				<label class="btn--nav-main" for="trigger--nav-main" aria-hidden="true" title="Show main menu">
+					<i></i> <span>Menu</span>
+				</label>
+			</div>
+     		<div id="search-container" class="search-container">
+  <input type="search" id="lunr-search" class="search-input" role="combobox" aria-autocomplete="list" aria-controls="search-results" aria-expanded="false" aria-activedescendant="selected-search-result" placeholder="Search">
+  <ul id="search-results" class="search-results role="listbox"></ul>
+</div>
+<script src="lunr-data.js"></script>
+<script src="scripts/lib/lunr.js"></script>
+<script src="scripts/lunrSearch.js"></script>
+
+		</div>
+	</header>
+	<div class="page">
+		<div class="content-box flex-cols">
+			<div class="flex-col flex-col--start">
+				<input type="checkbox" id="trigger--nav-main" class="trigger--nav-main">
+				<nav id="nav--main" class="nav nav--main" role="navigation">
+					<ol><li class="nav__item"><a href="index.html">Home</a></li><li class="nav__item"><a href="modules.html">Modules</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="module-moment.html">moment</a></li></ul></li><li class="nav__item"><a href="namespaces.html">Namespaces</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="Hooks.html">Hooks</a></li><li class="nav__sub-item"><a href="jQueryPlugins.html">jQueryPlugins</a></li><li class="nav__sub-item"><a href="mw.html">mw</a></li><li class="nav__sub-item"><a href="mw.cldr.html">mw.cldr</a></li><li class="nav__sub-item"><a href="mw.cookie.html">mw.cookie</a></li><li class="nav__sub-item"><a href="mw.errorLogger.html">mw.errorLogger</a></li><li class="nav__sub-item"><a href="mw.experiments.html">mw.experiments</a></li><li class="nav__sub-item"><a href="mw.html.html">mw.html</a></li><li class="nav__sub-item"><a href="mw.htmlform.html">mw.htmlform</a></li><li class="nav__sub-item"><a href="mw.language.html">mw.language</a></li><li class="nav__sub-item"><a href="mw.loader.html">mw.loader</a></li><li class="nav__sub-item"><a href="mw.log.html">mw.log</a></li><li class="nav__sub-item"><a href="mw.messagePoster.html">mw.messagePoster</a></li><li class="nav__sub-item"><a href="mw.notification.html">mw.notification</a></li><li class="nav__sub-item"><a href="mw.searchSuggest.html">mw.searchSuggest</a></li><li class="nav__sub-item"><a href="mw.tempUserCreated.html">mw.tempUserCreated</a></li><li class="nav__sub-item"><a href="mw.template.html">mw.template</a></li><li class="nav__sub-item"><a href="mw.user.html">mw.user</a></li><li class="nav__sub-item"><a href="mw.util.html">mw.util</a></li><li class="nav__sub-item"><a href="mw.widgets.html">mw.widgets</a></li><li class="nav__sub-item"><a href="window.html">window</a></li></ul></li><li class="nav__item is-on"><a>Classes</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="Hook.html">Hook</a></li><li class="nav__sub-item"><a href="MessagePosterFactory.html">MessagePosterFactory</a></li><li class="nav__sub-item"><a href="Notification.html">Notification</a></li><li class="nav__sub-item"><a href="Vue.html">Vue</a></li><li class="nav__sub-item"><a href="mediawiki.inspect.html">mediawiki.inspect</a></li><li class="nav__sub-item"><a href="module-mediawiki.storage-SafeStorage.html">mediawiki.storage~SafeStorage</a></li><li class="nav__sub-item"><a href="mw.Api.html">mw.Api</a></li><li class="nav__sub-item"><a href="mw.Debug.html">mw.Debug</a></li><li class="nav__sub-item"><a href="mw.Feedback.html">mw.Feedback</a></li><li class="nav__sub-item"><a href="mw.Feedback.Dialog.html">mw.Feedback.Dialog</a></li><li class="nav__sub-item"><a href="mw.ForeignApi.html">mw.ForeignApi</a></li><li class="nav__sub-item"><a href="mw.ForeignRest.html">mw.ForeignRest</a></li><li class="nav__sub-item"><a href="mw.ForeignStructuredUpload.html">mw.ForeignStructuredUpload</a></li><li class="nav__sub-item"><a href="mw.ForeignStructuredUpload.BookletLayout.html">mw.ForeignStructuredUpload.BookletLayout</a></li><li class="nav__sub-item"><a href="mw.ForeignUpload.html">mw.ForeignUpload</a></li><li class="nav__sub-item"><a href="mw.GallerySlideshow.html">mw.GallerySlideshow</a></li><li class="nav__sub-item"><a href="mw.Map.html">mw.Map</a></li><li class="nav__sub-item"><a href="mw.Message.html">mw.Message</a></li><li class="nav__sub-item"><a href="mw.Rest.html">mw.Rest</a></li><li class="nav__sub-item"><a href="mw.Title.html">mw.Title</a></li><li class="nav__sub-item"><a href="mw.Upload.html">mw.Upload</a></li><li class="nav__sub-item"><a href="mw.Upload.BookletLayout.html">mw.Upload.BookletLayout</a></li><li class="nav__sub-item"><a href="mw.Upload.Dialog.html">mw.Upload.Dialog</a></li><li class="nav__sub-item"><a href="mw.Uri.html">mw.Uri</a></li><li class="nav__sub-item"><a href="mw.html.Raw.html">mw.html.Raw</a></li><li class="nav__sub-item"><a href="mw.htmlform.ActionFieldLayout.html">mw.htmlform.ActionFieldLayout</a></li><li class="nav__sub-item"><a href="mw.htmlform.Element.html">mw.htmlform.Element</a></li><li class="nav__sub-item"><a href="mw.htmlform.FieldLayout.html">mw.htmlform.FieldLayout</a></li><li class="nav__sub-item"><a href="mw.messagePoster.MessagePoster.html">mw.messagePoster.MessagePoster</a></li><li class="nav__sub-item"><a href="mw.messagePoster.WikitextMessagePoster.html">mw.messagePoster.WikitextMessagePoster</a></li><li class="nav__sub-item"><a href="mw.widgets.APIResultsProvider.html">mw.widgets.APIResultsProvider</a></li><li class="nav__sub-item"><a href="mw.widgets.APIResultsQueue.html">mw.widgets.APIResultsQueue</a></li><li class="nav__sub-item"><a href="mw.widgets.AbandonEditDialog.html">mw.widgets.AbandonEditDialog</a></li><li class="nav__sub-item"><a href="mw.widgets.CalendarWidget.html">mw.widgets.CalendarWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.CategoryMultiselectWidget.html">mw.widgets.CategoryMultiselectWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.CategoryTagItemWidget.html">mw.widgets.CategoryTagItemWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.CheckMatrixWidget.html">mw.widgets.CheckMatrixWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.ComplexNamespaceInputWidget.html">mw.widgets.ComplexNamespaceInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.ComplexTitleInputWidget.html">mw.widgets.ComplexTitleInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.CopyTextLayout.html">mw.widgets.CopyTextLayout</a></li><li class="nav__sub-item"><a href="mw.widgets.DateInputWidget.html">mw.widgets.DateInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.ExpiryWidget.html">mw.widgets.ExpiryWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaResourceProvider.html">mw.widgets.MediaResourceProvider</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaResourceQueue.html">mw.widgets.MediaResourceQueue</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaResultWidget.html">mw.widgets.MediaResultWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaSearchProvider.html">mw.widgets.MediaSearchProvider</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaSearchQueue.html">mw.widgets.MediaSearchQueue</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaSearchWidget.html">mw.widgets.MediaSearchWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaUserUploadsProvider.html">mw.widgets.MediaUserUploadsProvider</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaUserUploadsQueue.html">mw.widgets.MediaUserUploadsQueue</a></li><li class="nav__sub-item"><a href="mw.widgets.NamespaceInputWidget.html">mw.widgets.NamespaceInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.NamespacesMenuOptionWidget.html">mw.widgets.NamespacesMenuOptionWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.NamespacesMultiselectWidget.html">mw.widgets.NamespacesMultiselectWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidget.html">mw.widgets.RowWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidgetModel.html">mw.widgets.RowWidgetModel</a></li><li class="nav__sub-item"><a href="mw.widgets.SearchInputWidget.html">mw.widgets.SearchInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.SelectWithInputWidget.html">mw.widgets.SelectWithInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.SizeFilterWidget.html">mw.widgets.SizeFilterWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.StashedFileWidget.html">mw.widgets.StashedFileWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidget.html">mw.widgets.TableWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidgetModel.html">mw.widgets.TableWidgetModel</a></li><li class="nav__sub-item"><a href="mw.widgets.TagMultiselectWidget.html">mw.widgets.TagMultiselectWidget</a></li><li class="nav__sub-item is-on"><a href="mw.widgets.TitleInputWidget.html">mw.widgets.TitleInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.TitleOptionWidget.html">mw.widgets.TitleOptionWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.TitleSearchWidget.html">mw.widgets.TitleSearchWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.TitleWidget.html">mw.widgets.TitleWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.TitlesMultiselectWidget.html">mw.widgets.TitlesMultiselectWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.ToggleSwitchWidget.html">mw.widgets.ToggleSwitchWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.UserInputWidget.html">mw.widgets.UserInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.UsersMultiselectWidget.html">mw.widgets.UsersMultiselectWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.CalendarWidget.html">mw.widgets.datetime.CalendarWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.DateTimeFormatter.html">mw.widgets.datetime.DateTimeFormatter</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.DateTimeInputWidget.html">mw.widgets.datetime.DateTimeInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.DiscordianDateTimeFormatter.html">mw.widgets.datetime.DiscordianDateTimeFormatter</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.ProlepticGregorianDateTimeFormatter.html">mw.widgets.datetime.ProlepticGregorianDateTimeFormatter</a></li></ul></li><li class="nav__item"><a>Events</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="Hooks.html#~event:'RcFilters.highlight.enable'">Hooks~'RcFilters.highlight.enable'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'RcFilters.popup.open'">Hooks~'RcFilters.popup.open'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'editRecovery.loadEnd'">Hooks~'editRecovery.loadEnd'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'htmlform.enhance'">Hooks~'htmlform.enhance'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'postEdit'">Hooks~'postEdit'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'postEdit.afterRemoval'">Hooks~'postEdit.afterRemoval'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'skin.logout'">Hooks~'skin.logout'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'structuredChangeFilters.ui.initialized'">Hooks~'structuredChangeFilters.ui.initialized'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'util.addPortlet'">Hooks~'util.addPortlet'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'util.addPortletLink'">Hooks~'util.addPortletLink'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.categories'">Hooks~'wikipage.categories'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.collapsibleContent'">Hooks~'wikipage.collapsibleContent'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.content'">Hooks~'wikipage.content'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.diff'">Hooks~'wikipage.diff'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.diff.diffTypeSwitch'">Hooks~'wikipage.diff.diffTypeSwitch'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.diff.wikitextDiffBody'">Hooks~'wikipage.diff.wikitextDiffBody'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.editform'">Hooks~'wikipage.editform'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.indicators'">Hooks~'wikipage.indicators'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.tableOfContents'">Hooks~'wikipage.tableOfContents'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.watchlistChange'">Hooks~'wikipage.watchlistChange'</a></li><li class="nav__sub-item"><a href="mw.Upload.BookletLayout.html#.event:fileSaved">mw.Upload.BookletLayout.fileSaved</a></li><li class="nav__sub-item"><a href="mw.Upload.BookletLayout.html#.event:fileUploadProgress">mw.Upload.BookletLayout.fileUploadProgress</a></li><li class="nav__sub-item"><a href="mw.Upload.BookletLayout.html#.event:fileUploaded">mw.Upload.BookletLayout.fileUploaded</a></li><li class="nav__sub-item"><a href="mw.Upload.BookletLayout.html#.event:infoValid">mw.Upload.BookletLayout.infoValid</a></li><li class="nav__sub-item"><a href="mw.Upload.BookletLayout.html#.event:uploadValid">mw.Upload.BookletLayout.uploadValid</a></li><li class="nav__sub-item"><a href="mw.widgets.CalendarWidget.html#.event:change">mw.widgets.CalendarWidget.change</a></li><li class="nav__sub-item"><a href="mw.widgets.DateInputWidget.html#.event:deactivate">mw.widgets.DateInputWidget.deactivate</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidget.html#.event:deleteButtonClick">mw.widgets.RowWidget.deleteButtonClick</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidget.html#.event:inputChange">mw.widgets.RowWidget.inputChange</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidget.html#.event:labelUpdate">mw.widgets.RowWidget.labelUpdate</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidgetModel.html#.event:clear">mw.widgets.RowWidgetModel.clear</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidgetModel.html#.event:insertCell">mw.widgets.RowWidgetModel.insertCell</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidgetModel.html#.event:labelUpdate">mw.widgets.RowWidgetModel.labelUpdate</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidgetModel.html#.event:removeCell">mw.widgets.RowWidgetModel.removeCell</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidgetModel.html#.event:valueChange">mw.widgets.RowWidgetModel.valueChange</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidget.html#.event:change">mw.widgets.TableWidget.change</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidget.html#.event:removeRow">mw.widgets.TableWidget.removeRow</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidgetModel.html#.event:clear">mw.widgets.TableWidgetModel.clear</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidgetModel.html#.event:insertColumn">mw.widgets.TableWidgetModel.insertColumn</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidgetModel.html#.event:insertRow">mw.widgets.TableWidgetModel.insertRow</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidgetModel.html#.event:removeColumn">mw.widgets.TableWidgetModel.removeColumn</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidgetModel.html#.event:removeRow">mw.widgets.TableWidgetModel.removeRow</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidgetModel.html#.event:valueChange">mw.widgets.TableWidgetModel.valueChange</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.CalendarWidget.html#.event:change">mw.widgets.datetime.CalendarWidget.change</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.CalendarWidget.html#.event:focusChanged">mw.widgets.datetime.CalendarWidget.focusChanged</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.CalendarWidget.html#.event:page">mw.widgets.datetime.CalendarWidget.page</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.DateTimeFormatter.html#.event:local">mw.widgets.datetime.DateTimeFormatter.local</a></li></ul></li></ol>
+				</nav>
+			</div>
+			<div class="flex-col flex-col--end">
+				<main id="content" class="content" role="main">
+
+    
+
+
+
+
+<section>
+
+<header>
+    <h1><span class="attribs"><span class="type-signature"></span></span>
+        <span class="ancestors"><a href="mw.html">mw</a><a href="mw.widgets.html">.widgets</a>.</span>TitleInputWidget</h1>
+    
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+        
+<div class="member  member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-TitleInputWidget" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="TitleInputWidget">
+            new mw.widgets.TitleInputWidget<span class="signature">(config<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span><span class="type-signature"></span>
+            <a href="#TitleInputWidget">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Creates an mw.widgets.TitleInputWidget object.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>config</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 Object
+</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Configuration options</p>
+                <h5>Properties</h5>
+                
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>suggestions</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 boolean
+</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+
+            <td class="description last"><p>Display search suggestions</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>validate</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 RegExp
+</span>
+|
+
+<span class="param-type">
+	 function
+</span>
+|
+
+<span class="param-type">
+	 string
+</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>Perform title validation</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <dt class="mixes">Mixes In:</dt>
+
+        <dd class="mixes"><ul>
+        
+            <li><a href="mw.widgets.TitleWidget.html">mw.widgets.TitleWidget</a></li>
+        
+            <li><a href="https://doc.wikimedia.org/oojs-ui/master/js/OO.ui.mixin.LookupElement.html">OO.ui.mixin.LookupElement</a></li>
+        
+        </ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_mw.widgets.TitleInputWidget.js.html">mediawiki.widgets/mw.widgets.TitleInputWidget.js</a>, <a href="mediawiki.widgets_mw.widgets.TitleInputWidget.js.html#line24">line 24</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Creates an mw.widgets.TitleInputWidget object.
+    </div>
+
+</div>
+
+    
+    </div>
+
+    
+        <h2 class="subsection-title">Extends</h2>
+
+        
+
+
+    <ul>
+        <li><a href="https://doc.wikimedia.org/oojs-ui/master/js/OO.ui.TextInputWidget.html">OO.ui.TextInputWidget</a></li>
+    </ul>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h2 class="subsection-title">Methods</h2>
+
+        
+            
+<div class="member  member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-cleanUpValue" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="cleanUpValue">
+            cleanUpValue<span class="signature">()</span><span class="type-signature"></span><span class="type-signature"></span>
+            <a href="#cleanUpValue">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_mw.widgets.TitleInputWidget.js.html">mediawiki.widgets/mw.widgets.TitleInputWidget.js</a>, <a href="mediawiki.widgets_mw.widgets.TitleInputWidget.js.html#line131">line 131</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        
+    </div>
+
+</div>
+
+        
+            
+<div class="member  member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-focus" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="focus">
+            focus<span class="signature">()</span><span class="type-signature"></span><span class="type-signature"></span>
+            <a href="#focus">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_mw.widgets.TitleInputWidget.js.html">mediawiki.widgets/mw.widgets.TitleInputWidget.js</a>, <a href="mediawiki.widgets_mw.widgets.TitleInputWidget.js.html#line116">line 116</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        
+    </div>
+
+</div>
+
+        
+            
+<div class="member  member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-getLookupCacheDataFromResponse" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="getLookupCacheDataFromResponse">
+            getLookupCacheDataFromResponse<span class="signature">()</span><span class="type-signature"></span><span class="type-signature"></span>
+            <a href="#getLookupCacheDataFromResponse">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_mw.widgets.TitleInputWidget.js.html">mediawiki.widgets/mw.widgets.TitleInputWidget.js</a>, <a href="mediawiki.widgets_mw.widgets.TitleInputWidget.js.html#line88">line 88</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        
+    </div>
+
+</div>
+
+        
+            
+<div class="member  member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-getLookupMenuOptionsFromData" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="getLookupMenuOptionsFromData">
+            getLookupMenuOptionsFromData<span class="signature">()</span><span class="type-signature"></span><span class="type-signature"></span>
+            <a href="#getLookupMenuOptionsFromData">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_mw.widgets.TitleInputWidget.js.html">mediawiki.widgets/mw.widgets.TitleInputWidget.js</a>, <a href="mediawiki.widgets_mw.widgets.TitleInputWidget.js.html#line95">line 95</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        
+    </div>
+
+</div>
+
+        
+            
+<div class="member  member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-getLookupRequest" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="getLookupRequest">
+            getLookupRequest<span class="signature">()</span><span class="type-signature"></span><span class="type-signature"></span>
+            <a href="#getLookupRequest">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_mw.widgets.TitleInputWidget.js.html">mediawiki.widgets/mw.widgets.TitleInputWidget.js</a>, <a href="mediawiki.widgets_mw.widgets.TitleInputWidget.js.html#line81">line 81</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        
+    </div>
+
+</div>
+
+        
+            
+<div class="member  member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-getQueryValue" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="getQueryValue">
+            getQueryValue<span class="signature">()</span><span class="type-signature"></span><span class="type-signature"></span>
+            <a href="#getQueryValue">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_mw.widgets.TitleInputWidget.js.html">mediawiki.widgets/mw.widgets.TitleInputWidget.js</a>, <a href="mediawiki.widgets_mw.widgets.TitleInputWidget.js.html#line63">line 63</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        
+    </div>
+
+</div>
+
+        
+            
+<div class="member  member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-onLookupMenuChoose" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="onLookupMenuChoose">
+            onLookupMenuChoose<span class="signature">(item)</span><span class="type-signature"></span><span class="type-signature"></span>
+            <a href="#onLookupMenuChoose">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Handle menu item 'choose' event, updating the text input value to the value of the clicked item.</p>
+<p>TODO: Replace this with an override of onLookupMenuChoose()</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>item</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 <a href="https://doc.wikimedia.org/oojs-ui/master/js/OO.ui.MenuOptionWidget.html">OO.ui.MenuOptionWidget</a>
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Selected item</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_mw.widgets.TitleInputWidget.js.html">mediawiki.widgets/mw.widgets.TitleInputWidget.js</a>, <a href="mediawiki.widgets_mw.widgets.TitleInputWidget.js.html#line106">line 106</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Handle menu item 'choose' event, updating the text input value to the value of the clicked item.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-setNamespace" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="setNamespace">
+            setNamespace<span class="signature">()</span><span class="type-signature"></span><span class="type-signature"></span>
+            <a href="#setNamespace">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_mw.widgets.TitleInputWidget.js.html">mediawiki.widgets/mw.widgets.TitleInputWidget.js</a>, <a href="mediawiki.widgets_mw.widgets.TitleInputWidget.js.html#line70">line 70</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        
+    </div>
+
+</div>
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+				</main>
+			</div>
+		</div>
+	</div>
+	<footer id="footer" class="footer">
+		<div class="content-box">
+			<ul class="footer__list">
+				<li><a href="https://gerrit.wikimedia.org/g/mediawiki/core/">Contribute</a></li>
+			</ul>
+			<p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Mon Mar 25 2024 12:56:27 GMT-0700 (Pacific Daylight Time)</p>
+			<p><a href="https://wikimediafoundation.org/" class="lnk--wikimedia-project">A Wikimedia Foundation project</a></p>
+		</div>
+	</footer>
+
+<script src="scripts/redirect.js"></script>
+<script>
+var arr = function(aa) { return Array.prototype.slice.call(aa); };
+arr(document.querySelectorAll("nav > ol > li a:not([href])")).map(function(el) {
+  var li = el;
+  while (li && li.tagName !== 'LI') { li = li.parentNode; }
+  el.addEventListener('click', function(event) {
+    if (li.classList.contains('is-on')) {
+      li.classList.remove('is-on');
+      return;
+    }
+    arr(document.querySelectorAll("nav li.nav__item.is-on")).map(function(el2) {
+      el2.classList.remove('is-on');
+    });
+    li.classList.add('is-on');
+  });
+});
+</script>
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/open-member.js"> </script>
+</body>
+</html>

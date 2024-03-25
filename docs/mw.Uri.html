@@ -1,0 +1,2954 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]><html lang="en" class="js-off lte-ie8"><![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="js-off ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en" class="js-off">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Class: Uri, MediaWiki frontend code, JSDoc</title>
+    <script>
+document.documentElement.className = document.documentElement.className.replace(/\bjs-off\b/,'js-on'); // no BEM notation thx to IE
+    </script>
+    <!--[if lt IE 9]>
+      <script>window.html5={'shivCSS':false};</script>
+      <script src="wmf/js/vendor/ie/html5shiv-3.7.3.min.js"></script>
+      <script src="wmf/js/vendor/ie/respond-1.4.2.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="styles/jsdoc-wmf-theme.css">
+    <script src="scripts/lib/prettify/prettify.js"> </script>
+    <script src="scripts/lib/prettify/lang-css.js"> </script>
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link rel="preload" href="wmf/fonts/Charter_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="wmf/fonts/Lato_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <script src="scripts/fonts-loader.js" async=""></script>
+</head>
+
+<body class="page--home">
+	<header id="header" class="header" role="banner">
+		<div class="content-box">
+			<a href="#content" class="is-aural is-focusable">Jump to content</a>
+			<a href="#nav--main" class="is-aural is-focusable">Jump to navigation</a>
+			<div class="header__title">
+				<span class="site-title"><a href="./"><span class="site-logo"></span>MediaWiki frontend code</a></span>
+				<label class="btn--nav-main" for="trigger--nav-main" aria-hidden="true" title="Show main menu">
+					<i></i> <span>Menu</span>
+				</label>
+			</div>
+     		<div id="search-container" class="search-container">
+  <input type="search" id="lunr-search" class="search-input" role="combobox" aria-autocomplete="list" aria-controls="search-results" aria-expanded="false" aria-activedescendant="selected-search-result" placeholder="Search">
+  <ul id="search-results" class="search-results role="listbox"></ul>
+</div>
+<script src="lunr-data.js"></script>
+<script src="scripts/lib/lunr.js"></script>
+<script src="scripts/lunrSearch.js"></script>
+
+		</div>
+	</header>
+	<div class="page">
+		<div class="content-box flex-cols">
+			<div class="flex-col flex-col--start">
+				<input type="checkbox" id="trigger--nav-main" class="trigger--nav-main">
+				<nav id="nav--main" class="nav nav--main" role="navigation">
+					<ol><li class="nav__item"><a href="index.html">Home</a></li><li class="nav__item"><a href="modules.html">Modules</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="module-moment.html">moment</a></li></ul></li><li class="nav__item"><a href="namespaces.html">Namespaces</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="Hooks.html">Hooks</a></li><li class="nav__sub-item"><a href="jQueryPlugins.html">jQueryPlugins</a></li><li class="nav__sub-item"><a href="mw.html">mw</a></li><li class="nav__sub-item"><a href="mw.cldr.html">mw.cldr</a></li><li class="nav__sub-item"><a href="mw.cookie.html">mw.cookie</a></li><li class="nav__sub-item"><a href="mw.errorLogger.html">mw.errorLogger</a></li><li class="nav__sub-item"><a href="mw.experiments.html">mw.experiments</a></li><li class="nav__sub-item"><a href="mw.html.html">mw.html</a></li><li class="nav__sub-item"><a href="mw.htmlform.html">mw.htmlform</a></li><li class="nav__sub-item"><a href="mw.language.html">mw.language</a></li><li class="nav__sub-item"><a href="mw.loader.html">mw.loader</a></li><li class="nav__sub-item"><a href="mw.log.html">mw.log</a></li><li class="nav__sub-item"><a href="mw.messagePoster.html">mw.messagePoster</a></li><li class="nav__sub-item"><a href="mw.notification.html">mw.notification</a></li><li class="nav__sub-item"><a href="mw.searchSuggest.html">mw.searchSuggest</a></li><li class="nav__sub-item"><a href="mw.tempUserCreated.html">mw.tempUserCreated</a></li><li class="nav__sub-item"><a href="mw.template.html">mw.template</a></li><li class="nav__sub-item"><a href="mw.user.html">mw.user</a></li><li class="nav__sub-item"><a href="mw.util.html">mw.util</a></li><li class="nav__sub-item"><a href="mw.widgets.html">mw.widgets</a></li><li class="nav__sub-item"><a href="window.html">window</a></li></ul></li><li class="nav__item is-on"><a>Classes</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="Hook.html">Hook</a></li><li class="nav__sub-item"><a href="MessagePosterFactory.html">MessagePosterFactory</a></li><li class="nav__sub-item"><a href="Notification.html">Notification</a></li><li class="nav__sub-item"><a href="Vue.html">Vue</a></li><li class="nav__sub-item"><a href="mediawiki.inspect.html">mediawiki.inspect</a></li><li class="nav__sub-item"><a href="module-mediawiki.storage-SafeStorage.html">mediawiki.storage~SafeStorage</a></li><li class="nav__sub-item"><a href="mw.Api.html">mw.Api</a></li><li class="nav__sub-item"><a href="mw.Debug.html">mw.Debug</a></li><li class="nav__sub-item"><a href="mw.Feedback.html">mw.Feedback</a></li><li class="nav__sub-item"><a href="mw.Feedback.Dialog.html">mw.Feedback.Dialog</a></li><li class="nav__sub-item"><a href="mw.ForeignApi.html">mw.ForeignApi</a></li><li class="nav__sub-item"><a href="mw.ForeignRest.html">mw.ForeignRest</a></li><li class="nav__sub-item"><a href="mw.ForeignStructuredUpload.html">mw.ForeignStructuredUpload</a></li><li class="nav__sub-item"><a href="mw.ForeignStructuredUpload.BookletLayout.html">mw.ForeignStructuredUpload.BookletLayout</a></li><li class="nav__sub-item"><a href="mw.ForeignUpload.html">mw.ForeignUpload</a></li><li class="nav__sub-item"><a href="mw.GallerySlideshow.html">mw.GallerySlideshow</a></li><li class="nav__sub-item"><a href="mw.Map.html">mw.Map</a></li><li class="nav__sub-item"><a href="mw.Message.html">mw.Message</a></li><li class="nav__sub-item"><a href="mw.Rest.html">mw.Rest</a></li><li class="nav__sub-item"><a href="mw.Title.html">mw.Title</a></li><li class="nav__sub-item"><a href="mw.Upload.html">mw.Upload</a></li><li class="nav__sub-item"><a href="mw.Upload.BookletLayout.html">mw.Upload.BookletLayout</a></li><li class="nav__sub-item"><a href="mw.Upload.Dialog.html">mw.Upload.Dialog</a></li><li class="nav__sub-item is-on"><a href="mw.Uri.html">mw.Uri</a></li><li class="nav__sub-item"><a href="mw.html.Raw.html">mw.html.Raw</a></li><li class="nav__sub-item"><a href="mw.htmlform.ActionFieldLayout.html">mw.htmlform.ActionFieldLayout</a></li><li class="nav__sub-item"><a href="mw.htmlform.Element.html">mw.htmlform.Element</a></li><li class="nav__sub-item"><a href="mw.htmlform.FieldLayout.html">mw.htmlform.FieldLayout</a></li><li class="nav__sub-item"><a href="mw.messagePoster.MessagePoster.html">mw.messagePoster.MessagePoster</a></li><li class="nav__sub-item"><a href="mw.messagePoster.WikitextMessagePoster.html">mw.messagePoster.WikitextMessagePoster</a></li><li class="nav__sub-item"><a href="mw.widgets.APIResultsProvider.html">mw.widgets.APIResultsProvider</a></li><li class="nav__sub-item"><a href="mw.widgets.APIResultsQueue.html">mw.widgets.APIResultsQueue</a></li><li class="nav__sub-item"><a href="mw.widgets.AbandonEditDialog.html">mw.widgets.AbandonEditDialog</a></li><li class="nav__sub-item"><a href="mw.widgets.CalendarWidget.html">mw.widgets.CalendarWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.CategoryMultiselectWidget.html">mw.widgets.CategoryMultiselectWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.CategoryTagItemWidget.html">mw.widgets.CategoryTagItemWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.CheckMatrixWidget.html">mw.widgets.CheckMatrixWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.ComplexNamespaceInputWidget.html">mw.widgets.ComplexNamespaceInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.ComplexTitleInputWidget.html">mw.widgets.ComplexTitleInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.CopyTextLayout.html">mw.widgets.CopyTextLayout</a></li><li class="nav__sub-item"><a href="mw.widgets.DateInputWidget.html">mw.widgets.DateInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.ExpiryWidget.html">mw.widgets.ExpiryWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaResourceProvider.html">mw.widgets.MediaResourceProvider</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaResourceQueue.html">mw.widgets.MediaResourceQueue</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaResultWidget.html">mw.widgets.MediaResultWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaSearchProvider.html">mw.widgets.MediaSearchProvider</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaSearchQueue.html">mw.widgets.MediaSearchQueue</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaSearchWidget.html">mw.widgets.MediaSearchWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaUserUploadsProvider.html">mw.widgets.MediaUserUploadsProvider</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaUserUploadsQueue.html">mw.widgets.MediaUserUploadsQueue</a></li><li class="nav__sub-item"><a href="mw.widgets.NamespaceInputWidget.html">mw.widgets.NamespaceInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.NamespacesMenuOptionWidget.html">mw.widgets.NamespacesMenuOptionWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.NamespacesMultiselectWidget.html">mw.widgets.NamespacesMultiselectWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidget.html">mw.widgets.RowWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidgetModel.html">mw.widgets.RowWidgetModel</a></li><li class="nav__sub-item"><a href="mw.widgets.SearchInputWidget.html">mw.widgets.SearchInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.SelectWithInputWidget.html">mw.widgets.SelectWithInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.SizeFilterWidget.html">mw.widgets.SizeFilterWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.StashedFileWidget.html">mw.widgets.StashedFileWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidget.html">mw.widgets.TableWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidgetModel.html">mw.widgets.TableWidgetModel</a></li><li class="nav__sub-item"><a href="mw.widgets.TagMultiselectWidget.html">mw.widgets.TagMultiselectWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.TitleInputWidget.html">mw.widgets.TitleInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.TitleOptionWidget.html">mw.widgets.TitleOptionWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.TitleSearchWidget.html">mw.widgets.TitleSearchWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.TitleWidget.html">mw.widgets.TitleWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.TitlesMultiselectWidget.html">mw.widgets.TitlesMultiselectWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.ToggleSwitchWidget.html">mw.widgets.ToggleSwitchWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.UserInputWidget.html">mw.widgets.UserInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.UsersMultiselectWidget.html">mw.widgets.UsersMultiselectWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.CalendarWidget.html">mw.widgets.datetime.CalendarWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.DateTimeFormatter.html">mw.widgets.datetime.DateTimeFormatter</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.DateTimeInputWidget.html">mw.widgets.datetime.DateTimeInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.DiscordianDateTimeFormatter.html">mw.widgets.datetime.DiscordianDateTimeFormatter</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.ProlepticGregorianDateTimeFormatter.html">mw.widgets.datetime.ProlepticGregorianDateTimeFormatter</a></li></ul></li><li class="nav__item"><a>Events</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="Hooks.html#~event:'RcFilters.highlight.enable'">Hooks~'RcFilters.highlight.enable'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'RcFilters.popup.open'">Hooks~'RcFilters.popup.open'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'editRecovery.loadEnd'">Hooks~'editRecovery.loadEnd'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'htmlform.enhance'">Hooks~'htmlform.enhance'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'postEdit'">Hooks~'postEdit'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'postEdit.afterRemoval'">Hooks~'postEdit.afterRemoval'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'skin.logout'">Hooks~'skin.logout'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'structuredChangeFilters.ui.initialized'">Hooks~'structuredChangeFilters.ui.initialized'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'util.addPortlet'">Hooks~'util.addPortlet'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'util.addPortletLink'">Hooks~'util.addPortletLink'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.categories'">Hooks~'wikipage.categories'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.collapsibleContent'">Hooks~'wikipage.collapsibleContent'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.content'">Hooks~'wikipage.content'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.diff'">Hooks~'wikipage.diff'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.diff.diffTypeSwitch'">Hooks~'wikipage.diff.diffTypeSwitch'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.diff.wikitextDiffBody'">Hooks~'wikipage.diff.wikitextDiffBody'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.editform'">Hooks~'wikipage.editform'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.indicators'">Hooks~'wikipage.indicators'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.tableOfContents'">Hooks~'wikipage.tableOfContents'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.watchlistChange'">Hooks~'wikipage.watchlistChange'</a></li><li class="nav__sub-item"><a href="mw.Upload.BookletLayout.html#.event:fileSaved">mw.Upload.BookletLayout.fileSaved</a></li><li class="nav__sub-item"><a href="mw.Upload.BookletLayout.html#.event:fileUploadProgress">mw.Upload.BookletLayout.fileUploadProgress</a></li><li class="nav__sub-item"><a href="mw.Upload.BookletLayout.html#.event:fileUploaded">mw.Upload.BookletLayout.fileUploaded</a></li><li class="nav__sub-item"><a href="mw.Upload.BookletLayout.html#.event:infoValid">mw.Upload.BookletLayout.infoValid</a></li><li class="nav__sub-item"><a href="mw.Upload.BookletLayout.html#.event:uploadValid">mw.Upload.BookletLayout.uploadValid</a></li><li class="nav__sub-item"><a href="mw.widgets.CalendarWidget.html#.event:change">mw.widgets.CalendarWidget.change</a></li><li class="nav__sub-item"><a href="mw.widgets.DateInputWidget.html#.event:deactivate">mw.widgets.DateInputWidget.deactivate</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidget.html#.event:deleteButtonClick">mw.widgets.RowWidget.deleteButtonClick</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidget.html#.event:inputChange">mw.widgets.RowWidget.inputChange</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidget.html#.event:labelUpdate">mw.widgets.RowWidget.labelUpdate</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidgetModel.html#.event:clear">mw.widgets.RowWidgetModel.clear</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidgetModel.html#.event:insertCell">mw.widgets.RowWidgetModel.insertCell</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidgetModel.html#.event:labelUpdate">mw.widgets.RowWidgetModel.labelUpdate</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidgetModel.html#.event:removeCell">mw.widgets.RowWidgetModel.removeCell</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidgetModel.html#.event:valueChange">mw.widgets.RowWidgetModel.valueChange</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidget.html#.event:change">mw.widgets.TableWidget.change</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidget.html#.event:removeRow">mw.widgets.TableWidget.removeRow</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidgetModel.html#.event:clear">mw.widgets.TableWidgetModel.clear</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidgetModel.html#.event:insertColumn">mw.widgets.TableWidgetModel.insertColumn</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidgetModel.html#.event:insertRow">mw.widgets.TableWidgetModel.insertRow</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidgetModel.html#.event:removeColumn">mw.widgets.TableWidgetModel.removeColumn</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidgetModel.html#.event:removeRow">mw.widgets.TableWidgetModel.removeRow</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidgetModel.html#.event:valueChange">mw.widgets.TableWidgetModel.valueChange</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.CalendarWidget.html#.event:change">mw.widgets.datetime.CalendarWidget.change</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.CalendarWidget.html#.event:focusChanged">mw.widgets.datetime.CalendarWidget.focusChanged</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.CalendarWidget.html#.event:page">mw.widgets.datetime.CalendarWidget.page</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.DateTimeFormatter.html#.event:local">mw.widgets.datetime.DateTimeFormatter.local</a></li></ul></li></ol>
+				</nav>
+			</div>
+			<div class="flex-col flex-col--end">
+				<main id="content" class="content" role="main">
+
+    
+
+
+
+
+<section>
+
+<header>
+    <h1><span class="attribs"><span class="type-signature"></span></span>
+        <span class="ancestors"><a href="mw.html">mw</a>.</span>Uri</h1>
+    
+        
+            <div class="class-description"><p>Library for simple URI parsing and manipulation.</p></div>
+            
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+        
+<div class="member  member--has-toggle-box">
+
+    
+    <h2>Constructor</h2>
+    
+
+    
+    <details id="toggle-Uri" class="toggle-box" open>
+    <summary>
+        <h3 class="name" id="Uri">
+            new mw.Uri<span class="signature">(uri<span class="signature-attributes">opt</span>, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span><span class="type-signature"></span>
+            <a href="#Uri">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Create and manipulate MediaWiki URIs.</p>
+<p>Intended to be minimal, but featureful; do not expect full RFC 3986 compliance. The use cases we
+have in mind are constructing 'next page' or 'previous page' URLs, detecting whether we need to
+use cross-domain proxies for an API, constructing simple URL-based API calls, etc. Parsing here
+is regex-based, so may not work on all URIs, but is good enough for most.</p>
+<p>You can modify the properties directly, then use the <a href="mw.Uri.html#toString"><code>toString</code></a> method to extract the full URI
+string again. Example:</p>
+<pre class="prettyprint source"><code>var uri = new mw.Uri( 'http://example.com/mysite/mypage.php?quux=2' );
+
+if ( uri.host == 'example.com' ) {
+    uri.host = 'foo.example.com';
+    uri.extend( { bar: 1 } );
+
+    $( 'a#id1' ).attr( 'href', uri );
+    // anchor with id 'id1' now links to http://foo.example.com/mysite/mypage.php?bar=1&quux=2
+
+    $( 'a#id2' ).attr( 'href', uri.clone().extend( { bar: 3, pif: 'paf' } ) );
+    // anchor with id 'id2' now links to http://foo.example.com/mysite/mypage.php?bar=3&quux=2&pif=paf
+}
+</code></pre>
+<p>Given a URI like
+<code>http://usr:pwd@www.example.com:81/dir/dir.2/index.htm?q1=0&amp;&amp;test1&amp;test2=&amp;test3=value+%28escaped%29&amp;r=1&amp;r=2#top</code>
+the returned object will have the following properties:</p>
+<pre class="prettyprint source"><code>protocol  'http'
+user      'usr'
+password  'pwd'
+host      'www.example.com'
+port      '81'
+path      '/dir/dir.2/index.htm'
+query     {
+              q1: '0',
+              test1: null,
+              test2: '',
+              test3: 'value (escaped)'
+              r: ['1', '2']
+          }
+fragment  'top'
+</code></pre>
+<p>(N.b., 'password' is technically not allowed for HTTP URIs, but it is possible with other kinds
+of URIs.)</p>
+<p>Parsing based on parseUri 1.2.2 (c) Steven Levithan <a href="http:%5C/%5C/stevenlevithan.com">http://stevenlevithan.com</a>, MIT License.
+<a href="http:%5C/%5C/stevenlevithan.com/demo/parseuri/js/">http://stevenlevithan.com/demo/parseuri/js/</a></p>
+<p>Construct a new URI object. Throws error if arguments are illegal/impossible, or
+otherwise don't parse.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>uri</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 Object
+</span>
+|
+
+<span class="param-type">
+	 string
+</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>URI string, or an Object with appropriate properties (especially
+another URI object to clone). Object must have non-blank <code>protocol</code>, <code>host</code>, and <code>path</code>
+properties. If omitted (or set to <code>undefined</code>, <code>null</code> or empty string), then an object
+will be created for the default <code>uri</code> of this constructor (<code>location.href</code> for mw.Uri,
+other values for other instances -- see mw.UriRelative for details).</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 <a href="mw.Uri.html#.UriOptions">mw.Uri.UriOptions</a>
+</span>
+|
+
+<span class="param-type">
+	 boolean
+</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Object with options, or (backwards compatibility) a boolean
+for strictMode</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.Uri_Uri.js.html">mediawiki.Uri/Uri.js</a>, <a href="mediawiki.Uri_Uri.js.html#line96">line 96</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Throws:</h4>
+
+        
+
+<dl>
+    <dt>
+        <div class="param-desc">
+        <p>when the query string or fragment contains an unknown % sequence</p>
+        </div>
+    </dt>
+    <dd></dd>
+    <dt>
+        <dl>
+            <dt>
+                Type
+            </dt>
+            <dd>
+                
+<span class="param-type">
+	 Error
+</span>
+
+
+
+            </dd>
+        </dl>
+    </dt>
+    <dd></dd>
+</dl>
+
+
+    
+
+
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Create and manipulate MediaWiki URIs.
+    </div>
+
+</div>
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h2 class="subsection-title">Properties</h2>
+
+        
+            
+<div class="member  member--has-toggle-box">
+
+<details id="toggle-fragment" class="toggle-box">
+    <summary>
+        <h3 class="name" id="fragment">
+            fragment<span class="type-signature"> :string|<code>undefined</code></span><span class="type-signature"></span>
+            <a href="#fragment">#</a>
+        </h3>
+    </summary>
+
+    <div class="long">
+    
+    <div class="description">
+        <p>For example <code>top</code>.</p>
+    </div>
+    
+
+    
+
+    
+        <h4>Type:</h4>
+        <ul>
+            <li>
+                
+<span class="param-type">
+	 string
+</span>
+|
+
+<span class="param-type">
+	 <code>undefined</code>
+</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.Uri_Uri.js.html">mediawiki.Uri/Uri.js</a>, <a href="mediawiki.Uri_Uri.js.html#line262">line 262</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    </div>
+</details>
+
+<div class="summary">
+    For example <code>top</code>.
+</div>
+
+</div>
+
+        
+            
+<div class="member  member--has-toggle-box">
+
+<details id="toggle-host" class="toggle-box">
+    <summary>
+        <h3 class="name" id="host">
+            host<span class="type-signature"> :string</span><span class="type-signature"></span>
+            <a href="#host">#</a>
+        </h3>
+    </summary>
+
+    <div class="long">
+    
+    <div class="description">
+        <p>For example <code>www.example.com</code> (always present).</p>
+    </div>
+    
+
+    
+
+    
+        <h4>Type:</h4>
+        <ul>
+            <li>
+                
+<span class="param-type">
+	 string
+</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.Uri_Uri.js.html">mediawiki.Uri/Uri.js</a>, <a href="mediawiki.Uri_Uri.js.html#line242">line 242</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    </div>
+</details>
+
+<div class="summary">
+    For example <code>www.example.com</code> (always present).
+</div>
+
+</div>
+
+        
+            
+<div class="member  member--has-toggle-box">
+
+<details id="toggle-password" class="toggle-box">
+    <summary>
+        <h3 class="name" id="password">
+            password<span class="type-signature"> :string|<code>undefined</code></span><span class="type-signature"></span>
+            <a href="#password">#</a>
+        </h3>
+    </summary>
+
+    <div class="long">
+    
+    <div class="description">
+        <p>For example <code>pwd</code>.</p>
+    </div>
+    
+
+    
+
+    
+        <h4>Type:</h4>
+        <ul>
+            <li>
+                
+<span class="param-type">
+	 string
+</span>
+|
+
+<span class="param-type">
+	 <code>undefined</code>
+</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.Uri_Uri.js.html">mediawiki.Uri/Uri.js</a>, <a href="mediawiki.Uri_Uri.js.html#line237">line 237</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    </div>
+</details>
+
+<div class="summary">
+    For example <code>pwd</code>.
+</div>
+
+</div>
+
+        
+            
+<div class="member  member--has-toggle-box">
+
+<details id="toggle-path" class="toggle-box">
+    <summary>
+        <h3 class="name" id="path">
+            path<span class="type-signature"> :string</span><span class="type-signature"></span>
+            <a href="#path">#</a>
+        </h3>
+    </summary>
+
+    <div class="long">
+    
+    <div class="description">
+        <p>For example <code>/dir/dir.2/index.htm</code> (always present).</p>
+    </div>
+    
+
+    
+
+    
+        <h4>Type:</h4>
+        <ul>
+            <li>
+                
+<span class="param-type">
+	 string
+</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.Uri_Uri.js.html">mediawiki.Uri/Uri.js</a>, <a href="mediawiki.Uri_Uri.js.html#line252">line 252</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    </div>
+</details>
+
+<div class="summary">
+    For example <code>/dir/dir.2/index.htm</code> (always present).
+</div>
+
+</div>
+
+        
+            
+<div class="member  member--has-toggle-box">
+
+<details id="toggle-port" class="toggle-box">
+    <summary>
+        <h3 class="name" id="port">
+            port<span class="type-signature"> :string|<code>undefined</code></span><span class="type-signature"></span>
+            <a href="#port">#</a>
+        </h3>
+    </summary>
+
+    <div class="long">
+    
+    <div class="description">
+        <p>For example <code>81</code>.</p>
+    </div>
+    
+
+    
+
+    
+        <h4>Type:</h4>
+        <ul>
+            <li>
+                
+<span class="param-type">
+	 string
+</span>
+|
+
+<span class="param-type">
+	 <code>undefined</code>
+</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.Uri_Uri.js.html">mediawiki.Uri/Uri.js</a>, <a href="mediawiki.Uri_Uri.js.html#line247">line 247</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    </div>
+</details>
+
+<div class="summary">
+    For example <code>81</code>.
+</div>
+
+</div>
+
+        
+            
+<div class="member  member--has-toggle-box">
+
+<details id="toggle-protocol" class="toggle-box">
+    <summary>
+        <h3 class="name" id="protocol">
+            protocol<span class="type-signature"> :string</span><span class="type-signature"></span>
+            <a href="#protocol">#</a>
+        </h3>
+    </summary>
+
+    <div class="long">
+    
+    <div class="description">
+        <p>For example <code>http</code> (always present).</p>
+    </div>
+    
+
+    
+
+    
+        <h4>Type:</h4>
+        <ul>
+            <li>
+                
+<span class="param-type">
+	 string
+</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.Uri_Uri.js.html">mediawiki.Uri/Uri.js</a>, <a href="mediawiki.Uri_Uri.js.html#line226">line 226</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    </div>
+</details>
+
+<div class="summary">
+    For example <code>http</code> (always present).
+</div>
+
+</div>
+
+        
+            
+<div class="member  member--has-toggle-box">
+
+<details id="toggle-query" class="toggle-box">
+    <summary>
+        <h3 class="name" id="query">
+            query<span class="type-signature"> :Object</span><span class="type-signature"></span>
+            <a href="#query">#</a>
+        </h3>
+    </summary>
+
+    <div class="long">
+    
+    <div class="description">
+        <p>For example <code>{ a: '0', b: '', c: 'value' }</code> (always present).</p>
+    </div>
+    
+
+    
+
+    
+        <h4>Type:</h4>
+        <ul>
+            <li>
+                
+<span class="param-type">
+	 Object
+</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.Uri_Uri.js.html">mediawiki.Uri/Uri.js</a>, <a href="mediawiki.Uri_Uri.js.html#line257">line 257</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    </div>
+</details>
+
+<div class="summary">
+    For example <code>{ a: '0', b: '', c: 'value' }</code> (always present).
+</div>
+
+</div>
+
+        
+            
+<div class="member  member--has-toggle-box">
+
+<details id="toggle-user" class="toggle-box">
+    <summary>
+        <h3 class="name" id="user">
+            user<span class="type-signature"> :string|<code>undefined</code></span><span class="type-signature"></span>
+            <a href="#user">#</a>
+        </h3>
+    </summary>
+
+    <div class="long">
+    
+    <div class="description">
+        <p>For example <code>usr</code>.</p>
+    </div>
+    
+
+    
+
+    
+        <h4>Type:</h4>
+        <ul>
+            <li>
+                
+<span class="param-type">
+	 string
+</span>
+|
+
+<span class="param-type">
+	 <code>undefined</code>
+</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.Uri_Uri.js.html">mediawiki.Uri/Uri.js</a>, <a href="mediawiki.Uri_Uri.js.html#line232">line 232</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    </div>
+</details>
+
+<div class="summary">
+    For example <code>usr</code>.
+</div>
+
+</div>
+
+        
+    
+
+    
+        <h2 class="subsection-title">Methods</h2>
+
+        
+            
+<div class="member  member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-clone" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="clone">
+            clone<span class="signature">()</span><span class="type-signature"> &rarr; {Object}</span><span class="type-signature"></span>
+            <a href="#clone">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Clone this URI.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.Uri_Uri.js.html">mediawiki.Uri/Uri.js</a>, <a href="mediawiki.Uri_Uri.js.html#line476">line 476</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+<div class="param-desc">
+    <p>New URI object with same properties</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 Object
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Clone this URI.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-extend" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="extend">
+            extend<span class="signature">(parameters)</span><span class="type-signature"> &rarr; {Object}</span><span class="type-signature"></span>
+            <a href="#extend">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Extend the query section of the URI with new parameters.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>parameters</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 Object
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Query parameters to add to ours (or to override ours with) as an
+object</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.Uri_Uri.js.html">mediawiki.Uri/Uri.js</a>, <a href="mediawiki.Uri_Uri.js.html#line487">line 487</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+<div class="param-desc">
+    <p>This URI object</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 Object
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Extend the query section of the URI with new parameters.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-getAuthority" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="getAuthority">
+            getAuthority<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span><span class="type-signature"></span>
+            <a href="#getAuthority">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Get the userInfo, host and port section of the URI.</p>
+<p>In most real-world URLs this is simply the hostname, but the definition of 'authority' section is more general.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.Uri_Uri.js.html">mediawiki.Uri/Uri.js</a>, <a href="mediawiki.Uri_Uri.js.html#line409">line 409</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 string
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Get the userInfo, host and port section of the URI.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-getHostPort" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="getHostPort">
+            getHostPort<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span><span class="type-signature"></span>
+            <a href="#getHostPort">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Get host and port section of a URI.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.Uri_Uri.js.html">mediawiki.Uri/Uri.js</a>, <a href="mediawiki.Uri_Uri.js.html#line398">line 398</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 string
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Get host and port section of a URI.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-getQueryString" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="getQueryString">
+            getQueryString<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span><span class="type-signature"></span>
+            <a href="#getQueryString">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Get the query arguments of the URL, encoded into a string.</p>
+<p>Does not preserve the original order of arguments passed in the URI. Does handle escaping.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.Uri_Uri.js.html">mediawiki.Uri/Uri.js</a>, <a href="mediawiki.Uri_Uri.js.html#line420">line 420</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 string
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Get the query arguments of the URL, encoded into a string.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-getRelativePath" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="getRelativePath">
+            getRelativePath<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span><span class="type-signature"></span>
+            <a href="#getRelativePath">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Get everything after the authority section of the URI.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.Uri_Uri.js.html">mediawiki.Uri/Uri.js</a>, <a href="mediawiki.Uri_Uri.js.html#line450">line 450</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 string
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Get everything after the authority section of the URI.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-getUserInfo" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="getUserInfo">
+            getUserInfo<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span><span class="type-signature"></span>
+            <a href="#getUserInfo">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Get user and password section of a URI.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.Uri_Uri.js.html">mediawiki.Uri/Uri.js</a>, <a href="mediawiki.Uri_Uri.js.html#line389">line 389</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 string
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Get user and password section of a URI.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-toString" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="toString">
+            toString<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span><span class="type-signature"></span>
+            <a href="#toString">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Get the entire URI string.</p>
+<p>Note that the output may not be precisely the same as the constructor input,
+due to order of query arguments.
+Note also that the fragment is not always roundtripped as-is; some characters will
+become encoded, including the slash character, which can cause problems with e.g.
+mediawiki.router. It is recommended to use the native URL class (via
+web2017-polyfills, which loads a polyfill if needed) in contexts where the fragment
+is important.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.Uri_Uri.js.html">mediawiki.Uri/Uri.js</a>, <a href="mediawiki.Uri_Uri.js.html#line467">line 467</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+<div class="param-desc">
+    <p>The URI string</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 string
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Get the entire URI string.
+    </div>
+
+</div>
+
+        
+            
+<div class="member method--static member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-.decode" class="toggle-box" >
+    <summary>
+        <h3 class="name" id=".decode">
+            decode<span class="signature">(s)</span><span class="type-signature"> &rarr; {string}</span><span class="type-signature"><span class="type-signature__attrib type-signature__attrib--static">static</span></span>
+            <a href="#.decode">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Decode a url encoded value.</p>
+<p>Reversed <a href="mw.Uri.html#.encode"><code>encode</code></a>. Standard decodeURIComponent, with addition of replacing
+<code>+</code> with a space.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>s</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 string
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>String to decode</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.Uri_Uri.js.html">mediawiki.Uri/Uri.js</a>, <a href="mediawiki.Uri_Uri.js.html#line287">line 287</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Throws:</h4>
+
+        
+
+<dl>
+    <dt>
+        <div class="param-desc">
+        <p>when the string contains an unknown % sequence</p>
+        </div>
+    </dt>
+    <dd></dd>
+    <dt>
+        <dl>
+            <dt>
+                Type
+            </dt>
+            <dd>
+                
+<span class="param-type">
+	 Error
+</span>
+
+
+
+            </dd>
+        </dl>
+    </dt>
+    <dd></dd>
+</dl>
+
+
+    
+
+
+<h4>Returns:</h4>
+
+        
+<div class="param-desc">
+    <p>Decoded string</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 string
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Decode a url encoded value.
+    </div>
+
+</div>
+
+        
+            
+<div class="member method--static member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-.encode" class="toggle-box" >
+    <summary>
+        <h3 class="name" id=".encode">
+            encode<span class="signature">(s)</span><span class="type-signature"> &rarr; {string}</span><span class="type-signature"><span class="type-signature__attrib type-signature__attrib--static">static</span></span>
+            <a href="#.encode">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Encode a value for inclusion in a url.</p>
+<p>Standard encodeURIComponent, with extra stuff to make all browsers work similarly and more
+compliant with RFC 3986. Similar to rawurlencode from PHP and our JS library
+<a href="module-mediawiki.util.html#.rawurlencode"><code>mw.util.rawurlencode</code></a>, except this also replaces spaces with <code>+</code>.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>s</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 string
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>String to encode</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.Uri_Uri.js.html">mediawiki.Uri/Uri.js</a>, <a href="mediawiki.Uri_Uri.js.html#line268">line 268</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+<div class="param-desc">
+    <p>Encoded string for URI</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 string
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Encode a value for inclusion in a url.
+    </div>
+
+</div>
+
+        
+    
+
+    
+        <h2 class="subsection-title">Type Definitions</h2>
+
+        
+                
+<div class="member  member--has-toggle-box">
+
+<details id="toggle-.UriOptions" class="toggle-box">
+    <summary>
+        <h3 class="name" id=".UriOptions">
+            UriOptions
+            <a href="#.UriOptions">#</a>
+        </h3>
+    </summary>
+
+    <div class="long">
+    
+    <div class="description">
+        <p>Options for mw.Uri object.</p>
+    </div>
+    
+
+    
+
+    
+        <h4>Type:</h4>
+        <ul>
+            <li>
+                
+<span class="param-type">
+	 Object
+</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+
+
+    <h4 class="subsection-title">Properties:</h4>
+
+    
+
+<div class="props-wrapper">
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>strictMode</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 boolean
+</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+
+            <td class="description last"><p>Trigger strict mode parsing of the url.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>overrideKeys</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 boolean
+</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+
+            <td class="description last"><p>Whether to let duplicate query parameters
+override each other (<code>true</code>) or automagically convert them to an array (<code>false</code>).</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>arrayParams</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 boolean
+</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+
+            <td class="description last"><p>Whether to parse array query parameters (e.g.
+<code>&amp;foo[0]=a&amp;foo[1]=b</code> or <code>&amp;foo[]=a&amp;foo[]=b</code>) or leave them alone. Currently this does not
+handle associative or multi-dimensional arrays, but that may be improved in the future.
+Implies <code>overrideKeys: true</code> (query parameters without <code>[...]</code> are not parsed as arrays).</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.Uri_Uri.js.html">mediawiki.Uri/Uri.js</a>, <a href="mediawiki.Uri_Uri.js.html#line83">line 83</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    </div>
+</details>
+
+<div class="summary">
+    Options for mw.Uri object.
+</div>
+
+</div>
+
+            
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+				</main>
+			</div>
+		</div>
+	</div>
+	<footer id="footer" class="footer">
+		<div class="content-box">
+			<ul class="footer__list">
+				<li><a href="https://gerrit.wikimedia.org/g/mediawiki/core/">Contribute</a></li>
+			</ul>
+			<p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Mon Mar 25 2024 12:56:26 GMT-0700 (Pacific Daylight Time)</p>
+			<p><a href="https://wikimediafoundation.org/" class="lnk--wikimedia-project">A Wikimedia Foundation project</a></p>
+		</div>
+	</footer>
+
+<script src="scripts/redirect.js"></script>
+<script>
+var arr = function(aa) { return Array.prototype.slice.call(aa); };
+arr(document.querySelectorAll("nav > ol > li a:not([href])")).map(function(el) {
+  var li = el;
+  while (li && li.tagName !== 'LI') { li = li.parentNode; }
+  el.addEventListener('click', function(event) {
+    if (li.classList.contains('is-on')) {
+      li.classList.remove('is-on');
+      return;
+    }
+    arr(document.querySelectorAll("nav li.nav__item.is-on")).map(function(el2) {
+      el2.classList.remove('is-on');
+    });
+    li.classList.add('is-on');
+  });
+});
+</script>
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/open-member.js"> </script>
+</body>
+</html>

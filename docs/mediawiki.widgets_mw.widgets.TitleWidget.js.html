@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]><html lang="en" class="js-off lte-ie8"><![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="js-off ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en" class="js-off">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Source: mediawiki.widgets/mw.widgets.TitleWidget.js, MediaWiki frontend code, JSDoc</title>
+    <script>
+document.documentElement.className = document.documentElement.className.replace(/\bjs-off\b/,'js-on'); // no BEM notation thx to IE
+    </script>
+    <!--[if lt IE 9]>
+      <script>window.html5={'shivCSS':false};</script>
+      <script src="wmf/js/vendor/ie/html5shiv-3.7.3.min.js"></script>
+      <script src="wmf/js/vendor/ie/respond-1.4.2.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="styles/jsdoc-wmf-theme.css">
+    <script src="scripts/lib/prettify/prettify.js"> </script>
+    <script src="scripts/lib/prettify/lang-css.js"> </script>
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link rel="preload" href="wmf/fonts/Charter_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="wmf/fonts/Lato_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <script src="scripts/fonts-loader.js" async=""></script>
+</head>
+
+<body class="page--home">
+	<header id="header" class="header" role="banner">
+		<div class="content-box">
+			<a href="#content" class="is-aural is-focusable">Jump to content</a>
+			<a href="#nav--main" class="is-aural is-focusable">Jump to navigation</a>
+			<div class="header__title">
+				<span class="site-title"><a href="./"><span class="site-logo"></span>MediaWiki frontend code</a></span>
+				<label class="btn--nav-main" for="trigger--nav-main" aria-hidden="true" title="Show main menu">
+					<i></i> <span>Menu</span>
+				</label>
+			</div>
+     		<div id="search-container" class="search-container">
+  <input type="search" id="lunr-search" class="search-input" role="combobox" aria-autocomplete="list" aria-controls="search-results" aria-expanded="false" aria-activedescendant="selected-search-result" placeholder="Search">
+  <ul id="search-results" class="search-results role="listbox"></ul>
+</div>
+<script src="lunr-data.js"></script>
+<script src="scripts/lib/lunr.js"></script>
+<script src="scripts/lunrSearch.js"></script>
+
+		</div>
+	</header>
+	<div class="page">
+		<div class="content-box flex-cols">
+			<div class="flex-col flex-col--start">
+				<input type="checkbox" id="trigger--nav-main" class="trigger--nav-main">
+				<nav id="nav--main" class="nav nav--main" role="navigation">
+					<ol><li class="nav__item"><a href="index.html">Home</a></li><li class="nav__item"><a href="modules.html">Modules</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="module-moment.html">moment</a></li></ul></li><li class="nav__item"><a href="namespaces.html">Namespaces</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="Hooks.html">Hooks</a></li><li class="nav__sub-item"><a href="jQueryPlugins.html">jQueryPlugins</a></li><li class="nav__sub-item"><a href="mw.html">mw</a></li><li class="nav__sub-item"><a href="mw.cldr.html">mw.cldr</a></li><li class="nav__sub-item"><a href="mw.cookie.html">mw.cookie</a></li><li class="nav__sub-item"><a href="mw.errorLogger.html">mw.errorLogger</a></li><li class="nav__sub-item"><a href="mw.experiments.html">mw.experiments</a></li><li class="nav__sub-item"><a href="mw.html.html">mw.html</a></li><li class="nav__sub-item"><a href="mw.htmlform.html">mw.htmlform</a></li><li class="nav__sub-item"><a href="mw.language.html">mw.language</a></li><li class="nav__sub-item"><a href="mw.loader.html">mw.loader</a></li><li class="nav__sub-item"><a href="mw.log.html">mw.log</a></li><li class="nav__sub-item"><a href="mw.messagePoster.html">mw.messagePoster</a></li><li class="nav__sub-item"><a href="mw.notification.html">mw.notification</a></li><li class="nav__sub-item"><a href="mw.searchSuggest.html">mw.searchSuggest</a></li><li class="nav__sub-item"><a href="mw.tempUserCreated.html">mw.tempUserCreated</a></li><li class="nav__sub-item"><a href="mw.template.html">mw.template</a></li><li class="nav__sub-item"><a href="mw.user.html">mw.user</a></li><li class="nav__sub-item"><a href="mw.util.html">mw.util</a></li><li class="nav__sub-item"><a href="mw.widgets.html">mw.widgets</a></li><li class="nav__sub-item"><a href="window.html">window</a></li></ul></li><li class="nav__item"><a>Classes</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="Hook.html">Hook</a></li><li class="nav__sub-item"><a href="MessagePosterFactory.html">MessagePosterFactory</a></li><li class="nav__sub-item"><a href="Notification.html">Notification</a></li><li class="nav__sub-item"><a href="Vue.html">Vue</a></li><li class="nav__sub-item"><a href="mediawiki.inspect.html">mediawiki.inspect</a></li><li class="nav__sub-item"><a href="module-mediawiki.storage-SafeStorage.html">mediawiki.storage~SafeStorage</a></li><li class="nav__sub-item"><a href="mw.Api.html">mw.Api</a></li><li class="nav__sub-item"><a href="mw.Debug.html">mw.Debug</a></li><li class="nav__sub-item"><a href="mw.Feedback.html">mw.Feedback</a></li><li class="nav__sub-item"><a href="mw.Feedback.Dialog.html">mw.Feedback.Dialog</a></li><li class="nav__sub-item"><a href="mw.ForeignApi.html">mw.ForeignApi</a></li><li class="nav__sub-item"><a href="mw.ForeignRest.html">mw.ForeignRest</a></li><li class="nav__sub-item"><a href="mw.ForeignStructuredUpload.html">mw.ForeignStructuredUpload</a></li><li class="nav__sub-item"><a href="mw.ForeignStructuredUpload.BookletLayout.html">mw.ForeignStructuredUpload.BookletLayout</a></li><li class="nav__sub-item"><a href="mw.ForeignUpload.html">mw.ForeignUpload</a></li><li class="nav__sub-item"><a href="mw.GallerySlideshow.html">mw.GallerySlideshow</a></li><li class="nav__sub-item"><a href="mw.Map.html">mw.Map</a></li><li class="nav__sub-item"><a href="mw.Message.html">mw.Message</a></li><li class="nav__sub-item"><a href="mw.Rest.html">mw.Rest</a></li><li class="nav__sub-item"><a href="mw.Title.html">mw.Title</a></li><li class="nav__sub-item"><a href="mw.Upload.html">mw.Upload</a></li><li class="nav__sub-item"><a href="mw.Upload.BookletLayout.html">mw.Upload.BookletLayout</a></li><li class="nav__sub-item"><a href="mw.Upload.Dialog.html">mw.Upload.Dialog</a></li><li class="nav__sub-item"><a href="mw.Uri.html">mw.Uri</a></li><li class="nav__sub-item"><a href="mw.html.Raw.html">mw.html.Raw</a></li><li class="nav__sub-item"><a href="mw.htmlform.ActionFieldLayout.html">mw.htmlform.ActionFieldLayout</a></li><li class="nav__sub-item"><a href="mw.htmlform.Element.html">mw.htmlform.Element</a></li><li class="nav__sub-item"><a href="mw.htmlform.FieldLayout.html">mw.htmlform.FieldLayout</a></li><li class="nav__sub-item"><a href="mw.messagePoster.MessagePoster.html">mw.messagePoster.MessagePoster</a></li><li class="nav__sub-item"><a href="mw.messagePoster.WikitextMessagePoster.html">mw.messagePoster.WikitextMessagePoster</a></li><li class="nav__sub-item"><a href="mw.widgets.APIResultsProvider.html">mw.widgets.APIResultsProvider</a></li><li class="nav__sub-item"><a href="mw.widgets.APIResultsQueue.html">mw.widgets.APIResultsQueue</a></li><li class="nav__sub-item"><a href="mw.widgets.AbandonEditDialog.html">mw.widgets.AbandonEditDialog</a></li><li class="nav__sub-item"><a href="mw.widgets.CalendarWidget.html">mw.widgets.CalendarWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.CategoryMultiselectWidget.html">mw.widgets.CategoryMultiselectWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.CategoryTagItemWidget.html">mw.widgets.CategoryTagItemWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.CheckMatrixWidget.html">mw.widgets.CheckMatrixWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.ComplexNamespaceInputWidget.html">mw.widgets.ComplexNamespaceInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.ComplexTitleInputWidget.html">mw.widgets.ComplexTitleInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.CopyTextLayout.html">mw.widgets.CopyTextLayout</a></li><li class="nav__sub-item"><a href="mw.widgets.DateInputWidget.html">mw.widgets.DateInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.ExpiryWidget.html">mw.widgets.ExpiryWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaResourceProvider.html">mw.widgets.MediaResourceProvider</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaResourceQueue.html">mw.widgets.MediaResourceQueue</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaResultWidget.html">mw.widgets.MediaResultWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaSearchProvider.html">mw.widgets.MediaSearchProvider</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaSearchQueue.html">mw.widgets.MediaSearchQueue</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaSearchWidget.html">mw.widgets.MediaSearchWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaUserUploadsProvider.html">mw.widgets.MediaUserUploadsProvider</a></li><li class="nav__sub-item"><a href="mw.widgets.MediaUserUploadsQueue.html">mw.widgets.MediaUserUploadsQueue</a></li><li class="nav__sub-item"><a href="mw.widgets.NamespaceInputWidget.html">mw.widgets.NamespaceInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.NamespacesMenuOptionWidget.html">mw.widgets.NamespacesMenuOptionWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.NamespacesMultiselectWidget.html">mw.widgets.NamespacesMultiselectWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidget.html">mw.widgets.RowWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidgetModel.html">mw.widgets.RowWidgetModel</a></li><li class="nav__sub-item"><a href="mw.widgets.SearchInputWidget.html">mw.widgets.SearchInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.SelectWithInputWidget.html">mw.widgets.SelectWithInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.SizeFilterWidget.html">mw.widgets.SizeFilterWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.StashedFileWidget.html">mw.widgets.StashedFileWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidget.html">mw.widgets.TableWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidgetModel.html">mw.widgets.TableWidgetModel</a></li><li class="nav__sub-item"><a href="mw.widgets.TagMultiselectWidget.html">mw.widgets.TagMultiselectWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.TitleInputWidget.html">mw.widgets.TitleInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.TitleOptionWidget.html">mw.widgets.TitleOptionWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.TitleSearchWidget.html">mw.widgets.TitleSearchWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.TitleWidget.html">mw.widgets.TitleWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.TitlesMultiselectWidget.html">mw.widgets.TitlesMultiselectWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.ToggleSwitchWidget.html">mw.widgets.ToggleSwitchWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.UserInputWidget.html">mw.widgets.UserInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.UsersMultiselectWidget.html">mw.widgets.UsersMultiselectWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.CalendarWidget.html">mw.widgets.datetime.CalendarWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.DateTimeFormatter.html">mw.widgets.datetime.DateTimeFormatter</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.DateTimeInputWidget.html">mw.widgets.datetime.DateTimeInputWidget</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.DiscordianDateTimeFormatter.html">mw.widgets.datetime.DiscordianDateTimeFormatter</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.ProlepticGregorianDateTimeFormatter.html">mw.widgets.datetime.ProlepticGregorianDateTimeFormatter</a></li></ul></li><li class="nav__item"><a>Events</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="Hooks.html#~event:'RcFilters.highlight.enable'">Hooks~'RcFilters.highlight.enable'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'RcFilters.popup.open'">Hooks~'RcFilters.popup.open'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'editRecovery.loadEnd'">Hooks~'editRecovery.loadEnd'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'htmlform.enhance'">Hooks~'htmlform.enhance'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'postEdit'">Hooks~'postEdit'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'postEdit.afterRemoval'">Hooks~'postEdit.afterRemoval'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'skin.logout'">Hooks~'skin.logout'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'structuredChangeFilters.ui.initialized'">Hooks~'structuredChangeFilters.ui.initialized'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'util.addPortlet'">Hooks~'util.addPortlet'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'util.addPortletLink'">Hooks~'util.addPortletLink'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.categories'">Hooks~'wikipage.categories'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.collapsibleContent'">Hooks~'wikipage.collapsibleContent'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.content'">Hooks~'wikipage.content'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.diff'">Hooks~'wikipage.diff'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.diff.diffTypeSwitch'">Hooks~'wikipage.diff.diffTypeSwitch'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.diff.wikitextDiffBody'">Hooks~'wikipage.diff.wikitextDiffBody'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.editform'">Hooks~'wikipage.editform'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.indicators'">Hooks~'wikipage.indicators'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.tableOfContents'">Hooks~'wikipage.tableOfContents'</a></li><li class="nav__sub-item"><a href="Hooks.html#~event:'wikipage.watchlistChange'">Hooks~'wikipage.watchlistChange'</a></li><li class="nav__sub-item"><a href="mw.Upload.BookletLayout.html#.event:fileSaved">mw.Upload.BookletLayout.fileSaved</a></li><li class="nav__sub-item"><a href="mw.Upload.BookletLayout.html#.event:fileUploadProgress">mw.Upload.BookletLayout.fileUploadProgress</a></li><li class="nav__sub-item"><a href="mw.Upload.BookletLayout.html#.event:fileUploaded">mw.Upload.BookletLayout.fileUploaded</a></li><li class="nav__sub-item"><a href="mw.Upload.BookletLayout.html#.event:infoValid">mw.Upload.BookletLayout.infoValid</a></li><li class="nav__sub-item"><a href="mw.Upload.BookletLayout.html#.event:uploadValid">mw.Upload.BookletLayout.uploadValid</a></li><li class="nav__sub-item"><a href="mw.widgets.CalendarWidget.html#.event:change">mw.widgets.CalendarWidget.change</a></li><li class="nav__sub-item"><a href="mw.widgets.DateInputWidget.html#.event:deactivate">mw.widgets.DateInputWidget.deactivate</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidget.html#.event:deleteButtonClick">mw.widgets.RowWidget.deleteButtonClick</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidget.html#.event:inputChange">mw.widgets.RowWidget.inputChange</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidget.html#.event:labelUpdate">mw.widgets.RowWidget.labelUpdate</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidgetModel.html#.event:clear">mw.widgets.RowWidgetModel.clear</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidgetModel.html#.event:insertCell">mw.widgets.RowWidgetModel.insertCell</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidgetModel.html#.event:labelUpdate">mw.widgets.RowWidgetModel.labelUpdate</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidgetModel.html#.event:removeCell">mw.widgets.RowWidgetModel.removeCell</a></li><li class="nav__sub-item"><a href="mw.widgets.RowWidgetModel.html#.event:valueChange">mw.widgets.RowWidgetModel.valueChange</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidget.html#.event:change">mw.widgets.TableWidget.change</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidget.html#.event:removeRow">mw.widgets.TableWidget.removeRow</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidgetModel.html#.event:clear">mw.widgets.TableWidgetModel.clear</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidgetModel.html#.event:insertColumn">mw.widgets.TableWidgetModel.insertColumn</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidgetModel.html#.event:insertRow">mw.widgets.TableWidgetModel.insertRow</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidgetModel.html#.event:removeColumn">mw.widgets.TableWidgetModel.removeColumn</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidgetModel.html#.event:removeRow">mw.widgets.TableWidgetModel.removeRow</a></li><li class="nav__sub-item"><a href="mw.widgets.TableWidgetModel.html#.event:valueChange">mw.widgets.TableWidgetModel.valueChange</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.CalendarWidget.html#.event:change">mw.widgets.datetime.CalendarWidget.change</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.CalendarWidget.html#.event:focusChanged">mw.widgets.datetime.CalendarWidget.focusChanged</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.CalendarWidget.html#.event:page">mw.widgets.datetime.CalendarWidget.page</a></li><li class="nav__sub-item"><a href="mw.widgets.datetime.DateTimeFormatter.html#.event:local">mw.widgets.datetime.DateTimeFormatter.local</a></li></ul></li></ol>
+				</nav>
+			</div>
+			<div class="flex-col flex-col--end">
+				<main id="content" class="content" role="main">
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint sourcefile linenums"><code>/*!
+ * MediaWiki Widgets - TitleWidget class.
+ *
+ * @copyright 2011-2015 MediaWiki Widgets Team and others; see AUTHORS.txt
+ * @license The MIT License (MIT); see LICENSE.txt
+ */
+( function () {
+	var hasOwn = Object.prototype.hasOwnProperty;
+
+	/**
+	 * Mixin for title widgets.
+	 *
+	 * @class
+	 * @abstract
+	 *
+	 * @constructor
+	 * @param {Object} [config] Configuration options
+	 * @param {number} [config.limit=10] Number of results to show
+	 * @param {number} [config.namespace] Namespace to prepend to queries
+	 * @param {number} [config.maxLength=255] Maximum query length
+	 * @param {boolean} [config.relative=true] If a namespace is set, display titles relative to it
+	 * @param {boolean} [config.suggestions=true] Display search suggestions
+	 * @param {boolean} [config.showRedirectTargets=true] Show the targets of redirects
+	 * @param {boolean} [config.showImages=false] Show page images
+	 * @param {boolean} [config.showDescriptions=false] Show page descriptions
+	 * @param {boolean} [config.showDisambigsLast=false] Show disambiguation pages as the last results
+	 * @param {boolean} [config.showMissing] Show the user's input as a missing page when a page with this
+	 *  exact name doesn't exist. Disabled by default when the namespace option is used, otherwise
+	 *  enabled by default.
+	 * @param {boolean} [config.showInterwikis=false] Show pages with a valid interwiki prefix
+	 * @param {boolean} [config.searchFragments=false] Search for hash fragments on a specific page when typed
+	 * @param {boolean} [config.addQueryInput=true] Add exact user's input query to results
+	 * @param {boolean} [config.excludeCurrentPage=false] Exclude the current page from suggestions
+	 * @param {boolean} [config.excludeDynamicNamespaces=false] Exclude pages whose namespace is negative
+	 * @param {boolean} [config.validateTitle=true] Whether the input must be a valid title
+	 * @param {boolean} [config.required=false] Whether the input must not be empty
+	 * @param {boolean} [config.highlightSearchQuery=true] Highlight the partial query the user used for this title
+	 * @param {Object} [config.cache] Result cache which implements a 'set' method, taking keyed values as an argument
+	 * @param {mw.Api} [config.api] API object to use, creates a default mw.Api instance if not specified
+	 */
+	mw.widgets.TitleWidget = function MwWidgetsTitleWidget( config ) {
+		// Config initialization
+		config = $.extend( {
+			maxLength: 255,
+			limit: 10
+		}, config );
+
+		// Properties
+		this.limit = config.limit;
+		this.maxLength = config.maxLength;
+		this.namespace = config.namespace !== undefined ? config.namespace : null;
+		this.relative = config.relative !== undefined ? config.relative : true;
+		this.suggestions = config.suggestions !== undefined ? config.suggestions : true;
+		this.showRedirectTargets = config.showRedirectTargets !== false;
+		this.showImages = !!config.showImages;
+		this.showDescriptions = !!config.showDescriptions;
+		this.showDisambigsLast = !!config.showDisambigsLast;
+		this.showMissing = config.showMissing !== undefined ? !!config.showMissing : this.namespace === null;
+		this.showInterwikis = !!config.showInterwikis;
+		this.searchFragments = !!config.searchFragments;
+		this.addQueryInput = config.addQueryInput !== false;
+		this.excludeCurrentPage = !!config.excludeCurrentPage;
+		this.excludeDynamicNamespaces = !!config.excludeDynamicNamespaces;
+		this.validateTitle = config.validateTitle !== undefined ? config.validateTitle : true;
+		this.highlightSearchQuery = config.highlightSearchQuery === undefined ? true : !!config.highlightSearchQuery;
+		this.cache = config.cache;
+		this.api = config.api || new mw.Api();
+		this.compare = new Intl.Collator(
+			mw.language.bcp47( mw.config.get( 'wgContentLanguage' ) ),
+			{ sensitivity: 'base' }
+		).compare;
+		this.sectionsCache = {};
+
+		// Initialization
+		this.$element.addClass( 'mw-widget-titleWidget' );
+	};
+
+	/* Setup */
+
+	OO.initClass( mw.widgets.TitleWidget );
+
+	/* Static properties */
+
+	mw.widgets.TitleWidget.static.interwikiPrefixesPromiseCache = {};
+
+	/* Methods */
+
+	/**
+	 * Get the current value of the search query.
+	 *
+	 * @abstract
+	 * @function
+	 * @return {string} Search query
+	 */
+	mw.widgets.TitleWidget.prototype.getQueryValue = null;
+
+	/**
+	 * Get the namespace to prepend to titles in suggestions, if any.
+	 *
+	 * @return {number|null} Namespace number
+	 */
+	mw.widgets.TitleWidget.prototype.getNamespace = function () {
+		return this.namespace;
+	};
+
+	/**
+	 * Set the namespace to prepend to titles in suggestions, if any.
+	 *
+	 * @param {number|null} namespace Namespace number
+	 */
+	mw.widgets.TitleWidget.prototype.setNamespace = function ( namespace ) {
+		this.namespace = namespace;
+	};
+
+	mw.widgets.TitleWidget.prototype.getInterwikiPrefixesPromise = function () {
+		if ( !this.showInterwikis ) {
+			return $.Deferred().resolve( [] ).promise();
+		}
+
+		var api = this.getApi();
+		var cache = this.constructor.static.interwikiPrefixesPromiseCache;
+		var key = api.defaults.ajax.url;
+
+		if ( !Object.prototype.hasOwnProperty.call( cache, key ) ) {
+			cache[ key ] = api.get( {
+				action: 'query',
+				meta: 'siteinfo',
+				siprop: 'interwikimap',
+				// Cache client-side for a day since this info is mostly static
+				maxage: 60 * 60 * 24,
+				smaxage: 60 * 60 * 24,
+				// Workaround T97096 by setting uselang=content
+				uselang: 'content'
+			} ).then( function ( data ) {
+				return data.query.interwikimap.map( function ( interwiki ) {
+					return interwiki.prefix;
+				} );
+			} );
+		}
+		return cache[ key ];
+	};
+
+	/**
+	 * Suggest link fragments from the sections API.
+	 *
+	 * @param {string} title Title, extracted form the user input
+	 * @param {string} fragmentQuery Partial link fragment, from the user input
+	 * @return {jQuery.Promise} Suggestions promise
+	 */
+	mw.widgets.TitleWidget.prototype.getSectionSuggestions = function ( title, fragmentQuery ) {
+		var widget = this;
+		var normalizedTitle = mw.Title.newFromText( title || mw.config.get( 'wgRelevantPageName' ) );
+		if ( !normalizedTitle ) {
+			return $.Deferred().resolve( [] ).promise();
+		}
+		var normalizedTitleText = normalizedTitle.getPrefixedText();
+		this.sectionsCache[ normalizedTitleText ] = this.sectionsCache[ normalizedTitleText ] || this.getApi().get( {
+			action: 'parse',
+			page: normalizedTitleText,
+			prop: 'sections'
+		} );
+
+		function normalizeFragment( fragment ) {
+			return fragment.toLowerCase().replace( /_/g, ' ' );
+		}
+
+		return this.sectionsCache[ normalizedTitleText ].then( function ( response ) {
+			var sections = OO.getProp( response, 'parse', 'sections' ) || [];
+			var normalizedFragmentQuery = normalizeFragment( fragmentQuery );
+			var results = sections.filter( function ( section ) {
+				return normalizeFragment( section.line ).indexOf( normalizedFragmentQuery ) !== -1;
+			} ).map( function ( section ) {
+				var fragment = section.linkAnchor.replace( /_/g, ' ' );
+				// TODO: Make promise abortable
+				return {
+					title: title + '#' + fragment,
+					// `title`` could be empty for a relative fragment, so store the normalized
+					// title if that is needed later.
+					normalizedTitle: normalizedTitle + '#' + fragment,
+					ns: normalizedTitle.getNamespaceId(),
+					// Sort prefix matches to the top
+					index: normalizeFragment( section.line ).indexOf( normalizedFragmentQuery ) === 0 ? 0 : 1
+				};
+			} );
+			// Sorting also happens later, but we need to do it now before we truncate
+			results.sort( function ( a, b ) {
+				return a.index - b.index;
+			} );
+			// Fake query result
+			return {
+				query: {
+					pages: results.slice( 0, widget.limit )
+				}
+			};
+		} ).promise( { abort: function () {} } );
+	};
+
+	/**
+	 * Get a promise which resolves with an API response for suggested
+	 * links for the current query.
+	 *
+	 * @return {jQuery.Promise} Suggestions promise
+	 */
+	mw.widgets.TitleWidget.prototype.getSuggestionsPromise = function () {
+		var api = this.getApi(),
+			query = this.getQueryValue(),
+			widget = this,
+			promiseAbortObject = { abort: function () {
+				// Do nothing. This is just so OOUI doesn't break due to abort being undefined.
+			} };
+
+		if ( this.searchFragments ) {
+			var hashIndex = query.indexOf( '#' );
+			if ( hashIndex !== -1 ) {
+				return this.getSectionSuggestions( query.slice( 0, hashIndex ), query.slice( hashIndex + 1 ) );
+			}
+		}
+
+		if ( !mw.Title.newFromText( query ) ) {
+			// Don't send invalid titles to the API.
+			// Just pretend it returned nothing so we can show the 'invalid title' section
+			return $.Deferred().resolve( {} ).promise( promiseAbortObject );
+		}
+
+		return this.getInterwikiPrefixesPromise().then( function ( interwikiPrefixes ) {
+			// Optimization: check we have any prefixes.
+			if ( interwikiPrefixes.length ) {
+				var interwiki = query.slice( 0, Math.max( 0, query.indexOf( ':' ) ) );
+				if (
+					interwiki !== '' &amp;&amp;
+					interwikiPrefixes.indexOf( interwiki ) !== -1
+				) {
+					// Interwiki prefix is valid: return the original query as a valid title
+					// NB: This doesn't check if the title actually exists on the other wiki
+					return $.Deferred().resolve( { query: {
+						pages: [ {
+							title: query
+						} ]
+					} } ).promise( promiseAbortObject );
+				}
+			}
+			// Not a interwiki: do a prefix-search API lookup of the query.
+			var prefixSearchRequest = api.get( widget.getApiParams( query ) );
+			promiseAbortObject.abort = prefixSearchRequest.abort.bind( prefixSearchRequest ); // TODO ew
+			return prefixSearchRequest.then( function ( prefixSearchResponse ) {
+				if ( !widget.showMissing ) {
+					return prefixSearchResponse;
+				}
+				var title = widget.namespace &amp;&amp; widget.getMWTitle( query );
+				// Add the query title as the first result, after looking up its details.
+				var queryTitleRequest = api.get( {
+					action: 'query',
+					titles: title ? title.getPrefixedDb() : query
+				} );
+				promiseAbortObject.abort = queryTitleRequest.abort.bind( queryTitleRequest );
+				return queryTitleRequest.then( function ( queryTitleResponse ) {
+					// By default, return the prefix-search result.
+					var result = prefixSearchResponse;
+					if ( prefixSearchResponse.query === undefined ) {
+						// There are no prefix-search results, so make the only result the query title.
+						// The API response structures are identical because both API calls are action=query.
+						result.query = queryTitleResponse.query;
+					} else if ( queryTitleResponse.query.pages &amp;&amp; queryTitleResponse.query.pages[ -1 ] !== undefined &amp;&amp;
+						!widget.responseContainsNonExistingTitle( prefixSearchResponse, queryTitleResponse.query.pages[ -1 ].title )
+					) {
+						// There are prefix-search results, but the query title isn't in them,
+						// so add it as a new result. It's under the new key 'queryTitle', because
+						// all other results will be under their page ID or a negative integer ID,
+						// and the keys aren't actually used for anything.
+						result.query.pages.queryTitle = queryTitleResponse.query.pages[ -1 ];
+						// Give it the lowest possible sort-index (the API only returns index > 0)
+						// to make this result be sorted at the top.
+						result.query.pages.queryTitle.index = 0;
+					}
+					return result;
+				} );
+			} );
+		} ).promise( promiseAbortObject );
+	};
+
+	/**
+	 * Check for the existence of a given title in an API result set.
+	 *
+	 * As the title is known not to exist, this doesn't check in apiResponse.query.pages,
+	 * but only in the redirect targets in apiResponse.query.redirects.
+	 *
+	 * @private
+	 * @param {Object} apiResponse The API result set to search in.
+	 * @param {string} title The page title to search for.
+	 * @return {boolean}
+	 */
+	mw.widgets.TitleWidget.prototype.responseContainsNonExistingTitle = function ( apiResponse, title ) {
+		// Make sure there are redirects in the data.
+		if ( apiResponse.query.redirects === undefined ) {
+			return false;
+		}
+		// Check the targets against the given title.
+		for ( var redirect in apiResponse.query.redirects ) {
+			if ( apiResponse.query.redirects[ redirect ].to === title ) {
+				return true;
+			}
+		}
+		// The title wasn't found.
+		return false;
+	};
+
+	/**
+	 * Get API params for a given query.
+	 *
+	 * @param {string} query User query
+	 * @return {Object} API params
+	 */
+	mw.widgets.TitleWidget.prototype.getApiParams = function ( query ) {
+		var params = {
+			action: 'query',
+			prop: [ 'info', 'pageprops' ],
+			generator: 'prefixsearch',
+			gpssearch: query,
+			gpsnamespace: this.namespace !== null ? this.namespace : undefined,
+			gpslimit: this.limit,
+			ppprop: 'disambiguation'
+		};
+		if ( this.showRedirectTargets ) {
+			params.redirects = true;
+		}
+		if ( this.showImages ) {
+			params.prop.push( 'pageimages' );
+			params.pithumbsize = 80;
+			params.pilimit = this.limit;
+		}
+		if ( this.showDescriptions ) {
+			params.prop.push( 'description' );
+		}
+		return params;
+	};
+
+	/**
+	 * Get the API object for title requests.
+	 *
+	 * @return {mw.Api} MediaWiki API
+	 */
+	mw.widgets.TitleWidget.prototype.getApi = function () {
+		return this.api;
+	};
+
+	/**
+	 * Get option widgets from the server response.
+	 *
+	 * @param {Object} data Query result
+	 * @return {OO.ui.OptionWidget[]} Menu items
+	 */
+	mw.widgets.TitleWidget.prototype.getOptionsFromData = function ( data ) {
+		var currentPageName = new mw.Title( mw.config.get( 'wgRelevantPageName' ) ).getPrefixedText(),
+			items = [],
+			titles = [],
+			disambigs = [],
+			titleObj = mw.Title.newFromText( this.getQueryValue() ),
+			redirectsTo = {},
+			redirectIndices = {},
+			pageData = {};
+
+		if ( data.redirects ) {
+			for ( var r = 0, rLen = data.redirects.length; r &lt; rLen; r++ ) {
+				var redirect = data.redirects[ r ];
+				redirectsTo[ redirect.to ] = redirectsTo[ redirect.to ] || [];
+				redirectsTo[ redirect.to ].push( redirect.from );
+				// Save the lowest index for this redirect target.
+				redirectIndices[ redirect.to ] = Math.min( redirectIndices[ redirect.to ] || redirect.index, redirect.index );
+			}
+		}
+
+		for ( var index in data.pages ) {
+			var suggestionPage = data.pages[ index ];
+
+			// When excludeCurrentPage is set, don't list the current page unless the user has type the full title
+			if ( this.excludeCurrentPage &amp;&amp; suggestionPage.title === currentPageName &amp;&amp; suggestionPage.title !== titleObj.getPrefixedText() ) {
+				continue;
+			}
+
+			// When excludeDynamicNamespaces is set, ignore all pages with negative namespace
+			if ( this.excludeDynamicNamespaces &amp;&amp; suggestionPage.ns &lt; 0 ) {
+				continue;
+			}
+			pageData[ suggestionPage.title ] = {
+				known: suggestionPage.known !== undefined,
+				missing: suggestionPage.missing !== undefined,
+				redirect: suggestionPage.redirect !== undefined,
+				disambiguation: OO.getProp( suggestionPage, 'pageprops', 'disambiguation' ) !== undefined,
+				imageUrl: OO.getProp( suggestionPage, 'thumbnail', 'source' ),
+				description: suggestionPage.description,
+				// Sort index
+				index: suggestionPage.index !== undefined ? suggestionPage.index : redirectIndices[ suggestionPage.title ],
+				originalData: suggestionPage
+			};
+
+			// Throw away pages from wrong namespaces. This can happen when 'showRedirectTargets' is true
+			// and we encounter a cross-namespace redirect.
+			if ( this.namespace === null || this.namespace === suggestionPage.ns ) {
+				titles.push( suggestionPage.title );
+			}
+
+			var redirects = hasOwn.call( redirectsTo, suggestionPage.title ) ? redirectsTo[ suggestionPage.title ] : [];
+			for ( var i = 0, iLen = redirects.length; i &lt; iLen; i++ ) {
+				pageData[ redirects[ i ] ] = {
+					missing: false,
+					known: true,
+					redirect: true,
+					disambiguation: false,
+					description: mw.msg( 'mw-widgets-titleinput-description-redirect', suggestionPage.title ),
+					// Sort index, just below its target
+					index: pageData[ suggestionPage.title ].index + 0.5,
+					originalData: suggestionPage
+				};
+				titles.push( redirects[ i ] );
+			}
+		}
+
+		titles.sort( function ( a, b ) {
+			return pageData[ a ].index - pageData[ b ].index;
+		} );
+
+		// If not found, run value through mw.Title to avoid treating a match as a
+		// mismatch where normalisation would make them matching (T50476)
+
+		var pageExistsExact = (
+			hasOwn.call( pageData, this.getQueryValue() ) &amp;&amp;
+			(
+				!pageData[ this.getQueryValue() ].missing ||
+				pageData[ this.getQueryValue() ].known
+			)
+		);
+		var pageExists = pageExistsExact || (
+			titleObj &amp;&amp;
+			hasOwn.call( pageData, titleObj.getPrefixedText() ) &amp;&amp;
+			(
+				!pageData[ titleObj.getPrefixedText() ].missing ||
+				pageData[ titleObj.getPrefixedText() ].known
+			)
+		);
+
+		// Offer the exact text as a suggestion if the page exists
+		if ( this.addQueryInput &amp;&amp; pageExists &amp;&amp; !pageExistsExact ) {
+			titles.unshift( this.getQueryValue() );
+			// Ensure correct page metadata gets used
+			pageData[ this.getQueryValue() ] = pageData[ titleObj.getPrefixedText() ];
+		}
+
+		if ( this.cache ) {
+			this.cache.set( pageData );
+		}
+
+		for ( var t = 0, tLen = titles.length; t &lt; tLen; t++ ) {
+			var page = hasOwn.call( pageData, titles[ t ] ) ? pageData[ titles[ t ] ] : {};
+			var option = this.createOptionWidget( this.getOptionWidgetData( titles[ t ], page ) );
+
+			if ( this.showDisambigsLast &amp;&amp; page.disambiguation ) {
+				disambigs.push( option );
+			} else {
+				items.push( option );
+			}
+		}
+
+		return items.concat( disambigs );
+	};
+
+	/**
+	 * Create a menu option widget with specified data.
+	 *
+	 * @param {Object} data Data for option widget
+	 * @return {OO.ui.MenuOptionWidget} Data for option widget
+	 */
+	mw.widgets.TitleWidget.prototype.createOptionWidget = function ( data ) {
+		return new mw.widgets.TitleOptionWidget( data );
+	};
+
+	/**
+	 * Get menu option widget data from the title and page data.
+	 *
+	 * @param {string} title Title object
+	 * @param {Object} data Page data
+	 * @return {Object} Data for option widget
+	 */
+	mw.widgets.TitleWidget.prototype.getOptionWidgetData = function ( title, data ) {
+		var description = data.description;
+		if ( !description &amp;&amp; ( data.missing &amp;&amp; !data.known ) ) {
+			description = mw.msg( 'mw-widgets-titleinput-description-new-page' );
+		}
+		var mwTitle = new mw.Title( OO.getProp( data, 'originalData', 'normalizedTitle' ) || title );
+		return {
+			data: this.namespace !== null &amp;&amp; this.relative ?
+				mwTitle.getRelativeText( this.namespace ) :
+				title,
+			url: mwTitle.getUrl(),
+			showImages: this.showImages,
+			imageUrl: this.showImages ? data.imageUrl : null,
+			description: this.showDescriptions ? description : null,
+			missing: data.missing &amp;&amp; !data.known,
+			redirect: data.redirect,
+			disambiguation: data.disambiguation,
+			query: this.highlightSearchQuery ? this.getQueryValue() : null,
+			compare: this.compare
+		};
+	};
+
+	/**
+	 * Get title object corresponding to given value, or #getQueryValue if not given.
+	 *
+	 * @param {string} [value] Value to get a title for
+	 * @return {mw.Title|null} Title object, or null if value is invalid
+	 */
+	mw.widgets.TitleWidget.prototype.getMWTitle = function ( value ) {
+		var title = value !== undefined ? value : this.getQueryValue(),
+			// mw.Title doesn't handle null well
+			titleObj = mw.Title.newFromText( title, this.namespace !== null ? this.namespace : undefined );
+
+		return titleObj;
+	};
+
+	/**
+	 * Check if the query is valid.
+	 *
+	 * @return {boolean} The query is valid
+	 */
+	mw.widgets.TitleWidget.prototype.isQueryValid = function () {
+		if ( !this.validateTitle ) {
+			return true;
+		}
+		if ( !this.required &amp;&amp; this.getQueryValue() === '' ) {
+			return true;
+		}
+		return !!this.getMWTitle();
+	};
+
+}() );
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+				</main>
+			</div>
+		</div>
+	</div>
+	<footer id="footer" class="footer">
+		<div class="content-box">
+			<ul class="footer__list">
+				<li><a href="https://gerrit.wikimedia.org/g/mediawiki/core/">Contribute</a></li>
+			</ul>
+			<p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Mon Mar 25 2024 12:56:26 GMT-0700 (Pacific Daylight Time)</p>
+			<p><a href="https://wikimediafoundation.org/" class="lnk--wikimedia-project">A Wikimedia Foundation project</a></p>
+		</div>
+	</footer>
+
+<script src="scripts/redirect.js"></script>
+<script>
+var arr = function(aa) { return Array.prototype.slice.call(aa); };
+arr(document.querySelectorAll("nav > ol > li a:not([href])")).map(function(el) {
+  var li = el;
+  while (li && li.tagName !== 'LI') { li = li.parentNode; }
+  el.addEventListener('click', function(event) {
+    if (li.classList.contains('is-on')) {
+      li.classList.remove('is-on');
+      return;
+    }
+    arr(document.querySelectorAll("nav li.nav__item.is-on")).map(function(el2) {
+      el2.classList.remove('is-on');
+    });
+    li.classList.add('is-on');
+  });
+});
+</script>
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/open-member.js"> </script>
+</body>
+</html>
