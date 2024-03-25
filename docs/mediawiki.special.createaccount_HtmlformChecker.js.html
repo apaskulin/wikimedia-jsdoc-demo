@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]><html lang="en" class="js-off lte-ie8"><![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="js-off ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en" class="js-off">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Source: mediawiki.special.createaccount/HtmlformChecker.js, MediaWiki frontend code, JSDoc</title>
+    <script>
+document.documentElement.className = document.documentElement.className.replace(/\bjs-off\b/,'js-on'); // no BEM notation thx to IE
+    </script>
+    <!--[if lt IE 9]>
+      <script>window.html5={'shivCSS':false};</script>
+      <script src="wmf/js/vendor/ie/html5shiv-3.7.3.min.js"></script>
+      <script src="wmf/js/vendor/ie/respond-1.4.2.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="styles/jsdoc-wmf-theme.css">
+    <script src="scripts/lib/prettify/prettify.js"> </script>
+    <script src="scripts/lib/prettify/lang-css.js"> </script>
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link rel="preload" href="wmf/fonts/Charter_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="wmf/fonts/Lato_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <script src="scripts/fonts-loader.js" async=""></script>
+</head>
+
+<body class="page--home">
+	<header id="header" class="header" role="banner">
+		<div class="content-box">
+			<a href="#content" class="is-aural is-focusable">Jump to content</a>
+			<a href="#nav--main" class="is-aural is-focusable">Jump to navigation</a>
+			<div class="header__title">
+				<span class="site-title"><a href="./"><span class="site-logo"></span>MediaWiki frontend code</a></span>
+				<label class="btn--nav-main" for="trigger--nav-main" aria-hidden="true" title="Show main menu">
+					<i></i> <span>Menu</span>
+				</label>
+			</div>
+     		<div id="search-container" class="search-container">
+  <input type="search" id="lunr-search" class="search-input" role="combobox" aria-autocomplete="list" aria-controls="search-results" aria-expanded="false" aria-activedescendant="selected-search-result" placeholder="Search">
+  <ul id="search-results" class="search-results role="listbox"></ul>
+</div>
+<script src="lunr-data.js"></script>
+<script src="scripts/lib/lunr.js"></script>
+<script src="scripts/lunrSearch.js"></script>
+
+		</div>
+	</header>
+	<div class="page">
+		<div class="content-box flex-cols">
+			<div class="flex-col flex-col--start">
+				<input type="checkbox" id="trigger--nav-main" class="trigger--nav-main">
+				<nav id="nav--main" class="nav nav--main" role="navigation">
+					<ol><li class="nav__item"><a href="index.html">Home</a></li><li class="nav__item"><a href="modules.html">Modules</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="module-mediawiki.ForeignApi.html">mediawiki.ForeignApi</a></li><li class="nav__sub-item"><a href="module-mediawiki.String.html">mediawiki.String</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.jpegmeta.html">mediawiki.libs.jpegmeta</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.pluralruleparser.html">mediawiki.libs.pluralruleparser</a></li><li class="nav__sub-item"><a href="module-mediawiki.notification.convertmessagebox.html">mediawiki.notification.convertmessagebox</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.preview.html">mediawiki.page.preview</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.ready.html">mediawiki.page.ready</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.watch.ajax.html">mediawiki.page.watch.ajax</a></li><li class="nav__sub-item"><a href="module-mediawiki.storage.html">mediawiki.storage</a></li><li class="nav__sub-item"><a href="module-mediawiki.util.html">mediawiki.util</a></li><li class="nav__sub-item"><a href="module-mediawiki.visibleTimeout.html">mediawiki.visibleTimeout</a></li><li class="nav__sub-item"><a href="module-mediawiki.watchstar.widgets.html">mediawiki.watchstar.widgets</a></li><li class="nav__sub-item"><a href="module-moment.html">moment</a></li></ul></li><li class="nav__item"><a href="namespaces.html">Frontend API</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="Hooks.html">Hooks</a></li><li class="nav__sub-item"><a href="jQueryPlugins.html">jQueryPlugins</a></li><li class="nav__sub-item"><a href="mw.html">mw</a></li><li class="nav__sub-item"><a href="window.html">window</a></li></ul></li><li class="nav__item"><a href="sitemap.html">Sitemap</a></li></ol>
+				</nav>
+			</div>
+			<div class="flex-col flex-col--end">
+				<main id="content" class="content" role="main">
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint sourcefile linenums"><code>/**
+ * A helper class to add validation to non-OOUI HTMLForm fields.
+ *
+ * @private
+ * @class HtmlformChecker
+ *
+ * @constructor
+ * @param {jQuery} $element Form field generated by HTMLForm
+ * @param {Function} validator Validation callback
+ * @param {string} validator.value Value of the form field to be validated
+ * @param {jQuery.Promise} validator.return The promise should be resolved
+ *  with an object with two properties: Boolean 'valid' to indicate success
+ *  or failure of validation, and an array 'messages' to be passed to
+ *  setErrors() on failure.
+ */
+function HtmlformChecker( $element, validator ) {
+	this.validator = validator;
+	this.$element = $element;
+
+	this.$errorBox = $element.next( '.mw-message-box-error' );
+	if ( !this.$errorBox.length ) {
+		this.$errorBox = $( '&lt;div>' );
+		this.$errorBox.hide();
+		$element.after( this.$errorBox );
+	}
+
+	this.currentValue = this.$element.val();
+}
+
+/**
+ * Attach validation events to the form element
+ *
+ * @param {jQuery} [$extraElements] Additional elements to listen for change
+ *  events on.
+ * @return {HtmlformChecker}
+ * @chainable
+ */
+HtmlformChecker.prototype.attach = function ( $extraElements ) {
+	var $e = this.$element,
+		// We need to hook to all of these events to be sure we are
+		// notified of all changes to the value of an &lt;input type=text>
+		// field.
+		events = 'keyup keydown change mouseup cut paste focus blur';
+
+	if ( $extraElements ) {
+		$e = $e.add( $extraElements );
+	}
+	$e.on( events, mw.util.debounce( this.validate.bind( this ), 1000 ) );
+
+	return this;
+};
+
+/**
+ * Validate the form element
+ *
+ * @return {jQuery.Promise}
+ */
+HtmlformChecker.prototype.validate = function () {
+	var currentRequestInternal,
+		that = this,
+		value = this.$element.val();
+
+	// Abort any pending requests.
+	if ( this.currentRequest &amp;&amp; this.currentRequest.abort ) {
+		this.currentRequest.abort();
+	}
+
+	if ( value === '' ) {
+		this.currentValue = value;
+		this.setErrors( true, [] );
+		return;
+	}
+
+	this.currentRequest = currentRequestInternal = this.validator( value )
+		.done( function ( info ) {
+			var forceReplacement = value !== that.currentValue;
+
+			// Another request was fired in the meantime, the result we got here is no longer current.
+			// This shouldn't happen as we abort pending requests, but you never know.
+			if ( that.currentRequest !== currentRequestInternal ) {
+				return;
+			}
+			// If we're here, then the current request has finished, avoid calling .abort() needlessly.
+			that.currentRequest = undefined;
+
+			that.currentValue = value;
+
+			that.setErrors( info.valid, info.messages, forceReplacement );
+		} ).fail( function () {
+			that.currentValue = null;
+			that.setErrors( true, [] );
+		} );
+
+	return currentRequestInternal;
+};
+
+/**
+ * Display errors associated with the form element
+ *
+ * @param {boolean} valid Whether the input is still valid regardless of the messages
+ * @param {Array} errors Errorbox messages. Each errorbox message will be appended to a
+ *  `&lt;div>` or `&lt;li>`, as with jQuery.append().
+ * @param {boolean} [forceReplacement] Set true to force a visual replacement even
+ *  if the errors are the same. Ignored if errors are empty.
+ * @return {HtmlformChecker}
+ * @chainable
+ */
+HtmlformChecker.prototype.setErrors = function ( valid, errors, forceReplacement ) {
+	var $oldErrorBox,
+		showFunc,
+		$text,
+		replace,
+		$errorBox = this.$errorBox;
+
+	if ( errors.length === 0 ) {
+		// FIXME: Use CSS transition
+		// eslint-disable-next-line no-jquery/no-slide
+		$errorBox.slideUp( function () {
+			$errorBox
+				.removeAttr( 'class' )
+				.empty();
+		} );
+	} else {
+		// Animate the replacement if told to by the caller (i.e. to make it visually
+		// obvious that the changed field value gives the same errorbox) or if
+		// the errorbox text changes (because it makes more sense than
+		// changing the text with no animation).
+		replace = forceReplacement;
+		if ( !replace ) {
+			$text = $( '&lt;div>' );
+			// Match behavior of HTMLFormField::formatErrors()
+			if ( errors.length === 1 ) {
+				$text.append( errors[ 0 ] );
+			} else {
+				$text.append(
+					$( '&lt;ul>' ).append(
+						errors.map( function ( e ) {
+							return $( '&lt;li>' ).append( e );
+						} )
+					)
+				);
+			}
+			if ( $text.text() !== $errorBox.text() ) {
+				replace = true;
+			}
+		}
+
+		$oldErrorBox = $errorBox;
+		if ( replace ) {
+			this.$errorBox = $errorBox = $( '&lt;div>' );
+			$errorBox.hide();
+			$oldErrorBox.after( this.$errorBox );
+		}
+
+		showFunc = function () {
+			if ( $oldErrorBox !== $errorBox ) {
+				$oldErrorBox
+					.removeAttr( 'class' )
+					.detach();
+			}
+			$errorBox
+				.attr( 'class', 'mw-message-box' )
+				.addClass( valid ? 'mw-message-box-warning' : 'mw-message-box-error' )
+				.empty();
+			// Match behavior of HTMLFormField::formatErrors()
+			if ( errors.length === 1 ) {
+				$errorBox.append( errors[ 0 ] );
+			} else {
+				$errorBox.append(
+					$( '&lt;ul>' ).append(
+						errors.map( function ( e ) {
+							return $( '&lt;li>' ).append( e );
+						} )
+					)
+				);
+			}
+			// FIXME: Use CSS transition
+			// eslint-disable-next-line no-jquery/no-slide
+			$errorBox.slideDown();
+		};
+		if (
+			$oldErrorBox !== $errorBox &amp;&amp;
+			// eslint-disable-next-line no-jquery/no-class-state
+			( $oldErrorBox.hasClass( 'mw-message-box-error' ) || $oldErrorBox.hasClass( 'mw-message-box-warning' ) )
+		) {
+			// eslint-disable-next-line no-jquery/no-slide
+			$oldErrorBox.slideUp( showFunc );
+		} else {
+			showFunc();
+		}
+	}
+
+	return this;
+};
+
+module.exports = HtmlformChecker;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+				</main>
+			</div>
+		</div>
+	</div>
+	<footer id="footer" class="footer">
+		<div class="content-box">
+			<ul class="footer__list">
+				<li><a href="https://gerrit.wikimedia.org/g/mediawiki/core/">Contribute</a></li>
+			</ul>
+			<p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Mon Mar 25 2024 13:41:33 GMT-0700 (Pacific Daylight Time)</p>
+			<p><a href="https://wikimediafoundation.org/" class="lnk--wikimedia-project">A Wikimedia Foundation project</a></p>
+		</div>
+	</footer>
+
+<script src="scripts/redirect.js"></script>
+<script>
+var arr = function(aa) { return Array.prototype.slice.call(aa); };
+arr(document.querySelectorAll("nav > ol > li a:not([href])")).map(function(el) {
+  var li = el;
+  while (li && li.tagName !== 'LI') { li = li.parentNode; }
+  el.addEventListener('click', function(event) {
+    if (li.classList.contains('is-on')) {
+      li.classList.remove('is-on');
+      return;
+    }
+    arr(document.querySelectorAll("nav li.nav__item.is-on")).map(function(el2) {
+      el2.classList.remove('is-on');
+    });
+    li.classList.add('is-on');
+  });
+});
+</script>
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/open-member.js"> </script>
+</body>
+</html>

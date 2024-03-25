@@ -1,0 +1,5285 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]><html lang="en" class="js-off lte-ie8"><![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="js-off ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en" class="js-off">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Class: MediaUserUploadsProvider, MediaWiki frontend code, JSDoc</title>
+    <script>
+document.documentElement.className = document.documentElement.className.replace(/\bjs-off\b/,'js-on'); // no BEM notation thx to IE
+    </script>
+    <!--[if lt IE 9]>
+      <script>window.html5={'shivCSS':false};</script>
+      <script src="wmf/js/vendor/ie/html5shiv-3.7.3.min.js"></script>
+      <script src="wmf/js/vendor/ie/respond-1.4.2.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="styles/jsdoc-wmf-theme.css">
+    <script src="scripts/lib/prettify/prettify.js"> </script>
+    <script src="scripts/lib/prettify/lang-css.js"> </script>
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link rel="preload" href="wmf/fonts/Charter_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="wmf/fonts/Lato_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <script src="scripts/fonts-loader.js" async=""></script>
+</head>
+
+<body class="page--home">
+	<header id="header" class="header" role="banner">
+		<div class="content-box">
+			<a href="#content" class="is-aural is-focusable">Jump to content</a>
+			<a href="#nav--main" class="is-aural is-focusable">Jump to navigation</a>
+			<div class="header__title">
+				<span class="site-title"><a href="./"><span class="site-logo"></span>MediaWiki frontend code</a></span>
+				<label class="btn--nav-main" for="trigger--nav-main" aria-hidden="true" title="Show main menu">
+					<i></i> <span>Menu</span>
+				</label>
+			</div>
+     		<div id="search-container" class="search-container">
+  <input type="search" id="lunr-search" class="search-input" role="combobox" aria-autocomplete="list" aria-controls="search-results" aria-expanded="false" aria-activedescendant="selected-search-result" placeholder="Search">
+  <ul id="search-results" class="search-results role="listbox"></ul>
+</div>
+<script src="lunr-data.js"></script>
+<script src="scripts/lib/lunr.js"></script>
+<script src="scripts/lunrSearch.js"></script>
+
+		</div>
+	</header>
+	<div class="page">
+		<div class="content-box flex-cols">
+			<div class="flex-col flex-col--start">
+				<input type="checkbox" id="trigger--nav-main" class="trigger--nav-main">
+				<nav id="nav--main" class="nav nav--main" role="navigation">
+					<ol><li class="nav__item"><a href="index.html">Home</a></li><li class="nav__item"><a href="modules.html">Modules</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="module-mediawiki.ForeignApi.html">mediawiki.ForeignApi</a></li><li class="nav__sub-item"><a href="module-mediawiki.String.html">mediawiki.String</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.jpegmeta.html">mediawiki.libs.jpegmeta</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.pluralruleparser.html">mediawiki.libs.pluralruleparser</a></li><li class="nav__sub-item"><a href="module-mediawiki.notification.convertmessagebox.html">mediawiki.notification.convertmessagebox</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.preview.html">mediawiki.page.preview</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.ready.html">mediawiki.page.ready</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.watch.ajax.html">mediawiki.page.watch.ajax</a></li><li class="nav__sub-item"><a href="module-mediawiki.storage.html">mediawiki.storage</a></li><li class="nav__sub-item"><a href="module-mediawiki.util.html">mediawiki.util</a></li><li class="nav__sub-item"><a href="module-mediawiki.visibleTimeout.html">mediawiki.visibleTimeout</a></li><li class="nav__sub-item"><a href="module-mediawiki.watchstar.widgets.html">mediawiki.watchstar.widgets</a></li><li class="nav__sub-item"><a href="module-moment.html">moment</a></li></ul></li><li class="nav__item"><a href="namespaces.html">Frontend API</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="Hooks.html">Hooks</a></li><li class="nav__sub-item"><a href="jQueryPlugins.html">jQueryPlugins</a></li><li class="nav__sub-item"><a href="mw.html">mw</a></li><li class="nav__sub-item"><a href="window.html">window</a></li></ul></li><li class="nav__item"><a href="sitemap.html">Sitemap</a></li></ol>
+				</nav>
+			</div>
+			<div class="flex-col flex-col--end">
+				<main id="content" class="content" role="main">
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+    <nav class="breadcrumbs">
+        <a href="mw.html">mw</a> &gt; <a href="mw.widgets.html">widgets</a> &gt;
+        MediaUserUploadsProvider
+    </nav>
+    
+    <h1><span class="attribs"><span class="type-signature"></span></span>
+        <span class="ancestors"><a href="mw.html">mw</a><a href="mw.widgets.html">.widgets</a>.</span>MediaUserUploadsProvider</h1>
+    
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+        
+<div class="member  member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-MediaUserUploadsProvider" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="MediaUserUploadsProvider">
+            new mw.widgets.MediaUserUploadsProvider<span class="signature">(apiurl, config)</span><span class="type-signature"></span><span class="type-signature"></span>
+            <a href="#MediaUserUploadsProvider">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>MediaWiki media search provider.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>apiurl</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 string
+</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>The API url</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>config</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 Object
+</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Configuration options</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaUserUploadsProvider.js.html">mediawiki.widgets/MediaSearch/mw.widgets.MediaUserUploadsProvider.js</a>, <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaUserUploadsProvider.js.html#line19">line 19</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        MediaWiki media search provider.
+    </div>
+
+</div>
+
+    
+    </div>
+
+    
+        <h2 class="subsection-title">Extends</h2>
+
+        
+
+
+    <ul>
+        <li><a href="mw.widgets.MediaResourceProvider.html">mw.widgets.MediaResourceProvider</a></li>
+    </ul>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h2 class="subsection-title">Methods</h2>
+
+        
+            
+<div class="member  method--inherited member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-fetchAPIresults" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="fetchAPIresults">
+            fetchAPIresults<span class="signature">(howMany)</span><span class="type-signature"> &rarr; {<a href="https://api.jquery.com/Types/#Promise">jQuery.Promise</a>}</span><span class="type-signature"></span>
+            <a href="#fetchAPIresults">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Call the API for search results.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>howMany</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 number
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The number of results to retrieve</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="mw.widgets.MediaResourceProvider.html#fetchAPIresults">mw.widgets.MediaResourceProvider#fetchAPIresults</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResourceProvider.js.html">mediawiki.widgets/MediaSearch/mw.widgets.MediaResourceProvider.js</a>, <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResourceProvider.js.html#line171">line 171</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+<div class="param-desc">
+    <p>Promise that resolves with an array of objects that contain
+the fetched data.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 <a href="https://api.jquery.com/Types/#Promise">jQuery.Promise</a>
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Call the API for search results.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  method--inherited member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-getAPIurl" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="getAPIurl">
+            getAPIurl<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span><span class="type-signature"></span>
+            <a href="#getAPIurl">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Get API URL.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="mw.widgets.APIResultsProvider.html#getAPIurl">mw.widgets.APIResultsProvider#getAPIurl</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_MediaSearch_mw.widgets.APIResultsProvider.js.html">mediawiki.widgets/MediaSearch/mw.widgets.APIResultsProvider.js</a>, <a href="mediawiki.widgets_MediaSearch_mw.widgets.APIResultsProvider.js.html#line86">line 86</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+<div class="param-desc">
+    <p>API URL</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 string
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Get API URL.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  method--inherited member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-getAjaxSettings" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="getAjaxSettings">
+            getAjaxSettings<span class="signature">()</span><span class="type-signature"> &rarr; {Object}</span><span class="type-signature"></span>
+            <a href="#getAjaxSettings">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Get the default ajax settings.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="mw.widgets.APIResultsProvider.html#getAjaxSettings">mw.widgets.APIResultsProvider#getAjaxSettings</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_MediaSearch_mw.widgets.APIResultsProvider.js.html">mediawiki.widgets/MediaSearch/mw.widgets.APIResultsProvider.js</a>, <a href="mediawiki.widgets_MediaSearch_mw.widgets.APIResultsProvider.js.html#line210">line 210</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+<div class="param-desc">
+    <p>Ajax settings</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 Object
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Get the default ajax settings.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  method--inherited member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-getContinueData" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="getContinueData">
+            getContinueData<span class="signature">(howMany)</span><span class="type-signature"> &rarr; {Object}</span><span class="type-signature"></span>
+            <a href="#getContinueData">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Get continuation API data.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>howMany</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 number
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The number of results to retrieve</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="mw.widgets.MediaResourceProvider.html#getContinueData">mw.widgets.MediaResourceProvider#getContinueData</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResourceProvider.js.html">mediawiki.widgets/MediaSearch/mw.widgets.MediaResourceProvider.js</a>, <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResourceProvider.js.html#line142">line 142</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+<div class="param-desc">
+    <p>API request data</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 Object
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Get continuation API data.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  method--inherited member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-getDefaultFetchLimit" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="getDefaultFetchLimit">
+            getDefaultFetchLimit<span class="signature">()</span><span class="type-signature"> &rarr; {number}</span><span class="type-signature"></span>
+            <a href="#getDefaultFetchLimit">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Get fetch limit or 'page' size. This is the number
+of results per request.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="mw.widgets.APIResultsProvider.html#getDefaultFetchLimit">mw.widgets.APIResultsProvider#getDefaultFetchLimit</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_MediaSearch_mw.widgets.APIResultsProvider.js.html">mediawiki.widgets/MediaSearch/mw.widgets.APIResultsProvider.js</a>, <a href="mediawiki.widgets_MediaSearch_mw.widgets.APIResultsProvider.js.html#line137">line 137</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+<div class="param-desc">
+    <p>limit</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 number
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Get fetch limit or 'page' size.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  method--inherited member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-getFetchProp" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="getFetchProp">
+            getFetchProp<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span><span class="type-signature"></span>
+            <a href="#getFetchProp">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Get prop.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="mw.widgets.MediaResourceProvider.html#getFetchProp">mw.widgets.MediaResourceProvider#getFetchProp</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResourceProvider.js.html">mediawiki.widgets/MediaSearch/mw.widgets.MediaResourceProvider.js</a>, <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResourceProvider.js.html#line259">line 259</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+<div class="param-desc">
+    <p>prop</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 string
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Get prop.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  method--inherited member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-getImageSizes" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="getImageSizes">
+            getImageSizes<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>.&lt;number>}</span><span class="type-signature"></span>
+            <a href="#getImageSizes">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Get image sizes.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="mw.widgets.MediaResourceProvider.html#getImageSizes">mw.widgets.MediaResourceProvider#getImageSizes</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResourceProvider.js.html">mediawiki.widgets/MediaSearch/mw.widgets.MediaResourceProvider.js</a>, <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResourceProvider.js.html#line304">line 304</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+<div class="param-desc">
+    <p>sizes Available image sizes</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>.&lt;number>
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Get image sizes.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  method--inherited member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-getLang" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="getLang">
+            getLang<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span><span class="type-signature"></span>
+            <a href="#getLang">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Get provider API language.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="mw.widgets.APIResultsProvider.html#getLang">mw.widgets.APIResultsProvider#getLang</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_MediaSearch_mw.widgets.APIResultsProvider.js.html">mediawiki.widgets/MediaSearch/mw.widgets.APIResultsProvider.js</a>, <a href="mediawiki.widgets_MediaSearch_mw.widgets.APIResultsProvider.js.html#line155">line 155</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+<div class="param-desc">
+    <p>Provider API language</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 string
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Get provider API language.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  method--inherited member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-getName" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="getName">
+            getName<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span><span class="type-signature"></span>
+            <a href="#getName">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Get name.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="mw.widgets.MediaResourceProvider.html#getName">mw.widgets.MediaResourceProvider#getName</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResourceProvider.js.html">mediawiki.widgets/MediaSearch/mw.widgets.MediaResourceProvider.js</a>, <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResourceProvider.js.html#line238">line 238</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+<div class="param-desc">
+    <p>name</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 string
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Get name.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  method--inherited member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-getOffset" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="getOffset">
+            getOffset<span class="signature">()</span><span class="type-signature"> &rarr; {number}</span><span class="type-signature"></span>
+            <a href="#getOffset">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Get result offset.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="mw.widgets.APIResultsProvider.html#getOffset">mw.widgets.APIResultsProvider#getOffset</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_MediaSearch_mw.widgets.APIResultsProvider.js.html">mediawiki.widgets/MediaSearch/mw.widgets.APIResultsProvider.js</a>, <a href="mediawiki.widgets_MediaSearch_mw.widgets.APIResultsProvider.js.html#line173">line 173</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+<div class="param-desc">
+    <p>Offset Results offset for the upcoming request</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 number
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Get result offset.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  method--inherited member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-getResults" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="getResults">
+            getResults<span class="signature">(howMany)</span><span class="type-signature"> &rarr; {<a href="https://api.jquery.com/Types/#Promise">jQuery.Promise</a>}</span><span class="type-signature"></span>
+            <a href="#getResults">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Override parent method and get results from the source.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>howMany</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 number
+</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>The number of items to pull from the API</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="mw.widgets.MediaResourceProvider.html#getResults">mw.widgets.MediaResourceProvider#getResults</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResourceProvider.js.html">mediawiki.widgets/MediaSearch/mw.widgets.MediaResourceProvider.js</a>, <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResourceProvider.js.html#line101">line 101</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+<div class="param-desc">
+    <p>Promise that is resolved into an array
+of available results, or is rejected if no results are available.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 <a href="https://api.jquery.com/Types/#Promise">jQuery.Promise</a>
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Override parent method and get results from the source.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  method--inherited member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-getStandardWidth" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="getStandardWidth">
+            getStandardWidth<span class="signature">()</span><span class="type-signature"> &rarr; {number|<code>undefined</code>}</span><span class="type-signature"></span>
+            <a href="#getStandardWidth">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Get standard width, based on the provider source's thumb sizes.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="mw.widgets.MediaResourceProvider.html#getStandardWidth">mw.widgets.MediaResourceProvider#getStandardWidth</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResourceProvider.js.html">mediawiki.widgets/MediaSearch/mw.widgets.MediaResourceProvider.js</a>, <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResourceProvider.js.html#line247">line 247</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+<div class="param-desc">
+    <p>fetchWidth</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 number
+</span>
+|
+
+<span class="param-type">
+	 <code>undefined</code>
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Get standard width, based on the provider source's thumb sizes.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  method--inherited member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-getStaticParams" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="getStaticParams">
+            getStaticParams<span class="signature">()</span><span class="type-signature"> &rarr; {Object}</span><span class="type-signature"></span>
+            <a href="#getStaticParams">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Get the static, non-changing data parameters sent to the API.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="mw.widgets.APIResultsProvider.html#getStaticParams">mw.widgets.APIResultsProvider#getStaticParams</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_MediaSearch_mw.widgets.APIResultsProvider.js.html">mediawiki.widgets/MediaSearch/mw.widgets.APIResultsProvider.js</a>, <a href="mediawiki.widgets_MediaSearch_mw.widgets.APIResultsProvider.js.html#line95">line 95</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+<div class="param-desc">
+    <p>Data parameters</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 Object
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Get the static, non-changing data parameters sent to the API.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  method--inherited member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-getThumbSizes" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="getThumbSizes">
+            getThumbSizes<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>.&lt;number>}</span><span class="type-signature"></span>
+            <a href="#getThumbSizes">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Get thumb sizes.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="mw.widgets.MediaResourceProvider.html#getThumbSizes">mw.widgets.MediaResourceProvider#getThumbSizes</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResourceProvider.js.html">mediawiki.widgets/MediaSearch/mw.widgets.MediaResourceProvider.js</a>, <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResourceProvider.js.html#line295">line 295</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+<div class="param-desc">
+    <p>sizes Available thumbnail sizes</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>.&lt;number>
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Get thumb sizes.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  method--inherited member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-getUserParams" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="getUserParams">
+            getUserParams<span class="signature">()</span><span class="type-signature"> &rarr; {Object}</span><span class="type-signature"></span>
+            <a href="#getUserParams">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Get the user-inputted dynamic data parameters sent to the API.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="mw.widgets.APIResultsProvider.html#getUserParams">mw.widgets.APIResultsProvider#getUserParams</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_MediaSearch_mw.widgets.APIResultsProvider.js.html">mediawiki.widgets/MediaSearch/mw.widgets.APIResultsProvider.js</a>, <a href="mediawiki.widgets_MediaSearch_mw.widgets.APIResultsProvider.js.html#line104">line 104</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+<div class="param-desc">
+    <p>Data parameters</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 Object
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Get the user-inputted dynamic data parameters sent to the API.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  method--inherited member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-isDepleted" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="isDepleted">
+            isDepleted<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span><span class="type-signature"></span>
+            <a href="#isDepleted">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Check whether the provider is depleted and has no more results
+to hand off.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="mw.widgets.APIResultsProvider.html#isDepleted">mw.widgets.APIResultsProvider#isDepleted</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_MediaSearch_mw.widgets.APIResultsProvider.js.html">mediawiki.widgets/MediaSearch/mw.widgets.APIResultsProvider.js</a>, <a href="mediawiki.widgets_MediaSearch_mw.widgets.APIResultsProvider.js.html#line192">line 192</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+<div class="param-desc">
+    <p>The provider is depleted</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 boolean
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        <p>Check whether the provider is depleted and has no more results
+to hand off.</p>
+    </div>
+
+</div>
+
+        
+            
+<div class="member  method--inherited member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-isValid" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="isValid">
+            isValid<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span><span class="type-signature"></span>
+            <a href="#isValid">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Check if this source is valid.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="mw.widgets.MediaResourceProvider.html#isValid">mw.widgets.MediaResourceProvider#isValid</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResourceProvider.js.html">mediawiki.widgets/MediaSearch/mw.widgets.MediaResourceProvider.js</a>, <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResourceProvider.js.html#line313">line 313</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+<div class="param-desc">
+    <p>Source is valid</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 boolean
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Check if this source is valid.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  method--inherited member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-loadSiteInfo" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="loadSiteInfo">
+            loadSiteInfo<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="https://api.jquery.com/Types/#Promise">jQuery.Promise</a>}</span><span class="type-signature"></span>
+            <a href="#loadSiteInfo">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Initialize the source and get the site info.</p>
+<p>Connect to the api url and retrieve the siteinfo parameters
+that are required for fetching results.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="mw.widgets.MediaResourceProvider.html#loadSiteInfo">mw.widgets.MediaResourceProvider#loadSiteInfo</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResourceProvider.js.html">mediawiki.widgets/MediaSearch/mw.widgets.MediaResourceProvider.js</a>, <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResourceProvider.js.html#line74">line 74</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+<div class="param-desc">
+    <p>Promise that resolves when the class
+properties are set.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 <a href="https://api.jquery.com/Types/#Promise">jQuery.Promise</a>
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Initialize the source and get the site info.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  method--inherited member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-reset" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="reset">
+            reset<span class="signature">()</span><span class="type-signature"></span><span class="type-signature"></span>
+            <a href="#reset">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Reset the provider.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="mw.widgets.APIResultsProvider.html#reset">mw.widgets.APIResultsProvider#reset</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_MediaSearch_mw.widgets.APIResultsProvider.js.html">mediawiki.widgets/MediaSearch/mw.widgets.APIResultsProvider.js</a>, <a href="mediawiki.widgets_MediaSearch_mw.widgets.APIResultsProvider.js.html#line124">line 124</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Reset the provider.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  method--inherited member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-setAPIurl" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="setAPIurl">
+            setAPIurl<span class="signature">(apiurl)</span><span class="type-signature"></span><span class="type-signature"></span>
+            <a href="#setAPIurl">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Set API URL.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>apiurl</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 string
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>API URL</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="mw.widgets.APIResultsProvider.html#setAPIurl">mw.widgets.APIResultsProvider#setAPIurl</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_MediaSearch_mw.widgets.APIResultsProvider.js.html">mediawiki.widgets/MediaSearch/mw.widgets.APIResultsProvider.js</a>, <a href="mediawiki.widgets_MediaSearch_mw.widgets.APIResultsProvider.js.html#line77">line 77</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Set API URL.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  method--inherited member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-setAjaxSettings" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="setAjaxSettings">
+            setAjaxSettings<span class="signature">(settings)</span><span class="type-signature"></span><span class="type-signature"></span>
+            <a href="#setAjaxSettings">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Set the default ajax settings.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>settings</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 Object
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Ajax settings</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="mw.widgets.APIResultsProvider.html#setAjaxSettings">mw.widgets.APIResultsProvider#setAjaxSettings</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_MediaSearch_mw.widgets.APIResultsProvider.js.html">mediawiki.widgets/MediaSearch/mw.widgets.APIResultsProvider.js</a>, <a href="mediawiki.widgets_MediaSearch_mw.widgets.APIResultsProvider.js.html#line219">line 219</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Set the default ajax settings.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  method--inherited member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-setContinue" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="setContinue">
+            setContinue<span class="signature">(continueData)</span><span class="type-signature"></span><span class="type-signature"></span>
+            <a href="#setContinue">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Set continuation data for the next page.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>continueData</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 Object
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Continuation data</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="mw.widgets.MediaResourceProvider.html#setContinue">mw.widgets.MediaResourceProvider#setContinue</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResourceProvider.js.html">mediawiki.widgets/MediaSearch/mw.widgets.MediaResourceProvider.js</a>, <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResourceProvider.js.html#line151">line 151</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Set continuation data for the next page.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  method--inherited member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-setDefaultFetchLimit" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="setDefaultFetchLimit">
+            setDefaultFetchLimit<span class="signature">(limit)</span><span class="type-signature"></span><span class="type-signature"></span>
+            <a href="#setDefaultFetchLimit">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Set limit.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>limit</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 number
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Default number of results to fetch from the API</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="mw.widgets.APIResultsProvider.html#setDefaultFetchLimit">mw.widgets.APIResultsProvider#setDefaultFetchLimit</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_MediaSearch_mw.widgets.APIResultsProvider.js.html">mediawiki.widgets/MediaSearch/mw.widgets.APIResultsProvider.js</a>, <a href="mediawiki.widgets_MediaSearch_mw.widgets.APIResultsProvider.js.html#line146">line 146</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Set limit.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  method--inherited member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-setFetchProp" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="setFetchProp">
+            setFetchProp<span class="signature">(prop)</span><span class="type-signature"></span><span class="type-signature"></span>
+            <a href="#setFetchProp">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Set prop.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>prop</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 string
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="mw.widgets.MediaResourceProvider.html#setFetchProp">mw.widgets.MediaResourceProvider#setFetchProp</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResourceProvider.js.html">mediawiki.widgets/MediaSearch/mw.widgets.MediaResourceProvider.js</a>, <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResourceProvider.js.html#line268">line 268</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Set prop.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  method--inherited member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-setImageSizes" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="setImageSizes">
+            setImageSizes<span class="signature">(sizes)</span><span class="type-signature"></span><span class="type-signature"></span>
+            <a href="#setImageSizes">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Set image sizes.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>sizes</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>.&lt;number>
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Available image sizes</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="mw.widgets.MediaResourceProvider.html#setImageSizes">mw.widgets.MediaResourceProvider#setImageSizes</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResourceProvider.js.html">mediawiki.widgets/MediaSearch/mw.widgets.MediaResourceProvider.js</a>, <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResourceProvider.js.html#line286">line 286</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Set image sizes.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  method--inherited member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-setLang" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="setLang">
+            setLang<span class="signature">(lang)</span><span class="type-signature"></span><span class="type-signature"></span>
+            <a href="#setLang">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Set provider API language.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>lang</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 string
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Provider API language</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="mw.widgets.APIResultsProvider.html#setLang">mw.widgets.APIResultsProvider#setLang</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_MediaSearch_mw.widgets.APIResultsProvider.js.html">mediawiki.widgets/MediaSearch/mw.widgets.APIResultsProvider.js</a>, <a href="mediawiki.widgets_MediaSearch_mw.widgets.APIResultsProvider.js.html#line164">line 164</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Set provider API language.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  method--inherited member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-setName" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="setName">
+            setName<span class="signature">(name)</span><span class="type-signature"></span><span class="type-signature"></span>
+            <a href="#setName">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Set name.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 string
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="mw.widgets.MediaResourceProvider.html#setName">mw.widgets.MediaResourceProvider#setName</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResourceProvider.js.html">mediawiki.widgets/MediaSearch/mw.widgets.MediaResourceProvider.js</a>, <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResourceProvider.js.html#line229">line 229</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Set name.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  method--inherited member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-setOffset" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="setOffset">
+            setOffset<span class="signature">(offset)</span><span class="type-signature"></span><span class="type-signature"></span>
+            <a href="#setOffset">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Set result offset.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>offset</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 number
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Results offset for the upcoming request</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="mw.widgets.APIResultsProvider.html#setOffset">mw.widgets.APIResultsProvider#setOffset</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_MediaSearch_mw.widgets.APIResultsProvider.js.html">mediawiki.widgets/MediaSearch/mw.widgets.APIResultsProvider.js</a>, <a href="mediawiki.widgets_MediaSearch_mw.widgets.APIResultsProvider.js.html#line182">line 182</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Set result offset.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  method--inherited member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-setThumbSizes" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="setThumbSizes">
+            setThumbSizes<span class="signature">(sizes)</span><span class="type-signature"></span><span class="type-signature"></span>
+            <a href="#setThumbSizes">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Set thumb sizes.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>sizes</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>.&lt;number>
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Available thumbnail sizes</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="mw.widgets.MediaResourceProvider.html#setThumbSizes">mw.widgets.MediaResourceProvider#setThumbSizes</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResourceProvider.js.html">mediawiki.widgets/MediaSearch/mw.widgets.MediaResourceProvider.js</a>, <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResourceProvider.js.html#line277">line 277</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Set thumb sizes.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  method--inherited member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-setUserParams" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="setUserParams">
+            setUserParams<span class="signature">(params)</span><span class="type-signature"></span><span class="type-signature"></span>
+            <a href="#setUserParams">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Set the data parameters sent to the API.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>params</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 Object
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>User defined data parameters</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="mw.widgets.APIResultsProvider.html#setUserParams">mw.widgets.APIResultsProvider#setUserParams</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_MediaSearch_mw.widgets.APIResultsProvider.js.html">mediawiki.widgets/MediaSearch/mw.widgets.APIResultsProvider.js</a>, <a href="mediawiki.widgets_MediaSearch_mw.widgets.APIResultsProvider.js.html#line113">line 113</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Set the data parameters sent to the API.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  method--inherited member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-sort" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="sort">
+            sort<span class="signature">(results)</span><span class="type-signature"> &rarr; {<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>.&lt;Object>}</span><span class="type-signature"></span>
+            <a href="#sort">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Sort the results.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>results</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>.&lt;Object>
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>API results</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="mw.widgets.MediaResourceProvider.html#sort">mw.widgets.MediaResourceProvider#sort</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResourceProvider.js.html">mediawiki.widgets/MediaSearch/mw.widgets.MediaResourceProvider.js</a>, <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResourceProvider.js.html#line160">line 160</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+<div class="param-desc">
+    <p>Sorted results</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>.&lt;Object>
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Sort the results.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  method--inherited member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-toggleDepleted" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="toggleDepleted">
+            toggleDepleted<span class="signature">(isDepleted)</span><span class="type-signature"></span><span class="type-signature"></span>
+            <a href="#toggleDepleted">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Toggle depleted state.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>isDepleted</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 boolean
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The provider is depleted</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="mw.widgets.APIResultsProvider.html#toggleDepleted">mw.widgets.APIResultsProvider#toggleDepleted</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_MediaSearch_mw.widgets.APIResultsProvider.js.html">mediawiki.widgets/MediaSearch/mw.widgets.APIResultsProvider.js</a>, <a href="mediawiki.widgets_MediaSearch_mw.widgets.APIResultsProvider.js.html#line201">line 201</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Toggle depleted state.
+    </div>
+
+</div>
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+				</main>
+			</div>
+		</div>
+	</div>
+	<footer id="footer" class="footer">
+		<div class="content-box">
+			<ul class="footer__list">
+				<li><a href="https://gerrit.wikimedia.org/g/mediawiki/core/">Contribute</a></li>
+			</ul>
+			<p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Mon Mar 25 2024 13:41:34 GMT-0700 (Pacific Daylight Time)</p>
+			<p><a href="https://wikimediafoundation.org/" class="lnk--wikimedia-project">A Wikimedia Foundation project</a></p>
+		</div>
+	</footer>
+
+<script src="scripts/redirect.js"></script>
+<script>
+var arr = function(aa) { return Array.prototype.slice.call(aa); };
+arr(document.querySelectorAll("nav > ol > li a:not([href])")).map(function(el) {
+  var li = el;
+  while (li && li.tagName !== 'LI') { li = li.parentNode; }
+  el.addEventListener('click', function(event) {
+    if (li.classList.contains('is-on')) {
+      li.classList.remove('is-on');
+      return;
+    }
+    arr(document.querySelectorAll("nav li.nav__item.is-on")).map(function(el2) {
+      el2.classList.remove('is-on');
+    });
+    li.classList.add('is-on');
+  });
+});
+</script>
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/open-member.js"> </script>
+</body>
+</html>

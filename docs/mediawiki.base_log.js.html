@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]><html lang="en" class="js-off lte-ie8"><![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="js-off ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en" class="js-off">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Source: mediawiki.base/log.js, MediaWiki frontend code, JSDoc</title>
+    <script>
+document.documentElement.className = document.documentElement.className.replace(/\bjs-off\b/,'js-on'); // no BEM notation thx to IE
+    </script>
+    <!--[if lt IE 9]>
+      <script>window.html5={'shivCSS':false};</script>
+      <script src="wmf/js/vendor/ie/html5shiv-3.7.3.min.js"></script>
+      <script src="wmf/js/vendor/ie/respond-1.4.2.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="styles/jsdoc-wmf-theme.css">
+    <script src="scripts/lib/prettify/prettify.js"> </script>
+    <script src="scripts/lib/prettify/lang-css.js"> </script>
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link rel="preload" href="wmf/fonts/Charter_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="wmf/fonts/Lato_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <script src="scripts/fonts-loader.js" async=""></script>
+</head>
+
+<body class="page--home">
+	<header id="header" class="header" role="banner">
+		<div class="content-box">
+			<a href="#content" class="is-aural is-focusable">Jump to content</a>
+			<a href="#nav--main" class="is-aural is-focusable">Jump to navigation</a>
+			<div class="header__title">
+				<span class="site-title"><a href="./"><span class="site-logo"></span>MediaWiki frontend code</a></span>
+				<label class="btn--nav-main" for="trigger--nav-main" aria-hidden="true" title="Show main menu">
+					<i></i> <span>Menu</span>
+				</label>
+			</div>
+     		<div id="search-container" class="search-container">
+  <input type="search" id="lunr-search" class="search-input" role="combobox" aria-autocomplete="list" aria-controls="search-results" aria-expanded="false" aria-activedescendant="selected-search-result" placeholder="Search">
+  <ul id="search-results" class="search-results role="listbox"></ul>
+</div>
+<script src="lunr-data.js"></script>
+<script src="scripts/lib/lunr.js"></script>
+<script src="scripts/lunrSearch.js"></script>
+
+		</div>
+	</header>
+	<div class="page">
+		<div class="content-box flex-cols">
+			<div class="flex-col flex-col--start">
+				<input type="checkbox" id="trigger--nav-main" class="trigger--nav-main">
+				<nav id="nav--main" class="nav nav--main" role="navigation">
+					<ol><li class="nav__item"><a href="index.html">Home</a></li><li class="nav__item"><a href="modules.html">Modules</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="module-mediawiki.ForeignApi.html">mediawiki.ForeignApi</a></li><li class="nav__sub-item"><a href="module-mediawiki.String.html">mediawiki.String</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.jpegmeta.html">mediawiki.libs.jpegmeta</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.pluralruleparser.html">mediawiki.libs.pluralruleparser</a></li><li class="nav__sub-item"><a href="module-mediawiki.notification.convertmessagebox.html">mediawiki.notification.convertmessagebox</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.preview.html">mediawiki.page.preview</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.ready.html">mediawiki.page.ready</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.watch.ajax.html">mediawiki.page.watch.ajax</a></li><li class="nav__sub-item"><a href="module-mediawiki.storage.html">mediawiki.storage</a></li><li class="nav__sub-item"><a href="module-mediawiki.util.html">mediawiki.util</a></li><li class="nav__sub-item"><a href="module-mediawiki.visibleTimeout.html">mediawiki.visibleTimeout</a></li><li class="nav__sub-item"><a href="module-mediawiki.watchstar.widgets.html">mediawiki.watchstar.widgets</a></li><li class="nav__sub-item"><a href="module-moment.html">moment</a></li></ul></li><li class="nav__item"><a href="namespaces.html">Frontend API</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="Hooks.html">Hooks</a></li><li class="nav__sub-item"><a href="jQueryPlugins.html">jQueryPlugins</a></li><li class="nav__sub-item"><a href="mw.html">mw</a></li><li class="nav__sub-item"><a href="window.html">window</a></li></ul></li><li class="nav__item"><a href="sitemap.html">Sitemap</a></li></ol>
+				</nav>
+			</div>
+			<div class="flex-col flex-col--end">
+				<main id="content" class="content" role="main">
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint sourcefile linenums"><code>// This file extends the mw.log skeleton defined in startup/mediawiki.js.
+// Code that is not needed by mw.loader is placed here.
+
+/* eslint-disable no-console */
+
+/**
+ * Library for logging developer warnings to the JavaScript console.
+ *
+ * @namespace mw.log
+ */
+
+/**
+ * Create a function that returns true for the first call from any particular call stack.
+ *
+ * @private
+ * @return {Function}
+ * @return {boolean|undefined} return.return True if the caller was not seen before.
+ */
+function stackSet() {
+	// Optimisation: Don't create or compute anything for the common case
+	// where deprecations are not triggered.
+	var stacks;
+
+	return function isFirst() {
+		if ( !stacks ) {
+			stacks = new Set();
+		}
+		var stack = new Error().stack;
+		if ( !stacks.has( stack ) ) {
+			stacks.add( stack );
+			return true;
+		}
+	};
+}
+
+/**
+ * Write a message to the browser console's error channel.
+ *
+ * Most browsers also print a stacktrace when calling this method if the
+ * argument is an Error object.
+ *
+ * @since 1.26
+ * @method
+ * @param {...Mixed} msg Messages to output to console
+ */
+mw.log.error = Function.prototype.bind.call( console.error, console );
+
+/**
+ * Create a function that logs a deprecation warning when called.
+ *
+ * @example
+ * var deprecatedNoB = mw.log.makeDeprecated( 'hello_without_b', 'Use of hello without b is deprecated.' );
+ *
+ * function hello( a, b ) {
+ *   if ( b === undefined ) {
+ *     deprecatedNoB();
+ *     b = 0;
+ *   }
+ *   return a + b;
+ * }
+ *
+ * hello( 1 );
+ *
+ * @since 1.38
+ * @param {string|null} key Name of the feature for deprecation tracker,
+ *  or null for a console-only deprecation.
+ * @param {string} msg Deprecation warning.
+ * @return {Function}
+ */
+mw.log.makeDeprecated = function ( key, msg ) {
+	var isFirst = stackSet();
+	return function maybeLog() {
+		if ( isFirst() ) {
+			if ( key ) {
+				mw.track( 'mw.deprecate', key );
+			}
+			mw.log.warn( msg );
+		}
+	};
+};
+
+/**
+ * Create a property on a host object that, when accessed, will log
+ * a deprecation warning to the console.
+ *
+ * @example
+ * mw.log.deprecate( window, 'myGlobalFn', myGlobalFn );
+ *
+ * @example
+ * mw.log.deprecate( Thing, 'old', old, 'Use Other.thing instead', 'Thing.old'  );
+ *
+ * @param {Object} obj Host object of deprecated property
+ * @param {string} key Name of property to create in `obj`
+ * @param {any} val The value this property should return when accessed
+ * @param {string} [msg] Optional extra text to add to the deprecation warning
+ * @param {string} [logName] Name of the feature for deprecation tracker.
+ *  Tracking is disabled by default, except for global variables on `window`.
+ */
+mw.log.deprecate = function ( obj, key, val, msg, logName ) {
+	var maybeLog = mw.log.makeDeprecated(
+		logName || ( obj === window ? key : null ),
+		'Use of "' + ( logName || key ) + '" is deprecated.' + ( msg ? ' ' + msg : '' )
+	);
+	Object.defineProperty( obj, key, {
+		configurable: true,
+		enumerable: true,
+		get: function () {
+			maybeLog();
+			return val;
+		},
+		set: function ( newVal ) {
+			maybeLog();
+			val = newVal;
+		}
+	} );
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+				</main>
+			</div>
+		</div>
+	</div>
+	<footer id="footer" class="footer">
+		<div class="content-box">
+			<ul class="footer__list">
+				<li><a href="https://gerrit.wikimedia.org/g/mediawiki/core/">Contribute</a></li>
+			</ul>
+			<p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Mon Mar 25 2024 13:41:33 GMT-0700 (Pacific Daylight Time)</p>
+			<p><a href="https://wikimediafoundation.org/" class="lnk--wikimedia-project">A Wikimedia Foundation project</a></p>
+		</div>
+	</footer>
+
+<script src="scripts/redirect.js"></script>
+<script>
+var arr = function(aa) { return Array.prototype.slice.call(aa); };
+arr(document.querySelectorAll("nav > ol > li a:not([href])")).map(function(el) {
+  var li = el;
+  while (li && li.tagName !== 'LI') { li = li.parentNode; }
+  el.addEventListener('click', function(event) {
+    if (li.classList.contains('is-on')) {
+      li.classList.remove('is-on');
+      return;
+    }
+    arr(document.querySelectorAll("nav li.nav__item.is-on")).map(function(el2) {
+      el2.classList.remove('is-on');
+    });
+    li.classList.add('is-on');
+  });
+});
+</script>
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/open-member.js"> </script>
+</body>
+</html>

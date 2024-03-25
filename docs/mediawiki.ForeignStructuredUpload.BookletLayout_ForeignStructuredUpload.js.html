@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]><html lang="en" class="js-off lte-ie8"><![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="js-off ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en" class="js-off">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Source: mediawiki.ForeignStructuredUpload.BookletLayout/ForeignStructuredUpload.js, MediaWiki frontend code, JSDoc</title>
+    <script>
+document.documentElement.className = document.documentElement.className.replace(/\bjs-off\b/,'js-on'); // no BEM notation thx to IE
+    </script>
+    <!--[if lt IE 9]>
+      <script>window.html5={'shivCSS':false};</script>
+      <script src="wmf/js/vendor/ie/html5shiv-3.7.3.min.js"></script>
+      <script src="wmf/js/vendor/ie/respond-1.4.2.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="styles/jsdoc-wmf-theme.css">
+    <script src="scripts/lib/prettify/prettify.js"> </script>
+    <script src="scripts/lib/prettify/lang-css.js"> </script>
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link rel="preload" href="wmf/fonts/Charter_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="wmf/fonts/Lato_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <script src="scripts/fonts-loader.js" async=""></script>
+</head>
+
+<body class="page--home">
+	<header id="header" class="header" role="banner">
+		<div class="content-box">
+			<a href="#content" class="is-aural is-focusable">Jump to content</a>
+			<a href="#nav--main" class="is-aural is-focusable">Jump to navigation</a>
+			<div class="header__title">
+				<span class="site-title"><a href="./"><span class="site-logo"></span>MediaWiki frontend code</a></span>
+				<label class="btn--nav-main" for="trigger--nav-main" aria-hidden="true" title="Show main menu">
+					<i></i> <span>Menu</span>
+				</label>
+			</div>
+     		<div id="search-container" class="search-container">
+  <input type="search" id="lunr-search" class="search-input" role="combobox" aria-autocomplete="list" aria-controls="search-results" aria-expanded="false" aria-activedescendant="selected-search-result" placeholder="Search">
+  <ul id="search-results" class="search-results role="listbox"></ul>
+</div>
+<script src="lunr-data.js"></script>
+<script src="scripts/lib/lunr.js"></script>
+<script src="scripts/lunrSearch.js"></script>
+
+		</div>
+	</header>
+	<div class="page">
+		<div class="content-box flex-cols">
+			<div class="flex-col flex-col--start">
+				<input type="checkbox" id="trigger--nav-main" class="trigger--nav-main">
+				<nav id="nav--main" class="nav nav--main" role="navigation">
+					<ol><li class="nav__item"><a href="index.html">Home</a></li><li class="nav__item"><a href="modules.html">Modules</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="module-mediawiki.ForeignApi.html">mediawiki.ForeignApi</a></li><li class="nav__sub-item"><a href="module-mediawiki.String.html">mediawiki.String</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.jpegmeta.html">mediawiki.libs.jpegmeta</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.pluralruleparser.html">mediawiki.libs.pluralruleparser</a></li><li class="nav__sub-item"><a href="module-mediawiki.notification.convertmessagebox.html">mediawiki.notification.convertmessagebox</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.preview.html">mediawiki.page.preview</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.ready.html">mediawiki.page.ready</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.watch.ajax.html">mediawiki.page.watch.ajax</a></li><li class="nav__sub-item"><a href="module-mediawiki.storage.html">mediawiki.storage</a></li><li class="nav__sub-item"><a href="module-mediawiki.util.html">mediawiki.util</a></li><li class="nav__sub-item"><a href="module-mediawiki.visibleTimeout.html">mediawiki.visibleTimeout</a></li><li class="nav__sub-item"><a href="module-mediawiki.watchstar.widgets.html">mediawiki.watchstar.widgets</a></li><li class="nav__sub-item"><a href="module-moment.html">moment</a></li></ul></li><li class="nav__item"><a href="namespaces.html">Frontend API</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="Hooks.html">Hooks</a></li><li class="nav__sub-item"><a href="jQueryPlugins.html">jQueryPlugins</a></li><li class="nav__sub-item"><a href="mw.html">mw</a></li><li class="nav__sub-item"><a href="window.html">window</a></li></ul></li><li class="nav__item"><a href="sitemap.html">Sitemap</a></li></ol>
+				</nav>
+			</div>
+			<div class="flex-col flex-col--end">
+				<main id="content" class="content" role="main">
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint sourcefile linenums"><code>( function () {
+	/**
+	 * Used to represent an upload in progress on the frontend.
+	 *
+	 * This subclass will upload to a wiki using a structured metadata
+	 * system similar to (or identical to) the one on Wikimedia Commons.
+	 *
+	 * See &lt;https://commons.wikimedia.org/wiki/Commons:Structured_data> for
+	 * a more detailed description of how that system works.
+	 *
+	 * **TODO: This currently only supports uploads under CC-BY-SA 4.0,
+	 * and should really have support for more licenses.**
+	 *
+	 * @class ForeignStructuredUpload
+	 * @memberof mw
+	 * @extends mw.ForeignUpload
+	 *
+	 * @constructor
+	 * @param {string} [target]
+	 * @param {Object} [apiconfig]
+	 */
+	function ForeignStructuredUpload( target, apiconfig ) {
+		this.date = undefined;
+		this.descriptions = [];
+		this.categories = [];
+
+		// Config for uploads to local wiki.
+		// Can be overridden with foreign wiki config when #loadConfig is called.
+		this.config = require( './config.json' ).UploadDialog;
+
+		mw.ForeignUpload.call( this, target, apiconfig );
+	}
+
+	OO.inheritClass( ForeignStructuredUpload, mw.ForeignUpload );
+
+	/**
+	 * Get the configuration for the form and filepage from the foreign wiki, if any, and use it for
+	 * this upload.
+	 *
+	 * @return {jQuery.Promise} Promise returning config object
+	 */
+	ForeignStructuredUpload.prototype.loadConfig = function () {
+		var deferred,
+			upload = this;
+
+		if ( this.configPromise ) {
+			return this.configPromise;
+		}
+
+		if ( this.target === 'local' ) {
+			deferred = $.Deferred();
+			setTimeout( function () {
+				// Resolve asynchronously, so that it's harder to accidentally write synchronous code that
+				// will break for cross-wiki uploads
+				deferred.resolve( upload.config );
+			} );
+			this.configPromise = deferred.promise();
+		} else {
+			this.configPromise = this.apiPromise.then( function ( api ) {
+				// Get the config from the foreign wiki
+				return api.get( {
+					action: 'query',
+					meta: 'siteinfo',
+					siprop: 'uploaddialog',
+					// For convenient true/false booleans
+					formatversion: 2
+				} ).then( function ( resp ) {
+					// Foreign wiki might be running a pre-1.27 MediaWiki, without support for this
+					if ( resp.query &amp;&amp; resp.query.uploaddialog ) {
+						upload.config = resp.query.uploaddialog;
+						return upload.config;
+					} else {
+						return $.Deferred().reject( 'upload-foreign-cant-load-config' );
+					}
+				}, function () {
+					return $.Deferred().reject( 'upload-foreign-cant-load-config' );
+				} );
+			} );
+		}
+
+		return this.configPromise;
+	};
+
+	/**
+	 * Add categories to the upload.
+	 *
+	 * @param {string[]} categories Array of categories to which this upload will be added.
+	 */
+	ForeignStructuredUpload.prototype.addCategories = function ( categories ) {
+		// The length of the array must be less than 10000.
+		// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/push#Merging_two_arrays
+		Array.prototype.push.apply( this.categories, categories );
+	};
+
+	/**
+	 * Empty the list of categories for the upload.
+	 */
+	ForeignStructuredUpload.prototype.clearCategories = function () {
+		this.categories = [];
+	};
+
+	/**
+	 * Add a description to the upload.
+	 *
+	 * @param {string} language The language code for the description's language. Must have a template on the target wiki to work properly.
+	 * @param {string} description The description of the file.
+	 */
+	ForeignStructuredUpload.prototype.addDescription = function ( language, description ) {
+		this.descriptions.push( {
+			language: language,
+			text: description
+		} );
+	};
+
+	/**
+	 * Empty the list of descriptions for the upload.
+	 */
+	ForeignStructuredUpload.prototype.clearDescriptions = function () {
+		this.descriptions = [];
+	};
+
+	/**
+	 * Set the date of creation for the upload.
+	 *
+	 * @param {Date} date
+	 */
+	ForeignStructuredUpload.prototype.setDate = function ( date ) {
+		this.date = date;
+	};
+
+	/**
+	 * Get the text of the file page, to be created on upload. Brings together
+	 * several different pieces of information to create useful text.
+	 *
+	 * @return {string}
+	 */
+	ForeignStructuredUpload.prototype.getText = function () {
+		return this.config.format.filepage
+			// Replace "named parameters" with the given information
+			.replace( '$DESCRIPTION', this.getDescriptions() )
+			.replace( '$DATE', this.getDate() )
+			.replace( '$SOURCE', this.getSource() )
+			.replace( '$AUTHOR', this.getUser() )
+			.replace( '$LICENSE', this.getLicense() )
+			.replace( '$CATEGORIES', this.getCategories() );
+	};
+
+	/**
+	 * @inheritdoc
+	 */
+	ForeignStructuredUpload.prototype.getComment = function () {
+		var
+			isLocal = this.target === 'local',
+			comment = typeof this.config.comment === 'string' ?
+				this.config.comment :
+				this.config.comment[ isLocal ? 'local' : 'foreign' ],
+			pagename = mw.config.get( 'wgPageName' );
+		return comment
+			.replace( '$PAGENAME', pagename.replace( /_/g, ' ' ) )
+			.replace( '$HOST', location.host );
+	};
+
+	/**
+	 * Gets the wikitext for the creation date of this upload.
+	 *
+	 * @private
+	 * @return {string}
+	 */
+	ForeignStructuredUpload.prototype.getDate = function () {
+		if ( !this.date ) {
+			return '';
+		}
+
+		return this.date.toString();
+	};
+
+	/**
+	 * Fetches the wikitext for any descriptions that have been added
+	 * to the upload.
+	 *
+	 * @private
+	 * @return {string}
+	 */
+	ForeignStructuredUpload.prototype.getDescriptions = function () {
+		var upload = this;
+		return this.descriptions.map( function ( desc ) {
+			return upload.config.format.description
+				.replace( '$LANGUAGE', desc.language )
+				.replace( '$TEXT', desc.text );
+		} ).join( '\n' );
+	};
+
+	/**
+	 * Fetches the wikitext for the categories to which the upload will
+	 * be added.
+	 *
+	 * @private
+	 * @return {string}
+	 */
+	ForeignStructuredUpload.prototype.getCategories = function () {
+		if ( this.categories.length === 0 ) {
+			return this.config.format.uncategorized;
+		}
+
+		return this.categories.map( function ( cat ) {
+			return '[[Category:' + cat + ']]';
+		} ).join( '\n' );
+	};
+
+	/**
+	 * Gets the wikitext for the license of the upload.
+	 *
+	 * @private
+	 * @return {string}
+	 */
+	ForeignStructuredUpload.prototype.getLicense = function () {
+		return this.config.format.license;
+	};
+
+	/**
+	 * Get the source. This should be some sort of localised text for "Own work".
+	 *
+	 * @private
+	 * @return {string}
+	 */
+	ForeignStructuredUpload.prototype.getSource = function () {
+		return this.config.format.ownwork;
+	};
+
+	/**
+	 * Get the username.
+	 *
+	 * @private
+	 * @return {string}
+	 */
+	ForeignStructuredUpload.prototype.getUser = function () {
+		var username, namespace;
+		// Do not localise, we don't know the language of target wiki
+		namespace = 'User';
+		username = mw.config.get( 'wgUserName' );
+		if ( !username ) {
+			// The user is not logged in locally. However, they might be logged in on the foreign wiki.
+			// We should record their username there. (If they're not logged in there either, this will
+			// record the IP address.) It's also possible that the user opened this dialog, got an error
+			// about not being logged in, logged in in another browser tab, then continued uploading.
+			username = '{{subst:REVISIONUSER}}';
+		}
+		return '[[' + namespace + ':' + username + '|' + username + ']]';
+	};
+
+	mw.ForeignStructuredUpload = ForeignStructuredUpload;
+}() );
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+				</main>
+			</div>
+		</div>
+	</div>
+	<footer id="footer" class="footer">
+		<div class="content-box">
+			<ul class="footer__list">
+				<li><a href="https://gerrit.wikimedia.org/g/mediawiki/core/">Contribute</a></li>
+			</ul>
+			<p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Mon Mar 25 2024 13:41:33 GMT-0700 (Pacific Daylight Time)</p>
+			<p><a href="https://wikimediafoundation.org/" class="lnk--wikimedia-project">A Wikimedia Foundation project</a></p>
+		</div>
+	</footer>
+
+<script src="scripts/redirect.js"></script>
+<script>
+var arr = function(aa) { return Array.prototype.slice.call(aa); };
+arr(document.querySelectorAll("nav > ol > li a:not([href])")).map(function(el) {
+  var li = el;
+  while (li && li.tagName !== 'LI') { li = li.parentNode; }
+  el.addEventListener('click', function(event) {
+    if (li.classList.contains('is-on')) {
+      li.classList.remove('is-on');
+      return;
+    }
+    arr(document.querySelectorAll("nav li.nav__item.is-on")).map(function(el2) {
+      el2.classList.remove('is-on');
+    });
+    li.classList.add('is-on');
+  });
+});
+</script>
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/open-member.js"> </script>
+</body>
+</html>

@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]><html lang="en" class="js-off lte-ie8"><![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="js-off ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en" class="js-off">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Source: mediawiki.debug/debug.js, MediaWiki frontend code, JSDoc</title>
+    <script>
+document.documentElement.className = document.documentElement.className.replace(/\bjs-off\b/,'js-on'); // no BEM notation thx to IE
+    </script>
+    <!--[if lt IE 9]>
+      <script>window.html5={'shivCSS':false};</script>
+      <script src="wmf/js/vendor/ie/html5shiv-3.7.3.min.js"></script>
+      <script src="wmf/js/vendor/ie/respond-1.4.2.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="styles/jsdoc-wmf-theme.css">
+    <script src="scripts/lib/prettify/prettify.js"> </script>
+    <script src="scripts/lib/prettify/lang-css.js"> </script>
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link rel="preload" href="wmf/fonts/Charter_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="wmf/fonts/Lato_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <script src="scripts/fonts-loader.js" async=""></script>
+</head>
+
+<body class="page--home">
+	<header id="header" class="header" role="banner">
+		<div class="content-box">
+			<a href="#content" class="is-aural is-focusable">Jump to content</a>
+			<a href="#nav--main" class="is-aural is-focusable">Jump to navigation</a>
+			<div class="header__title">
+				<span class="site-title"><a href="./"><span class="site-logo"></span>MediaWiki frontend code</a></span>
+				<label class="btn--nav-main" for="trigger--nav-main" aria-hidden="true" title="Show main menu">
+					<i></i> <span>Menu</span>
+				</label>
+			</div>
+     		<div id="search-container" class="search-container">
+  <input type="search" id="lunr-search" class="search-input" role="combobox" aria-autocomplete="list" aria-controls="search-results" aria-expanded="false" aria-activedescendant="selected-search-result" placeholder="Search">
+  <ul id="search-results" class="search-results role="listbox"></ul>
+</div>
+<script src="lunr-data.js"></script>
+<script src="scripts/lib/lunr.js"></script>
+<script src="scripts/lunrSearch.js"></script>
+
+		</div>
+	</header>
+	<div class="page">
+		<div class="content-box flex-cols">
+			<div class="flex-col flex-col--start">
+				<input type="checkbox" id="trigger--nav-main" class="trigger--nav-main">
+				<nav id="nav--main" class="nav nav--main" role="navigation">
+					<ol><li class="nav__item"><a href="index.html">Home</a></li><li class="nav__item"><a href="modules.html">Modules</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="module-mediawiki.ForeignApi.html">mediawiki.ForeignApi</a></li><li class="nav__sub-item"><a href="module-mediawiki.String.html">mediawiki.String</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.jpegmeta.html">mediawiki.libs.jpegmeta</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.pluralruleparser.html">mediawiki.libs.pluralruleparser</a></li><li class="nav__sub-item"><a href="module-mediawiki.notification.convertmessagebox.html">mediawiki.notification.convertmessagebox</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.preview.html">mediawiki.page.preview</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.ready.html">mediawiki.page.ready</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.watch.ajax.html">mediawiki.page.watch.ajax</a></li><li class="nav__sub-item"><a href="module-mediawiki.storage.html">mediawiki.storage</a></li><li class="nav__sub-item"><a href="module-mediawiki.util.html">mediawiki.util</a></li><li class="nav__sub-item"><a href="module-mediawiki.visibleTimeout.html">mediawiki.visibleTimeout</a></li><li class="nav__sub-item"><a href="module-mediawiki.watchstar.widgets.html">mediawiki.watchstar.widgets</a></li><li class="nav__sub-item"><a href="module-moment.html">moment</a></li></ul></li><li class="nav__item"><a href="namespaces.html">Frontend API</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="Hooks.html">Hooks</a></li><li class="nav__sub-item"><a href="jQueryPlugins.html">jQueryPlugins</a></li><li class="nav__sub-item"><a href="mw.html">mw</a></li><li class="nav__sub-item"><a href="window.html">window</a></li></ul></li><li class="nav__item"><a href="sitemap.html">Sitemap</a></li></ol>
+				</nav>
+			</div>
+			<div class="flex-col flex-col--end">
+				<main id="content" class="content" role="main">
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint sourcefile linenums"><code>/* eslint-disable es-x/no-array-prototype-includes */
+
+( function () {
+	'use strict';
+
+	var debug,
+		hovzer = $.getFootHovzer();
+
+	OO.ui.getViewportSpacing = function () {
+		return {
+			top: 0,
+			right: 0,
+			bottom: hovzer.$.outerHeight(),
+			left: 0
+		};
+	};
+
+	/**
+	 * Debug toolbar.
+	 *
+	 * Enabled server-side through `$wgDebugToolbar`.
+	 *
+	 * @class mw.Debug
+	 * @singleton
+	 * @author John Du Hart
+	 * @since 1.19
+	 */
+	debug = mw.Debug = {
+		/**
+		 * Toolbar container element.
+		 *
+		 * @type {jQuery}
+		 */
+		$container: null,
+
+		/**
+		 * Object containing data for the debug toolbar.
+		 *
+		 * @type {Object}
+		 */
+		data: {},
+
+		/**
+		 * Initialize the debugging pane.
+		 *
+		 * Shouldn't be called before the document is ready
+		 * (since it binds to elements on the page).
+		 *
+		 * @param {Object} [data] Defaults to 'debugInfo' from mw.config
+		 */
+		init: function ( data ) {
+
+			this.data = data || mw.config.get( 'debugInfo' );
+			this.buildHtml();
+
+			// Insert the container into the DOM
+			hovzer.$.append( this.$container );
+			hovzer.update();
+
+			$( '.mw-debug-panelink' ).on( 'click', this.switchPane );
+		},
+
+		/**
+		 * Switch between panes.
+		 *
+		 * Should be called with an HTMLElement as its thisArg,
+		 * because it's meant to be an event handler.
+		 *
+		 * TODO: Store cookie for last pane open.
+		 *
+		 * @param {jQuery.Event} e
+		 */
+		switchPane: function ( e ) {
+			var currentPaneId = debug.$container.data( 'currentPane' ),
+				requestedPaneId = $( this ).prop( 'id' ).slice( 9 ),
+				$currentPane = $( '#mw-debug-pane-' + currentPaneId ),
+				$requestedPane = $( '#mw-debug-pane-' + requestedPaneId ),
+				hovDone = false;
+
+			function updateHov() {
+				if ( !hovDone ) {
+					hovzer.update();
+					hovDone = true;
+				}
+			}
+
+			// Skip hash fragment handling. Prevents screen from jumping.
+			e.preventDefault();
+
+			$( this ).addClass( 'current' );
+			$( '.mw-debug-panelink' ).not( this ).removeClass( 'current' );
+
+			// Hide the current pane
+			if ( requestedPaneId === currentPaneId ) {
+				// FIXME: Use CSS transition
+				// eslint-disable-next-line no-jquery/no-slide
+				$currentPane.slideUp( updateHov );
+				debug.$container.data( 'currentPane', null );
+				return;
+			}
+
+			debug.$container.data( 'currentPane', requestedPaneId );
+
+			if ( currentPaneId === undefined || currentPaneId === null ) {
+				// FIXME: Use CSS transition
+				// eslint-disable-next-line no-jquery/no-slide
+				$requestedPane.slideDown( updateHov );
+			} else {
+				$currentPane.hide();
+				$requestedPane.show();
+				updateHov();
+			}
+		},
+
+		/**
+		 * Construct the HTML for the debugging toolbar.
+		 */
+		buildHtml: function () {
+			var $container, $bits, panes, paneId, gitInfoText, $gitInfo;
+
+			$container = $( '&lt;div>' )
+				.attr( {
+					id: 'mw-debug-toolbar',
+					lang: 'en',
+					dir: 'ltr'
+				} )
+				.addClass( 'mw-debug' );
+
+			$bits = $( '&lt;div>' ).addClass( 'mw-debug-bits' );
+
+			/**
+			 * Returns a jQuery element for a debug-bit div
+			 *
+			 * @ignore
+			 * @param {string} id
+			 * @return {jQuery}
+			 */
+			function bitDiv( id ) {
+				return $( '&lt;div>' ).prop( {
+					id: 'mw-debug-' + id,
+					className: 'mw-debug-bit'
+				} ).appendTo( $bits );
+			}
+
+			/**
+			 * Returns a jQuery element for a pane link
+			 *
+			 * @ignore
+			 * @param {string} id
+			 * @param {string} text
+			 * @return {jQuery}
+			 */
+			function paneLabel( id, text ) {
+				return $( '&lt;a>' )
+					.prop( {
+						className: 'mw-debug-panelabel',
+						href: '#mw-debug-pane-' + id
+					} )
+					.text( text );
+			}
+
+			/**
+			 * Returns a jQuery element for a debug-bit div with a for a pane link
+			 *
+			 * @ignore
+			 * @param {string} id CSS id snippet. Will be prefixed with 'mw-debug-'
+			 * @param {string} text Text to show
+			 * @param {string} count Optional count to show
+			 * @return {jQuery}
+			 */
+			function paneTriggerBitDiv( id, text, count ) {
+				if ( count ) {
+					text = text + ' (' + count + ')';
+				}
+				return $( '&lt;div>' ).prop( {
+					id: 'mw-debug-' + id,
+					className: 'mw-debug-bit mw-debug-panelink'
+				} )
+					.append( paneLabel( id, text ) )
+					.appendTo( $bits );
+			}
+
+			paneTriggerBitDiv( 'console', 'Console', this.data.log.length );
+
+			paneTriggerBitDiv( 'querylist', 'Queries', this.data.queries.length );
+
+			paneTriggerBitDiv( 'debuglog', 'Debug log', this.data.debugLog.length );
+
+			paneTriggerBitDiv( 'request', 'Request' );
+
+			paneTriggerBitDiv( 'includes', 'PHP includes', this.data.includes.length );
+
+			if ( this.data.gitRevision !== false ) {
+				gitInfoText = '(' + this.data.gitRevision.slice( 0, 7 ) + ')';
+				if ( this.data.gitViewUrl !== false ) {
+					$gitInfo = $( '&lt;a>' )
+						.attr( 'href', this.data.gitViewUrl )
+						.text( gitInfoText );
+				} else {
+					$gitInfo = $( document.createTextNode( gitInfoText ) );
+				}
+			}
+
+			bitDiv( 'mwversion' )
+				.append( $( '&lt;a>' ).attr( 'href', 'https://www.mediawiki.org/' ).text( 'MediaWiki' ) )
+				.append( document.createTextNode( ': ' + this.data.mwVersion + ' ' ) )
+				.append( $gitInfo );
+
+			if ( this.data.gitBranch !== false ) {
+				bitDiv( 'gitbranch' ).text( 'Git branch: ' + this.data.gitBranch );
+			}
+
+			bitDiv( 'phpversion' )
+				.append( $( '&lt;a>' ).attr( 'href', 'https://php.net/' ).text( 'PHP' ) )
+				.append( ': ' + this.data.phpVersion );
+
+			bitDiv( 'time' )
+				.text( 'Time: ' + this.data.time.toFixed( 5 ) );
+
+			bitDiv( 'memory' )
+				.text( 'Memory: ' + this.data.memory + ' (Peak: ' + this.data.memoryPeak + ')' );
+
+			$bits.appendTo( $container );
+
+			panes = {
+				console: this.buildConsoleTable(),
+				querylist: this.buildQueryTable(),
+				debuglog: this.buildDebugLogTable(),
+				request: this.buildRequestPane(),
+				includes: this.buildIncludesPane()
+			};
+
+			for ( paneId in panes ) {
+				$( '&lt;div>' )
+					.prop( {
+						className: 'mw-debug-pane',
+						id: 'mw-debug-pane-' + paneId
+					} )
+					.append( panes[ paneId ] )
+					.appendTo( $container );
+			}
+
+			this.$container = $container;
+		},
+
+		/**
+		 * Build the console panel.
+		 *
+		 * @return {jQuery} Console panel
+		 */
+		buildConsoleTable: function () {
+			var $table, entryTypeText, i, length, entry;
+
+			$table = $( '&lt;table>' ).attr( 'id', 'mw-debug-console' );
+			length = this.data.log.length;
+
+			$( '&lt;colgroup>' ).css( 'width', /* padding = */ 20 + ( 10 * /* fontSize = */ 11 ) ).appendTo( $table );
+			$( '&lt;colgroup>' ).appendTo( $table );
+			$( '&lt;colgroup>' ).css( 'width', 350 ).appendTo( $table );
+
+			entryTypeText = function ( entryType ) {
+				switch ( entryType ) {
+					case 'log':
+						return 'Log';
+					case 'warn':
+						return 'Warning';
+					case 'deprecated':
+						return 'Deprecated';
+					default:
+						return 'Unknown';
+				}
+			};
+
+			for ( i = 0; i &lt; length; i++ ) {
+				entry = this.data.log[ i ];
+				entry.typeText = entryTypeText( entry.type );
+
+				// The following classes are used here:
+				// * mw-debug-console-log
+				// * mw-debug-console-warn
+				// * mw-debug-console-deprecated
+				$( '&lt;tr>' )
+					.append( $( '&lt;td>' )
+						.text( entry.typeText )
+						.addClass( 'mw-debug-console-' + entry.type )
+					)
+					.append( $( '&lt;td>' ).html( entry.msg ) )
+					.append( $( '&lt;td>' ).text( entry.caller ) )
+					.appendTo( $table );
+			}
+
+			return $table;
+		},
+
+		/**
+		 * Build query list pane.
+		 *
+		 * @return {jQuery}
+		 */
+		buildQueryTable: function () {
+			var $table, i, length, query;
+
+			$table = $( '&lt;table>' ).attr( 'id', 'mw-debug-querylist' );
+			length = this.data.queries.length;
+
+			$( '&lt;tr>' )
+				.append( $( '&lt;th>' ).attr( 'scope', 'col' ).text( '#' ).css( 'width', '4em' ) )
+				.append( $( '&lt;th>' ).attr( 'scope', 'col' ).text( 'SQL' ) )
+				.append( $( '&lt;th>' ).attr( 'scope', 'col' ).text( 'Time' ).css( 'width', '8em' ) )
+				.append( $( '&lt;th>' ).attr( 'scope', 'col' ).text( 'Call' ).css( 'width', '18em' ) )
+				.appendTo( $table );
+
+			for ( i = 0; i &lt; length; i++ ) {
+				query = this.data.queries[ i ];
+
+				$( '&lt;tr>' )
+					.append( $( '&lt;td>' ).text( i + 1 ) )
+					.append( $( '&lt;td>' ).text( query.sql ) )
+					.append( $( '&lt;td>' ).text( ( query.time * 1000 ).toFixed( 4 ) + 'ms' ).addClass( 'stats' ) )
+					.append( $( '&lt;td>' ).text( query.function ) )
+					.appendTo( $table );
+			}
+
+			return $table;
+		},
+
+		/**
+		 * Build legacy debug log pane.
+		 *
+		 * @return {jQuery}
+		 */
+		buildDebugLogTable: function () {
+			var $list, i, length, line;
+			$list = $( '&lt;ul>' );
+			length = this.data.debugLog.length;
+
+			for ( i = 0; i &lt; length; i++ ) {
+				line = this.data.debugLog[ i ];
+				$( '&lt;li>' )
+					.html( mw.html.escape( line ).replace( /\n/g, '&lt;br />\n' ) )
+					.appendTo( $list );
+			}
+
+			return $list;
+		},
+
+		/**
+		 * Build request information pane.
+		 *
+		 * @return {jQuery}
+		 */
+		buildRequestPane: function () {
+
+			function buildTable( title, data ) {
+				var $unit, $table, key;
+
+				$unit = $( '&lt;div>' ).append( $( '&lt;h2>' ).text( title ) );
+
+				$table = $( '&lt;table>' ).appendTo( $unit );
+
+				$( '&lt;tr>' )
+					.append(
+						$( '&lt;th>' ).attr( 'scope', 'col' ).text( 'Key' ),
+						$( '&lt;th>' ).attr( 'scope', 'col' ).text( 'Value' )
+					)
+					.appendTo( $table );
+
+				for ( key in data ) {
+					$( '&lt;tr>' )
+						.append( $( '&lt;th>' ).attr( 'scope', 'row' ).text( key ) )
+						.append( $( '&lt;td>' ).text( data[ key ] ) )
+						.appendTo( $table );
+				}
+
+				return $unit;
+			}
+
+			return $( '&lt;div>' )
+				.text( this.data.request.method + ' ' + this.data.request.url )
+				.append( buildTable( 'Headers', this.data.request.headers ) )
+				.append( buildTable( 'Parameters', this.data.request.params ) );
+		},
+
+		/**
+		 * Build included files pane.
+		 *
+		 * @return {jQuery}
+		 */
+		buildIncludesPane: function () {
+			var $table, i, length, file;
+
+			$table = $( '&lt;table>' );
+			length = this.data.includes.length;
+
+			for ( i = 0; i &lt; length; i++ ) {
+				file = this.data.includes[ i ];
+				$( '&lt;tr>' )
+					.append( $( '&lt;td>' ).text( file.name ) )
+					.append( $( '&lt;td>' ).text( file.size ).addClass( 'nr' ) )
+					.appendTo( $table );
+			}
+
+			return $table;
+		}
+	};
+
+	$( function () {
+		debug.init();
+	} );
+
+}() );
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+				</main>
+			</div>
+		</div>
+	</div>
+	<footer id="footer" class="footer">
+		<div class="content-box">
+			<ul class="footer__list">
+				<li><a href="https://gerrit.wikimedia.org/g/mediawiki/core/">Contribute</a></li>
+			</ul>
+			<p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Mon Mar 25 2024 13:41:33 GMT-0700 (Pacific Daylight Time)</p>
+			<p><a href="https://wikimediafoundation.org/" class="lnk--wikimedia-project">A Wikimedia Foundation project</a></p>
+		</div>
+	</footer>
+
+<script src="scripts/redirect.js"></script>
+<script>
+var arr = function(aa) { return Array.prototype.slice.call(aa); };
+arr(document.querySelectorAll("nav > ol > li a:not([href])")).map(function(el) {
+  var li = el;
+  while (li && li.tagName !== 'LI') { li = li.parentNode; }
+  el.addEventListener('click', function(event) {
+    if (li.classList.contains('is-on')) {
+      li.classList.remove('is-on');
+      return;
+    }
+    arr(document.querySelectorAll("nav li.nav__item.is-on")).map(function(el2) {
+      el2.classList.remove('is-on');
+    });
+    li.classList.add('is-on');
+  });
+});
+</script>
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/open-member.js"> </script>
+</body>
+</html>

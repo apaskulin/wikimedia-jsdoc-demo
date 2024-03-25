@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]><html lang="en" class="js-off lte-ie8"><![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="js-off ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en" class="js-off">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Source: vue/i18n.js, MediaWiki frontend code, JSDoc</title>
+    <script>
+document.documentElement.className = document.documentElement.className.replace(/\bjs-off\b/,'js-on'); // no BEM notation thx to IE
+    </script>
+    <!--[if lt IE 9]>
+      <script>window.html5={'shivCSS':false};</script>
+      <script src="wmf/js/vendor/ie/html5shiv-3.7.3.min.js"></script>
+      <script src="wmf/js/vendor/ie/respond-1.4.2.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="styles/jsdoc-wmf-theme.css">
+    <script src="scripts/lib/prettify/prettify.js"> </script>
+    <script src="scripts/lib/prettify/lang-css.js"> </script>
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link rel="preload" href="wmf/fonts/Charter_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="wmf/fonts/Lato_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <script src="scripts/fonts-loader.js" async=""></script>
+</head>
+
+<body class="page--home">
+	<header id="header" class="header" role="banner">
+		<div class="content-box">
+			<a href="#content" class="is-aural is-focusable">Jump to content</a>
+			<a href="#nav--main" class="is-aural is-focusable">Jump to navigation</a>
+			<div class="header__title">
+				<span class="site-title"><a href="./"><span class="site-logo"></span>MediaWiki frontend code</a></span>
+				<label class="btn--nav-main" for="trigger--nav-main" aria-hidden="true" title="Show main menu">
+					<i></i> <span>Menu</span>
+				</label>
+			</div>
+     		<div id="search-container" class="search-container">
+  <input type="search" id="lunr-search" class="search-input" role="combobox" aria-autocomplete="list" aria-controls="search-results" aria-expanded="false" aria-activedescendant="selected-search-result" placeholder="Search">
+  <ul id="search-results" class="search-results role="listbox"></ul>
+</div>
+<script src="lunr-data.js"></script>
+<script src="scripts/lib/lunr.js"></script>
+<script src="scripts/lunrSearch.js"></script>
+
+		</div>
+	</header>
+	<div class="page">
+		<div class="content-box flex-cols">
+			<div class="flex-col flex-col--start">
+				<input type="checkbox" id="trigger--nav-main" class="trigger--nav-main">
+				<nav id="nav--main" class="nav nav--main" role="navigation">
+					<ol><li class="nav__item"><a href="index.html">Home</a></li><li class="nav__item"><a href="modules.html">Modules</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="module-mediawiki.ForeignApi.html">mediawiki.ForeignApi</a></li><li class="nav__sub-item"><a href="module-mediawiki.String.html">mediawiki.String</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.jpegmeta.html">mediawiki.libs.jpegmeta</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.pluralruleparser.html">mediawiki.libs.pluralruleparser</a></li><li class="nav__sub-item"><a href="module-mediawiki.notification.convertmessagebox.html">mediawiki.notification.convertmessagebox</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.preview.html">mediawiki.page.preview</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.ready.html">mediawiki.page.ready</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.watch.ajax.html">mediawiki.page.watch.ajax</a></li><li class="nav__sub-item"><a href="module-mediawiki.storage.html">mediawiki.storage</a></li><li class="nav__sub-item"><a href="module-mediawiki.util.html">mediawiki.util</a></li><li class="nav__sub-item"><a href="module-mediawiki.visibleTimeout.html">mediawiki.visibleTimeout</a></li><li class="nav__sub-item"><a href="module-mediawiki.watchstar.widgets.html">mediawiki.watchstar.widgets</a></li><li class="nav__sub-item"><a href="module-moment.html">moment</a></li></ul></li><li class="nav__item"><a href="namespaces.html">Frontend API</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="Hooks.html">Hooks</a></li><li class="nav__sub-item"><a href="jQueryPlugins.html">jQueryPlugins</a></li><li class="nav__sub-item"><a href="mw.html">mw</a></li><li class="nav__sub-item"><a href="window.html">window</a></li></ul></li><li class="nav__item"><a href="sitemap.html">Sitemap</a></li></ol>
+				</nav>
+			</div>
+			<div class="flex-col flex-col--end">
+				<main id="content" class="content" role="main">
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint sourcefile linenums"><code>/*!
+ * i18n plugin for Vue that connects to MediaWiki's i18n system.
+ *
+ * Based on https://github.com/santhoshtr/vue-banana-i18n , but modified to connect to mw.message()
+ * instead of banana-i18n.
+ */
+
+module.exports = {
+	install: function ( app ) {
+		/**
+		 * Adds an `$i18n()` instance method that can be used in all components. This method is a
+		 * proxy to {@link mw.message}.
+		 *
+		 * Usage:
+		 * ```
+		 * &lt;p>{{ $i18n( 'my-message-key', param1, param2 ) }}&lt;/p>
+		 * ```
+		 * or
+		 * ```
+		 * &lt;p>{{ $i18n( 'my-message-key' ).params( [ param1, param2 ] ) }}&lt;/p>
+		 * ```
+		 *
+		 * Note that this method only works for messages that return text. For messages that
+		 * need to be parsed to HTML, use the `v-i18n-html` directive.
+		 *
+		 * @param {string} key Key of message to get
+		 * @param {...any} parameters Values for $N replacements
+		 * @return {mw.Message}
+		 * @memberof Vue.prototype
+		 */
+		function $i18n( key, ...parameters ) {
+			// eslint-disable-next-line mediawiki/msg-doc
+			return mw.message( key, ...parameters );
+		}
+
+		// Make $i18n available as a global property
+		app.config.globalProperties.$i18n = $i18n;
+		// Also make $i18n available in setup() functions through inject()
+		app.provide( 'i18n', $i18n );
+
+		function renderI18nHtml( el, binding ) {
+			/* eslint-disable mediawiki/msg-doc */
+			let message;
+
+			if ( Array.isArray( binding.value ) ) {
+				if ( binding.arg === undefined ) {
+					// v-i18n-html="[ ...params ]" (error)
+					throw new Error( 'v-i18n-html used with parameter array but without message key' );
+				}
+				// v-i18n-html:messageKey="[ ...params ]"
+				message = mw.message( binding.arg ).params( binding.value );
+			} else if ( binding.value instanceof mw.Message ) {
+				// v-i18n-html="mw.message( '...' ).params( [ ... ] )"
+				message = binding.value;
+			} else {
+				// v-i18n-html:foo or v-i18n-html="'foo'"
+				message = mw.message( binding.arg || binding.value );
+			}
+			/* eslint-enable mediawiki/msg-doc */
+
+			el.innerHTML = message.parse();
+		}
+
+		/*
+		 * Add a custom v-i18n-html directive. This is used to inject parsed i18n message contents.
+		 *
+		 * &lt;div v-i18n-html:my-message-key />
+		 *     Parses the my-message-key message and injects the parsed HTML into the div.
+		 *     Equivalent to v-html="mw.message( 'my-message-key' ).parse()"
+		 *
+		 * &lt;div v-i18n-html="msgKey" />
+		 *     Looks in the msgKey variable for the message name, and parses that message.
+		 *     Equivalent to v-html="mw.message( msgKey ).parse()"
+		 *
+		 * &lt;div v-i18n-html="'my-message-key'" />
+		 *     Parses the message named my-message-key. Note the nested quotes!
+		 *     Equivalent to v-html="mw.message( 'my-message-key' ).parse()"
+		 *
+		 * &lt;div v-i18n-html:my-message-key="[ param1, param2 ]" />
+		 *     Parses the my-message-key message, passing parameters param1 and param2
+		 *     Equivalent to v-html="mw.message( 'my-message-key' ).params( [ param1, param2 ] ).parse()"
+		 *
+		 * &lt;div v-i18n-html:my-message-key="[ param1 ]" />
+		 *     Parses the my-message-key message, passing only one parameter. Note the array brackets!
+		 *     Equivalent to v-html="mw.message( 'my-message-key' ).params( [ param1 ] ).parse()"
+		 *
+		 * &lt;div v-i18n-html="$i18n( 'my-message-key' ).params( [ param1, param2 ] )" />
+		 *     If a mw.Message object is passed in, .parse() will be called on it.
+		 *     Equivalent to v-html="mw.message( 'my-message-key' ).params( [ param1, param2 ] ).parse()"
+		 *     This is only recommended for when you have a Message object coming from a
+		 *     computed property or a method, or for when you can't use any of the other calling
+		 *     styles (e.g. because the message key is dynamic, or contains unusual characters).
+		 *     Note that you can use mw.message() in computed properties, but in template attributes
+		 *     you have to use $i18n() instead as demonstrated above.
+		 *
+		 * WARNING: Do not use dynamic argument syntax, like &lt;div v-i18n-html:[msgKeyVariable] />
+		 *          If you do this, the message will not update when msgKeyVariable changes, due to
+		 *          limitations in Vue's directives API. Instead, use the $i18n style described
+		 *          above if you need a dynamic message key.
+		 */
+		app.directive( 'i18n-html', {
+			mounted: renderI18nHtml,
+			updated( el, binding ) {
+				// This function is invoked often, every time anything in the component changes.
+				// We don't want to rerender unnecessarily, because that's wasteful and can cause
+				// strange issues like T327229. For each possible type of binding.value, compare it
+				// to binding.oldValue, and abort if they're equal. This does not account for
+				// changes in binding.arg; we can't detect those, so there's a warning in the
+				// documentation above explaining that using a dynamic argument is not supported.
+
+				const areArraysEqual = ( arr1, arr2 ) =>
+					Array.isArray( arr1 ) &amp;&amp; Array.isArray( arr2 ) &amp;&amp;
+					arr1.length === arr2.length &amp;&amp;
+					arr1.every( ( val, index ) => arr2[ index ] === val );
+				const areMessagesEqual = ( msg1, msg2 ) =>
+					msg1 instanceof mw.Message &amp;&amp; msg2 instanceof mw.Message &amp;&amp;
+					msg1.key === msg2.key &amp;&amp;
+					areArraysEqual( msg1.parameters, msg2.parameters );
+
+				if (
+					binding.value === binding.oldValue ||
+					areArraysEqual( binding.value, binding.oldValue ) ||
+					areMessagesEqual( binding.value, binding.oldValue )
+				) {
+					return;
+				}
+
+				renderI18nHtml( el, binding );
+			}
+		} );
+	}
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+				</main>
+			</div>
+		</div>
+	</div>
+	<footer id="footer" class="footer">
+		<div class="content-box">
+			<ul class="footer__list">
+				<li><a href="https://gerrit.wikimedia.org/g/mediawiki/core/">Contribute</a></li>
+			</ul>
+			<p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Mon Mar 25 2024 13:41:33 GMT-0700 (Pacific Daylight Time)</p>
+			<p><a href="https://wikimediafoundation.org/" class="lnk--wikimedia-project">A Wikimedia Foundation project</a></p>
+		</div>
+	</footer>
+
+<script src="scripts/redirect.js"></script>
+<script>
+var arr = function(aa) { return Array.prototype.slice.call(aa); };
+arr(document.querySelectorAll("nav > ol > li a:not([href])")).map(function(el) {
+  var li = el;
+  while (li && li.tagName !== 'LI') { li = li.parentNode; }
+  el.addEventListener('click', function(event) {
+    if (li.classList.contains('is-on')) {
+      li.classList.remove('is-on');
+      return;
+    }
+    arr(document.querySelectorAll("nav li.nav__item.is-on")).map(function(el2) {
+      el2.classList.remove('is-on');
+    });
+    li.classList.add('is-on');
+  });
+});
+</script>
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/open-member.js"> </script>
+</body>
+</html>

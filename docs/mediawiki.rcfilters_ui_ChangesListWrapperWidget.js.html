@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]><html lang="en" class="js-off lte-ie8"><![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="js-off ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en" class="js-off">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Source: mediawiki.rcfilters/ui/ChangesListWrapperWidget.js, MediaWiki frontend code, JSDoc</title>
+    <script>
+document.documentElement.className = document.documentElement.className.replace(/\bjs-off\b/,'js-on'); // no BEM notation thx to IE
+    </script>
+    <!--[if lt IE 9]>
+      <script>window.html5={'shivCSS':false};</script>
+      <script src="wmf/js/vendor/ie/html5shiv-3.7.3.min.js"></script>
+      <script src="wmf/js/vendor/ie/respond-1.4.2.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="styles/jsdoc-wmf-theme.css">
+    <script src="scripts/lib/prettify/prettify.js"> </script>
+    <script src="scripts/lib/prettify/lang-css.js"> </script>
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link rel="preload" href="wmf/fonts/Charter_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="wmf/fonts/Lato_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <script src="scripts/fonts-loader.js" async=""></script>
+</head>
+
+<body class="page--home">
+	<header id="header" class="header" role="banner">
+		<div class="content-box">
+			<a href="#content" class="is-aural is-focusable">Jump to content</a>
+			<a href="#nav--main" class="is-aural is-focusable">Jump to navigation</a>
+			<div class="header__title">
+				<span class="site-title"><a href="./"><span class="site-logo"></span>MediaWiki frontend code</a></span>
+				<label class="btn--nav-main" for="trigger--nav-main" aria-hidden="true" title="Show main menu">
+					<i></i> <span>Menu</span>
+				</label>
+			</div>
+     		<div id="search-container" class="search-container">
+  <input type="search" id="lunr-search" class="search-input" role="combobox" aria-autocomplete="list" aria-controls="search-results" aria-expanded="false" aria-activedescendant="selected-search-result" placeholder="Search">
+  <ul id="search-results" class="search-results role="listbox"></ul>
+</div>
+<script src="lunr-data.js"></script>
+<script src="scripts/lib/lunr.js"></script>
+<script src="scripts/lunrSearch.js"></script>
+
+		</div>
+	</header>
+	<div class="page">
+		<div class="content-box flex-cols">
+			<div class="flex-col flex-col--start">
+				<input type="checkbox" id="trigger--nav-main" class="trigger--nav-main">
+				<nav id="nav--main" class="nav nav--main" role="navigation">
+					<ol><li class="nav__item"><a href="index.html">Home</a></li><li class="nav__item"><a href="modules.html">Modules</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="module-mediawiki.ForeignApi.html">mediawiki.ForeignApi</a></li><li class="nav__sub-item"><a href="module-mediawiki.String.html">mediawiki.String</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.jpegmeta.html">mediawiki.libs.jpegmeta</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.pluralruleparser.html">mediawiki.libs.pluralruleparser</a></li><li class="nav__sub-item"><a href="module-mediawiki.notification.convertmessagebox.html">mediawiki.notification.convertmessagebox</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.preview.html">mediawiki.page.preview</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.ready.html">mediawiki.page.ready</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.watch.ajax.html">mediawiki.page.watch.ajax</a></li><li class="nav__sub-item"><a href="module-mediawiki.storage.html">mediawiki.storage</a></li><li class="nav__sub-item"><a href="module-mediawiki.util.html">mediawiki.util</a></li><li class="nav__sub-item"><a href="module-mediawiki.visibleTimeout.html">mediawiki.visibleTimeout</a></li><li class="nav__sub-item"><a href="module-mediawiki.watchstar.widgets.html">mediawiki.watchstar.widgets</a></li><li class="nav__sub-item"><a href="module-moment.html">moment</a></li></ul></li><li class="nav__item"><a href="namespaces.html">Frontend API</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="Hooks.html">Hooks</a></li><li class="nav__sub-item"><a href="jQueryPlugins.html">jQueryPlugins</a></li><li class="nav__sub-item"><a href="mw.html">mw</a></li><li class="nav__sub-item"><a href="window.html">window</a></li></ul></li><li class="nav__item"><a href="sitemap.html">Sitemap</a></li></ol>
+				</nav>
+			</div>
+			<div class="flex-col flex-col--end">
+				<main id="content" class="content" role="main">
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint sourcefile linenums"><code>var HighlightColors = require( '../HighlightColors.js' );
+
+/**
+ * List of changes.
+ *
+ * @class mw.rcfilters.ui.ChangesListWrapperWidget
+ * @ignore
+ * @extends OO.ui.Widget
+ *
+ * @param {mw.rcfilters.dm.FiltersViewModel} filtersViewModel View model
+ * @param {mw.rcfilters.dm.ChangesListViewModel} changesListViewModel View model
+ * @param {mw.rcfilters.Controller} controller
+ * @param {jQuery} $changesListRoot Root element of the changes list to attach to
+ * @param {Object} [config] Configuration object
+ */
+var ChangesListWrapperWidget = function MwRcfiltersUiChangesListWrapperWidget(
+	filtersViewModel,
+	changesListViewModel,
+	controller,
+	$changesListRoot,
+	config
+) {
+	config = $.extend( {}, config, {
+		$element: $changesListRoot
+	} );
+
+	// Parent
+	ChangesListWrapperWidget.super.call( this, config );
+
+	this.filtersViewModel = filtersViewModel;
+	this.changesListViewModel = changesListViewModel;
+	this.controller = controller;
+
+	// Events
+	this.filtersViewModel.connect( this, {
+		itemUpdate: 'onItemUpdate',
+		highlightChange: 'onHighlightChange'
+	} );
+	this.changesListViewModel.connect( this, {
+		invalidate: 'onModelInvalidate',
+		update: 'onModelUpdate'
+	} );
+
+	this.$element
+		.addClass( 'mw-rcfilters-ui-changesListWrapperWidget' )
+		// We handle our own display/hide of the empty results message
+		// We keep the timeout class here and remove it later, since at this
+		// stage it is still needed to identify that the timeout occurred.
+		.removeClass( 'mw-changeslist-empty' );
+};
+
+/* Initialization */
+
+OO.inheritClass( ChangesListWrapperWidget, OO.ui.Widget );
+
+/**
+ * Respond to the highlight feature being toggled on and off
+ *
+ * @param {boolean} highlightEnabled
+ */
+ChangesListWrapperWidget.prototype.onHighlightChange = function ( highlightEnabled ) {
+	if ( highlightEnabled ) {
+		this.applyHighlight();
+	} else {
+		this.clearHighlight();
+	}
+};
+
+/**
+ * Respond to a filter item model update
+ */
+ChangesListWrapperWidget.prototype.onItemUpdate = function () {
+	if ( this.controller.isInitialized() &amp;&amp; this.filtersViewModel.isHighlightEnabled() ) {
+		// this.controller.isInitialized() is still false during page load,
+		// we don't want to clear/apply highlights at this stage.
+		this.clearHighlight();
+		this.applyHighlight();
+	}
+};
+
+/**
+ * Respond to changes list model invalidate
+ */
+ChangesListWrapperWidget.prototype.onModelInvalidate = function () {
+	$( document.body ).addClass( 'mw-rcfilters-ui-loading' );
+};
+
+/**
+ * Respond to changes list model update
+ *
+ * @param {jQuery|string} $changesListContent The content of the updated changes list
+ * @param {jQuery} $fieldset The content of the updated fieldset
+ * @param {string} noResultsDetails Type of no result error
+ * @param {boolean} isInitialDOM Whether $changesListContent is the existing (already attached) DOM
+ * @param {boolean} from Timestamp of the new changes
+ */
+ChangesListWrapperWidget.prototype.onModelUpdate = function (
+	$changesListContent, $fieldset, noResultsDetails, isInitialDOM, from
+) {
+	var conflictItem,
+		$message = $( '&lt;div>' )
+			.addClass( 'mw-rcfilters-ui-changesListWrapperWidget-results' ),
+		isEmpty = $changesListContent === 'NO_RESULTS',
+		// For enhanced mode, we have to load this modules, which is
+		// not loaded for the 'regular' mode in the backend
+		loaderPromise = mw.user.options.get( 'usenewrc' ) &amp;&amp; !OO.ui.isMobile() ?
+			mw.loader.using( [ 'mediawiki.special.changeslist.enhanced' ] ) :
+			$.Deferred().resolve(),
+		widget = this;
+
+	this.$element.toggleClass( 'mw-changeslist', !isEmpty );
+	if ( isEmpty ) {
+		this.$element.empty();
+
+		if ( this.filtersViewModel.hasConflict() ) {
+			conflictItem = this.filtersViewModel.getFirstConflictedItem();
+
+			$message
+				.append(
+					$( '&lt;div>' )
+						.addClass( 'mw-rcfilters-ui-changesListWrapperWidget-results-conflict' )
+						.text( mw.msg( 'rcfilters-noresults-conflict' ) ),
+					$( '&lt;div>' )
+						.addClass( 'mw-rcfilters-ui-changesListWrapperWidget-results-message' )
+						// TODO: Document possible messages
+						// eslint-disable-next-line mediawiki/msg-doc
+						.text( mw.msg( conflictItem.getCurrentConflictResultMessage() ) )
+				);
+		} else {
+			$message
+				.append(
+					$( '&lt;div>' )
+						.addClass( 'mw-rcfilters-ui-changesListWrapperWidget-results-noresult' )
+						// The following messages can be used here:
+						// * recentchanges-noresult
+						// * recentchanges-timeout
+						// * recentchanges-network
+						// * recentchanges-notargetpage
+						// * allpagesbadtitle
+						.html( mw.message( this.getMsgKeyForNoResults( noResultsDetails ) ).parse() )
+				);
+
+			// remove all classes matching mw-changeslist-*
+			// eslint-disable-next-line mediawiki/class-doc
+			this.$element.removeClass( function ( elementIndex, allClasses ) {
+				return allClasses
+					.split( ' ' )
+					.filter( function ( className ) {
+						return className.indexOf( 'mw-changeslist-' ) === 0;
+					} )
+					.join( ' ' );
+			} );
+		}
+
+		this.$element.append( $message );
+	} else {
+		if ( !isInitialDOM ) {
+			this.$element.empty().append( $changesListContent );
+
+			if ( from ) {
+				this.emphasizeNewChanges( from );
+			}
+		}
+
+		// Apply highlight
+		this.applyHighlight();
+
+	}
+
+	this.$element.prepend( $( '&lt;div>' ).addClass( 'mw-changeslist-overlay' ) );
+
+	loaderPromise.done( function () {
+		if ( !isInitialDOM &amp;&amp; !isEmpty ) {
+			// Make sure enhanced RC re-initializes correctly
+			mw.hook( 'wikipage.content' ).fire( widget.$element );
+		}
+
+		$( document.body ).removeClass( 'mw-rcfilters-ui-loading' );
+	} );
+};
+
+/**
+ * Toggles overlay class on changes list
+ *
+ * @param {boolean} isVisible True if overlay should be visible
+ */
+ChangesListWrapperWidget.prototype.toggleOverlay = function ( isVisible ) {
+	this.$element.toggleClass( 'mw-rcfilters-ui-changesListWrapperWidget--overlaid', isVisible );
+};
+
+/**
+ * Map a reason for having no results to its message key
+ *
+ * @param {string} reason One of the NO_RESULTS_* "constant" that represent
+ *   a reason for having no results
+ * @return {string} Key for the message that explains why there is no results in this case
+ */
+ChangesListWrapperWidget.prototype.getMsgKeyForNoResults = function ( reason ) {
+	var reasonMsgKeyMap = {
+		NO_RESULTS_NORMAL: 'recentchanges-noresult',
+		NO_RESULTS_TIMEOUT: 'recentchanges-timeout',
+		NO_RESULTS_NETWORK_ERROR: 'recentchanges-network',
+		NO_RESULTS_NO_TARGET_PAGE: 'recentchanges-notargetpage',
+		NO_RESULTS_INVALID_TARGET_PAGE: 'allpagesbadtitle'
+	};
+	return reasonMsgKeyMap[ reason ];
+};
+
+/**
+ * Emphasize the elements (or groups) newer than the 'from' parameter
+ *
+ * @param {string} from Anything newer than this is considered 'new'
+ */
+ChangesListWrapperWidget.prototype.emphasizeNewChanges = function ( from ) {
+	var $firstNew,
+		$indicator,
+		$newChanges = $( [] ),
+		selector = this.inEnhancedMode() ?
+			'table.mw-enhanced-rc[data-mw-ts]' :
+			'li[data-mw-ts]',
+		$set = this.$element.find( selector ),
+		length = $set.length;
+
+	$set.each( function ( index ) {
+		var $this = $( this ),
+			ts = $this.data( 'mw-ts' );
+
+		if ( ts >= from ) {
+			$newChanges = $newChanges.add( $this );
+			$firstNew = $this;
+
+			// guards against putting the marker after the last element
+			if ( index === ( length - 1 ) ) {
+				$firstNew = null;
+			}
+		}
+	} );
+
+	if ( $firstNew ) {
+		$indicator = $( '&lt;div>' )
+			.addClass( 'mw-rcfilters-ui-changesListWrapperWidget-previousChangesIndicator' );
+
+		$firstNew.after( $indicator );
+	}
+
+	// FIXME: Use CSS transition
+	// eslint-disable-next-line no-jquery/no-fade
+	$newChanges
+		.hide()
+		.fadeIn( 1000 );
+};
+
+/**
+ * In enhanced mode, we need to check whether the grouped results all have the
+ * same active highlights in order to see whether the "parent" of the group should
+ * be grey or highlighted normally.
+ *
+ * This is called every time highlights are applied.
+ */
+ChangesListWrapperWidget.prototype.updateEnhancedParentHighlight = function () {
+	var activeHighlightClasses,
+		$enhancedTopPageCell = this.$element.find( 'table.mw-enhanced-rc' );
+
+	activeHighlightClasses = this.filtersViewModel.getCurrentlyUsedHighlightColors().map( function ( color ) {
+		return 'mw-rcfilters-highlight-color-' + color;
+	} );
+
+	// Go over top pages and their children, and figure out if all sub-pages have the
+	// same highlights between themselves. If they do, the parent should be highlighted
+	// with all colors. If classes are different, the parent should receive a grey
+	// background
+	$enhancedTopPageCell.each( function () {
+		var firstChildClasses, $rowsWithDifferentHighlights,
+			$table = $( this );
+
+		// Collect the relevant classes from the first nested child
+		firstChildClasses = activeHighlightClasses.filter( function ( className ) {
+			// eslint-disable-next-line no-jquery/no-class-state
+			return $table.find( 'tr' ).eq( 2 ).hasClass( className );
+		} );
+		// Filter the non-head rows and see if they all have the same classes
+		// to the first row
+		$rowsWithDifferentHighlights = $table.find( 'tr:not(:first-child)' ).filter( function () {
+			var classesInThisRow,
+				$this = $( this );
+
+			classesInThisRow = activeHighlightClasses.filter( function ( className ) {
+				// eslint-disable-next-line no-jquery/no-class-state
+				return $this.hasClass( className );
+			} );
+
+			return !OO.compare( firstChildClasses, classesInThisRow );
+		} );
+
+		// If classes are different, tag the row for using grey color
+		$table.find( 'tr:first-child' )
+			.toggleClass( 'mw-rcfilters-ui-changesListWrapperWidget-enhanced-grey', $rowsWithDifferentHighlights.length > 0 );
+	} );
+};
+
+/**
+ * @return {boolean} Whether the changes are grouped by page
+ */
+ChangesListWrapperWidget.prototype.inEnhancedMode = function () {
+	var uri = new mw.Uri();
+	return ( uri.query.enhanced !== undefined &amp;&amp; Number( uri.query.enhanced ) ) ||
+		( uri.query.enhanced === undefined &amp;&amp; Number( mw.user.options.get( 'usenewrc' ) ) );
+};
+
+/**
+ * Apply color classes based on filters highlight configuration
+ */
+ChangesListWrapperWidget.prototype.applyHighlight = function () {
+	if ( !this.filtersViewModel.isHighlightEnabled() ) {
+		return;
+	}
+
+	this.filtersViewModel.getHighlightedItems().forEach( function ( filterItem ) {
+		var $elements = this.$element.find( '.' + filterItem.getCssClass() );
+
+		// Add highlight class to all highlighted list items
+		// The following classes are used here:
+		// * mw-rcfilters-highlight-color-c1
+		// * mw-rcfilters-highlight-color-c2
+		// * mw-rcfilters-highlight-color-c3
+		// * mw-rcfilters-highlight-color-c4
+		// * mw-rcfilters-highlight-color-c5
+		$elements
+			.addClass(
+				'mw-rcfilters-highlighted ' +
+				'mw-rcfilters-highlight-color-' + filterItem.getHighlightColor()
+			);
+
+		// Track the filters for each item in .data( 'highlightedFilters' )
+		$elements.each( function () {
+			var filters = $( this ).data( 'highlightedFilters' );
+			if ( !filters ) {
+				filters = [];
+				$( this ).data( 'highlightedFilters', filters );
+			}
+			if ( filters.indexOf( filterItem.getLabel() ) === -1 ) {
+				filters.push( filterItem.getLabel() );
+			}
+		} );
+	}.bind( this ) );
+	// Apply a title to each highlighted item, with a list of filters
+	this.$element.find( '.mw-rcfilters-highlighted' ).each( function () {
+		var filters = $( this ).data( 'highlightedFilters' );
+
+		if ( filters &amp;&amp; filters.length ) {
+			$( this ).attr( 'title', mw.msg(
+				'rcfilters-highlighted-filters-list',
+				filters.join( mw.msg( 'comma-separator' ) )
+			) );
+		}
+
+	} );
+	if ( this.inEnhancedMode() ) {
+		this.updateEnhancedParentHighlight();
+	}
+
+	// Turn on highlights
+	this.$element.addClass( 'mw-rcfilters-ui-changesListWrapperWidget-highlighted' );
+};
+
+/**
+ * Remove all color classes
+ */
+ChangesListWrapperWidget.prototype.clearHighlight = function () {
+	// Remove highlight classes
+	HighlightColors.forEach( function ( color ) {
+		// The following classes are used here:
+		// * mw-rcfilters-highlight-color-c1
+		// * mw-rcfilters-highlight-color-c2
+		// * mw-rcfilters-highlight-color-c3
+		// * mw-rcfilters-highlight-color-c4
+		// * mw-rcfilters-highlight-color-c5
+		this.$element
+			.find( '.mw-rcfilters-highlight-color-' + color )
+			.removeClass( 'mw-rcfilters-highlight-color-' + color );
+	}.bind( this ) );
+
+	this.$element.find( '.mw-rcfilters-highlighted' )
+		.removeAttr( 'title' )
+		.removeData( 'highlightedFilters' )
+		.removeClass( 'mw-rcfilters-highlighted' );
+
+	// Remove grey from enhanced rows
+	this.$element.find( '.mw-rcfilters-ui-changesListWrapperWidget-enhanced-grey' )
+		.removeClass( 'mw-rcfilters-ui-changesListWrapperWidget-enhanced-grey' );
+
+	// Turn off highlights
+	this.$element.removeClass( 'mw-rcfilters-ui-changesListWrapperWidget-highlighted' );
+};
+
+module.exports = ChangesListWrapperWidget;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+				</main>
+			</div>
+		</div>
+	</div>
+	<footer id="footer" class="footer">
+		<div class="content-box">
+			<ul class="footer__list">
+				<li><a href="https://gerrit.wikimedia.org/g/mediawiki/core/">Contribute</a></li>
+			</ul>
+			<p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Mon Mar 25 2024 13:41:33 GMT-0700 (Pacific Daylight Time)</p>
+			<p><a href="https://wikimediafoundation.org/" class="lnk--wikimedia-project">A Wikimedia Foundation project</a></p>
+		</div>
+	</footer>
+
+<script src="scripts/redirect.js"></script>
+<script>
+var arr = function(aa) { return Array.prototype.slice.call(aa); };
+arr(document.querySelectorAll("nav > ol > li a:not([href])")).map(function(el) {
+  var li = el;
+  while (li && li.tagName !== 'LI') { li = li.parentNode; }
+  el.addEventListener('click', function(event) {
+    if (li.classList.contains('is-on')) {
+      li.classList.remove('is-on');
+      return;
+    }
+    arr(document.querySelectorAll("nav li.nav__item.is-on")).map(function(el2) {
+      el2.classList.remove('is-on');
+    });
+    li.classList.add('is-on');
+  });
+});
+</script>
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/open-member.js"> </script>
+</body>
+</html>

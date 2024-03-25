@@ -1,0 +1,2318 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]><html lang="en" class="js-off lte-ie8"><![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="js-off ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en" class="js-off">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Namespace: CheckboxHack, MediaWiki frontend code, JSDoc</title>
+    <script>
+document.documentElement.className = document.documentElement.className.replace(/\bjs-off\b/,'js-on'); // no BEM notation thx to IE
+    </script>
+    <!--[if lt IE 9]>
+      <script>window.html5={'shivCSS':false};</script>
+      <script src="wmf/js/vendor/ie/html5shiv-3.7.3.min.js"></script>
+      <script src="wmf/js/vendor/ie/respond-1.4.2.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="styles/jsdoc-wmf-theme.css">
+    <script src="scripts/lib/prettify/prettify.js"> </script>
+    <script src="scripts/lib/prettify/lang-css.js"> </script>
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link rel="preload" href="wmf/fonts/Charter_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="wmf/fonts/Lato_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <script src="scripts/fonts-loader.js" async=""></script>
+</head>
+
+<body class="page--home">
+	<header id="header" class="header" role="banner">
+		<div class="content-box">
+			<a href="#content" class="is-aural is-focusable">Jump to content</a>
+			<a href="#nav--main" class="is-aural is-focusable">Jump to navigation</a>
+			<div class="header__title">
+				<span class="site-title"><a href="./"><span class="site-logo"></span>MediaWiki frontend code</a></span>
+				<label class="btn--nav-main" for="trigger--nav-main" aria-hidden="true" title="Show main menu">
+					<i></i> <span>Menu</span>
+				</label>
+			</div>
+     		<div id="search-container" class="search-container">
+  <input type="search" id="lunr-search" class="search-input" role="combobox" aria-autocomplete="list" aria-controls="search-results" aria-expanded="false" aria-activedescendant="selected-search-result" placeholder="Search">
+  <ul id="search-results" class="search-results role="listbox"></ul>
+</div>
+<script src="lunr-data.js"></script>
+<script src="scripts/lib/lunr.js"></script>
+<script src="scripts/lunrSearch.js"></script>
+
+		</div>
+	</header>
+	<div class="page">
+		<div class="content-box flex-cols">
+			<div class="flex-col flex-col--start">
+				<input type="checkbox" id="trigger--nav-main" class="trigger--nav-main">
+				<nav id="nav--main" class="nav nav--main" role="navigation">
+					<ol><li class="nav__item"><a href="index.html">Home</a></li><li class="nav__item"><a href="modules.html">Modules</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="module-mediawiki.ForeignApi.html">mediawiki.ForeignApi</a></li><li class="nav__sub-item"><a href="module-mediawiki.String.html">mediawiki.String</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.jpegmeta.html">mediawiki.libs.jpegmeta</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.pluralruleparser.html">mediawiki.libs.pluralruleparser</a></li><li class="nav__sub-item"><a href="module-mediawiki.notification.convertmessagebox.html">mediawiki.notification.convertmessagebox</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.preview.html">mediawiki.page.preview</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.ready.html">mediawiki.page.ready</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.watch.ajax.html">mediawiki.page.watch.ajax</a></li><li class="nav__sub-item"><a href="module-mediawiki.storage.html">mediawiki.storage</a></li><li class="nav__sub-item"><a href="module-mediawiki.util.html">mediawiki.util</a></li><li class="nav__sub-item"><a href="module-mediawiki.visibleTimeout.html">mediawiki.visibleTimeout</a></li><li class="nav__sub-item"><a href="module-mediawiki.watchstar.widgets.html">mediawiki.watchstar.widgets</a></li><li class="nav__sub-item"><a href="module-moment.html">moment</a></li></ul></li><li class="nav__item"><a href="namespaces.html">Frontend API</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="Hooks.html">Hooks</a></li><li class="nav__sub-item"><a href="jQueryPlugins.html">jQueryPlugins</a></li><li class="nav__sub-item"><a href="mw.html">mw</a></li><li class="nav__sub-item"><a href="window.html">window</a></li></ul></li><li class="nav__item"><a href="sitemap.html">Sitemap</a></li></ol>
+				</nav>
+			</div>
+			<div class="flex-col flex-col--end">
+				<main id="content" class="content" role="main">
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+    <nav class="breadcrumbs">
+        <a href="module-mediawiki.page.ready.html">mediawiki.page.ready</a> &gt;
+        CheckboxHack
+    </nav>
+    
+    <h1>
+        <span class="ancestors"><a href="module-mediawiki.page.ready.html">mediawiki.page.ready</a>.</span>CheckboxHack</h1>
+    
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><p>Utility library for managing components using the <a href="https://css-tricks.com/the-checkbox-hack/">CSS checkbox hack</a>.
+To access call <code>require('mediawiki.page.ready').checkboxHack</code>.</p>
+<p>The checkbox hack works without JavaScript for graphical user-interface users, but relies on
+enhancements to work well for screen reader users. This module provides required a11y
+interactivity for updating the <code>aria-expanded</code> accessibility state, and optional enhancements
+for avoiding the distracting focus ring when using a pointing device, and target dismissal on
+focus loss or external click.</p>
+<p>The checkbox hack is a prevalent pattern in MediaWiki similar to disclosure widgets<a href="https://developer.mozilla.org/docs/Web/HTML/Element/details">0</a>. Although
+dated and out-of-fashion, it's surprisingly flexible allowing for both <code>details</code> / <code>summary</code>-like
+patterns, menu components, and more complex structures (to be used sparingly) where the toggle
+button and target are in different parts of the Document without an enclosing element, so long as
+they can be described as a sibling to the input. It's complicated and frequent enough to warrant
+single implementation.</p>
+<p>In time, proper disclosure widgets should replace checkbox hacks. However, the second pattern has
+no equivalent so the checkbox hack may have a continued use case for some time to come.</p>
+<p>When the abstraction is leaky, the underlying implementation is simpler than anything built to
+hide it. Attempts to abstract the functionality for the second pattern failed so all related code
+celebrates the implementation as directly as possible.</p>
+<p>All the code assumes that when the input is checked, the target is in an expanded state.</p>
+<p>Consider the disclosure widget pattern first mentioned:</p>
+<pre class="prettyprint source lang-html"><code>&lt;details>                                              &lt;!-- Container -->
+    &lt;summary>Click to expand navigation menu&lt;/summary> &lt;!-- Button -->
+    &lt;ul>                                               &lt;!-- Target -->
+        &lt;li>Main page&lt;/li>
+        &lt;li>Random article&lt;/li>
+        &lt;li>Donate to Wikipedia&lt;/li>
+    &lt;/ul>
+&lt;/details>
+</code></pre>
+<p>Which is represented verbosely by a checkbox hack as such:</p>
+<pre class="prettyprint source lang-html"><code>&lt;div>                                                 &lt;!-- Container -->
+    &lt;input                                            &lt;!-- Visually hidden checkbox -->
+        type=&quot;checkbox&quot;
+        id=&quot;sidebar-checkbox&quot;
+        class=&quot;mw-checkbox-hack-checkbox&quot;
+        {{#visible}}checked{{/visible}}
+        role=&quot;button&quot;
+        aria-labelledby=&quot;sidebar-button&quot;
+        aria-expanded=&quot;true||false&quot;
+        aria-haspopup=&quot;true&quot;>                         &lt;!-- Optional attribute -->
+    &lt;label                                            &lt;!-- Button -->
+        id=&quot;sidebar-button&quot;
+        class=&quot;mw-checkbox-hack-button&quot;
+        for=&quot;sidebar-checkbox&quot;
+        aria-hidden=&quot;true&quot;>
+        Click to expand navigation menu
+    &lt;/label>
+    &lt;ul id=&quot;sidebar&quot; class=&quot;mw-checkbox-hack-target&quot;> &lt;!-- Target -->
+        &lt;li>Main page&lt;/li>
+        &lt;li>Random article&lt;/li>
+        &lt;li>Donate to Wikipedia&lt;/li>
+    &lt;/ul>
+&lt;/div>
+</code></pre>
+<p>Where the checkbox is the input, the label is the button, and the target is the unordered list.
+<code>aria-haspopup</code> is an optional attribute that can be applied when dealing with popup elements (i.e. menus).</p>
+<p>Note that while the label acts as a button for visual users (i.e. it's usually styled as a button and is clicked),
+the checkbox is what's actually interacted with for keyboard and screenreader users. Many of the HTML attributes
+and JS enhancements serve to give the checkbox the behavior and semantics of a button.
+For this reason any hover/focus/active state styles for the button should be applied based on the checkbox state
+(i.e. https://github.com/wikimedia/mediawiki/blob/master/resources/src/mediawiki.ui.button/button.less#L90)</p>
+<p>Consider the disparate pattern:</p>
+<pre class="prettyprint source lang-html"><code>&lt;!-- ... -->
+&lt;!-- The only requirement is that the button and target can be described as a sibling to the
+     checkbox. -->
+&lt;input
+    type=&quot;checkbox&quot;
+    id=&quot;sidebar-checkbox&quot;
+    class=&quot;mw-checkbox-hack-checkbox&quot;
+    {{#visible}}checked{{/visible}}
+    role=&quot;button&quot;
+    aria-labelledby=&quot;sidebar-button&quot;
+    aria-expanded=&quot;true||false&quot;
+    aria-haspopup=&quot;true&quot;>
+&lt;!-- ... -->
+&lt;label
+    id=&quot;sidebar-button&quot;
+    class=&quot;mw-checkbox-hack-button&quot;
+    for=&quot;sidebar-checkbox&quot;
+    aria-hidden=&quot;true&quot;>
+    Toggle navigation menu
+&lt;/label>
+&lt;!-- ... -->
+&lt;ul id=&quot;sidebar&quot; class=&quot;mw-checkbox-hack-target&quot;>
+    &lt;li>Main page&lt;/li>
+    &lt;li>Random article&lt;/li>
+    &lt;li>Donate to Wikipedia&lt;/li>
+&lt;/ul>
+&lt;!-- ... -->
+</code></pre>
+<p>Which is the same as the disclosure widget but without the enclosing container and the input only
+needs to be a preceding sibling of the button and target. It's possible to bend the checkbox hack
+further to allow the button and target to be at an arbitrary depth so long as a parent can be
+described as a succeeding sibling of the input, but this requires a mixin implementation that
+duplicates the rules for each relation selector.</p>
+<p>Exposed APIs should be considered stable.</p>
+<p>Accompanying checkbox hack styles are tracked in T252774.</p></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.page.ready_checkboxHack.js.html">mediawiki.page.ready/checkboxHack.js</a>, <a href="mediawiki.page.ready_checkboxHack.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h2 class="subsection-title">Methods</h2>
+
+        
+            
+<div class="member method--static member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-.bind" class="toggle-box" >
+    <summary>
+        <h3 class="name" id=".bind">
+            bind<span class="signature">(window, checkbox, button, target)</span><span class="type-signature"> &rarr; {function}</span><span class="type-signature"><span class="type-signature__attrib type-signature__attrib--static">static</span></span>
+            <a href="#.bind">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Dismiss the target when clicking or focusing elsewhere and update the <code>aria-expanded</code> attribute
+based on checkbox state (target visibility) changes made by <strong>the user.</strong> When tapping the button
+itself, clear the focus outline.</p>
+<p>This function calls the other bind* functions and is the only expected interaction for most use
+cases. It's constituents are provided distinctly for the other use cases.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>window</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 <a href="window.html">window</a>
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>checkbox</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement">HTMLInputElement</a>
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The underlying hidden checkbox that controls target
+visibility.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>button</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement">HTMLElement</a>
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The visible label icon associated with the checkbox. This button
+toggles the state of the underlying checkbox.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>target</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 <a href="https://developer.mozilla.org/en-US/docs/Web/API/Node">Node</a>
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The Node to toggle visibility of based on checkbox state.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.page.ready_checkboxHack.js.html">mediawiki.page.ready/checkboxHack.js</a>, <a href="mediawiki.page.ready_checkboxHack.js.html#line422">line 422</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+<div class="param-desc">
+    <p>Cleanup function that removes the added event listeners.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 function
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        <p>Dismiss the target when clicking or focusing elsewhere and update the <code>aria-expanded</code> attribute
+based on checkbox state (target visibility) changes made by <strong>the user.</strong></p>
+    </div>
+
+</div>
+
+        
+            
+<div class="member method--static member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-.bindDismissOnClickLink" class="toggle-box" >
+    <summary>
+        <h3 class="name" id=".bindDismissOnClickLink">
+            bindDismissOnClickLink<span class="signature">(checkbox, target)</span><span class="type-signature"> &rarr; {function}</span><span class="type-signature"><span class="type-signature__attrib type-signature__attrib--static">static</span></span>
+            <a href="#.bindDismissOnClickLink">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Dismiss the target when clicking on a link to prevent the target from being open
+when navigating to a new page.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>checkbox</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement">HTMLInputElement</a>
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>target</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 <a href="https://developer.mozilla.org/en-US/docs/Web/API/Node">Node</a>
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.page.ready_checkboxHack.js.html">mediawiki.page.ready/checkboxHack.js</a>, <a href="mediawiki.page.ready_checkboxHack.js.html#line387">line 387</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+<div class="param-desc">
+    <p>Cleanup function that removes the added event listeners.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 function
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        <p>Dismiss the target when clicking on a link to prevent the target from being open
+when navigating to a new page.</p>
+    </div>
+
+</div>
+
+        
+            
+<div class="member method--static member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-.bindDismissOnClickOutside" class="toggle-box" >
+    <summary>
+        <h3 class="name" id=".bindDismissOnClickOutside">
+            bindDismissOnClickOutside<span class="signature">(window, checkbox, button, target)</span><span class="type-signature"> &rarr; {function}</span><span class="type-signature"><span class="type-signature__attrib type-signature__attrib--static">static</span></span>
+            <a href="#.bindDismissOnClickOutside">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Dismiss the target when clicking elsewhere and update the <code>aria-expanded</code> attribute based on
+checkbox state (target visibility).</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>window</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 <a href="window.html">window</a>
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>checkbox</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement">HTMLInputElement</a>
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>button</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement">HTMLElement</a>
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>target</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 <a href="https://developer.mozilla.org/en-US/docs/Web/API/Node">Node</a>
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.page.ready_checkboxHack.js.html">mediawiki.page.ready/checkboxHack.js</a>, <a href="mediawiki.page.ready_checkboxHack.js.html#line347">line 347</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+<div class="param-desc">
+    <p>Cleanup function that removes the added event listeners.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 function
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        <p>Dismiss the target when clicking elsewhere and update the <code>aria-expanded</code> attribute based on
+checkbox state (target visibility).</p>
+    </div>
+
+</div>
+
+        
+            
+<div class="member method--static member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-.bindDismissOnFocusLoss" class="toggle-box" >
+    <summary>
+        <h3 class="name" id=".bindDismissOnFocusLoss">
+            bindDismissOnFocusLoss<span class="signature">(window, checkbox, button, target)</span><span class="type-signature"> &rarr; {function}</span><span class="type-signature"><span class="type-signature__attrib type-signature__attrib--static">static</span></span>
+            <a href="#.bindDismissOnFocusLoss">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Dismiss the target when focusing elsewhere and update the <code>aria-expanded</code> attribute based on
+checkbox state (target visibility).</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>window</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 <a href="window.html">window</a>
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>checkbox</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement">HTMLInputElement</a>
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>button</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement">HTMLElement</a>
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>target</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 <a href="https://developer.mozilla.org/en-US/docs/Web/API/Node">Node</a>
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.page.ready_checkboxHack.js.html">mediawiki.page.ready/checkboxHack.js</a>, <a href="mediawiki.page.ready_checkboxHack.js.html#line367">line 367</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+<div class="param-desc">
+    <p>Cleanup function that removes the added event listeners.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 function
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        <p>Dismiss the target when focusing elsewhere and update the <code>aria-expanded</code> attribute based on
+checkbox state (target visibility).</p>
+    </div>
+
+</div>
+
+        
+            
+<div class="member method--static member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-.bindToggleOnClick" class="toggle-box" >
+    <summary>
+        <h3 class="name" id=".bindToggleOnClick">
+            bindToggleOnClick<span class="signature">(checkbox, button)</span><span class="type-signature"> &rarr; {function}</span><span class="type-signature"><span class="type-signature__attrib type-signature__attrib--static">static</span></span>
+            <a href="#.bindToggleOnClick">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Manually change the checkbox state to avoid a focus change when using a pointing device.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>checkbox</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement">HTMLInputElement</a>
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>button</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement">HTMLElement</a>
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.page.ready_checkboxHack.js.html">mediawiki.page.ready/checkboxHack.js</a>, <a href="mediawiki.page.ready_checkboxHack.js.html#line247">line 247</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+<div class="param-desc">
+    <p>Cleanup function that removes the added event listeners.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 function
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Manually change the checkbox state to avoid a focus change when using a pointing device.
+    </div>
+
+</div>
+
+        
+            
+<div class="member method--static member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-.bindToggleOnEnter" class="toggle-box" >
+    <summary>
+        <h3 class="name" id=".bindToggleOnEnter">
+            bindToggleOnEnter<span class="signature">(checkbox)</span><span class="type-signature"> &rarr; {function}</span><span class="type-signature"><span class="type-signature__attrib type-signature__attrib--static">static</span></span>
+            <a href="#.bindToggleOnEnter">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Manually change the checkbox state when the button is focused and Enter is pressed.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>checkbox</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement">HTMLInputElement</a>
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.page.ready_checkboxHack.js.html">mediawiki.page.ready/checkboxHack.js</a>, <a href="mediawiki.page.ready_checkboxHack.js.html#line319">line 319</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+<div class="param-desc">
+    <p>Cleanup function that removes the added event listeners.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 function
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Manually change the checkbox state when the button is focused and Enter is pressed.
+    </div>
+
+</div>
+
+        
+            
+<div class="member method--static method--deprecated member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-.bindToggleOnSpaceEnter" class="toggle-box" >
+    <summary>
+        <h3 class="name" id=".bindToggleOnSpaceEnter">
+            bindToggleOnSpaceEnter<span class="signature">(checkbox, button)</span><span class="type-signature"> &rarr; {function}</span><span class="type-signature"><span class="type-signature__attrib type-signature__attrib--static">static</span></span>
+            <a href="#.bindToggleOnSpaceEnter">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Manually change the checkbox state when the button is focused and SPACE is pressed.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>checkbox</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement">HTMLInputElement</a>
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>button</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement">HTMLElement</a>
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <dt class="important tag-deprecated">Deprecated:</dt><dd><ul class="dummy"><li>Use `bindToggleOnEnter` instead.</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.page.ready_checkboxHack.js.html">mediawiki.page.ready/checkboxHack.js</a>, <a href="mediawiki.page.ready_checkboxHack.js.html#line270">line 270</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+<div class="param-desc">
+    <p>Cleanup function that removes the added event listeners.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 function
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Manually change the checkbox state when the button is focused and SPACE is pressed.
+    </div>
+
+</div>
+
+        
+            
+<div class="member method--static member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-.bindUpdateAriaExpandedOnInput" class="toggle-box" >
+    <summary>
+        <h3 class="name" id=".bindUpdateAriaExpandedOnInput">
+            bindUpdateAriaExpandedOnInput<span class="signature">(checkbox, button)</span><span class="type-signature"> &rarr; {function}</span><span class="type-signature"><span class="type-signature__attrib type-signature__attrib--static">static</span></span>
+            <a href="#.bindUpdateAriaExpandedOnInput">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Update the <code>aria-expanded</code> attribute based on checkbox state (target visibility) changes.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>checkbox</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement">HTMLInputElement</a>
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>button</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement">HTMLElement</a>
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.page.ready_checkboxHack.js.html">mediawiki.page.ready/checkboxHack.js</a>, <a href="mediawiki.page.ready_checkboxHack.js.html#line225">line 225</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+<div class="param-desc">
+    <p>Cleanup function that removes the added event listeners.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 function
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Update the <code>aria-expanded</code> attribute based on checkbox state (target visibility) changes.
+    </div>
+
+</div>
+
+        
+            
+<div class="member method--static member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-.updateAriaExpanded" class="toggle-box" >
+    <summary>
+        <h3 class="name" id=".updateAriaExpanded">
+            updateAriaExpanded<span class="signature">(checkbox, button)</span><span class="type-signature"></span><span class="type-signature"><span class="type-signature__attrib type-signature__attrib--static">static</span></span>
+            <a href="#.updateAriaExpanded">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Revise the button's <code>aria-expanded</code> state to match the checked state.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>checkbox</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement">HTMLInputElement</a>
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>button</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement">HTMLElement</a>
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.page.ready_checkboxHack.js.html">mediawiki.page.ready/checkboxHack.js</a>, <a href="mediawiki.page.ready_checkboxHack.js.html#line131">line 131</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Revise the button's <code>aria-expanded</code> state to match the checked state.
+    </div>
+
+</div>
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+				</main>
+			</div>
+		</div>
+	</div>
+	<footer id="footer" class="footer">
+		<div class="content-box">
+			<ul class="footer__list">
+				<li><a href="https://gerrit.wikimedia.org/g/mediawiki/core/">Contribute</a></li>
+			</ul>
+			<p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Mon Mar 25 2024 13:41:33 GMT-0700 (Pacific Daylight Time)</p>
+			<p><a href="https://wikimediafoundation.org/" class="lnk--wikimedia-project">A Wikimedia Foundation project</a></p>
+		</div>
+	</footer>
+
+<script src="scripts/redirect.js"></script>
+<script>
+var arr = function(aa) { return Array.prototype.slice.call(aa); };
+arr(document.querySelectorAll("nav > ol > li a:not([href])")).map(function(el) {
+  var li = el;
+  while (li && li.tagName !== 'LI') { li = li.parentNode; }
+  el.addEventListener('click', function(event) {
+    if (li.classList.contains('is-on')) {
+      li.classList.remove('is-on');
+      return;
+    }
+    arr(document.querySelectorAll("nav li.nav__item.is-on")).map(function(el2) {
+      el2.classList.remove('is-on');
+    });
+    li.classList.add('is-on');
+  });
+});
+</script>
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/open-member.js"> </script>
+</body>
+</html>

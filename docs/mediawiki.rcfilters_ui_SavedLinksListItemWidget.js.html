@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]><html lang="en" class="js-off lte-ie8"><![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="js-off ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en" class="js-off">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Source: mediawiki.rcfilters/ui/SavedLinksListItemWidget.js, MediaWiki frontend code, JSDoc</title>
+    <script>
+document.documentElement.className = document.documentElement.className.replace(/\bjs-off\b/,'js-on'); // no BEM notation thx to IE
+    </script>
+    <!--[if lt IE 9]>
+      <script>window.html5={'shivCSS':false};</script>
+      <script src="wmf/js/vendor/ie/html5shiv-3.7.3.min.js"></script>
+      <script src="wmf/js/vendor/ie/respond-1.4.2.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="styles/jsdoc-wmf-theme.css">
+    <script src="scripts/lib/prettify/prettify.js"> </script>
+    <script src="scripts/lib/prettify/lang-css.js"> </script>
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link rel="preload" href="wmf/fonts/Charter_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="wmf/fonts/Lato_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <script src="scripts/fonts-loader.js" async=""></script>
+</head>
+
+<body class="page--home">
+	<header id="header" class="header" role="banner">
+		<div class="content-box">
+			<a href="#content" class="is-aural is-focusable">Jump to content</a>
+			<a href="#nav--main" class="is-aural is-focusable">Jump to navigation</a>
+			<div class="header__title">
+				<span class="site-title"><a href="./"><span class="site-logo"></span>MediaWiki frontend code</a></span>
+				<label class="btn--nav-main" for="trigger--nav-main" aria-hidden="true" title="Show main menu">
+					<i></i> <span>Menu</span>
+				</label>
+			</div>
+     		<div id="search-container" class="search-container">
+  <input type="search" id="lunr-search" class="search-input" role="combobox" aria-autocomplete="list" aria-controls="search-results" aria-expanded="false" aria-activedescendant="selected-search-result" placeholder="Search">
+  <ul id="search-results" class="search-results role="listbox"></ul>
+</div>
+<script src="lunr-data.js"></script>
+<script src="scripts/lib/lunr.js"></script>
+<script src="scripts/lunrSearch.js"></script>
+
+		</div>
+	</header>
+	<div class="page">
+		<div class="content-box flex-cols">
+			<div class="flex-col flex-col--start">
+				<input type="checkbox" id="trigger--nav-main" class="trigger--nav-main">
+				<nav id="nav--main" class="nav nav--main" role="navigation">
+					<ol><li class="nav__item"><a href="index.html">Home</a></li><li class="nav__item"><a href="modules.html">Modules</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="module-mediawiki.ForeignApi.html">mediawiki.ForeignApi</a></li><li class="nav__sub-item"><a href="module-mediawiki.String.html">mediawiki.String</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.jpegmeta.html">mediawiki.libs.jpegmeta</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.pluralruleparser.html">mediawiki.libs.pluralruleparser</a></li><li class="nav__sub-item"><a href="module-mediawiki.notification.convertmessagebox.html">mediawiki.notification.convertmessagebox</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.preview.html">mediawiki.page.preview</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.ready.html">mediawiki.page.ready</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.watch.ajax.html">mediawiki.page.watch.ajax</a></li><li class="nav__sub-item"><a href="module-mediawiki.storage.html">mediawiki.storage</a></li><li class="nav__sub-item"><a href="module-mediawiki.util.html">mediawiki.util</a></li><li class="nav__sub-item"><a href="module-mediawiki.visibleTimeout.html">mediawiki.visibleTimeout</a></li><li class="nav__sub-item"><a href="module-mediawiki.watchstar.widgets.html">mediawiki.watchstar.widgets</a></li><li class="nav__sub-item"><a href="module-moment.html">moment</a></li></ul></li><li class="nav__item"><a href="namespaces.html">Frontend API</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="Hooks.html">Hooks</a></li><li class="nav__sub-item"><a href="jQueryPlugins.html">jQueryPlugins</a></li><li class="nav__sub-item"><a href="mw.html">mw</a></li><li class="nav__sub-item"><a href="window.html">window</a></li></ul></li><li class="nav__item"><a href="sitemap.html">Sitemap</a></li></ol>
+				</nav>
+			</div>
+			<div class="flex-col flex-col--end">
+				<main id="content" class="content" role="main">
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint sourcefile linenums"><code>/**
+ * Quick links menu option widget.
+ *
+ * @class mw.rcfilters.ui.SavedLinksListItemWidget
+ * @ignore
+ * @extends OO.ui.Widget
+ *
+ * @param {mw.rcfilters.dm.SavedQueryItemModel} model View model
+ * @param {Object} [config] Configuration object
+ * @param {jQuery} [config.$overlay] A jQuery object serving as overlay for popups
+ */
+var SavedLinksListItemWidget = function MwRcfiltersUiSavedLinksListWidget( model, config ) {
+	config = config || {};
+
+	this.model = model;
+
+	// Parent
+	SavedLinksListItemWidget.super.call( this, $.extend( {
+		data: this.model.getID(),
+		label: this.model.getLabel(),
+		title: this.model.getLabel()
+	}, config ) );
+
+	this.edit = false;
+	this.$overlay = config.$overlay || this.$element;
+
+	this.buttonMenu = new OO.ui.ButtonMenuSelectWidget( {
+		classes: [ 'mw-rcfilters-ui-savedLinksListItemWidget-button' ],
+		icon: 'ellipsis',
+		framed: false,
+		menu: {
+			classes: [ 'mw-rcfilters-ui-savedLinksListItemWidget-menu' ],
+			width: 200,
+			horizontalPosition: 'end',
+			$overlay: this.$overlay,
+			items: [
+				new OO.ui.MenuOptionWidget( {
+					data: 'edit',
+					icon: 'edit',
+					label: mw.msg( 'rcfilters-savedqueries-rename' )
+				} ),
+				new OO.ui.MenuOptionWidget( {
+					data: 'delete',
+					icon: 'trash',
+					label: mw.msg( 'rcfilters-savedqueries-remove' )
+				} ),
+				new OO.ui.MenuOptionWidget( {
+					data: 'default',
+					icon: 'pushPin',
+					label: mw.msg( 'rcfilters-savedqueries-setdefault' )
+				} )
+			]
+		}
+	} );
+
+	this.editInput = new OO.ui.TextInputWidget( {
+		classes: [ 'mw-rcfilters-ui-savedLinksListItemWidget-input' ]
+	} );
+	this.saveButton = new OO.ui.ButtonWidget( {
+		icon: 'check',
+		flags: [ 'primary', 'progressive' ]
+	} );
+	this.toggleEdit( false );
+
+	// Events
+	this.model.connect( this, { update: 'onModelUpdate' } );
+	this.buttonMenu.menu.connect( this, {
+		choose: 'onMenuChoose'
+	} );
+	this.saveButton.connect( this, { click: 'save' } );
+	this.editInput.connect( this, {
+		change: 'onInputChange',
+		enter: 'save'
+	} );
+	this.editInput.$input.on( {
+		blur: this.onInputBlur.bind( this ),
+		keyup: this.onInputKeyup.bind( this )
+	} );
+	this.$element.on( { mousedown: this.onMouseDown.bind( this ) } );
+	this.$icon.on( { click: this.onDefaultIconClick.bind( this ) } );
+
+	// Prevent clicks on interactive elements from closing the parent menu
+	this.buttonMenu.$element.add( this.$icon ).on( 'mousedown', function ( e ) {
+		e.stopPropagation();
+	} );
+
+	// Initialize
+	this.toggleDefault( !!this.model.isDefault() );
+	// eslint-disable-next-line mediawiki/class-doc
+	this.$element
+		.addClass( 'mw-rcfilters-ui-savedLinksListItemWidget' )
+		.addClass( 'mw-rcfilters-ui-savedLinksListItemWidget-query-' + this.model.getID() )
+		.append(
+			$( '&lt;div>' )
+				.addClass( 'mw-rcfilters-ui-table' )
+				.append(
+					$( '&lt;div>' )
+						.addClass( 'mw-rcfilters-ui-row' )
+						.append(
+							$( '&lt;div>' )
+								.addClass( 'mw-rcfilters-ui-cell' )
+								.addClass( 'mw-rcfilters-ui-savedLinksListItemWidget-content' )
+								.append(
+									this.$label
+										.addClass( 'mw-rcfilters-ui-savedLinksListItemWidget-label' ),
+									this.editInput.$element,
+									this.saveButton.$element
+								),
+							$( '&lt;div>' )
+								.addClass( 'mw-rcfilters-ui-cell' )
+								.addClass( 'mw-rcfilters-ui-savedLinksListItemWidget-icon' )
+								.append( this.$icon ),
+							this.buttonMenu.$element
+								.addClass( 'mw-rcfilters-ui-cell' )
+						)
+				)
+		);
+};
+
+/* Initialization */
+OO.inheritClass( SavedLinksListItemWidget, OO.ui.MenuOptionWidget );
+
+/* Events */
+
+/**
+ * The delete option was selected for this item.
+ *
+ * @event delete
+ * @ignore
+ */
+
+/**
+ * The 'make default' option was selected for this item.
+ *
+ * @event default
+ * @param {boolean} default Item is default
+ * @ignore
+ */
+
+/**
+ * The label has been edited.
+ *
+ * @event edit
+ * @param {string} newLabel New label for the query
+ * @ignore
+ */
+
+/* Methods */
+
+/**
+ * Respond to model update event
+ */
+SavedLinksListItemWidget.prototype.onModelUpdate = function () {
+	this.setLabel( this.model.getLabel() );
+	this.toggleDefault( this.model.isDefault() );
+};
+
+/**
+ * Handle mousedown events
+ *
+ * @param {jQuery.Event} e
+ */
+SavedLinksListItemWidget.prototype.onMouseDown = function ( e ) {
+	if ( this.editing ) {
+		e.stopPropagation();
+	}
+};
+
+/**
+ * Respond to click on the 'default' icon. Open the submenu where the
+ * default state can be changed.
+ *
+ * @return {boolean} false
+ */
+SavedLinksListItemWidget.prototype.onDefaultIconClick = function () {
+	this.buttonMenu.menu.toggle();
+	return false;
+};
+
+/**
+ * Respond to menu choose event
+ *
+ * @param {OO.ui.MenuOptionWidget} item Chosen item
+ * @fires delete
+ * @fires default
+ */
+SavedLinksListItemWidget.prototype.onMenuChoose = function ( item ) {
+	var action = item.getData();
+
+	if ( action === 'edit' ) {
+		this.toggleEdit( true );
+	} else if ( action === 'delete' ) {
+		this.emit( 'delete' );
+	} else if ( action === 'default' ) {
+		this.emit( 'default', !this.default );
+	}
+};
+
+/**
+ * Respond to input keyup event, this is the way to intercept 'escape' key
+ *
+ * @param {jQuery.Event} e Event data
+ * @return {boolean} false
+ */
+SavedLinksListItemWidget.prototype.onInputKeyup = function ( e ) {
+	if ( e.which === OO.ui.Keys.ESCAPE ) {
+		// Return the input to the original label
+		this.editInput.setValue( this.getLabel() );
+		this.toggleEdit( false );
+		return false;
+	}
+};
+
+/**
+ * Respond to blur event on the input
+ */
+SavedLinksListItemWidget.prototype.onInputBlur = function () {
+	this.save();
+
+	// Whether the save succeeded or not, the input-blur event
+	// means we need to cancel editing mode
+	this.toggleEdit( false );
+};
+
+/**
+ * Respond to input change event
+ *
+ * @param {string} value Input value
+ */
+SavedLinksListItemWidget.prototype.onInputChange = function ( value ) {
+	value = value.trim();
+
+	this.saveButton.setDisabled( !value );
+};
+
+/**
+ * Save the name of the query
+ *
+ * @fires edit
+ */
+SavedLinksListItemWidget.prototype.save = function () {
+	var value = this.editInput.getValue().trim();
+
+	if ( value ) {
+		this.emit( 'edit', value );
+		this.toggleEdit( false );
+	}
+};
+
+/**
+ * Toggle edit mode on this widget
+ *
+ * @param {boolean} isEdit Widget is in edit mode
+ */
+SavedLinksListItemWidget.prototype.toggleEdit = function ( isEdit ) {
+	isEdit = isEdit === undefined ? !this.editing : isEdit;
+
+	if ( this.editing !== isEdit ) {
+		this.$element.toggleClass( 'mw-rcfilters-ui-savedLinksListItemWidget-edit', isEdit );
+		this.editInput.setValue( this.getLabel() );
+
+		this.editInput.toggle( isEdit );
+		this.$label.toggleClass( 'oo-ui-element-hidden', isEdit );
+		this.$icon.toggleClass( 'oo-ui-element-hidden', isEdit );
+		this.buttonMenu.toggle( !isEdit );
+		this.saveButton.toggle( isEdit );
+
+		if ( isEdit ) {
+			this.editInput.focus();
+		}
+		this.editing = isEdit;
+	}
+};
+
+/**
+ * Toggle default this widget
+ *
+ * @param {boolean} isDefault This item is default
+ */
+SavedLinksListItemWidget.prototype.toggleDefault = function ( isDefault ) {
+	isDefault = isDefault === undefined ? !this.default : isDefault;
+
+	if ( this.default !== isDefault ) {
+		this.default = isDefault;
+		this.setIcon( this.default ? 'pushPin' : '' );
+		this.buttonMenu.menu.findItemFromData( 'default' ).setLabel(
+			this.default ?
+				mw.msg( 'rcfilters-savedqueries-unsetdefault' ) :
+				mw.msg( 'rcfilters-savedqueries-setdefault' )
+		);
+	}
+};
+
+/**
+ * Get item ID
+ *
+ * @return {string} Query identifier
+ */
+SavedLinksListItemWidget.prototype.getID = function () {
+	return this.model.getID();
+};
+
+module.exports = SavedLinksListItemWidget;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+				</main>
+			</div>
+		</div>
+	</div>
+	<footer id="footer" class="footer">
+		<div class="content-box">
+			<ul class="footer__list">
+				<li><a href="https://gerrit.wikimedia.org/g/mediawiki/core/">Contribute</a></li>
+			</ul>
+			<p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Mon Mar 25 2024 13:41:33 GMT-0700 (Pacific Daylight Time)</p>
+			<p><a href="https://wikimediafoundation.org/" class="lnk--wikimedia-project">A Wikimedia Foundation project</a></p>
+		</div>
+	</footer>
+
+<script src="scripts/redirect.js"></script>
+<script>
+var arr = function(aa) { return Array.prototype.slice.call(aa); };
+arr(document.querySelectorAll("nav > ol > li a:not([href])")).map(function(el) {
+  var li = el;
+  while (li && li.tagName !== 'LI') { li = li.parentNode; }
+  el.addEventListener('click', function(event) {
+    if (li.classList.contains('is-on')) {
+      li.classList.remove('is-on');
+      return;
+    }
+    arr(document.querySelectorAll("nav li.nav__item.is-on")).map(function(el2) {
+      el2.classList.remove('is-on');
+    });
+    li.classList.add('is-on');
+  });
+});
+</script>
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/open-member.js"> </script>
+</body>
+</html>

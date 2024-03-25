@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]><html lang="en" class="js-off lte-ie8"><![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="js-off ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en" class="js-off">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Source: mediawiki.rcfilters/mw.rcfilters.js, MediaWiki frontend code, JSDoc</title>
+    <script>
+document.documentElement.className = document.documentElement.className.replace(/\bjs-off\b/,'js-on'); // no BEM notation thx to IE
+    </script>
+    <!--[if lt IE 9]>
+      <script>window.html5={'shivCSS':false};</script>
+      <script src="wmf/js/vendor/ie/html5shiv-3.7.3.min.js"></script>
+      <script src="wmf/js/vendor/ie/respond-1.4.2.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="styles/jsdoc-wmf-theme.css">
+    <script src="scripts/lib/prettify/prettify.js"> </script>
+    <script src="scripts/lib/prettify/lang-css.js"> </script>
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link rel="preload" href="wmf/fonts/Charter_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="wmf/fonts/Lato_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <script src="scripts/fonts-loader.js" async=""></script>
+</head>
+
+<body class="page--home">
+	<header id="header" class="header" role="banner">
+		<div class="content-box">
+			<a href="#content" class="is-aural is-focusable">Jump to content</a>
+			<a href="#nav--main" class="is-aural is-focusable">Jump to navigation</a>
+			<div class="header__title">
+				<span class="site-title"><a href="./"><span class="site-logo"></span>MediaWiki frontend code</a></span>
+				<label class="btn--nav-main" for="trigger--nav-main" aria-hidden="true" title="Show main menu">
+					<i></i> <span>Menu</span>
+				</label>
+			</div>
+     		<div id="search-container" class="search-container">
+  <input type="search" id="lunr-search" class="search-input" role="combobox" aria-autocomplete="list" aria-controls="search-results" aria-expanded="false" aria-activedescendant="selected-search-result" placeholder="Search">
+  <ul id="search-results" class="search-results role="listbox"></ul>
+</div>
+<script src="lunr-data.js"></script>
+<script src="scripts/lib/lunr.js"></script>
+<script src="scripts/lunrSearch.js"></script>
+
+		</div>
+	</header>
+	<div class="page">
+		<div class="content-box flex-cols">
+			<div class="flex-col flex-col--start">
+				<input type="checkbox" id="trigger--nav-main" class="trigger--nav-main">
+				<nav id="nav--main" class="nav nav--main" role="navigation">
+					<ol><li class="nav__item"><a href="index.html">Home</a></li><li class="nav__item"><a href="modules.html">Modules</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="module-mediawiki.ForeignApi.html">mediawiki.ForeignApi</a></li><li class="nav__sub-item"><a href="module-mediawiki.String.html">mediawiki.String</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.jpegmeta.html">mediawiki.libs.jpegmeta</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.pluralruleparser.html">mediawiki.libs.pluralruleparser</a></li><li class="nav__sub-item"><a href="module-mediawiki.notification.convertmessagebox.html">mediawiki.notification.convertmessagebox</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.preview.html">mediawiki.page.preview</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.ready.html">mediawiki.page.ready</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.watch.ajax.html">mediawiki.page.watch.ajax</a></li><li class="nav__sub-item"><a href="module-mediawiki.storage.html">mediawiki.storage</a></li><li class="nav__sub-item"><a href="module-mediawiki.util.html">mediawiki.util</a></li><li class="nav__sub-item"><a href="module-mediawiki.visibleTimeout.html">mediawiki.visibleTimeout</a></li><li class="nav__sub-item"><a href="module-mediawiki.watchstar.widgets.html">mediawiki.watchstar.widgets</a></li><li class="nav__sub-item"><a href="module-moment.html">moment</a></li></ul></li><li class="nav__item"><a href="namespaces.html">Frontend API</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="Hooks.html">Hooks</a></li><li class="nav__sub-item"><a href="jQueryPlugins.html">jQueryPlugins</a></li><li class="nav__sub-item"><a href="mw.html">mw</a></li><li class="nav__sub-item"><a href="window.html">window</a></li></ul></li><li class="nav__item"><a href="sitemap.html">Sitemap</a></li></ol>
+				</nav>
+			</div>
+			<div class="flex-col flex-col--end">
+				<main id="content" class="content" role="main">
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint sourcefile linenums"><code>/**
+ * Components for use on the RecentChanges page. Provided by the `mediawiki.rcfilters.filters.ui` module.
+ *
+ * @namespace rcfilters
+ * @private
+ * @singleton
+ */
+const rcfilters = {
+	Controller: require( './Controller.js' ),
+	HighlightColors: require( './HighlightColors.js' ),
+	UriProcessor: require( './UriProcessor.js' ),
+	/**
+	 * Models used by RecentChanges Filters.
+	 *
+	 * @namespace rcfilters.dm
+	 * @private
+	 */
+	dm: {
+		ChangesListViewModel: require( './dm/ChangesListViewModel.js' ),
+		FilterGroup: require( './dm/FilterGroup.js' ),
+		FilterItem: require( './dm/FilterItem.js' ),
+		FiltersViewModel: require( './dm/FiltersViewModel.js' ),
+		ItemModel: require( './dm/ItemModel.js' ),
+		SavedQueriesModel: require( './dm/SavedQueriesModel.js' ),
+		SavedQueryItemModel: require( './dm/SavedQueryItemModel.js' )
+	},
+	/**
+	 * Widgets used by RecentChanges Filters.
+	 *
+	 * @namespace rcfilters.ui
+	 * @private
+	 */
+	ui: {
+		MainWrapperWidget: require( './ui/MainWrapperWidget.js' )
+	},
+	/**
+	 * Utils used by RecentChanges Filters.
+	 *
+	 * @namespace rcfilters.ui
+	 * @private
+	 */
+	utils: require( './utils.js' )
+};
+
+/**
+ * Get list of namespaces and remove unused ones
+ *
+ * @private
+ *
+ * @param {Array} unusedNamespaces Names of namespaces to remove
+ * @return {Array} Filtered array of namespaces
+ */
+function getNamespaces( unusedNamespaces ) {
+	var i, length, name, id,
+		namespaceIds = mw.config.get( 'wgNamespaceIds' ),
+		namespaces = mw.config.get( 'wgFormattedNamespaces' );
+
+	for ( i = 0, length = unusedNamespaces.length; i &lt; length; i++ ) {
+		name = unusedNamespaces[ i ];
+		id = namespaceIds[ name.toLowerCase() ];
+		delete namespaces[ id ];
+	}
+
+	return namespaces;
+}
+
+/**
+ * @private
+ */
+function init() {
+	var $topSection,
+		mainWrapperWidget,
+		conditionalViews = {},
+		$initialFieldset = $( 'fieldset.cloptions' ),
+		savedQueriesPreferenceName = mw.config.get( 'wgStructuredChangeFiltersSavedQueriesPreferenceName' ),
+		daysPreferenceName = mw.config.get( 'wgStructuredChangeFiltersDaysPreferenceName' ),
+		limitPreferenceName = mw.config.get( 'wgStructuredChangeFiltersLimitPreferenceName' ),
+		activeFiltersCollapsedName = mw.config.get( 'wgStructuredChangeFiltersCollapsedPreferenceName' ),
+		initialCollapsedState = mw.config.get( 'wgStructuredChangeFiltersCollapsedState' ),
+		filtersModel = new rcfilters.dm.FiltersViewModel(),
+		changesListModel = new rcfilters.dm.ChangesListViewModel( $initialFieldset ),
+		savedQueriesModel = new rcfilters.dm.SavedQueriesModel( filtersModel ),
+		specialPage = mw.config.get( 'wgCanonicalSpecialPageName' ),
+		controller = new rcfilters.Controller(
+			filtersModel, changesListModel, savedQueriesModel,
+			{
+				savedQueriesPreferenceName: savedQueriesPreferenceName,
+				daysPreferenceName: daysPreferenceName,
+				limitPreferenceName: limitPreferenceName,
+				collapsedPreferenceName: activeFiltersCollapsedName,
+				normalizeTarget: specialPage === 'Recentchangeslinked'
+			}
+		);
+
+	// TODO: The changesListWrapperWidget should be able to initialize
+	// after the model is ready.
+
+	if ( specialPage === 'Recentchanges' ) {
+		$topSection = $( '.mw-recentchanges-toplinks' ).detach();
+	} else if ( specialPage === 'Watchlist' ) {
+		$( '.mw-watchlist-owner, .mw-watchlist-toollinks, form#mw-watchlist-resetbutton' ).remove();
+		$topSection = $( '.watchlistDetails' ).detach().contents();
+	} else if ( specialPage === 'Recentchangeslinked' ) {
+		conditionalViews.recentChangesLinked = {
+			groups: [
+				{
+					name: 'page',
+					type: 'any_value',
+					title: '',
+					hidden: true,
+					sticky: true,
+					filters: [
+						{
+							name: 'target',
+							default: ''
+						}
+					]
+				},
+				{
+					name: 'toOrFrom',
+					type: 'boolean',
+					title: '',
+					hidden: true,
+					sticky: true,
+					filters: [
+						{
+							name: 'showlinkedto',
+							default: false
+						}
+					]
+				}
+			]
+		};
+	}
+
+	mainWrapperWidget = new rcfilters.ui.MainWrapperWidget(
+		controller,
+		filtersModel,
+		savedQueriesModel,
+		changesListModel,
+		{
+			$wrapper: $( document.body ),
+			$topSection: $topSection,
+			$filtersContainer: $( '.mw-rcfilters-container' ),
+			$changesListContainer: $( '.mw-changeslist, .mw-changeslist-empty' ),
+			$formContainer: $initialFieldset,
+			collapsed: initialCollapsedState
+		}
+	);
+
+	// Remove the -loading class that may have been added on the server side.
+	// If we are in fact going to load a default saved query, this .initialize()
+	// call will do that and add the -loading class right back.
+	$( document.body ).removeClass( 'mw-rcfilters-ui-loading' );
+
+	controller.initialize(
+		mw.config.get( 'wgStructuredChangeFilters' ),
+		// All namespaces without Media namespace
+		getNamespaces( [ 'Media' ] ),
+		require( './config.json' ).RCFiltersChangeTags,
+		conditionalViews
+	);
+
+	mainWrapperWidget.initFormWidget( specialPage );
+
+	$( 'a.mw-helplink' ).attr(
+		'href',
+		'https://www.mediawiki.org/wiki/Special:MyLanguage/Help:New_filters_for_edit_review'
+	);
+
+	controller.replaceUrl();
+
+	mainWrapperWidget.setTopSection( specialPage );
+
+	/**
+	 * Fired when initialization of the filtering interface for changes list is complete.
+	 *
+	 * @event ~'structuredChangeFilters.ui.initialized'
+	 * @memberof Hooks
+	 */
+	mw.hook( 'structuredChangeFilters.ui.initialized' ).fire();
+}
+
+// Import i18n messages from config
+mw.messages.set( mw.config.get( 'wgStructuredChangeFiltersMessages' ) );
+
+// Don't try to run init during QUnit tests, some of the code depends on mw.config variables
+// that are not set, and the ui code here isn't even being tested.
+if ( !window.QUnit ) {
+	if ( document.readyState === 'interactive' || document.readyState === 'complete' ) {
+		// Early execute of init
+		init();
+	} else {
+		$( init );
+	}
+}
+
+module.exports = rcfilters;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+				</main>
+			</div>
+		</div>
+	</div>
+	<footer id="footer" class="footer">
+		<div class="content-box">
+			<ul class="footer__list">
+				<li><a href="https://gerrit.wikimedia.org/g/mediawiki/core/">Contribute</a></li>
+			</ul>
+			<p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Mon Mar 25 2024 13:41:33 GMT-0700 (Pacific Daylight Time)</p>
+			<p><a href="https://wikimediafoundation.org/" class="lnk--wikimedia-project">A Wikimedia Foundation project</a></p>
+		</div>
+	</footer>
+
+<script src="scripts/redirect.js"></script>
+<script>
+var arr = function(aa) { return Array.prototype.slice.call(aa); };
+arr(document.querySelectorAll("nav > ol > li a:not([href])")).map(function(el) {
+  var li = el;
+  while (li && li.tagName !== 'LI') { li = li.parentNode; }
+  el.addEventListener('click', function(event) {
+    if (li.classList.contains('is-on')) {
+      li.classList.remove('is-on');
+      return;
+    }
+    arr(document.querySelectorAll("nav li.nav__item.is-on")).map(function(el2) {
+      el2.classList.remove('is-on');
+    });
+    li.classList.add('is-on');
+  });
+});
+</script>
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/open-member.js"> </script>
+</body>
+</html>

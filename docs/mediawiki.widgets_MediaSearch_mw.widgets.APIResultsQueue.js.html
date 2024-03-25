@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]><html lang="en" class="js-off lte-ie8"><![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="js-off ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en" class="js-off">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Source: mediawiki.widgets/MediaSearch/mw.widgets.APIResultsQueue.js, MediaWiki frontend code, JSDoc</title>
+    <script>
+document.documentElement.className = document.documentElement.className.replace(/\bjs-off\b/,'js-on'); // no BEM notation thx to IE
+    </script>
+    <!--[if lt IE 9]>
+      <script>window.html5={'shivCSS':false};</script>
+      <script src="wmf/js/vendor/ie/html5shiv-3.7.3.min.js"></script>
+      <script src="wmf/js/vendor/ie/respond-1.4.2.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="styles/jsdoc-wmf-theme.css">
+    <script src="scripts/lib/prettify/prettify.js"> </script>
+    <script src="scripts/lib/prettify/lang-css.js"> </script>
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link rel="preload" href="wmf/fonts/Charter_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="wmf/fonts/Lato_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <script src="scripts/fonts-loader.js" async=""></script>
+</head>
+
+<body class="page--home">
+	<header id="header" class="header" role="banner">
+		<div class="content-box">
+			<a href="#content" class="is-aural is-focusable">Jump to content</a>
+			<a href="#nav--main" class="is-aural is-focusable">Jump to navigation</a>
+			<div class="header__title">
+				<span class="site-title"><a href="./"><span class="site-logo"></span>MediaWiki frontend code</a></span>
+				<label class="btn--nav-main" for="trigger--nav-main" aria-hidden="true" title="Show main menu">
+					<i></i> <span>Menu</span>
+				</label>
+			</div>
+     		<div id="search-container" class="search-container">
+  <input type="search" id="lunr-search" class="search-input" role="combobox" aria-autocomplete="list" aria-controls="search-results" aria-expanded="false" aria-activedescendant="selected-search-result" placeholder="Search">
+  <ul id="search-results" class="search-results role="listbox"></ul>
+</div>
+<script src="lunr-data.js"></script>
+<script src="scripts/lib/lunr.js"></script>
+<script src="scripts/lunrSearch.js"></script>
+
+		</div>
+	</header>
+	<div class="page">
+		<div class="content-box flex-cols">
+			<div class="flex-col flex-col--start">
+				<input type="checkbox" id="trigger--nav-main" class="trigger--nav-main">
+				<nav id="nav--main" class="nav nav--main" role="navigation">
+					<ol><li class="nav__item"><a href="index.html">Home</a></li><li class="nav__item"><a href="modules.html">Modules</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="module-mediawiki.ForeignApi.html">mediawiki.ForeignApi</a></li><li class="nav__sub-item"><a href="module-mediawiki.String.html">mediawiki.String</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.jpegmeta.html">mediawiki.libs.jpegmeta</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.pluralruleparser.html">mediawiki.libs.pluralruleparser</a></li><li class="nav__sub-item"><a href="module-mediawiki.notification.convertmessagebox.html">mediawiki.notification.convertmessagebox</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.preview.html">mediawiki.page.preview</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.ready.html">mediawiki.page.ready</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.watch.ajax.html">mediawiki.page.watch.ajax</a></li><li class="nav__sub-item"><a href="module-mediawiki.storage.html">mediawiki.storage</a></li><li class="nav__sub-item"><a href="module-mediawiki.util.html">mediawiki.util</a></li><li class="nav__sub-item"><a href="module-mediawiki.visibleTimeout.html">mediawiki.visibleTimeout</a></li><li class="nav__sub-item"><a href="module-mediawiki.watchstar.widgets.html">mediawiki.watchstar.widgets</a></li><li class="nav__sub-item"><a href="module-moment.html">moment</a></li></ul></li><li class="nav__item"><a href="namespaces.html">Frontend API</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="Hooks.html">Hooks</a></li><li class="nav__sub-item"><a href="jQueryPlugins.html">jQueryPlugins</a></li><li class="nav__sub-item"><a href="mw.html">mw</a></li><li class="nav__sub-item"><a href="window.html">window</a></li></ul></li><li class="nav__item"><a href="sitemap.html">Sitemap</a></li></ol>
+				</nav>
+			</div>
+			<div class="flex-col flex-col--end">
+				<main id="content" class="content" role="main">
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint sourcefile linenums"><code>/*!
+ * MediaWiki Widgets - APIResultsQueue class.
+ *
+ * @copyright 2011-2016 VisualEditor Team and others; see http://ve.mit-license.org
+ */
+( function () {
+
+	/**
+	 * API Results Queue object.
+	 *
+	 * @class
+	 * @mixes OO.EventEmitter
+	 *
+	 * @constructor
+	 * @param {Object} [config] Configuration options
+	 * @param {number} config.limit The default number of results to fetch
+	 * @param {number} config.threshold The default number of extra results
+	 *  that the queue should always strive to have on top of the
+	 *  individual requests for items.
+	 */
+	mw.widgets.APIResultsQueue = function MwWidgetsAPIResultsQueue( config ) {
+		config = config || {};
+
+		this.fileRepoPromise = null;
+		this.providers = [];
+		this.providerPromises = [];
+		this.queue = [];
+
+		this.params = {};
+
+		this.limit = config.limit || 20;
+		this.setThreshold( config.threshold || 10 );
+
+		// Mixin constructors
+		OO.EventEmitter.call( this );
+	};
+
+	/* Setup */
+	OO.mixinClass( mw.widgets.APIResultsQueue, OO.EventEmitter );
+
+	/* Methods */
+
+	/**
+	 * Set up the queue and its resources.
+	 * This should be overridden if there are any setup steps to perform.
+	 *
+	 * @return {jQuery.Promise} Promise that resolves when the resources
+	 *  are set up. Note: The promise must have an .abort() functionality.
+	 */
+	mw.widgets.APIResultsQueue.prototype.setup = function () {
+		return $.Deferred().resolve().promise( { abort: function () {} } );
+	};
+
+	/**
+	 * Get items from the queue.
+	 *
+	 * @param {number} [howMany] How many items to retrieve. Defaults to the
+	 *  default limit supplied on initialization.
+	 * @return {jQuery.Promise} Promise that resolves into an array of items.
+	 */
+	mw.widgets.APIResultsQueue.prototype.get = function ( howMany ) {
+		var fetchingPromise = null,
+			me = this;
+
+		howMany = howMany || this.limit;
+
+		// Check if the queue has enough items
+		if ( this.queue.length &lt; howMany + this.threshold ) {
+			// Call for more results
+			fetchingPromise = this.queryProviders( howMany + this.threshold )
+				.then( function ( items ) {
+					// Add to the queue
+					me.queue = me.queue.concat.apply( me.queue, items );
+				} );
+		}
+
+		return $.when( fetchingPromise )
+			.then( function () {
+				return me.queue.splice( 0, howMany );
+			} );
+
+	};
+
+	/**
+	 * Get results from all providers.
+	 *
+	 * @param {number} [howMany] How many items to retrieve. Defaults to the
+	 *  default limit supplied on initialization.
+	 * @return {jQuery.Promise} Promise that is resolved into an array
+	 *  of fetched items. Note: The promise must have an .abort() functionality.
+	 */
+	mw.widgets.APIResultsQueue.prototype.queryProviders = function ( howMany ) {
+		var queue = this;
+
+		// Make sure there are resources set up
+		return this.setup()
+			.then( function () {
+				// Abort previous requests
+				for ( var i = 0, iLen = queue.providerPromises.length; i &lt; iLen; i++ ) {
+					queue.providerPromises[ i ].abort();
+				}
+				queue.providerPromises = [];
+				// Set up the query to all providers
+				for ( var j = 0, jLen = queue.providers.length; j &lt; jLen; j++ ) {
+					if ( !queue.providers[ j ].isDepleted() ) {
+						queue.providerPromises.push(
+							queue.providers[ j ].getResults( howMany )
+						);
+					}
+				}
+
+				return $.when.apply( $, queue.providerPromises )
+					.then( Array.prototype.concat.bind( [] ) );
+			} );
+	};
+
+	/**
+	 * Set the search query for all the providers.
+	 *
+	 * This also makes sure to abort any previous promises.
+	 *
+	 * @param {Object} params API search parameters
+	 */
+	mw.widgets.APIResultsQueue.prototype.setParams = function ( params ) {
+		if ( !OO.compare( params, this.params, true ) ) {
+			this.reset();
+			this.params = $.extend( this.params, params );
+			// Reset queue
+			this.queue = [];
+			// Reset promises
+			for ( var i = 0, iLen = this.providerPromises.length; i &lt; iLen; i++ ) {
+				this.providerPromises[ i ].abort();
+			}
+			// Change queries
+			for ( var j = 0, jLen = this.providers.length; j &lt; jLen; j++ ) {
+				this.providers[ j ].setUserParams( this.params );
+			}
+		}
+	};
+
+	/**
+	 * Reset the queue and all its providers.
+	 */
+	mw.widgets.APIResultsQueue.prototype.reset = function () {
+		// Reset queue
+		this.queue = [];
+		// Reset promises
+		for ( var i = 0, iLen = this.providerPromises.length; i &lt; iLen; i++ ) {
+			this.providerPromises[ i ].abort();
+		}
+		// Reset options
+		for ( var j = 0, jLen = this.providers.length; j &lt; jLen; j++ ) {
+			this.providers[ j ].reset();
+		}
+	};
+
+	/**
+	 * Get the data parameters sent to the API.
+	 *
+	 * @return {Object} params API search parameters
+	 */
+	mw.widgets.APIResultsQueue.prototype.getParams = function () {
+		return this.params;
+	};
+
+	/**
+	 * Set the providers.
+	 *
+	 * @param {mw.widgets.APIResultsProvider[]} providers An array of providers
+	 */
+	mw.widgets.APIResultsQueue.prototype.setProviders = function ( providers ) {
+		this.providers = providers;
+		for ( var i = 0, len = this.providers.length; i &lt; len; i++ ) {
+			this.providers[ i ].setUserParams( this.params );
+			this.providers[ i ].setLang( this.lang );
+		}
+	};
+
+	/**
+	 * Add a provider to the group.
+	 *
+	 * @param {mw.widgets.APIResultsProvider} provider A provider object
+	 */
+	mw.widgets.APIResultsQueue.prototype.addProvider = function ( provider ) {
+		this.providers.push( provider );
+		provider.setUserParams( this.params );
+		provider.setLang( this.lang );
+	};
+
+	/**
+	 * Set the providers.
+	 *
+	 * @return {mw.widgets.APIResultsProvider[]} providers An array of providers
+	 */
+	mw.widgets.APIResultsQueue.prototype.getProviders = function () {
+		return this.providers;
+	};
+
+	/**
+	 * Get the queue size.
+	 *
+	 * @return {number} Queue size
+	 */
+	mw.widgets.APIResultsQueue.prototype.getQueueSize = function () {
+		return this.queue.length;
+	};
+
+	/**
+	 * Set queue threshold.
+	 *
+	 * @param {number} threshold Queue threshold, below which we will
+	 *  request more items
+	 */
+	mw.widgets.APIResultsQueue.prototype.setThreshold = function ( threshold ) {
+		this.threshold = threshold;
+	};
+
+	/**
+	 * Get queue threshold.
+	 *
+	 * @return {number} threshold Queue threshold, below which we will
+	 *  request more items
+	 */
+	mw.widgets.APIResultsQueue.prototype.getThreshold = function () {
+		return this.threshold;
+	};
+
+	/**
+	 * Set language for the query results.
+	 *
+	 * @param {string|undefined} lang Language
+	 */
+	mw.widgets.APIResultsQueue.prototype.setLang = function ( lang ) {
+		this.lang = lang;
+		for ( var i = 0, len = this.providers.length; i &lt; len; i++ ) {
+			this.providers[ i ].setLang( this.lang );
+		}
+	};
+
+	/**
+	 * Get language for the query results.
+	 *
+	 * @return {string|undefined} lang Language
+	 */
+	mw.widgets.APIResultsQueue.prototype.getLang = function () {
+		return this.lang;
+	};
+}() );
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+				</main>
+			</div>
+		</div>
+	</div>
+	<footer id="footer" class="footer">
+		<div class="content-box">
+			<ul class="footer__list">
+				<li><a href="https://gerrit.wikimedia.org/g/mediawiki/core/">Contribute</a></li>
+			</ul>
+			<p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Mon Mar 25 2024 13:41:33 GMT-0700 (Pacific Daylight Time)</p>
+			<p><a href="https://wikimediafoundation.org/" class="lnk--wikimedia-project">A Wikimedia Foundation project</a></p>
+		</div>
+	</footer>
+
+<script src="scripts/redirect.js"></script>
+<script>
+var arr = function(aa) { return Array.prototype.slice.call(aa); };
+arr(document.querySelectorAll("nav > ol > li a:not([href])")).map(function(el) {
+  var li = el;
+  while (li && li.tagName !== 'LI') { li = li.parentNode; }
+  el.addEventListener('click', function(event) {
+    if (li.classList.contains('is-on')) {
+      li.classList.remove('is-on');
+      return;
+    }
+    arr(document.querySelectorAll("nav li.nav__item.is-on")).map(function(el2) {
+      el2.classList.remove('is-on');
+    });
+    li.classList.add('is-on');
+  });
+});
+</script>
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/open-member.js"> </script>
+</body>
+</html>

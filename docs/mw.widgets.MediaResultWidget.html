@@ -1,0 +1,2217 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]><html lang="en" class="js-off lte-ie8"><![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="js-off ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en" class="js-off">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Class: MediaResultWidget, MediaWiki frontend code, JSDoc</title>
+    <script>
+document.documentElement.className = document.documentElement.className.replace(/\bjs-off\b/,'js-on'); // no BEM notation thx to IE
+    </script>
+    <!--[if lt IE 9]>
+      <script>window.html5={'shivCSS':false};</script>
+      <script src="wmf/js/vendor/ie/html5shiv-3.7.3.min.js"></script>
+      <script src="wmf/js/vendor/ie/respond-1.4.2.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="styles/jsdoc-wmf-theme.css">
+    <script src="scripts/lib/prettify/prettify.js"> </script>
+    <script src="scripts/lib/prettify/lang-css.js"> </script>
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link rel="preload" href="wmf/fonts/Charter_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="wmf/fonts/Lato_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <script src="scripts/fonts-loader.js" async=""></script>
+</head>
+
+<body class="page--home">
+	<header id="header" class="header" role="banner">
+		<div class="content-box">
+			<a href="#content" class="is-aural is-focusable">Jump to content</a>
+			<a href="#nav--main" class="is-aural is-focusable">Jump to navigation</a>
+			<div class="header__title">
+				<span class="site-title"><a href="./"><span class="site-logo"></span>MediaWiki frontend code</a></span>
+				<label class="btn--nav-main" for="trigger--nav-main" aria-hidden="true" title="Show main menu">
+					<i></i> <span>Menu</span>
+				</label>
+			</div>
+     		<div id="search-container" class="search-container">
+  <input type="search" id="lunr-search" class="search-input" role="combobox" aria-autocomplete="list" aria-controls="search-results" aria-expanded="false" aria-activedescendant="selected-search-result" placeholder="Search">
+  <ul id="search-results" class="search-results role="listbox"></ul>
+</div>
+<script src="lunr-data.js"></script>
+<script src="scripts/lib/lunr.js"></script>
+<script src="scripts/lunrSearch.js"></script>
+
+		</div>
+	</header>
+	<div class="page">
+		<div class="content-box flex-cols">
+			<div class="flex-col flex-col--start">
+				<input type="checkbox" id="trigger--nav-main" class="trigger--nav-main">
+				<nav id="nav--main" class="nav nav--main" role="navigation">
+					<ol><li class="nav__item"><a href="index.html">Home</a></li><li class="nav__item"><a href="modules.html">Modules</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="module-mediawiki.ForeignApi.html">mediawiki.ForeignApi</a></li><li class="nav__sub-item"><a href="module-mediawiki.String.html">mediawiki.String</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.jpegmeta.html">mediawiki.libs.jpegmeta</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.pluralruleparser.html">mediawiki.libs.pluralruleparser</a></li><li class="nav__sub-item"><a href="module-mediawiki.notification.convertmessagebox.html">mediawiki.notification.convertmessagebox</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.preview.html">mediawiki.page.preview</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.ready.html">mediawiki.page.ready</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.watch.ajax.html">mediawiki.page.watch.ajax</a></li><li class="nav__sub-item"><a href="module-mediawiki.storage.html">mediawiki.storage</a></li><li class="nav__sub-item"><a href="module-mediawiki.util.html">mediawiki.util</a></li><li class="nav__sub-item"><a href="module-mediawiki.visibleTimeout.html">mediawiki.visibleTimeout</a></li><li class="nav__sub-item"><a href="module-mediawiki.watchstar.widgets.html">mediawiki.watchstar.widgets</a></li><li class="nav__sub-item"><a href="module-moment.html">moment</a></li></ul></li><li class="nav__item"><a href="namespaces.html">Frontend API</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="Hooks.html">Hooks</a></li><li class="nav__sub-item"><a href="jQueryPlugins.html">jQueryPlugins</a></li><li class="nav__sub-item"><a href="mw.html">mw</a></li><li class="nav__sub-item"><a href="window.html">window</a></li></ul></li><li class="nav__item"><a href="sitemap.html">Sitemap</a></li></ol>
+				</nav>
+			</div>
+			<div class="flex-col flex-col--end">
+				<main id="content" class="content" role="main">
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+    <nav class="breadcrumbs">
+        <a href="mw.html">mw</a> &gt; <a href="mw.widgets.html">widgets</a> &gt;
+        MediaResultWidget
+    </nav>
+    
+    <h1><span class="attribs"><span class="type-signature"></span></span>
+        <span class="ancestors"><a href="mw.html">mw</a><a href="mw.widgets.html">.widgets</a>.</span>MediaResultWidget</h1>
+    
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+        
+<div class="member  member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-MediaResultWidget" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="MediaResultWidget">
+            new mw.widgets.MediaResultWidget<span class="signature">(config)</span><span class="type-signature"></span><span class="type-signature"></span>
+            <a href="#MediaResultWidget">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Creates an mw.widgets.MediaResultWidget object.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>config</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 Object
+</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Configuration options</p>
+                <h5>Properties</h5>
+                
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>rowHeight</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 number
+</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Height of the row this result is part of</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>maxRowWidth</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 number
+</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>A limit for the width of the row this
+result is a part of.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>minWidth</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 number
+</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Minimum width for the result</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>maxWidth</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 number
+</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Maximum width for the result</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResultWidget.js.html">mediawiki.widgets/MediaSearch/mw.widgets.MediaResultWidget.js</a>, <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResultWidget.js.html#line23">line 23</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Creates an mw.widgets.MediaResultWidget object.
+    </div>
+
+</div>
+
+    
+    </div>
+
+    
+        <h2 class="subsection-title">Extends</h2>
+
+        
+
+
+    <ul>
+        <li><a href="https://doc.wikimedia.org/oojs-ui/master/js/OO.ui.OptionWidget.html">OO.ui.OptionWidget</a></li>
+    </ul>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h2 class="subsection-title">Methods</h2>
+
+        
+            
+<div class="member  member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-calculateSizing" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="calculateSizing">
+            calculateSizing<span class="signature">(originalDimensions, boundingBox)</span><span class="type-signature"></span><span class="type-signature"></span>
+            <a href="#calculateSizing">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Resize the thumbnail and wrapper according to row height and bounding boxes, if given.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>originalDimensions</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 Object
+</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Original image dimensions with width and height values</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>boundingBox</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 Object
+</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Specific bounding box, if supplied</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResultWidget.js.html">mediawiki.widgets/MediaSearch/mw.widgets.MediaResultWidget.js</a>, <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResultWidget.js.html#line115">line 115</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Resize the thumbnail and wrapper according to row height and bounding boxes, if given.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-calculateWrapperPadding" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="calculateWrapperPadding">
+            calculateWrapperPadding<span class="signature">(thumbDimensions)</span><span class="type-signature"> &rarr; {Object}</span><span class="type-signature"></span>
+            <a href="#calculateWrapperPadding">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Adjust the wrapper padding for small images.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>thumbDimensions</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 Object
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Thumbnail dimensions</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResultWidget.js.html">mediawiki.widgets/MediaSearch/mw.widgets.MediaResultWidget.js</a>, <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResultWidget.js.html#line202">line 202</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+<div class="param-desc">
+    <p>Css styling for the wrapper</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 Object
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Adjust the wrapper padding for small images.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-getDimensions" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="getDimensions">
+            getDimensions<span class="signature">()</span><span class="type-signature"> &rarr; {Object}</span><span class="type-signature"></span>
+            <a href="#getDimensions">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Retrieve the store dimensions object.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResultWidget.js.html">mediawiki.widgets/MediaSearch/mw.widgets.MediaResultWidget.js</a>, <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResultWidget.js.html#line166">line 166</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+<div class="param-desc">
+    <p>Thumb dimensions</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 Object
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Retrieve the store dimensions object.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-getRow" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="getRow">
+            getRow<span class="signature">()</span><span class="type-signature"> &rarr; {number}</span><span class="type-signature"></span>
+            <a href="#getRow">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Get the row this result is in.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResultWidget.js.html">mediawiki.widgets/MediaSearch/mw.widgets.MediaResultWidget.js</a>, <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResultWidget.js.html#line256">line 256</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+<div class="param-desc">
+    <p>row Row number</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 number
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Get the row this result is in.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-getRowHeight" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="getRowHeight">
+            getRowHeight<span class="signature">()</span><span class="type-signature"> &rarr; {number}</span><span class="type-signature"></span>
+            <a href="#getRowHeight">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Set the row height for all size calculations.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResultWidget.js.html">mediawiki.widgets/MediaSearch/mw.widgets.MediaResultWidget.js</a>, <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResultWidget.js.html#line222">line 222</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+<div class="param-desc">
+    <p>rowHeight Row height</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 number
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Set the row height for all size calculations.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-hasSrc" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="hasSrc">
+            hasSrc<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span><span class="type-signature"></span>
+            <a href="#hasSrc">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Check if the image has a src attribute already.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResultWidget.js.html">mediawiki.widgets/MediaSearch/mw.widgets.MediaResultWidget.js</a>, <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResultWidget.js.html#line265">line 265</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Returns:</h4>
+
+        
+<div class="param-desc">
+    <p>Thumbnail has its source attribute set</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">
+	 boolean
+</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Check if the image has a src attribute already.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-lazyLoad" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="lazyLoad">
+            lazyLoad<span class="signature">()</span><span class="type-signature"></span><span class="type-signature"></span>
+            <a href="#lazyLoad">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Replace the empty .src attribute of the image with the
+actual src.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResultWidget.js.html">mediawiki.widgets/MediaSearch/mw.widgets.MediaResultWidget.js</a>, <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResultWidget.js.html#line154">line 154</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        <p>Replace the empty .src attribute of the image with the
+actual src.</p>
+    </div>
+
+</div>
+
+        
+            
+<div class="member  member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-onThumbnailError" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="onThumbnailError">
+            onThumbnailError<span class="signature">()</span><span class="type-signature"></span><span class="type-signature"></span>
+            <a href="#onThumbnailError">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResultWidget.js.html">mediawiki.widgets/MediaSearch/mw.widgets.MediaResultWidget.js</a>, <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResultWidget.js.html#line100">line 100</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        
+    </div>
+
+</div>
+
+        
+            
+<div class="member  member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-onThumbnailLoad" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="onThumbnailLoad">
+            onThumbnailLoad<span class="signature">()</span><span class="type-signature"></span><span class="type-signature"></span>
+            <a href="#onThumbnailLoad">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResultWidget.js.html">mediawiki.widgets/MediaSearch/mw.widgets.MediaResultWidget.js</a>, <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResultWidget.js.html#line92">line 92</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        
+    </div>
+
+</div>
+
+        
+            
+<div class="member  member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-resizeThumb" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="resizeThumb">
+            resizeThumb<span class="signature">(resizeFactor)</span><span class="type-signature"></span><span class="type-signature"></span>
+            <a href="#resizeThumb">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Resize thumbnail and element according to the resize factor.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>resizeFactor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 number
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The resizing factor for the image</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResultWidget.js.html">mediawiki.widgets/MediaSearch/mw.widgets.MediaResultWidget.js</a>, <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResultWidget.js.html#line175">line 175</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Resize thumbnail and element according to the resize factor.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-setRow" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="setRow">
+            setRow<span class="signature">(row)</span><span class="type-signature"></span><span class="type-signature"></span>
+            <a href="#setRow">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Set the row this result is in.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>row</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 number
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Row number</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResultWidget.js.html">mediawiki.widgets/MediaSearch/mw.widgets.MediaResultWidget.js</a>, <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResultWidget.js.html#line247">line 247</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Set the row this result is in.
+    </div>
+
+</div>
+
+        
+            
+<div class="member  member--has-toggle-box">
+
+    
+
+    
+    <details id="toggle-setRowHeight" class="toggle-box" >
+    <summary>
+        <h3 class="name" id="setRowHeight">
+            setRowHeight<span class="signature">(rowHeight)</span><span class="type-signature"></span><span class="type-signature"></span>
+            <a href="#setRowHeight">#</a>
+        </h3>
+    </summary>
+    
+
+
+<div class="long">
+
+<div class="description">
+    <p>Set the row height for all size calculations.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    <h4>Parameters:</h4>
+    
+
+<div class="params-wrapper">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>rowHeight</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">
+	 number
+</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Row height</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResultWidget.js.html">mediawiki.widgets/MediaSearch/mw.widgets.MediaResultWidget.js</a>, <a href="mediawiki.widgets_MediaSearch_mw.widgets.MediaResultWidget.js.html#line231">line 231</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+    </details>
+    <div class="summary">
+        Set the row height for all size calculations.
+    </div>
+
+</div>
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+				</main>
+			</div>
+		</div>
+	</div>
+	<footer id="footer" class="footer">
+		<div class="content-box">
+			<ul class="footer__list">
+				<li><a href="https://gerrit.wikimedia.org/g/mediawiki/core/">Contribute</a></li>
+			</ul>
+			<p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Mon Mar 25 2024 13:41:34 GMT-0700 (Pacific Daylight Time)</p>
+			<p><a href="https://wikimediafoundation.org/" class="lnk--wikimedia-project">A Wikimedia Foundation project</a></p>
+		</div>
+	</footer>
+
+<script src="scripts/redirect.js"></script>
+<script>
+var arr = function(aa) { return Array.prototype.slice.call(aa); };
+arr(document.querySelectorAll("nav > ol > li a:not([href])")).map(function(el) {
+  var li = el;
+  while (li && li.tagName !== 'LI') { li = li.parentNode; }
+  el.addEventListener('click', function(event) {
+    if (li.classList.contains('is-on')) {
+      li.classList.remove('is-on');
+      return;
+    }
+    arr(document.querySelectorAll("nav li.nav__item.is-on")).map(function(el2) {
+      el2.classList.remove('is-on');
+    });
+    li.classList.add('is-on');
+  });
+});
+</script>
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/open-member.js"> </script>
+</body>
+</html>

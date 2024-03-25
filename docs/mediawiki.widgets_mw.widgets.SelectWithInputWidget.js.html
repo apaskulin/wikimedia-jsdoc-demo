@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]><html lang="en" class="js-off lte-ie8"><![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="js-off ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en" class="js-off">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Source: mediawiki.widgets/mw.widgets.SelectWithInputWidget.js, MediaWiki frontend code, JSDoc</title>
+    <script>
+document.documentElement.className = document.documentElement.className.replace(/\bjs-off\b/,'js-on'); // no BEM notation thx to IE
+    </script>
+    <!--[if lt IE 9]>
+      <script>window.html5={'shivCSS':false};</script>
+      <script src="wmf/js/vendor/ie/html5shiv-3.7.3.min.js"></script>
+      <script src="wmf/js/vendor/ie/respond-1.4.2.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="styles/jsdoc-wmf-theme.css">
+    <script src="scripts/lib/prettify/prettify.js"> </script>
+    <script src="scripts/lib/prettify/lang-css.js"> </script>
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link rel="preload" href="wmf/fonts/Charter_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="wmf/fonts/Lato_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <script src="scripts/fonts-loader.js" async=""></script>
+</head>
+
+<body class="page--home">
+	<header id="header" class="header" role="banner">
+		<div class="content-box">
+			<a href="#content" class="is-aural is-focusable">Jump to content</a>
+			<a href="#nav--main" class="is-aural is-focusable">Jump to navigation</a>
+			<div class="header__title">
+				<span class="site-title"><a href="./"><span class="site-logo"></span>MediaWiki frontend code</a></span>
+				<label class="btn--nav-main" for="trigger--nav-main" aria-hidden="true" title="Show main menu">
+					<i></i> <span>Menu</span>
+				</label>
+			</div>
+     		<div id="search-container" class="search-container">
+  <input type="search" id="lunr-search" class="search-input" role="combobox" aria-autocomplete="list" aria-controls="search-results" aria-expanded="false" aria-activedescendant="selected-search-result" placeholder="Search">
+  <ul id="search-results" class="search-results role="listbox"></ul>
+</div>
+<script src="lunr-data.js"></script>
+<script src="scripts/lib/lunr.js"></script>
+<script src="scripts/lunrSearch.js"></script>
+
+		</div>
+	</header>
+	<div class="page">
+		<div class="content-box flex-cols">
+			<div class="flex-col flex-col--start">
+				<input type="checkbox" id="trigger--nav-main" class="trigger--nav-main">
+				<nav id="nav--main" class="nav nav--main" role="navigation">
+					<ol><li class="nav__item"><a href="index.html">Home</a></li><li class="nav__item"><a href="modules.html">Modules</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="module-mediawiki.ForeignApi.html">mediawiki.ForeignApi</a></li><li class="nav__sub-item"><a href="module-mediawiki.String.html">mediawiki.String</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.jpegmeta.html">mediawiki.libs.jpegmeta</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.pluralruleparser.html">mediawiki.libs.pluralruleparser</a></li><li class="nav__sub-item"><a href="module-mediawiki.notification.convertmessagebox.html">mediawiki.notification.convertmessagebox</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.preview.html">mediawiki.page.preview</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.ready.html">mediawiki.page.ready</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.watch.ajax.html">mediawiki.page.watch.ajax</a></li><li class="nav__sub-item"><a href="module-mediawiki.storage.html">mediawiki.storage</a></li><li class="nav__sub-item"><a href="module-mediawiki.util.html">mediawiki.util</a></li><li class="nav__sub-item"><a href="module-mediawiki.visibleTimeout.html">mediawiki.visibleTimeout</a></li><li class="nav__sub-item"><a href="module-mediawiki.watchstar.widgets.html">mediawiki.watchstar.widgets</a></li><li class="nav__sub-item"><a href="module-moment.html">moment</a></li></ul></li><li class="nav__item"><a href="namespaces.html">Frontend API</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="Hooks.html">Hooks</a></li><li class="nav__sub-item"><a href="jQueryPlugins.html">jQueryPlugins</a></li><li class="nav__sub-item"><a href="mw.html">mw</a></li><li class="nav__sub-item"><a href="window.html">window</a></li></ul></li><li class="nav__item"><a href="sitemap.html">Sitemap</a></li></ol>
+				</nav>
+			</div>
+			<div class="flex-col flex-col--end">
+				<main id="content" class="content" role="main">
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint sourcefile linenums"><code>/*!
+ * MediaWiki Widgets - SelectWithInputWidget class.
+ *
+ * @copyright 2011-2017 MediaWiki Widgets Team and others; see AUTHORS.txt
+ * @license The MIT License (MIT); see LICENSE.txt
+ */
+( function () {
+
+	/**
+	 * Select with input widget. Displays an OO.ui.TextInputWidget along with
+	 * an OO.ui.DropdownInputWidget.
+	 * TODO Explain the OTHER option
+	 *
+	 * @example
+	 * mw.loader.using( 'mediawiki.widgets.SelectWithInputWidget', function () {
+	 *   var swi = new mw.widgets.SelectWithInputWidget( {
+	 *     or: true,
+	 *     dropdowninput: {
+	 *       options: [
+	 *         { data: 'other', label: 'Other' },
+	 *         { data: 'a', label: 'First' },
+	 *         { data: 'b', label: 'Second' },
+	 *         { data: 'c', label: 'Third' }
+	 *       ]
+	 *     },
+	 *     textinput: {
+	 *     }
+	 *   } );
+	 *
+	 *   $( document.body ).append( swi.$element );
+	 * } );
+	 *
+	 * @class mw.widgets.SelectWithInputWidget
+	 * @extends OO.ui.Widget
+	 *
+	 * @constructor
+	 * @param {Object} [config] Configuration options
+	 * @param {Object} [config.dropdowninput] Config for the dropdown
+	 * @param {Object} [config.textinput] Config for the text input
+	 * @param {boolean} [config.or=false] Config for whether the widget is dropdown AND input
+	 *                           or dropdown OR input
+	 * @param {boolean} [config.required=false] Config for whether input is required
+	 */
+	mw.widgets.SelectWithInputWidget = function MwWidgetsSelectWithInputWidget( config ) {
+		// Config initialization
+		config = $.extend( { or: false, required: false }, config );
+
+		// Properties
+		this.textinput = new OO.ui.TextInputWidget( config.textinput );
+		this.dropdowninput = new OO.ui.DropdownInputWidget( config.dropdowninput );
+		this.or = config.or;
+		this.required = config.required;
+
+		// Events
+		this.dropdowninput.on( 'change', this.onChange.bind( this ) );
+		this.textinput.on( 'change', function () {
+			this.emit( 'change', this.getValue() );
+		}.bind( this ) );
+
+		// Parent constructor
+		mw.widgets.SelectWithInputWidget.super.call( this, config );
+
+		// Initialization
+		this.$element
+			.addClass( 'mw-widget-selectWithInputWidget' )
+			.append(
+				this.dropdowninput.$element,
+				this.textinput.$element
+			);
+		this.onChange();
+	};
+
+	/* Setup */
+	OO.inheritClass( mw.widgets.SelectWithInputWidget, OO.ui.Widget );
+
+	/* Static Methods */
+
+	/**
+	 * @inheritdoc
+	 */
+	mw.widgets.SelectWithInputWidget.static.reusePreInfuseDOM = function ( node, config ) {
+		config = mw.widgets.SelectWithInputWidget.super.static.reusePreInfuseDOM( node, config );
+		config.dropdowninput = OO.ui.DropdownInputWidget.static.reusePreInfuseDOM(
+			$( node ).find( '.oo-ui-dropdownInputWidget' ),
+			config.dropdowninput
+		);
+		config.textinput = OO.ui.TextInputWidget.static.reusePreInfuseDOM(
+			$( node ).find( '.oo-ui-textInputWidget' ),
+			config.textinput
+		);
+		return config;
+	};
+
+	/**
+	 * @inheritdoc
+	 */
+	mw.widgets.SelectWithInputWidget.static.gatherPreInfuseState = function ( node, config ) {
+		var state = mw.widgets.SelectWithInputWidget.super.static.gatherPreInfuseState( node, config );
+		state.dropdowninput = OO.ui.DropdownInputWidget.static.gatherPreInfuseState(
+			$( node ).find( '.oo-ui-dropdownInputWidget' ),
+			config.dropdowninput
+		);
+		state.textinput = OO.ui.TextInputWidget.static.gatherPreInfuseState(
+			$( node ).find( '.oo-ui-textInputWidget' ),
+			config.textinput
+		);
+		return state;
+	};
+
+	/* Methods */
+
+	/**
+	 * @inheritdoc
+	 */
+	mw.widgets.SelectWithInputWidget.prototype.restorePreInfuseState = function ( state ) {
+		mw.widgets.SelectWithInputWidget.super.prototype.restorePreInfuseState.call( this, state );
+		this.dropdowninput.restorePreInfuseState( state.dropdowninput );
+		this.textinput.restorePreInfuseState( state.textinput );
+	};
+
+	/**
+	 * @inheritdoc
+	 */
+	mw.widgets.SelectWithInputWidget.prototype.setDisabled = function ( disabled ) {
+		var textinputIsHidden = this.or &amp;&amp; this.dropdowninput.getValue() !== 'other';
+		mw.widgets.SelectWithInputWidget.super.prototype.setDisabled.call( this, disabled );
+		this.dropdowninput.setDisabled( disabled );
+		// It is impossible to submit a form with hidden fields failing validation, e.g. one that
+		// is required. However, validity is not checked for disabled fields, as these are not
+		// submitted with the form. So we should also disable fields when hiding them.
+		this.textinput.setDisabled( textinputIsHidden || disabled );
+		// If the widget is required, set the text field as required, but only if the widget is visible.
+		if ( this.required ) {
+			this.textinput.setRequired( !this.textinput.isDisabled() );
+		}
+	};
+
+	/**
+	 * Set the value from outside.
+	 *
+	 * @param {string|undefined} value
+	 */
+	mw.widgets.SelectWithInputWidget.prototype.setValue = function ( value ) {
+		var selectable = false;
+
+		if ( this.or ) {
+			if ( value !== 'other' ) {
+				selectable = !!this.dropdowninput.dropdownWidget.getMenu().findItemFromData( value );
+			}
+
+			if ( selectable ) {
+				this.dropdowninput.setValue( value );
+				this.textinput.setValue( undefined );
+			} else {
+				this.dropdowninput.setValue( 'other' );
+				this.textinput.setValue( value );
+			}
+
+			this.emit( 'change', value );
+		}
+	};
+
+	/**
+	 * Get the value from outside.
+	 *
+	 * @return {string}
+	 */
+	mw.widgets.SelectWithInputWidget.prototype.getValue = function () {
+		if ( this.or ) {
+			if ( this.dropdowninput.getValue() !== 'other' ) {
+				return this.dropdowninput.getValue();
+			}
+
+			return this.textinput.getValue();
+		} else {
+			return '';
+		}
+	};
+
+	/**
+	 * Handle change events on the DropdownInput
+	 *
+	 * @param {string|undefined} value
+	 * @private
+	 */
+	mw.widgets.SelectWithInputWidget.prototype.onChange = function ( value ) {
+		if ( this.or ) {
+			value = value || this.dropdowninput.getValue();
+			this.textinput.$element.toggle( value === 'other' );
+			// It is impossible to submit a form with hidden fields failing validation, e.g. one that
+			// is required. However, validity is not checked for disabled fields, as these are not
+			// submitted with the form. So we should also disable fields when hiding them.
+			this.textinput.setDisabled( value !== 'other' || this.isDisabled() );
+		}
+
+		this.emit( 'change', this.getValue() );
+	};
+
+}() );
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+				</main>
+			</div>
+		</div>
+	</div>
+	<footer id="footer" class="footer">
+		<div class="content-box">
+			<ul class="footer__list">
+				<li><a href="https://gerrit.wikimedia.org/g/mediawiki/core/">Contribute</a></li>
+			</ul>
+			<p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Mon Mar 25 2024 13:41:33 GMT-0700 (Pacific Daylight Time)</p>
+			<p><a href="https://wikimediafoundation.org/" class="lnk--wikimedia-project">A Wikimedia Foundation project</a></p>
+		</div>
+	</footer>
+
+<script src="scripts/redirect.js"></script>
+<script>
+var arr = function(aa) { return Array.prototype.slice.call(aa); };
+arr(document.querySelectorAll("nav > ol > li a:not([href])")).map(function(el) {
+  var li = el;
+  while (li && li.tagName !== 'LI') { li = li.parentNode; }
+  el.addEventListener('click', function(event) {
+    if (li.classList.contains('is-on')) {
+      li.classList.remove('is-on');
+      return;
+    }
+    arr(document.querySelectorAll("nav li.nav__item.is-on")).map(function(el2) {
+      el2.classList.remove('is-on');
+    });
+    li.classList.add('is-on');
+  });
+});
+</script>
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/open-member.js"> </script>
+</body>
+</html>

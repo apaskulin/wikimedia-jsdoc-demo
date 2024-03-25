@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]><html lang="en" class="js-off lte-ie8"><![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="js-off ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en" class="js-off">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Source: mediawiki.widgets/mw.widgets.UsersMultiselectWidget.js, MediaWiki frontend code, JSDoc</title>
+    <script>
+document.documentElement.className = document.documentElement.className.replace(/\bjs-off\b/,'js-on'); // no BEM notation thx to IE
+    </script>
+    <!--[if lt IE 9]>
+      <script>window.html5={'shivCSS':false};</script>
+      <script src="wmf/js/vendor/ie/html5shiv-3.7.3.min.js"></script>
+      <script src="wmf/js/vendor/ie/respond-1.4.2.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="styles/jsdoc-wmf-theme.css">
+    <script src="scripts/lib/prettify/prettify.js"> </script>
+    <script src="scripts/lib/prettify/lang-css.js"> </script>
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link rel="preload" href="wmf/fonts/Charter_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="wmf/fonts/Lato_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <script src="scripts/fonts-loader.js" async=""></script>
+</head>
+
+<body class="page--home">
+	<header id="header" class="header" role="banner">
+		<div class="content-box">
+			<a href="#content" class="is-aural is-focusable">Jump to content</a>
+			<a href="#nav--main" class="is-aural is-focusable">Jump to navigation</a>
+			<div class="header__title">
+				<span class="site-title"><a href="./"><span class="site-logo"></span>MediaWiki frontend code</a></span>
+				<label class="btn--nav-main" for="trigger--nav-main" aria-hidden="true" title="Show main menu">
+					<i></i> <span>Menu</span>
+				</label>
+			</div>
+     		<div id="search-container" class="search-container">
+  <input type="search" id="lunr-search" class="search-input" role="combobox" aria-autocomplete="list" aria-controls="search-results" aria-expanded="false" aria-activedescendant="selected-search-result" placeholder="Search">
+  <ul id="search-results" class="search-results role="listbox"></ul>
+</div>
+<script src="lunr-data.js"></script>
+<script src="scripts/lib/lunr.js"></script>
+<script src="scripts/lunrSearch.js"></script>
+
+		</div>
+	</header>
+	<div class="page">
+		<div class="content-box flex-cols">
+			<div class="flex-col flex-col--start">
+				<input type="checkbox" id="trigger--nav-main" class="trigger--nav-main">
+				<nav id="nav--main" class="nav nav--main" role="navigation">
+					<ol><li class="nav__item"><a href="index.html">Home</a></li><li class="nav__item"><a href="modules.html">Modules</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="module-mediawiki.ForeignApi.html">mediawiki.ForeignApi</a></li><li class="nav__sub-item"><a href="module-mediawiki.String.html">mediawiki.String</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.jpegmeta.html">mediawiki.libs.jpegmeta</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.pluralruleparser.html">mediawiki.libs.pluralruleparser</a></li><li class="nav__sub-item"><a href="module-mediawiki.notification.convertmessagebox.html">mediawiki.notification.convertmessagebox</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.preview.html">mediawiki.page.preview</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.ready.html">mediawiki.page.ready</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.watch.ajax.html">mediawiki.page.watch.ajax</a></li><li class="nav__sub-item"><a href="module-mediawiki.storage.html">mediawiki.storage</a></li><li class="nav__sub-item"><a href="module-mediawiki.util.html">mediawiki.util</a></li><li class="nav__sub-item"><a href="module-mediawiki.visibleTimeout.html">mediawiki.visibleTimeout</a></li><li class="nav__sub-item"><a href="module-mediawiki.watchstar.widgets.html">mediawiki.watchstar.widgets</a></li><li class="nav__sub-item"><a href="module-moment.html">moment</a></li></ul></li><li class="nav__item"><a href="namespaces.html">Frontend API</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="Hooks.html">Hooks</a></li><li class="nav__sub-item"><a href="jQueryPlugins.html">jQueryPlugins</a></li><li class="nav__sub-item"><a href="mw.html">mw</a></li><li class="nav__sub-item"><a href="window.html">window</a></li></ul></li><li class="nav__item"><a href="sitemap.html">Sitemap</a></li></ol>
+				</nav>
+			</div>
+			<div class="flex-col flex-col--end">
+				<main id="content" class="content" role="main">
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint sourcefile linenums"><code>/*!
+ * MediaWiki Widgets - UsersMultiselectWidget class.
+ *
+ * @copyright 2017 MediaWiki Widgets Team and others; see AUTHORS.txt
+ * @license The MIT License (MIT); see LICENSE.txt
+ */
+( function () {
+
+	/**
+	 * UsersMultiselectWidget can be used to input list of users in a single
+	 * line.
+	 *
+	 * If used inside HTML form the results will be sent as the list of
+	 * newline-separated usernames.
+	 *
+	 * This can be configured to accept IP addresses and/or ranges as well as
+	 * usernames.
+	 *
+	 * @class
+	 * @extends OO.ui.MenuTagMultiselectWidget
+	 *
+	 * @constructor
+	 * @param {Object} [config] Configuration options
+	 * @param {mw.Api} [config.api] Instance of mw.Api (or subclass thereof) to use for queries
+	 * @param {number} [config.imit=10] Number of results to show in autocomplete menu
+	 * @param {string} [config.name] Name of input to submit results (when used in HTML forms)
+	 * @param {boolean} [config.ipAllowed=false] Show IP addresses in autocomplete menu
+	 *  If false, single IP addresses are not allowed, even if IP ranges are allowed.
+	 * @param {boolean} [config.ipRangeAllowed=false] Show IP ranges in autocomplete menu
+	 * @param {Object} [config.ipRangeLimits] Maximum allowed IP ranges (defaults match HTMLUserTextField.php)
+	 * @param {number} [config.ipRangeLimits.IPv4 = 16] Maximum allowed IPv4 range
+	 * @param {number} [config.ipRangeLimits.IPv6 = 32] Maximum allowed IPv6 range
+	 */
+	mw.widgets.UsersMultiselectWidget = function MwWidgetsUsersMultiselectWidget( config ) {
+		// Config initialization
+		config = $.extend( {
+			limit: 10,
+			ipAllowed: false,
+			ipRangeAllowed: false,
+			ipRangeLimits: {
+				IPv4: 16,
+				IPv6: 32
+			}
+		}, config );
+
+		// Parent constructor
+		mw.widgets.UsersMultiselectWidget.super.call( this, $.extend( {}, config, {} ) );
+
+		// Mixin constructors
+		OO.ui.mixin.PendingElement.call( this, $.extend( {}, config, { $pending: this.$handle } ) );
+
+		// Properties
+		this.limit = config.limit;
+		this.ipAllowed = config.ipAllowed;
+		this.ipRangeAllowed = config.ipRangeAllowed;
+		this.ipRangeLimits = config.ipRangeLimits;
+
+		if ( 'name' in config ) {
+			// Use this instead of &lt;input type="hidden">, because hidden inputs do not have separate
+			// 'value' and 'defaultValue' properties. The script on Special:Preferences
+			// (mw.special.preferences.confirmClose) checks this property to see if a field was changed.
+			this.$hiddenInput = $( '&lt;textarea>' )
+				.addClass( 'oo-ui-element-hidden' )
+				.attr( 'name', config.name )
+				.appendTo( this.$element );
+			// Update with preset values
+			this.updateHiddenInput();
+			// Set the default value (it might be different from just being empty)
+			this.$hiddenInput.prop( 'defaultValue', this.getSelectedUsernames().join( '\n' ) );
+		}
+
+		// Events
+		// When list of selected usernames changes, update hidden input
+		this.connect( this, {
+			change: 'updateHiddenInput'
+		} );
+
+		// API init
+		this.api = config.api || new mw.Api();
+	};
+
+	/* Setup */
+
+	OO.inheritClass( mw.widgets.UsersMultiselectWidget, OO.ui.MenuTagMultiselectWidget );
+	OO.mixinClass( mw.widgets.UsersMultiselectWidget, OO.ui.mixin.PendingElement );
+
+	/* Methods */
+
+	/**
+	 * Get currently selected usernames.
+	 *
+	 * @return {string[]} usernames
+	 */
+	mw.widgets.UsersMultiselectWidget.prototype.getSelectedUsernames = function () {
+		return this.getValue();
+	};
+
+	/**
+	 * Update autocomplete menu with items.
+	 *
+	 * @private
+	 */
+	mw.widgets.UsersMultiselectWidget.prototype.updateMenuItems = function () {
+		var inputValue = this.input.getValue();
+
+		if ( inputValue === this.inputValue ) {
+			// Do not restart api query if nothing has changed in the input
+			return;
+		} else {
+			this.inputValue = inputValue;
+		}
+
+		this.api.abort(); // Abort all unfinished api requests
+
+		if ( inputValue.length > 0 ) {
+			this.pushPending();
+
+			var isValidIp, isValidRange;
+			if ( this.ipAllowed || this.ipRangeAllowed ) {
+				isValidIp = mw.util.isIPAddress( inputValue, false );
+				isValidRange = !isValidIp &amp;&amp;
+					mw.util.isIPAddress( inputValue, true ) &amp;&amp;
+					this.validateIpRange( inputValue );
+			}
+
+			if ( this.ipAllowed &amp;&amp; isValidIp || this.ipRangeAllowed &amp;&amp; isValidRange ) {
+				this.menu.clearItems();
+				this.menu.addItems( [
+					new OO.ui.MenuOptionWidget( {
+						data: inputValue,
+						label: inputValue
+					} )
+				] );
+				this.menu.toggle( true );
+				this.popPending();
+			} else {
+				this.api.get( {
+					action: 'query',
+					list: 'allusers',
+					auprefix: inputValue,
+					aulimit: this.limit
+				} ).done( function ( response ) {
+					var suggestions = response.query.allusers,
+						selected = this.getSelectedUsernames();
+
+					// Remove usernames, which are already selected from suggestions
+					suggestions = suggestions.map( function ( user ) {
+						if ( selected.indexOf( user.name ) === -1 ) {
+							return new OO.ui.MenuOptionWidget( {
+								data: user.name,
+								label: user.name,
+								id: user.name
+							} );
+						}
+						return undefined;
+					} ).filter( function ( item ) {
+						return item !== undefined;
+					} );
+
+					// Remove all items from menu add fill it with new
+					this.menu.clearItems();
+					this.menu.addItems( suggestions );
+
+					if ( suggestions.length ) {
+						// Enable Narrator focus on menu item, see T250762.
+						this.menu.$focusOwner.attr( 'aria-activedescendant', suggestions[ 0 ].$element.attr( 'id' ) );
+					}
+
+					// Make the menu visible; it might not be if it was previously empty
+					this.menu.toggle( true );
+
+					this.popPending();
+				}.bind( this ) ).fail( this.popPending.bind( this ) );
+			}
+
+		} else {
+			this.menu.clearItems();
+		}
+	};
+
+	/**
+	 * @private
+	 * @param {string} ipRange Valid IPv4 or IPv6 range
+	 * @return {boolean} The IP range is within the size limit
+	 */
+	mw.widgets.UsersMultiselectWidget.prototype.validateIpRange = function ( ipRange ) {
+		ipRange = ipRange.split( '/' );
+
+		return mw.util.isIPv4Address( ipRange[ 0 ] ) &amp;&amp; +ipRange[ 1 ] >= this.ipRangeLimits.IPv4 ||
+			mw.util.isIPv6Address( ipRange[ 0 ] ) &amp;&amp; +ipRange[ 1 ] >= this.ipRangeLimits.IPv6;
+	};
+
+	mw.widgets.UsersMultiselectWidget.prototype.onInputChange = function () {
+		mw.widgets.UsersMultiselectWidget.super.prototype.onInputChange.apply( this, arguments );
+
+		this.updateMenuItems();
+	};
+
+	/**
+	 * If used inside HTML form, then update hiddenInput with list of
+	 * newline-separated usernames.
+	 *
+	 * @private
+	 */
+	mw.widgets.UsersMultiselectWidget.prototype.updateHiddenInput = function () {
+		if ( '$hiddenInput' in this ) {
+			this.$hiddenInput.val( this.getSelectedUsernames().join( '\n' ) );
+			// Trigger a 'change' event as if a user edited the text
+			// (it is not triggered when changing the value from JS code).
+			this.$hiddenInput.trigger( 'change' );
+		}
+	};
+
+	/**
+	 * We have an empty menu when the input is empty, override the implementation from
+	 * MenuTagMultiselectWidget to avoid error and make tags editable.
+	 *
+	 * Only editable when the input is empty.
+	 */
+	mw.widgets.UsersMultiselectWidget.prototype.onTagSelect = function () {
+		if ( this.hasInput &amp;&amp; !this.input.getValue() ) {
+			OO.ui.TagMultiselectWidget.prototype.onTagSelect.apply( this, arguments );
+		}
+	};
+
+}() );
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+				</main>
+			</div>
+		</div>
+	</div>
+	<footer id="footer" class="footer">
+		<div class="content-box">
+			<ul class="footer__list">
+				<li><a href="https://gerrit.wikimedia.org/g/mediawiki/core/">Contribute</a></li>
+			</ul>
+			<p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Mon Mar 25 2024 13:41:33 GMT-0700 (Pacific Daylight Time)</p>
+			<p><a href="https://wikimediafoundation.org/" class="lnk--wikimedia-project">A Wikimedia Foundation project</a></p>
+		</div>
+	</footer>
+
+<script src="scripts/redirect.js"></script>
+<script>
+var arr = function(aa) { return Array.prototype.slice.call(aa); };
+arr(document.querySelectorAll("nav > ol > li a:not([href])")).map(function(el) {
+  var li = el;
+  while (li && li.tagName !== 'LI') { li = li.parentNode; }
+  el.addEventListener('click', function(event) {
+    if (li.classList.contains('is-on')) {
+      li.classList.remove('is-on');
+      return;
+    }
+    arr(document.querySelectorAll("nav li.nav__item.is-on")).map(function(el2) {
+      el2.classList.remove('is-on');
+    });
+    li.classList.add('is-on');
+  });
+});
+</script>
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/open-member.js"> </script>
+</body>
+</html>

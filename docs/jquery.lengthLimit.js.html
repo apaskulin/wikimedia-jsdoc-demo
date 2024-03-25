@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]><html lang="en" class="js-off lte-ie8"><![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="js-off ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en" class="js-off">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Source: jquery.lengthLimit.js, MediaWiki frontend code, JSDoc</title>
+    <script>
+document.documentElement.className = document.documentElement.className.replace(/\bjs-off\b/,'js-on'); // no BEM notation thx to IE
+    </script>
+    <!--[if lt IE 9]>
+      <script>window.html5={'shivCSS':false};</script>
+      <script src="wmf/js/vendor/ie/html5shiv-3.7.3.min.js"></script>
+      <script src="wmf/js/vendor/ie/respond-1.4.2.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="styles/jsdoc-wmf-theme.css">
+    <script src="scripts/lib/prettify/prettify.js"> </script>
+    <script src="scripts/lib/prettify/lang-css.js"> </script>
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link rel="preload" href="wmf/fonts/Charter_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="wmf/fonts/Lato_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <script src="scripts/fonts-loader.js" async=""></script>
+</head>
+
+<body class="page--home">
+	<header id="header" class="header" role="banner">
+		<div class="content-box">
+			<a href="#content" class="is-aural is-focusable">Jump to content</a>
+			<a href="#nav--main" class="is-aural is-focusable">Jump to navigation</a>
+			<div class="header__title">
+				<span class="site-title"><a href="./"><span class="site-logo"></span>MediaWiki frontend code</a></span>
+				<label class="btn--nav-main" for="trigger--nav-main" aria-hidden="true" title="Show main menu">
+					<i></i> <span>Menu</span>
+				</label>
+			</div>
+     		<div id="search-container" class="search-container">
+  <input type="search" id="lunr-search" class="search-input" role="combobox" aria-autocomplete="list" aria-controls="search-results" aria-expanded="false" aria-activedescendant="selected-search-result" placeholder="Search">
+  <ul id="search-results" class="search-results role="listbox"></ul>
+</div>
+<script src="lunr-data.js"></script>
+<script src="scripts/lib/lunr.js"></script>
+<script src="scripts/lunrSearch.js"></script>
+
+		</div>
+	</header>
+	<div class="page">
+		<div class="content-box flex-cols">
+			<div class="flex-col flex-col--start">
+				<input type="checkbox" id="trigger--nav-main" class="trigger--nav-main">
+				<nav id="nav--main" class="nav nav--main" role="navigation">
+					<ol><li class="nav__item"><a href="index.html">Home</a></li><li class="nav__item"><a href="modules.html">Modules</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="module-mediawiki.ForeignApi.html">mediawiki.ForeignApi</a></li><li class="nav__sub-item"><a href="module-mediawiki.String.html">mediawiki.String</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.jpegmeta.html">mediawiki.libs.jpegmeta</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.pluralruleparser.html">mediawiki.libs.pluralruleparser</a></li><li class="nav__sub-item"><a href="module-mediawiki.notification.convertmessagebox.html">mediawiki.notification.convertmessagebox</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.preview.html">mediawiki.page.preview</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.ready.html">mediawiki.page.ready</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.watch.ajax.html">mediawiki.page.watch.ajax</a></li><li class="nav__sub-item"><a href="module-mediawiki.storage.html">mediawiki.storage</a></li><li class="nav__sub-item"><a href="module-mediawiki.util.html">mediawiki.util</a></li><li class="nav__sub-item"><a href="module-mediawiki.visibleTimeout.html">mediawiki.visibleTimeout</a></li><li class="nav__sub-item"><a href="module-mediawiki.watchstar.widgets.html">mediawiki.watchstar.widgets</a></li><li class="nav__sub-item"><a href="module-moment.html">moment</a></li></ul></li><li class="nav__item"><a href="namespaces.html">Frontend API</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="Hooks.html">Hooks</a></li><li class="nav__sub-item"><a href="jQueryPlugins.html">jQueryPlugins</a></li><li class="nav__sub-item"><a href="mw.html">mw</a></li><li class="nav__sub-item"><a href="window.html">window</a></li></ul></li><li class="nav__item"><a href="sitemap.html">Sitemap</a></li></ol>
+				</nav>
+			</div>
+			<div class="flex-col flex-col--end">
+				<main id="content" class="content" role="main">
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint sourcefile linenums"><code>/**
+ * jQuery plugin for limiting string length.
+ */
+( function () {
+
+	var
+		eventKeys = [
+			'keyup.lengthLimit',
+			'keydown.lengthLimit',
+			'change.lengthLimit',
+			'mouseup.lengthLimit',
+			'cut.lengthLimit',
+			'paste.lengthLimit',
+			'focus.lengthLimit',
+			'blur.lengthLimit'
+		].join( ' ' ),
+		trimByteLength = require( 'mediawiki.String' ).trimByteLength,
+		trimCodePointLength = require( 'mediawiki.String' ).trimCodePointLength;
+
+	/**
+	 * Utility function to trim down a string, based on byteLimit
+	 * and given a safe start position.
+	 *
+	 * It supports insertion anywhere in the string, so "foo" to "fobaro" if
+	 * limit is 4 will result in "fobo", not "foba". Basically emulating the
+	 * native maxlength by reconstructing where the insertion occurred.
+	 *
+	 * @memberof jQueryPlugins
+	 * @method trimByteLength
+	 * @deprecated Use `require( 'mediawiki.String' ).trimByteLength` instead.
+	 * @static
+	 * @param {string} safeVal Known value that was previously returned by this
+	 * function, if none, pass empty string.
+	 * @param {string} newVal New value that may have to be trimmed down.
+	 * @param {number} byteLimit Number of bytes the value may be in size.
+	 * @param {Function} [filterFunction] See jQuery#byteLimit.
+	 * @return {Object}
+	 * @return {string} return.newVal
+	 * @return {boolean} return.trimmed
+	 */
+	mw.log.deprecate( $, 'trimByteLength', trimByteLength,
+		'Use require( \'mediawiki.String\' ).trimByteLength instead.', '$.trimByteLength' );
+
+	function lengthLimit( trimFn, limit, filterFunction ) {
+		var allowNativeMaxlength = trimFn === trimByteLength;
+
+		// If the first argument is the function,
+		// set filterFunction to the first argument's value and ignore the second argument.
+		if ( typeof limit === 'function' ) {
+			filterFunction = limit;
+			limit = undefined;
+		// Either way, verify it is a function so we don't have to call
+		// isFunction again after this.
+		} else if ( !filterFunction || typeof filterFunction !== 'function' ) {
+			filterFunction = undefined;
+		}
+
+		// The following is specific to each element in the collection.
+		return this.each( function ( i, el ) {
+			var $el, elLimit, prevSafeVal;
+
+			$el = $( el );
+
+			// If no limit was passed to lengthLimit(), use the maxlength value.
+			// Can't re-use 'limit' variable because it's in the higher scope
+			// that would affect the next each() iteration as well.
+			// Note that we use attribute to read the value instead of property,
+			// because in Chrome the maxLength property by default returns the
+			// highest supported value (no indication that it is being enforced
+			// by choice). We don't want to bind all of this for some ridiculously
+			// high default number, unless it was explicitly set in the HTML.
+			// Also cast to a (primitive) number (most commonly because the maxlength
+			// attribute contains a string, but theoretically the limit parameter
+			// could be something else as well).
+			elLimit = Number( limit === undefined ? $el.attr( 'maxlength' ) : limit );
+
+			// If there is no (valid) limit passed or found in the property,
+			// skip this. The &lt; 0 check is required for Firefox, which returns
+			// -1  (instead of undefined) for maxLength if it is not set.
+			if ( !elLimit || elLimit &lt; 0 ) {
+				return;
+			}
+
+			if ( filterFunction ) {
+				// Save function for reference
+				$el.data( 'lengthLimit.callback', filterFunction );
+			}
+
+			// Remove old event handlers (if there are any)
+			$el.off( '.lengthLimit' );
+
+			if ( filterFunction || !allowNativeMaxlength ) {
+				// Disable the native maxLength (if there is any), because it interferes
+				// with the (differently calculated) character/byte limit.
+				// Aside from being differently calculated,
+				// we also support a callback which can make it to allow longer
+				// values (e.g. count "Foo" from "User:Foo").
+				// maxLength is a strange property. Removing or setting the property to
+				// undefined directly doesn't work. Instead, it can only be unset internally
+				// by the browser when removing the associated attribute (Firefox/Chrome).
+				// https://bugs.chromium.org/p/chromium/issues/detail?id=136004
+				$el.removeAttr( 'maxlength' );
+
+			} else {
+				// For $.byteLimit only, if we don't have a callback,
+				// the byteLimit can only be lower than the native maxLength limit
+				// (that is, there are no characters less than 1 byte in size). So lets (re-)enforce
+				// the native limit for efficiency when possible (it will make the while-loop below
+				// faster by there being less left to interate over). This does not work for $.codePointLimit
+				// (code units for surrogates represent half a character each).
+				$el.attr( 'maxlength', elLimit );
+			}
+
+			// Safe base value, used to determine the path between the previous state
+			// and the state that triggered the event handler below - and enforce the
+			// limit approppiately (e.g. don't chop from the end if text was inserted
+			// at the beginning of the string).
+			prevSafeVal = '';
+
+			// We need to listen to after the change has already happened because we've
+			// learned that trying to guess the new value and canceling the event
+			// accordingly doesn't work because the new value is not always as simple as:
+			// oldValue + String.fromCharCode( e.which ); because of cut, paste, select-drag
+			// replacements, and custom input methods and what not.
+			// Even though we only trim input after it was changed (never prevent it), we do
+			// listen on events that input text, because there are cases where the text has
+			// changed while text is being entered and keyup/change will not be fired yet
+			// (such as holding down a single key, fires keydown, and after each keydown,
+			// we can trim the previous one).
+			// See https://www.w3.org/TR/DOM-Level-3-Events/#events-keyboard-event-order for
+			// the order and characteristics of the key events.
+
+			function enforceLimit() {
+				var res = trimFn(
+					prevSafeVal,
+					this.value,
+					elLimit,
+					filterFunction
+				);
+
+				// Only set value property if it was trimmed, because whenever the
+				// value property is set, the browser needs to re-initiate the text context,
+				// which moves the cursor at the end the input, moving it away from wherever it was.
+				// This is a side-effect of limiting after the fact.
+				if ( res.trimmed === true ) {
+					this.value = res.newVal;
+					// Trigger a 'change' event to let other scripts attached to this node know that the value
+					// was changed. This will also call ourselves again, but that's okay, it'll be a no-op.
+					$el.trigger( 'change' );
+				}
+				// Always adjust prevSafeVal to reflect the input value. Not doing this could cause
+				// trimFn to compare the new value to an empty string instead of the
+				// old value, resulting in trimming always from the end (T42850).
+				prevSafeVal = res.newVal;
+			}
+
+			$el.on( eventKeys, function ( e ) {
+				if ( e.type === 'cut' || e.type === 'paste' ) {
+					// For 'cut'/'paste', the input value is only updated after the event handlers resolve.
+					setTimeout( enforceLimit.bind( this ) );
+				} else {
+					enforceLimit.call( this );
+				}
+			} );
+		} );
+	}
+
+	/**
+	 * Enforces a byte limit on an input field, assuming UTF-8 encoding, for situations
+	 * when, for example, a database field has a byte limit rather than a character limit.
+	 * Plugin rationale: Browser has native maxlength for number of characters (technically,
+	 * UTF-16 code units), this plugin exists to limit number of bytes instead.
+	 *
+	 * Can be called with a custom limit (to use that limit instead of the maxlength attribute
+	 * value), a filter function (in case the limit should apply to something other than the
+	 * exact input value), or both. Order of parameters is important!
+	 *
+	 * @memberof jQueryPlugins
+	 * @method byteLimit
+	 * @param {number} [limit] Limit to enforce, fallsback to maxLength-attribute,
+	 *  called with fetched value as argument.
+	 * @param {Function} [filterFunction] Function to call on the string before assessing the length.
+	 * @return {jQuery}
+	 * @chainable
+	 */
+	$.fn.byteLimit = function ( limit, filterFunction ) {
+		return lengthLimit.call( this, trimByteLength, limit, filterFunction );
+	};
+
+	/**
+	 * Enforces a codepoint (character) limit on an input field.
+	 *
+	 * For unfortunate historical reasons, browsers' native maxlength counts [the number of UTF-16
+	 * code units rather than Unicode codepoints] [1], which means that codepoints outside the Basic
+	 * Multilingual Plane (e.g. many emojis) count as 2 characters each. This plugin exists to
+	 * correct this.
+	 *
+	 * [1]: https://www.w3.org/TR/html5/sec-forms.html#limiting-user-input-length-the-maxlength-attribute
+	 *
+	 * Can be called with a custom limit (to use that limit instead of the maxlength attribute
+	 * value), a filter function (in case the limit should apply to something other than the
+	 * exact input value), or both. Order of parameters is important!
+	 *
+	 * @memberof jQueryPlugins
+	 * @method codePointLimit
+	 * @param {number} [limit] Limit to enforce, fallsback to maxLength-attribute,
+	 *  called with fetched value as argument.
+	 * @param {Function} [filterFunction] Function to call on the string before assessing the length.
+	 * @return {jQuery}
+	 * @chainable
+	 */
+	$.fn.codePointLimit = function ( limit, filterFunction ) {
+		return lengthLimit.call( this, trimCodePointLength, limit, filterFunction );
+	};
+
+}() );
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+				</main>
+			</div>
+		</div>
+	</div>
+	<footer id="footer" class="footer">
+		<div class="content-box">
+			<ul class="footer__list">
+				<li><a href="https://gerrit.wikimedia.org/g/mediawiki/core/">Contribute</a></li>
+			</ul>
+			<p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Mon Mar 25 2024 13:41:33 GMT-0700 (Pacific Daylight Time)</p>
+			<p><a href="https://wikimediafoundation.org/" class="lnk--wikimedia-project">A Wikimedia Foundation project</a></p>
+		</div>
+	</footer>
+
+<script src="scripts/redirect.js"></script>
+<script>
+var arr = function(aa) { return Array.prototype.slice.call(aa); };
+arr(document.querySelectorAll("nav > ol > li a:not([href])")).map(function(el) {
+  var li = el;
+  while (li && li.tagName !== 'LI') { li = li.parentNode; }
+  el.addEventListener('click', function(event) {
+    if (li.classList.contains('is-on')) {
+      li.classList.remove('is-on');
+      return;
+    }
+    arr(document.querySelectorAll("nav li.nav__item.is-on")).map(function(el2) {
+      el2.classList.remove('is-on');
+    });
+    li.classList.add('is-on');
+  });
+});
+</script>
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/open-member.js"> </script>
+</body>
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]><html lang="en" class="js-off lte-ie8"><![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="js-off ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en" class="js-off">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Home, MediaWiki frontend code, JSDoc</title>
+    <script>
+document.documentElement.className = document.documentElement.className.replace(/\bjs-off\b/,'js-on'); // no BEM notation thx to IE
+    </script>
+    <!--[if lt IE 9]>
+      <script>window.html5={'shivCSS':false};</script>
+      <script src="wmf/js/vendor/ie/html5shiv-3.7.3.min.js"></script>
+      <script src="wmf/js/vendor/ie/respond-1.4.2.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="styles/jsdoc-wmf-theme.css">
+    <script src="scripts/lib/prettify/prettify.js"> </script>
+    <script src="scripts/lib/prettify/lang-css.js"> </script>
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link rel="preload" href="wmf/fonts/Charter_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="wmf/fonts/Lato_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <script src="scripts/fonts-loader.js" async=""></script>
+</head>
+
+<body class="page--home">
+	<header id="header" class="header" role="banner">
+		<div class="content-box">
+			<a href="#content" class="is-aural is-focusable">Jump to content</a>
+			<a href="#nav--main" class="is-aural is-focusable">Jump to navigation</a>
+			<div class="header__title">
+				<span class="site-title"><a href="./"><span class="site-logo"></span>MediaWiki frontend code</a></span>
+				<label class="btn--nav-main" for="trigger--nav-main" aria-hidden="true" title="Show main menu">
+					<i></i> <span>Menu</span>
+				</label>
+			</div>
+     		<div id="search-container" class="search-container">
+  <input type="search" id="lunr-search" class="search-input" role="combobox" aria-autocomplete="list" aria-controls="search-results" aria-expanded="false" aria-activedescendant="selected-search-result" placeholder="Search">
+  <ul id="search-results" class="search-results role="listbox"></ul>
+</div>
+<script src="lunr-data.js"></script>
+<script src="scripts/lib/lunr.js"></script>
+<script src="scripts/lunrSearch.js"></script>
+
+		</div>
+	</header>
+	<div class="page">
+		<div class="content-box flex-cols">
+			<div class="flex-col flex-col--start">
+				<input type="checkbox" id="trigger--nav-main" class="trigger--nav-main">
+				<nav id="nav--main" class="nav nav--main" role="navigation">
+					<ol><li class="nav__item is-on"><a href="index.html">Home</a></li><li class="nav__item"><a href="modules.html">Modules</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="module-mediawiki.ForeignApi.html">mediawiki.ForeignApi</a></li><li class="nav__sub-item"><a href="module-mediawiki.String.html">mediawiki.String</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.jpegmeta.html">mediawiki.libs.jpegmeta</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.pluralruleparser.html">mediawiki.libs.pluralruleparser</a></li><li class="nav__sub-item"><a href="module-mediawiki.notification.convertmessagebox.html">mediawiki.notification.convertmessagebox</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.preview.html">mediawiki.page.preview</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.ready.html">mediawiki.page.ready</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.watch.ajax.html">mediawiki.page.watch.ajax</a></li><li class="nav__sub-item"><a href="module-mediawiki.storage.html">mediawiki.storage</a></li><li class="nav__sub-item"><a href="module-mediawiki.util.html">mediawiki.util</a></li><li class="nav__sub-item"><a href="module-mediawiki.visibleTimeout.html">mediawiki.visibleTimeout</a></li><li class="nav__sub-item"><a href="module-mediawiki.watchstar.widgets.html">mediawiki.watchstar.widgets</a></li><li class="nav__sub-item"><a href="module-moment.html">moment</a></li></ul></li><li class="nav__item"><a href="namespaces.html">Frontend API</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="Hooks.html">Hooks</a></li><li class="nav__sub-item"><a href="jQueryPlugins.html">jQueryPlugins</a></li><li class="nav__sub-item"><a href="mw.html">mw</a></li><li class="nav__sub-item"><a href="window.html">window</a></li></ul></li><li class="nav__item"><a href="sitemap.html">Sitemap</a></li></ol>
+				</nav>
+			</div>
+			<div class="flex-col flex-col--end">
+				<main id="content" class="content" role="main">
+
+    
+
+
+
+    
+
+
+    <h1>MediaWiki frontend code </h1>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    <section>
+        <article><p>This documentation describes the public API that user scripts, gadgets, skins, and extensions can use to interact with <a href="https://www.mediawiki.org/wiki/Special:MyLanguage/MediaWiki">MediaWiki</a>.
+These resources contain frontend JavaScript and CSS managed by <a href="https://www.mediawiki.org/wiki/Special:MyLanguage/ResourceLoader">ResourceLoader</a>. To interact with MediaWiki from outside a wiki, use the <a href="https://www.mediawiki.org/wiki/Special:MyLanguage/API:Main_page">Action API</a>.</p>
+<h2>Get started</h2>
+<ul>
+<li><a href="https://www.mediawiki.org/wiki/Special:MyLanguage/Gadget_kitchen">Write your first user script</a></li>
+<li>Develop <a href="https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Developing_extensions">extensions</a> and <a href="https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:How_to_make_a_MediaWiki_skin">skins</a></li>
+</ul>
+<h2>Explore the documentation</h2>
+<p>Browse namespaces and classes within the <a href="mw.html">MediaWiki base library</a>.</p>
+<h3>Manage dependencies</h3>
+<p>Load modules and scripts to use in your code.</p>
+<ul>
+<li><a href="mw.loader.html">mw.loader</a></li>
+</ul>
+<h3>Access wiki configuration</h3>
+<p>Get information about wikis, pages, and users. See the complete <a href="https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Interface/JavaScript#mw.config">list of configuration values</a>.</p>
+<ul>
+<li><a href="mw.html#.config">mw.config</a></li>
+</ul>
+<h3>Use the API</h3>
+<p>Interact with a wiki's API to query pages, edit pages, perform patrolling actions, and more.</p>
+<ul>
+<li><a href="mw.Api.html">mw.Api</a> — The <a href="https://www.mediawiki.org/wiki/Special:MyLanguage/API:Main_page">Action API</a> is a full-featured API that includes a complete set of actions and parameters. To try it out, visit <a href="https://www.mediawiki.org/wiki/Special:ApiSandbox">Special:ApiSandbox</a> on any wiki.</li>
+<li><a href="mw.Rest.html">mw.Rest</a> — The <a href="https://www.mediawiki.org/wiki/Special:MyLanguage/API:REST_API">REST API</a> is a simplified API for performing basic read and write operations.</li>
+</ul>
+<h3>Integrate with wiki features</h3>
+<p>Hooks let you register and fire events that you can use to extend and enhance the behavior of MediaWiki.</p>
+<ul>
+<li><a href="Hook.html">mw.hook</a></li>
+<li><a href="Hooks.html">global events</a></li>
+</ul>
+<h3>Format and parse system messages</h3>
+<p>Handle translatable text or HTML strings that are part of the MediaWiki interface.</p>
+<ul>
+<li><a href="mw.html#.message">mw.message</a></li>
+<li><a href="mw.language.html">mw.language</a></li>
+</ul>
+<h3>Send notifications</h3>
+<p>Display pop-up notifications to users.</p>
+<ul>
+<li><a href="mw.notification.html">mw.notification</a></li>
+</ul>
+<h3>Interact with users</h3>
+<p>Get information about users, sessions, and user preferences.</p>
+<ul>
+<li><a href="mw.user.html">mw.user</a></li>
+</ul>
+<h3>Interact with pages</h3>
+<p>Construct and parse page elements.</p>
+<ul>
+<li><a href="mw.Title.html">mw.Title</a></li>
+<li><a href="mw.Uri.html">mw.Uri</a></li>
+</ul>
+<h3>Utilities</h3>
+<p>Get helpful methods for handling URLs, CSS, regular expressions, and more.</p>
+<ul>
+<li><a href="module-mediawiki.util.html">mw.util</a></li>
+</ul>
+<h3>Debugging and error reporting</h3>
+<p>Log errors, send deprecation warnings, and debug your code.</p>
+<ul>
+<li><a href="mw.Debug.html">mw.Debug</a></li>
+<li><a href="mw.errorLogger.html">mw.errorLogger</a></li>
+<li><a href="mw.log.html">mw.log</a></li>
+</ul>
+<h3>Upstream</h3>
+<ul>
+<li><a href="jQueryPlugins.html">jQuery plugins</a></li>
+<li><a href="https://doc.wikimedia.org/oojs/master/index.html">OOjs</a> — JavaScript library for working with objects</li>
+<li><a href="https://doc.wikimedia.org/oojs-ui/master/js/">OOUI</a> — component-based JavaScript UI library</li>
+</ul>
+<h2>Contribute</h2>
+<ul>
+<li><a href="https://phabricator.wikimedia.org/maniphest/task/edit/form/1/?projects=JSDoc-WMF-theme">Report a bug</a> using <a href="https://www.mediawiki.org/wiki/Special:MyLanguage/Phabricator">Wikimedia Phabricator</a></li>
+<li><a href="https://gerrit.wikimedia.org/g/jsdoc/wmf-theme">JSDoc WMF theme</a></li>
+<li><a href="https://gerrit.wikimedia.org/r/plugins/gitiles/mediawiki/core/">MediaWiki core</a></li>
+</ul></article>
+    </section>
+
+
+
+
+
+
+				</main>
+			</div>
+		</div>
+	</div>
+	<footer id="footer" class="footer">
+		<div class="content-box">
+			<ul class="footer__list">
+				<li><a href="https://gerrit.wikimedia.org/g/mediawiki/core/">Contribute</a></li>
+			</ul>
+			<p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Mon Mar 25 2024 13:41:33 GMT-0700 (Pacific Daylight Time)</p>
+			<p><a href="https://wikimediafoundation.org/" class="lnk--wikimedia-project">A Wikimedia Foundation project</a></p>
+		</div>
+	</footer>
+
+<script src="scripts/redirect.js"></script>
+<script>
+var arr = function(aa) { return Array.prototype.slice.call(aa); };
+arr(document.querySelectorAll("nav > ol > li a:not([href])")).map(function(el) {
+  var li = el;
+  while (li && li.tagName !== 'LI') { li = li.parentNode; }
+  el.addEventListener('click', function(event) {
+    if (li.classList.contains('is-on')) {
+      li.classList.remove('is-on');
+      return;
+    }
+    arr(document.querySelectorAll("nav li.nav__item.is-on")).map(function(el2) {
+      el2.classList.remove('is-on');
+    });
+    li.classList.add('is-on');
+  });
+});
+</script>
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/open-member.js"> </script>
+</body>
+</html>

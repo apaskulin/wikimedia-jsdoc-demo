@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]><html lang="en" class="js-off lte-ie8"><![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="js-off ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en" class="js-off">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Source: mediawiki.rcfilters/ui/TagItemWidget.js, MediaWiki frontend code, JSDoc</title>
+    <script>
+document.documentElement.className = document.documentElement.className.replace(/\bjs-off\b/,'js-on'); // no BEM notation thx to IE
+    </script>
+    <!--[if lt IE 9]>
+      <script>window.html5={'shivCSS':false};</script>
+      <script src="wmf/js/vendor/ie/html5shiv-3.7.3.min.js"></script>
+      <script src="wmf/js/vendor/ie/respond-1.4.2.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="styles/jsdoc-wmf-theme.css">
+    <script src="scripts/lib/prettify/prettify.js"> </script>
+    <script src="scripts/lib/prettify/lang-css.js"> </script>
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link rel="preload" href="wmf/fonts/Charter_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="wmf/fonts/Lato_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <script src="scripts/fonts-loader.js" async=""></script>
+</head>
+
+<body class="page--home">
+	<header id="header" class="header" role="banner">
+		<div class="content-box">
+			<a href="#content" class="is-aural is-focusable">Jump to content</a>
+			<a href="#nav--main" class="is-aural is-focusable">Jump to navigation</a>
+			<div class="header__title">
+				<span class="site-title"><a href="./"><span class="site-logo"></span>MediaWiki frontend code</a></span>
+				<label class="btn--nav-main" for="trigger--nav-main" aria-hidden="true" title="Show main menu">
+					<i></i> <span>Menu</span>
+				</label>
+			</div>
+     		<div id="search-container" class="search-container">
+  <input type="search" id="lunr-search" class="search-input" role="combobox" aria-autocomplete="list" aria-controls="search-results" aria-expanded="false" aria-activedescendant="selected-search-result" placeholder="Search">
+  <ul id="search-results" class="search-results role="listbox"></ul>
+</div>
+<script src="lunr-data.js"></script>
+<script src="scripts/lib/lunr.js"></script>
+<script src="scripts/lunrSearch.js"></script>
+
+		</div>
+	</header>
+	<div class="page">
+		<div class="content-box flex-cols">
+			<div class="flex-col flex-col--start">
+				<input type="checkbox" id="trigger--nav-main" class="trigger--nav-main">
+				<nav id="nav--main" class="nav nav--main" role="navigation">
+					<ol><li class="nav__item"><a href="index.html">Home</a></li><li class="nav__item"><a href="modules.html">Modules</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="module-mediawiki.ForeignApi.html">mediawiki.ForeignApi</a></li><li class="nav__sub-item"><a href="module-mediawiki.String.html">mediawiki.String</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.jpegmeta.html">mediawiki.libs.jpegmeta</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.pluralruleparser.html">mediawiki.libs.pluralruleparser</a></li><li class="nav__sub-item"><a href="module-mediawiki.notification.convertmessagebox.html">mediawiki.notification.convertmessagebox</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.preview.html">mediawiki.page.preview</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.ready.html">mediawiki.page.ready</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.watch.ajax.html">mediawiki.page.watch.ajax</a></li><li class="nav__sub-item"><a href="module-mediawiki.storage.html">mediawiki.storage</a></li><li class="nav__sub-item"><a href="module-mediawiki.util.html">mediawiki.util</a></li><li class="nav__sub-item"><a href="module-mediawiki.visibleTimeout.html">mediawiki.visibleTimeout</a></li><li class="nav__sub-item"><a href="module-mediawiki.watchstar.widgets.html">mediawiki.watchstar.widgets</a></li><li class="nav__sub-item"><a href="module-moment.html">moment</a></li></ul></li><li class="nav__item"><a href="namespaces.html">Frontend API</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="Hooks.html">Hooks</a></li><li class="nav__sub-item"><a href="jQueryPlugins.html">jQueryPlugins</a></li><li class="nav__sub-item"><a href="mw.html">mw</a></li><li class="nav__sub-item"><a href="window.html">window</a></li></ul></li><li class="nav__item"><a href="sitemap.html">Sitemap</a></li></ol>
+				</nav>
+			</div>
+			<div class="flex-col flex-col--end">
+				<main id="content" class="content" role="main">
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint sourcefile linenums"><code>/**
+ * Extend OOUI's TagItemWidget to also display a popup on hover.
+ *
+ * @class mw.rcfilters.ui.TagItemWidget
+ * @ignore
+ * @extends OO.ui.TagItemWidget
+ * @mixes OO.ui.mixin.PopupElement
+ *
+ * @param {mw.rcfilters.Controller} controller
+ * @param {mw.rcfilters.dm.FiltersViewModel} filtersViewModel
+ * @param {mw.rcfilters.dm.FilterItem|null} invertModel
+ * @param {mw.rcfilters.dm.FilterItem} itemModel Item model
+ * @param {Object} config Configuration object
+ * @param {jQuery} [config.$overlay] A jQuery object serving as overlay for popups
+ */
+var TagItemWidget = function MwRcfiltersUiTagItemWidget(
+	controller, filtersViewModel, invertModel, itemModel, config
+) {
+	// Configuration initialization
+	config = config || {};
+
+	this.controller = controller;
+	this.invertModel = invertModel;
+	this.filtersViewModel = filtersViewModel;
+	this.itemModel = itemModel;
+	this.selected = false;
+
+	TagItemWidget.super.call( this, $.extend( {
+		data: this.itemModel.getName()
+	}, config ) );
+
+	this.$overlay = config.$overlay || this.$element;
+	this.popupLabel = new OO.ui.LabelWidget();
+
+	// Mixin constructors
+	OO.ui.mixin.PopupElement.call( this, $.extend( {
+		popup: {
+			padded: false,
+			align: 'center',
+			position: 'above',
+			$content: $( '&lt;div>' )
+				.addClass( 'mw-rcfilters-ui-tagItemWidget-popup-content' )
+				.append( this.popupLabel.$element ),
+			$floatableContainer: this.$element,
+			classes: [ 'mw-rcfilters-ui-tagItemWidget-popup' ]
+		}
+	}, config ) );
+
+	this.popupTimeoutShow = null;
+	this.popupTimeoutHide = null;
+
+	this.$highlight = $( '&lt;div>' )
+		.addClass( 'mw-rcfilters-ui-tagItemWidget-highlight' );
+
+	// Add title attribute with the item label to 'x' button
+	this.closeButton.setTitle( mw.msg( 'rcfilters-tag-remove', this.itemModel.getLabel() ) );
+
+	// Events
+	this.filtersViewModel.connect( this, { highlightChange: 'updateUiBasedOnState' } );
+	if ( this.invertModel ) {
+		this.invertModel.connect( this, { update: 'updateUiBasedOnState' } );
+	}
+	this.itemModel.connect( this, { update: 'updateUiBasedOnState' } );
+
+	// Initialization
+	this.$overlay.append( this.popup.$element );
+	this.$element
+		.addClass( 'mw-rcfilters-ui-tagItemWidget' )
+		.prepend( this.$highlight )
+		.attr( 'aria-haspopup', 'true' )
+		.on( 'mouseenter', this.onMouseEnter.bind( this ) )
+		.on( 'mouseleave', this.onMouseLeave.bind( this ) );
+
+	this.updateUiBasedOnState();
+};
+
+/* Initialization */
+
+OO.inheritClass( TagItemWidget, OO.ui.TagItemWidget );
+OO.mixinClass( TagItemWidget, OO.ui.mixin.PopupElement );
+
+/* Methods */
+
+/**
+ * Respond to model update event
+ */
+TagItemWidget.prototype.updateUiBasedOnState = function () {
+	// Update label if needed
+	var labelMsg = this.itemModel.getLabelMessageKey( this.invertModel &amp;&amp; this.invertModel.isSelected() );
+	if ( labelMsg ) {
+		this.setLabel(
+			$( '&lt;bdi>' ).append(
+				// eslint-disable-next-line mediawiki/msg-doc
+				mw.message( labelMsg, mw.html.escape( this.itemModel.getLabel() ) ).parseDom()
+			)
+		);
+	} else {
+		this.setLabel(
+			$( '&lt;bdi>' ).text(
+				this.itemModel.getLabel()
+			)
+		);
+	}
+
+	this.setCurrentMuteState();
+	this.setHighlightColor();
+};
+
+/**
+ * Set the current highlight color for this item
+ */
+TagItemWidget.prototype.setHighlightColor = function () {
+	var selectedColor = this.filtersViewModel.isHighlightEnabled() &amp;&amp; this.itemModel.isHighlighted ?
+		this.itemModel.getHighlightColor() :
+		null;
+
+	this.$highlight
+		.attr( 'data-color', selectedColor )
+		.toggleClass(
+			'mw-rcfilters-ui-tagItemWidget-highlight-highlighted',
+			!!selectedColor
+		);
+};
+
+/**
+ * Set the current mute state for this item
+ */
+TagItemWidget.prototype.setCurrentMuteState = function () {};
+
+/**
+ * Respond to mouse enter event
+ */
+TagItemWidget.prototype.onMouseEnter = function () {
+	var labelText = this.itemModel.getStateMessage();
+
+	if ( labelText ) {
+		this.popupLabel.setLabel( labelText );
+
+		// Set timeout for the popup to show
+		this.popupTimeoutShow = setTimeout( function () {
+			this.popup.toggle( true );
+		}.bind( this ), 500 );
+
+		// Cancel the hide timeout
+		clearTimeout( this.popupTimeoutHide );
+		this.popupTimeoutHide = null;
+	}
+};
+
+/**
+ * Respond to mouse leave event
+ */
+TagItemWidget.prototype.onMouseLeave = function () {
+	this.popupTimeoutHide = setTimeout( function () {
+		this.popup.toggle( false );
+	}.bind( this ), 250 );
+
+	// Clear the show timeout
+	clearTimeout( this.popupTimeoutShow );
+	this.popupTimeoutShow = null;
+};
+
+/**
+ * Set selected state on this widget
+ *
+ * @param {boolean} [isSelected] Widget is selected
+ */
+TagItemWidget.prototype.toggleSelected = function ( isSelected ) {
+	isSelected = isSelected !== undefined ? isSelected : !this.selected;
+
+	if ( this.selected !== isSelected ) {
+		this.selected = isSelected;
+
+		this.$element.toggleClass( 'mw-rcfilters-ui-tagItemWidget-selected', this.selected );
+	}
+};
+
+/**
+ * Get the selected state of this widget
+ *
+ * @return {boolean} Tag is selected
+ */
+TagItemWidget.prototype.isSelected = function () {
+	return this.selected;
+};
+
+/**
+ * Get item name
+ *
+ * @return {string} Filter name
+ */
+TagItemWidget.prototype.getName = function () {
+	return this.itemModel.getName();
+};
+
+/**
+ * Get item model
+ *
+ * @return {string} Filter model
+ */
+TagItemWidget.prototype.getModel = function () {
+	return this.itemModel;
+};
+
+/**
+ * Get item view
+ *
+ * @return {string} Filter view
+ */
+TagItemWidget.prototype.getView = function () {
+	return this.itemModel.getGroupModel().getView();
+};
+
+/**
+ * Remove and destroy external elements of this widget
+ */
+TagItemWidget.prototype.destroy = function () {
+	// Destroy the popup
+	this.popup.$element.detach();
+
+	// Disconnect events
+	this.itemModel.disconnect( this );
+	this.closeButton.disconnect( this );
+};
+
+module.exports = TagItemWidget;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+				</main>
+			</div>
+		</div>
+	</div>
+	<footer id="footer" class="footer">
+		<div class="content-box">
+			<ul class="footer__list">
+				<li><a href="https://gerrit.wikimedia.org/g/mediawiki/core/">Contribute</a></li>
+			</ul>
+			<p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Mon Mar 25 2024 13:41:33 GMT-0700 (Pacific Daylight Time)</p>
+			<p><a href="https://wikimediafoundation.org/" class="lnk--wikimedia-project">A Wikimedia Foundation project</a></p>
+		</div>
+	</footer>
+
+<script src="scripts/redirect.js"></script>
+<script>
+var arr = function(aa) { return Array.prototype.slice.call(aa); };
+arr(document.querySelectorAll("nav > ol > li a:not([href])")).map(function(el) {
+  var li = el;
+  while (li && li.tagName !== 'LI') { li = li.parentNode; }
+  el.addEventListener('click', function(event) {
+    if (li.classList.contains('is-on')) {
+      li.classList.remove('is-on');
+      return;
+    }
+    arr(document.querySelectorAll("nav li.nav__item.is-on")).map(function(el2) {
+      el2.classList.remove('is-on');
+    });
+    li.classList.add('is-on');
+  });
+});
+</script>
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/open-member.js"> </script>
+</body>
+</html>

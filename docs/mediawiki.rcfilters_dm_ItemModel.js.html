@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]><html lang="en" class="js-off lte-ie8"><![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="js-off ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en" class="js-off">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Source: mediawiki.rcfilters/dm/ItemModel.js, MediaWiki frontend code, JSDoc</title>
+    <script>
+document.documentElement.className = document.documentElement.className.replace(/\bjs-off\b/,'js-on'); // no BEM notation thx to IE
+    </script>
+    <!--[if lt IE 9]>
+      <script>window.html5={'shivCSS':false};</script>
+      <script src="wmf/js/vendor/ie/html5shiv-3.7.3.min.js"></script>
+      <script src="wmf/js/vendor/ie/respond-1.4.2.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="styles/jsdoc-wmf-theme.css">
+    <script src="scripts/lib/prettify/prettify.js"> </script>
+    <script src="scripts/lib/prettify/lang-css.js"> </script>
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link rel="preload" href="wmf/fonts/Charter_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="wmf/fonts/Lato_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <script src="scripts/fonts-loader.js" async=""></script>
+</head>
+
+<body class="page--home">
+	<header id="header" class="header" role="banner">
+		<div class="content-box">
+			<a href="#content" class="is-aural is-focusable">Jump to content</a>
+			<a href="#nav--main" class="is-aural is-focusable">Jump to navigation</a>
+			<div class="header__title">
+				<span class="site-title"><a href="./"><span class="site-logo"></span>MediaWiki frontend code</a></span>
+				<label class="btn--nav-main" for="trigger--nav-main" aria-hidden="true" title="Show main menu">
+					<i></i> <span>Menu</span>
+				</label>
+			</div>
+     		<div id="search-container" class="search-container">
+  <input type="search" id="lunr-search" class="search-input" role="combobox" aria-autocomplete="list" aria-controls="search-results" aria-expanded="false" aria-activedescendant="selected-search-result" placeholder="Search">
+  <ul id="search-results" class="search-results role="listbox"></ul>
+</div>
+<script src="lunr-data.js"></script>
+<script src="scripts/lib/lunr.js"></script>
+<script src="scripts/lunrSearch.js"></script>
+
+		</div>
+	</header>
+	<div class="page">
+		<div class="content-box flex-cols">
+			<div class="flex-col flex-col--start">
+				<input type="checkbox" id="trigger--nav-main" class="trigger--nav-main">
+				<nav id="nav--main" class="nav nav--main" role="navigation">
+					<ol><li class="nav__item"><a href="index.html">Home</a></li><li class="nav__item"><a href="modules.html">Modules</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="module-mediawiki.ForeignApi.html">mediawiki.ForeignApi</a></li><li class="nav__sub-item"><a href="module-mediawiki.String.html">mediawiki.String</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.jpegmeta.html">mediawiki.libs.jpegmeta</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.pluralruleparser.html">mediawiki.libs.pluralruleparser</a></li><li class="nav__sub-item"><a href="module-mediawiki.notification.convertmessagebox.html">mediawiki.notification.convertmessagebox</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.preview.html">mediawiki.page.preview</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.ready.html">mediawiki.page.ready</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.watch.ajax.html">mediawiki.page.watch.ajax</a></li><li class="nav__sub-item"><a href="module-mediawiki.storage.html">mediawiki.storage</a></li><li class="nav__sub-item"><a href="module-mediawiki.util.html">mediawiki.util</a></li><li class="nav__sub-item"><a href="module-mediawiki.visibleTimeout.html">mediawiki.visibleTimeout</a></li><li class="nav__sub-item"><a href="module-mediawiki.watchstar.widgets.html">mediawiki.watchstar.widgets</a></li><li class="nav__sub-item"><a href="module-moment.html">moment</a></li></ul></li><li class="nav__item"><a href="namespaces.html">Frontend API</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="Hooks.html">Hooks</a></li><li class="nav__sub-item"><a href="jQueryPlugins.html">jQueryPlugins</a></li><li class="nav__sub-item"><a href="mw.html">mw</a></li><li class="nav__sub-item"><a href="window.html">window</a></li></ul></li><li class="nav__item"><a href="sitemap.html">Sitemap</a></li></ol>
+				</nav>
+			</div>
+			<div class="flex-col flex-col--end">
+				<main id="content" class="content" role="main">
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint sourcefile linenums"><code>/**
+ * RCFilter base item model.
+ *
+ * @class mw.rcfilters.dm.ItemModel
+ * @ignore
+ * @mixes OO.EventEmitter
+ *
+ * @param {string} param Filter param name
+ * @param {Object} config Configuration object
+ * @param {string} [config.label] The label for the filter
+ * @param {string} [config.description] The description of the filter
+ * @param {string|Object} [config.labelPrefixKey] An i18n key defining the prefix label for this
+ *  group. If the prefix has 'invert' state, the parameter is expected to be an object
+ *  with 'default' and 'inverted' as keys.
+ * @param {boolean} [config.active=true] The filter is active and affecting the result
+ * @param {boolean} [config.selected] The item is selected
+ * @param {any} [config.value] The value of this item
+ * @param {string} [config.namePrefix='item_'] A prefix to add to the param name to act as a unique
+ *  identifier
+ * @param {string} [config.cssClass] The class identifying the results that match this filter
+ * @param {string[]} [config.identifiers] An array of identifiers for this item. They will be
+ *  added and considered in the view.
+ * @param {string} [config.defaultHighlightColor=null] If set, highlight this filter by default with this color
+ */
+var ItemModel = function MwRcfiltersDmItemModel( param, config ) {
+	config = config || {};
+
+	// Mixin constructor
+	OO.EventEmitter.call( this );
+
+	this.param = param;
+	this.namePrefix = config.namePrefix || 'item_';
+	this.name = this.namePrefix + param;
+
+	this.label = config.label || this.name;
+	this.labelPrefixKey = config.labelPrefixKey;
+	this.description = config.description || '';
+	this.setValue( config.value || config.selected );
+
+	this.identifiers = config.identifiers || [];
+
+	// Highlight
+	this.cssClass = config.cssClass;
+	this.highlightColor = config.defaultHighlightColor || null;
+};
+
+/* Initialization */
+
+OO.initClass( ItemModel );
+OO.mixinClass( ItemModel, OO.EventEmitter );
+
+/* Events */
+
+/**
+ * The state of this filter has changed.
+ *
+ * @event update
+ * @ignore
+ */
+
+/* Methods */
+
+/**
+ * Return the representation of the state of this item.
+ *
+ * @return {Object} State of the object
+ */
+ItemModel.prototype.getState = function () {
+	return {
+		selected: this.isSelected()
+	};
+};
+
+/**
+ * Get the name of this filter
+ *
+ * @return {string} Filter name
+ */
+ItemModel.prototype.getName = function () {
+	return this.name;
+};
+
+/**
+ * Get the message key to use to wrap the label. This message takes the label as a parameter.
+ *
+ * @param {boolean} inverted Whether this item should be considered inverted
+ * @return {string|null} Message key, or null if no message
+ */
+ItemModel.prototype.getLabelMessageKey = function ( inverted ) {
+	if ( this.labelPrefixKey ) {
+		if ( typeof this.labelPrefixKey === 'string' ) {
+			return this.labelPrefixKey;
+		}
+		return this.labelPrefixKey[
+			// Only use inverted-prefix if the item is selected
+			// Highlight-only an inverted item makes no sense
+			inverted &amp;&amp; this.isSelected() ?
+				'inverted' : 'default'
+		];
+	}
+	return null;
+};
+
+/**
+ * Get the param name or value of this filter
+ *
+ * @return {string} Filter param name
+ */
+ItemModel.prototype.getParamName = function () {
+	return this.param;
+};
+
+/**
+ * Get the message representing the state of this model.
+ *
+ * @return {string} State message
+ */
+ItemModel.prototype.getStateMessage = function () {
+	// Display description
+	return this.getDescription();
+};
+
+/**
+ * Get the label of this filter
+ *
+ * @return {string} Filter label
+ */
+ItemModel.prototype.getLabel = function () {
+	return this.label;
+};
+
+/**
+ * Get the description of this filter
+ *
+ * @return {string} Filter description
+ */
+ItemModel.prototype.getDescription = function () {
+	return this.description;
+};
+
+/**
+ * Get the default value of this filter
+ *
+ * @return {boolean} Filter default
+ */
+ItemModel.prototype.getDefault = function () {
+	return this.default;
+};
+
+/**
+ * Get the selected state of this filter
+ *
+ * @return {boolean} Filter is selected
+ */
+ItemModel.prototype.isSelected = function () {
+	return !!this.value;
+};
+
+/**
+ * Toggle the selected state of the item
+ *
+ * @param {boolean} [isSelected] Filter is selected
+ * @fires update
+ */
+ItemModel.prototype.toggleSelected = function ( isSelected ) {
+	isSelected = isSelected === undefined ? !this.isSelected() : isSelected;
+	this.setValue( isSelected );
+};
+
+/**
+ * Get the value
+ *
+ * @return {any}
+ */
+ItemModel.prototype.getValue = function () {
+	return this.value;
+};
+
+/**
+ * Convert a given value to the appropriate representation based on group type
+ *
+ * @param {any} value
+ * @return {any}
+ */
+ItemModel.prototype.coerceValue = function ( value ) {
+	return this.getGroupModel().getType() === 'any_value' ? value : !!value;
+};
+
+/**
+ * Set the value
+ *
+ * @param {any} newValue
+ */
+ItemModel.prototype.setValue = function ( newValue ) {
+	newValue = this.coerceValue( newValue );
+	if ( this.value !== newValue ) {
+		this.value = newValue;
+		this.emit( 'update' );
+	}
+};
+
+/**
+ * Set the highlight color
+ *
+ * @param {string|null} highlightColor
+ */
+ItemModel.prototype.setHighlightColor = function ( highlightColor ) {
+	if ( !this.isHighlightSupported() ) {
+		return;
+	}
+	// If the highlight color on the item and in the parameter is null/undefined, return early.
+	if ( !this.highlightColor &amp;&amp; !highlightColor ) {
+		return;
+	}
+
+	if ( this.highlightColor !== highlightColor ) {
+		this.highlightColor = highlightColor;
+		this.emit( 'update' );
+	}
+};
+
+/**
+ * Clear the highlight color
+ */
+ItemModel.prototype.clearHighlightColor = function () {
+	this.setHighlightColor( null );
+};
+
+/**
+ * Get the highlight color, or null if none is configured
+ *
+ * @return {string|null}
+ */
+ItemModel.prototype.getHighlightColor = function () {
+	return this.highlightColor;
+};
+
+/**
+ * Get the CSS class that matches changes that fit this filter
+ * or null if none is configured
+ *
+ * @return {string|null}
+ */
+ItemModel.prototype.getCssClass = function () {
+	return this.cssClass;
+};
+
+/**
+ * Get the item's identifiers
+ *
+ * @return {string[]}
+ */
+ItemModel.prototype.getIdentifiers = function () {
+	return this.identifiers;
+};
+
+/**
+ * Check if the highlight feature is supported for this filter
+ *
+ * @return {boolean}
+ */
+ItemModel.prototype.isHighlightSupported = function () {
+	return !!this.getCssClass() &amp;&amp; !OO.ui.isMobile();
+};
+
+/**
+ * Check if the filter is currently highlighted
+ *
+ * @return {boolean}
+ */
+ItemModel.prototype.isHighlighted = function () {
+	return !!this.getHighlightColor();
+};
+
+module.exports = ItemModel;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+				</main>
+			</div>
+		</div>
+	</div>
+	<footer id="footer" class="footer">
+		<div class="content-box">
+			<ul class="footer__list">
+				<li><a href="https://gerrit.wikimedia.org/g/mediawiki/core/">Contribute</a></li>
+			</ul>
+			<p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Mon Mar 25 2024 13:41:33 GMT-0700 (Pacific Daylight Time)</p>
+			<p><a href="https://wikimediafoundation.org/" class="lnk--wikimedia-project">A Wikimedia Foundation project</a></p>
+		</div>
+	</footer>
+
+<script src="scripts/redirect.js"></script>
+<script>
+var arr = function(aa) { return Array.prototype.slice.call(aa); };
+arr(document.querySelectorAll("nav > ol > li a:not([href])")).map(function(el) {
+  var li = el;
+  while (li && li.tagName !== 'LI') { li = li.parentNode; }
+  el.addEventListener('click', function(event) {
+    if (li.classList.contains('is-on')) {
+      li.classList.remove('is-on');
+      return;
+    }
+    arr(document.querySelectorAll("nav li.nav__item.is-on")).map(function(el2) {
+      el2.classList.remove('is-on');
+    });
+    li.classList.add('is-on');
+  });
+});
+</script>
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/open-member.js"> </script>
+</body>
+</html>

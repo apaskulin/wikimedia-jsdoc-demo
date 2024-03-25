@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]><html lang="en" class="js-off lte-ie8"><![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="js-off ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en" class="js-off">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Source: mediawiki.widgets/mw.widgets.TitlesMultiselectWidget.js, MediaWiki frontend code, JSDoc</title>
+    <script>
+document.documentElement.className = document.documentElement.className.replace(/\bjs-off\b/,'js-on'); // no BEM notation thx to IE
+    </script>
+    <!--[if lt IE 9]>
+      <script>window.html5={'shivCSS':false};</script>
+      <script src="wmf/js/vendor/ie/html5shiv-3.7.3.min.js"></script>
+      <script src="wmf/js/vendor/ie/respond-1.4.2.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="styles/jsdoc-wmf-theme.css">
+    <script src="scripts/lib/prettify/prettify.js"> </script>
+    <script src="scripts/lib/prettify/lang-css.js"> </script>
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link rel="preload" href="wmf/fonts/Charter_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="wmf/fonts/Lato_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <script src="scripts/fonts-loader.js" async=""></script>
+</head>
+
+<body class="page--home">
+	<header id="header" class="header" role="banner">
+		<div class="content-box">
+			<a href="#content" class="is-aural is-focusable">Jump to content</a>
+			<a href="#nav--main" class="is-aural is-focusable">Jump to navigation</a>
+			<div class="header__title">
+				<span class="site-title"><a href="./"><span class="site-logo"></span>MediaWiki frontend code</a></span>
+				<label class="btn--nav-main" for="trigger--nav-main" aria-hidden="true" title="Show main menu">
+					<i></i> <span>Menu</span>
+				</label>
+			</div>
+     		<div id="search-container" class="search-container">
+  <input type="search" id="lunr-search" class="search-input" role="combobox" aria-autocomplete="list" aria-controls="search-results" aria-expanded="false" aria-activedescendant="selected-search-result" placeholder="Search">
+  <ul id="search-results" class="search-results role="listbox"></ul>
+</div>
+<script src="lunr-data.js"></script>
+<script src="scripts/lib/lunr.js"></script>
+<script src="scripts/lunrSearch.js"></script>
+
+		</div>
+	</header>
+	<div class="page">
+		<div class="content-box flex-cols">
+			<div class="flex-col flex-col--start">
+				<input type="checkbox" id="trigger--nav-main" class="trigger--nav-main">
+				<nav id="nav--main" class="nav nav--main" role="navigation">
+					<ol><li class="nav__item"><a href="index.html">Home</a></li><li class="nav__item"><a href="modules.html">Modules</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="module-mediawiki.ForeignApi.html">mediawiki.ForeignApi</a></li><li class="nav__sub-item"><a href="module-mediawiki.String.html">mediawiki.String</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.jpegmeta.html">mediawiki.libs.jpegmeta</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.pluralruleparser.html">mediawiki.libs.pluralruleparser</a></li><li class="nav__sub-item"><a href="module-mediawiki.notification.convertmessagebox.html">mediawiki.notification.convertmessagebox</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.preview.html">mediawiki.page.preview</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.ready.html">mediawiki.page.ready</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.watch.ajax.html">mediawiki.page.watch.ajax</a></li><li class="nav__sub-item"><a href="module-mediawiki.storage.html">mediawiki.storage</a></li><li class="nav__sub-item"><a href="module-mediawiki.util.html">mediawiki.util</a></li><li class="nav__sub-item"><a href="module-mediawiki.visibleTimeout.html">mediawiki.visibleTimeout</a></li><li class="nav__sub-item"><a href="module-mediawiki.watchstar.widgets.html">mediawiki.watchstar.widgets</a></li><li class="nav__sub-item"><a href="module-moment.html">moment</a></li></ul></li><li class="nav__item"><a href="namespaces.html">Frontend API</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="Hooks.html">Hooks</a></li><li class="nav__sub-item"><a href="jQueryPlugins.html">jQueryPlugins</a></li><li class="nav__sub-item"><a href="mw.html">mw</a></li><li class="nav__sub-item"><a href="window.html">window</a></li></ul></li><li class="nav__item"><a href="sitemap.html">Sitemap</a></li></ol>
+				</nav>
+			</div>
+			<div class="flex-col flex-col--end">
+				<main id="content" class="content" role="main">
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint sourcefile linenums"><code>/*!
+ * MediaWiki Widgets - TitlesMultiselectWidget class.
+ *
+ * @copyright 2011-2015 MediaWiki Widgets Team and others; see AUTHORS.txt
+ * @license The MIT License (MIT); see LICENSE.txt
+ */
+( function () {
+
+	/**
+	 * Creates an mw.widgets.TitlesMultiselectWidget object.
+	 *
+	 * @class
+	 * @extends OO.ui.MenuTagMultiselectWidget
+	 * @mixes OO.ui.mixin.RequestManager
+	 * @mixes OO.ui.mixin.PendingElement
+	 * @mixes mw.widgets.TitleWidget
+	 *
+	 * @constructor
+	 * @param {Object} [config] Configuration options
+	 */
+	mw.widgets.TitlesMultiselectWidget = function MwWidgetsTitlesMultiselectWidget( config ) {
+		// Parent constructor
+		mw.widgets.TitlesMultiselectWidget.super.call( this, $.extend( true,
+			{
+				allowEditTags: false
+			},
+			config
+		) );
+
+		// Mixin constructors
+		mw.widgets.TitleWidget.call( this, $.extend( true, {
+			addQueryInput: true,
+			highlightSearchQuery: false
+		}, config ) );
+		OO.ui.mixin.RequestManager.call( this, config );
+		OO.ui.mixin.PendingElement.call( this, $.extend( true, {}, config, {
+			$pending: this.$handle
+		} ) );
+
+		// Validate from mw.widgets.TitleWidget
+		this.input.setValidation( this.isQueryValid.bind( this ) );
+
+		// TODO limit max tag length to this.maxLength
+
+		// Initialization
+		this.$element
+			.addClass( 'mw-widgets-titlesMultiselectWidget' );
+
+		this.menu.$element
+			// For consistency, use the same classes as TitleWidget
+			// expects for menu results
+			.addClass( 'mw-widget-titleWidget-menu' )
+			.toggleClass( 'mw-widget-titleWidget-menu-withImages', this.showImages )
+			.toggleClass( 'mw-widget-titleWidget-menu-withDescriptions', this.showDescriptions );
+
+		if ( 'name' in config ) {
+			// Use this instead of &lt;input type="hidden">, because hidden inputs do not have separate
+			// 'value' and 'defaultValue' properties. The script on Special:Preferences
+			// (mw.special.preferences.confirmClose) checks this property to see if a field was changed.
+			this.$hiddenInput = $( '&lt;textarea>' )
+				.addClass( 'oo-ui-element-hidden' )
+				.attr( 'name', config.name )
+				.appendTo( this.$element );
+			// Update with preset values
+			// Set the default value (it might be different from just being empty)
+			this.$hiddenInput.prop( 'defaultValue', this.getItems().map( function ( item ) {
+				return item.getData();
+			} ).join( '\n' ) );
+			this.on( 'change', function ( items ) {
+				this.$hiddenInput.val( items.map( function ( item ) {
+					return item.getData();
+				} ).join( '\n' ) );
+				// Trigger a 'change' event as if a user edited the text
+				// (it is not triggered when changing the value from JS code).
+				this.$hiddenInput.trigger( 'change' );
+			}.bind( this ) );
+		}
+
+	};
+
+	/* Setup */
+
+	OO.inheritClass( mw.widgets.TitlesMultiselectWidget, OO.ui.MenuTagMultiselectWidget );
+	OO.mixinClass( mw.widgets.TitlesMultiselectWidget, OO.ui.mixin.RequestManager );
+	OO.mixinClass( mw.widgets.TitlesMultiselectWidget, OO.ui.mixin.PendingElement );
+	OO.mixinClass( mw.widgets.TitlesMultiselectWidget, mw.widgets.TitleWidget );
+
+	/* Methods */
+
+	mw.widgets.TitlesMultiselectWidget.prototype.getQueryValue = function () {
+		return this.input.getValue();
+	};
+
+	/**
+	 * @inheritdoc
+	 */
+	mw.widgets.TitlesMultiselectWidget.prototype.onInputChange = function () {
+		var widget = this;
+
+		this.getRequestData()
+			.then( function ( data ) {
+				// Reset
+				widget.menu.clearItems();
+				widget.menu.addItems( widget.getOptionsFromData( data ) );
+			} ).always( function () {
+				// Parent method
+				mw.widgets.TitlesMultiselectWidget.super.prototype.onInputChange.call( widget );
+			} );
+	};
+
+	/**
+	 * We have an empty menu when the input is empty, override the implementation from
+	 * MenuTagMultiselectWidget to avoid error and make tags editable.
+	 *
+	 * Only editable when the input is empty.
+	 */
+	mw.widgets.TitlesMultiselectWidget.prototype.onTagSelect = function () {
+		if ( this.hasInput &amp;&amp; !this.input.getValue() ) {
+			OO.ui.TagMultiselectWidget.prototype.onTagSelect.apply( this, arguments );
+		}
+	};
+
+	/**
+	 * @inheritdoc
+	 */
+	mw.widgets.TitlesMultiselectWidget.prototype.getRequestQuery = function () {
+		return this.getQueryValue();
+	};
+
+	/**
+	 * @inheritdoc
+	 */
+	mw.widgets.TitlesMultiselectWidget.prototype.getRequest = function () {
+		return this.getSuggestionsPromise();
+	};
+
+	/**
+	 * @inheritdoc
+	 */
+	mw.widgets.TitlesMultiselectWidget.prototype.getRequestCacheDataFromResponse = function ( response ) {
+		return response.query || {};
+	};
+}() );
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+				</main>
+			</div>
+		</div>
+	</div>
+	<footer id="footer" class="footer">
+		<div class="content-box">
+			<ul class="footer__list">
+				<li><a href="https://gerrit.wikimedia.org/g/mediawiki/core/">Contribute</a></li>
+			</ul>
+			<p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Mon Mar 25 2024 13:41:33 GMT-0700 (Pacific Daylight Time)</p>
+			<p><a href="https://wikimediafoundation.org/" class="lnk--wikimedia-project">A Wikimedia Foundation project</a></p>
+		</div>
+	</footer>
+
+<script src="scripts/redirect.js"></script>
+<script>
+var arr = function(aa) { return Array.prototype.slice.call(aa); };
+arr(document.querySelectorAll("nav > ol > li a:not([href])")).map(function(el) {
+  var li = el;
+  while (li && li.tagName !== 'LI') { li = li.parentNode; }
+  el.addEventListener('click', function(event) {
+    if (li.classList.contains('is-on')) {
+      li.classList.remove('is-on');
+      return;
+    }
+    arr(document.querySelectorAll("nav li.nav__item.is-on")).map(function(el2) {
+      el2.classList.remove('is-on');
+    });
+    li.classList.add('is-on');
+  });
+});
+</script>
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/open-member.js"> </script>
+</body>
+</html>

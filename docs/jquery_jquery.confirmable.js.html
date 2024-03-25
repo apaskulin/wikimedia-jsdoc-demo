@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]><html lang="en" class="js-off lte-ie8"><![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="js-off ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en" class="js-off">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Source: jquery/jquery.confirmable.js, MediaWiki frontend code, JSDoc</title>
+    <script>
+document.documentElement.className = document.documentElement.className.replace(/\bjs-off\b/,'js-on'); // no BEM notation thx to IE
+    </script>
+    <!--[if lt IE 9]>
+      <script>window.html5={'shivCSS':false};</script>
+      <script src="wmf/js/vendor/ie/html5shiv-3.7.3.min.js"></script>
+      <script src="wmf/js/vendor/ie/respond-1.4.2.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="styles/jsdoc-wmf-theme.css">
+    <script src="scripts/lib/prettify/prettify.js"> </script>
+    <script src="scripts/lib/prettify/lang-css.js"> </script>
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link rel="preload" href="wmf/fonts/Charter_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="wmf/fonts/Lato_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <script src="scripts/fonts-loader.js" async=""></script>
+</head>
+
+<body class="page--home">
+	<header id="header" class="header" role="banner">
+		<div class="content-box">
+			<a href="#content" class="is-aural is-focusable">Jump to content</a>
+			<a href="#nav--main" class="is-aural is-focusable">Jump to navigation</a>
+			<div class="header__title">
+				<span class="site-title"><a href="./"><span class="site-logo"></span>MediaWiki frontend code</a></span>
+				<label class="btn--nav-main" for="trigger--nav-main" aria-hidden="true" title="Show main menu">
+					<i></i> <span>Menu</span>
+				</label>
+			</div>
+     		<div id="search-container" class="search-container">
+  <input type="search" id="lunr-search" class="search-input" role="combobox" aria-autocomplete="list" aria-controls="search-results" aria-expanded="false" aria-activedescendant="selected-search-result" placeholder="Search">
+  <ul id="search-results" class="search-results role="listbox"></ul>
+</div>
+<script src="lunr-data.js"></script>
+<script src="scripts/lib/lunr.js"></script>
+<script src="scripts/lunrSearch.js"></script>
+
+		</div>
+	</header>
+	<div class="page">
+		<div class="content-box flex-cols">
+			<div class="flex-col flex-col--start">
+				<input type="checkbox" id="trigger--nav-main" class="trigger--nav-main">
+				<nav id="nav--main" class="nav nav--main" role="navigation">
+					<ol><li class="nav__item"><a href="index.html">Home</a></li><li class="nav__item"><a href="modules.html">Modules</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="module-mediawiki.ForeignApi.html">mediawiki.ForeignApi</a></li><li class="nav__sub-item"><a href="module-mediawiki.String.html">mediawiki.String</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.jpegmeta.html">mediawiki.libs.jpegmeta</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.pluralruleparser.html">mediawiki.libs.pluralruleparser</a></li><li class="nav__sub-item"><a href="module-mediawiki.notification.convertmessagebox.html">mediawiki.notification.convertmessagebox</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.preview.html">mediawiki.page.preview</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.ready.html">mediawiki.page.ready</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.watch.ajax.html">mediawiki.page.watch.ajax</a></li><li class="nav__sub-item"><a href="module-mediawiki.storage.html">mediawiki.storage</a></li><li class="nav__sub-item"><a href="module-mediawiki.util.html">mediawiki.util</a></li><li class="nav__sub-item"><a href="module-mediawiki.visibleTimeout.html">mediawiki.visibleTimeout</a></li><li class="nav__sub-item"><a href="module-mediawiki.watchstar.widgets.html">mediawiki.watchstar.widgets</a></li><li class="nav__sub-item"><a href="module-moment.html">moment</a></li></ul></li><li class="nav__item"><a href="namespaces.html">Frontend API</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="Hooks.html">Hooks</a></li><li class="nav__sub-item"><a href="jQueryPlugins.html">jQueryPlugins</a></li><li class="nav__sub-item"><a href="mw.html">mw</a></li><li class="nav__sub-item"><a href="window.html">window</a></li></ul></li><li class="nav__item"><a href="sitemap.html">Sitemap</a></li></ol>
+				</nav>
+			</div>
+			<div class="flex-col flex-col--end">
+				<main id="content" class="content" role="main">
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint sourcefile linenums"><code>/**
+ * jQuery confirmable plugin
+ *
+ * Released under the MIT License.
+ *
+ * @author Bartosz Dziewoński
+ */
+( function () {
+	var identity = function ( data ) {
+		return data;
+	};
+
+	/**
+	 * Enable inline confirmation for given clickable element (like `&lt;a />` or `&lt;button />`).
+	 * Provided by the jquery.confirmable ResourceLoader module.
+	 *
+	 * An additional inline confirmation step being shown before the default action is carried out on
+	 * click.
+	 *
+	 * Calling `.confirmable( { handler: function () { … } } )` will fire the handler only after the
+	 * confirmation step.
+	 *
+	 * The element will have the `jquery-confirmable-element` class added to it when it's clicked for
+	 * the first time, which has `white-space: nowrap;` and `display: inline-block;` defined in CSS.
+	 * If the computed values for the element are different when you make it confirmable, you might
+	 * encounter unexpected behavior.
+	 *
+	 * @example
+	 * mw.loader.using( 'jquery.confirmable' ).then( () => {
+	 *       $( 'button' ).confirmable();
+	 * } );
+	 * @memberof jQueryPlugins
+	 * @method confirmable
+	 * @param {Object} [options]
+	 * @param {string} [options.events='click'] Events to hook to.
+	 * @param {Function} [options.wrapperCallback] Callback to fire when preparing confirmable
+	 *     interface. Receives the interface jQuery object as the only parameter.
+	 * @param {Function} [options.buttonCallback] Callback to fire when preparing confirmable buttons.
+	 *     It is fired separately for the 'Yes' and 'No' button. Receives the button jQuery object as
+	 *     the first parameter and 'yes' or 'no' as the second.
+	 * @param {Function} [options.handler] Callback to fire when the action is confirmed (user clicks
+	 *     the 'Yes' button).
+	 * @param {string} [options.delegate] Optional selector used for jQuery event delegation
+	 * @param {string} [options.i18n] Text to use for interface elements.
+	 * @param {string} [options.i18n.space] Word separator to place between the three text messages.
+	 * @param {string} [options.i18n.confirm] Text to use for the confirmation question.
+	 * @param {string} [options.i18n.yes] Text to use for the 'Yes' button.
+	 * @param {string} [options.i18n.no] Text to use for the 'No' button.
+	 * @param {string} [options.i18n.yesTitle] Title text to use for the 'Yes' button.
+	 * @param {string} [options.i18n.noTitle] Title text to use for the 'No' button.
+	 */
+	$.fn.confirmable = function ( options ) {
+		options = $.extend( true, {}, $.fn.confirmable.defaultOptions, options || {} );
+
+		if ( options.delegate === null ) {
+			return this.on( options.events, function ( e ) {
+				$.fn.confirmable.handler( e, options );
+			} );
+		}
+
+		return this.on( options.events, options.delegate, function ( e ) {
+			$.fn.confirmable.handler( e, options );
+		} );
+	};
+
+	$.fn.confirmable.handler = function ( event, options ) {
+		var $element = $( event.target );
+
+		if ( $element.data( 'jquery-confirmable-button' ) ) {
+			// We're running on a clone of this element that represents the 'Yes' or 'No' button.
+			// (This should never happen for the 'No' case unless calling code does bad things.)
+			return;
+		}
+
+		// Only prevent native event handling. Stopping other JavaScript event handlers
+		// is impossible because they might have already run (we have no control over the order).
+		event.preventDefault();
+
+		var rtl = $element.css( 'direction' ) === 'rtl';
+		var positionOffscreen, positionRestore, sideMargin, elementSideMargin;
+		if ( rtl ) {
+			positionOffscreen = { position: 'absolute', right: '-9999px' };
+			positionRestore = { position: '', right: '' };
+			sideMargin = 'marginRight';
+			elementSideMargin = parseInt( $element.css( 'margin-right' ) );
+		} else {
+			positionOffscreen = { position: 'absolute', left: '-9999px' };
+			positionRestore = { position: '', left: '' };
+			sideMargin = 'marginLeft';
+			elementSideMargin = parseInt( $element.css( 'margin-left' ) );
+		}
+
+		$element.addClass( 'hidden' );
+		var $wrapper, $interface, interfaceWidth, elementWidth, elementPadding;
+		// eslint-disable-next-line no-jquery/no-class-state
+		if ( $element.hasClass( 'jquery-confirmable-element' ) ) {
+			$wrapper = $element.closest( '.jquery-confirmable-wrapper' );
+			$interface = $wrapper.find( '.jquery-confirmable-interface' );
+
+			interfaceWidth = $interface.data( 'jquery-confirmable-width' );
+			elementWidth = $element.data( 'jquery-confirmable-width' );
+			elementPadding = $element.data( 'jquery-confirmable-padding' );
+			// Restore visibility to interface text if it is opened again after being cancelled.
+			var $existingText = $interface.find( '.jquery-confirmable-text' );
+			$existingText.removeClass( 'hidden' );
+		} else {
+			var $elementClone = $element.clone( true );
+			$element.addClass( 'jquery-confirmable-element' );
+
+			elementWidth = $element.width();
+			elementPadding = parseInt( $element.css( 'padding-left' ) ) + parseInt( $element.css( 'padding-right' ) );
+			$element.data( 'jquery-confirmable-width', elementWidth );
+			$element.data( 'jquery-confirmable-padding', elementPadding );
+
+			$wrapper = $( '&lt;span>' )
+				.addClass( 'jquery-confirmable-wrapper' );
+			$element.wrap( $wrapper );
+
+			// Build the mini-dialog
+			var $text = $( '&lt;span>' )
+				.addClass( 'jquery-confirmable-text' )
+				.text( options.i18n.confirm );
+
+			// Clone original element along with event handlers to easily replicate its behavior.
+			// We could fiddle with .trigger() etc., but that is troublesome especially since
+			// Safari doesn't implement .click() on &lt;a> links and jQuery follows suit.
+			var $buttonYes = $elementClone.clone( true )
+				.addClass( 'jquery-confirmable-button jquery-confirmable-button-yes' )
+				.removeClass( 'hidden' )
+				.data( 'jquery-confirmable-button', true )
+				.text( options.i18n.yes );
+			if ( options.handler ) {
+				$buttonYes.on( options.events, options.handler );
+			}
+			if ( options.i18n.yesTitle ) {
+				$buttonYes.attr( 'title', options.i18n.yesTitle );
+			}
+			$buttonYes = options.buttonCallback( $buttonYes, 'yes' );
+
+			// Clone it without any events and prevent default action to represent the 'No' button.
+			var $buttonNo = $elementClone.clone( false )
+				.addClass( 'jquery-confirmable-button jquery-confirmable-button-no' )
+				.removeClass( 'hidden' )
+				.data( 'jquery-confirmable-button', true )
+				.text( options.i18n.no )
+				.on( options.events, function ( e ) {
+					$element
+						.css( sideMargin, elementSideMargin )
+						.removeClass( 'hidden' );
+					$interface.css( 'width', 0 );
+					e.preventDefault();
+				} );
+			if ( options.i18n.noTitle ) {
+				$buttonNo.attr( 'title', options.i18n.noTitle );
+			} else {
+				$buttonNo.removeAttr( 'title' );
+			}
+			$buttonNo = options.buttonCallback( $buttonNo, 'no' );
+
+			// Prevent memory leaks
+			$elementClone.remove();
+
+			$interface = $( '&lt;span>' )
+				.addClass( 'jquery-confirmable-interface' )
+				.append( $text, options.i18n.space, $buttonYes, options.i18n.space, $buttonNo );
+			$interface = options.wrapperCallback( $interface );
+
+			// Render offscreen to measure real width
+			$interface.css( positionOffscreen );
+			// Insert it in the correct place while we're at it
+			$element.after( $interface );
+			interfaceWidth = $interface.width();
+			$interface
+				.data( 'jquery-confirmable-width', interfaceWidth )
+				.css( positionRestore )
+				// Hide to animate the transition later
+				.css( 'width', 0 );
+		}
+
+		// Hide element, show interface. This triggers both transitions.
+		// In a timeout to trigger the 'width' transition.
+		setTimeout( function () {
+			$element.css( sideMargin, -elementWidth - elementPadding );
+			$interface
+				.css( 'width', interfaceWidth )
+				.css( sideMargin, elementSideMargin );
+		}, 1 );
+	};
+
+	/**
+	 * Default options. Overridable primarily for internationalisation handling.
+	 *
+	 * @property {Object} defaultOptions
+	 */
+	$.fn.confirmable.defaultOptions = {
+		events: 'click',
+		wrapperCallback: identity,
+		buttonCallback: identity,
+		handler: null,
+		delegate: null,
+		i18n: {
+			space: ' ',
+			confirm: 'Are you sure?',
+			yes: 'Yes',
+			no: 'No',
+			yesTitle: undefined,
+			noTitle: undefined
+		}
+	};
+}() );
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+				</main>
+			</div>
+		</div>
+	</div>
+	<footer id="footer" class="footer">
+		<div class="content-box">
+			<ul class="footer__list">
+				<li><a href="https://gerrit.wikimedia.org/g/mediawiki/core/">Contribute</a></li>
+			</ul>
+			<p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Mon Mar 25 2024 13:41:33 GMT-0700 (Pacific Daylight Time)</p>
+			<p><a href="https://wikimediafoundation.org/" class="lnk--wikimedia-project">A Wikimedia Foundation project</a></p>
+		</div>
+	</footer>
+
+<script src="scripts/redirect.js"></script>
+<script>
+var arr = function(aa) { return Array.prototype.slice.call(aa); };
+arr(document.querySelectorAll("nav > ol > li a:not([href])")).map(function(el) {
+  var li = el;
+  while (li && li.tagName !== 'LI') { li = li.parentNode; }
+  el.addEventListener('click', function(event) {
+    if (li.classList.contains('is-on')) {
+      li.classList.remove('is-on');
+      return;
+    }
+    arr(document.querySelectorAll("nav li.nav__item.is-on")).map(function(el2) {
+      el2.classList.remove('is-on');
+    });
+    li.classList.add('is-on');
+  });
+});
+</script>
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/open-member.js"> </script>
+</body>
+</html>

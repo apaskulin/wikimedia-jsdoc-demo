@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]><html lang="en" class="js-off lte-ie8"><![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="js-off ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en" class="js-off">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Source: mediawiki.rcfilters/ui/MainWrapperWidget.js, MediaWiki frontend code, JSDoc</title>
+    <script>
+document.documentElement.className = document.documentElement.className.replace(/\bjs-off\b/,'js-on'); // no BEM notation thx to IE
+    </script>
+    <!--[if lt IE 9]>
+      <script>window.html5={'shivCSS':false};</script>
+      <script src="wmf/js/vendor/ie/html5shiv-3.7.3.min.js"></script>
+      <script src="wmf/js/vendor/ie/respond-1.4.2.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="styles/jsdoc-wmf-theme.css">
+    <script src="scripts/lib/prettify/prettify.js"> </script>
+    <script src="scripts/lib/prettify/lang-css.js"> </script>
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link rel="preload" href="wmf/fonts/Charter_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="wmf/fonts/Lato_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <script src="scripts/fonts-loader.js" async=""></script>
+</head>
+
+<body class="page--home">
+	<header id="header" class="header" role="banner">
+		<div class="content-box">
+			<a href="#content" class="is-aural is-focusable">Jump to content</a>
+			<a href="#nav--main" class="is-aural is-focusable">Jump to navigation</a>
+			<div class="header__title">
+				<span class="site-title"><a href="./"><span class="site-logo"></span>MediaWiki frontend code</a></span>
+				<label class="btn--nav-main" for="trigger--nav-main" aria-hidden="true" title="Show main menu">
+					<i></i> <span>Menu</span>
+				</label>
+			</div>
+     		<div id="search-container" class="search-container">
+  <input type="search" id="lunr-search" class="search-input" role="combobox" aria-autocomplete="list" aria-controls="search-results" aria-expanded="false" aria-activedescendant="selected-search-result" placeholder="Search">
+  <ul id="search-results" class="search-results role="listbox"></ul>
+</div>
+<script src="lunr-data.js"></script>
+<script src="scripts/lib/lunr.js"></script>
+<script src="scripts/lunrSearch.js"></script>
+
+		</div>
+	</header>
+	<div class="page">
+		<div class="content-box flex-cols">
+			<div class="flex-col flex-col--start">
+				<input type="checkbox" id="trigger--nav-main" class="trigger--nav-main">
+				<nav id="nav--main" class="nav nav--main" role="navigation">
+					<ol><li class="nav__item"><a href="index.html">Home</a></li><li class="nav__item"><a href="modules.html">Modules</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="module-mediawiki.ForeignApi.html">mediawiki.ForeignApi</a></li><li class="nav__sub-item"><a href="module-mediawiki.String.html">mediawiki.String</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.jpegmeta.html">mediawiki.libs.jpegmeta</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.pluralruleparser.html">mediawiki.libs.pluralruleparser</a></li><li class="nav__sub-item"><a href="module-mediawiki.notification.convertmessagebox.html">mediawiki.notification.convertmessagebox</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.preview.html">mediawiki.page.preview</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.ready.html">mediawiki.page.ready</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.watch.ajax.html">mediawiki.page.watch.ajax</a></li><li class="nav__sub-item"><a href="module-mediawiki.storage.html">mediawiki.storage</a></li><li class="nav__sub-item"><a href="module-mediawiki.util.html">mediawiki.util</a></li><li class="nav__sub-item"><a href="module-mediawiki.visibleTimeout.html">mediawiki.visibleTimeout</a></li><li class="nav__sub-item"><a href="module-mediawiki.watchstar.widgets.html">mediawiki.watchstar.widgets</a></li><li class="nav__sub-item"><a href="module-moment.html">moment</a></li></ul></li><li class="nav__item"><a href="namespaces.html">Frontend API</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="Hooks.html">Hooks</a></li><li class="nav__sub-item"><a href="jQueryPlugins.html">jQueryPlugins</a></li><li class="nav__sub-item"><a href="mw.html">mw</a></li><li class="nav__sub-item"><a href="window.html">window</a></li></ul></li><li class="nav__item"><a href="sitemap.html">Sitemap</a></li></ol>
+				</nav>
+			</div>
+			<div class="flex-col flex-col--end">
+				<main id="content" class="content" role="main">
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint sourcefile linenums"><code>var SavedLinksListWidget = require( './SavedLinksListWidget.js' ),
+	FilterWrapperWidget = require( './FilterWrapperWidget.js' ),
+	ChangesListWrapperWidget = require( './ChangesListWrapperWidget.js' ),
+	RcTopSectionWidget = require( './RcTopSectionWidget.js' ),
+	RclTopSectionWidget = require( './RclTopSectionWidget.js' ),
+	WatchlistTopSectionWidget = require( './WatchlistTopSectionWidget.js' ),
+	FormWrapperWidget = require( './FormWrapperWidget.js' ),
+	MainWrapperWidget;
+
+/**
+ * Wrapper for changes list content.
+ *
+ * @class mw.rcfilters.ui.MainWrapperWidget
+ * @ignore
+ * @extends OO.ui.Widget
+ *
+ * @param {mw.rcfilters.Controller} controller Controller
+ * @param {mw.rcfilters.dm.FiltersViewModel} model View model
+ * @param {mw.rcfilters.dm.SavedQueriesModel} savedQueriesModel Saved queries model
+ * @param {mw.rcfilters.dm.ChangesListViewModel} changesListModel
+ * @param {Object} config Configuration object
+ * @param {jQuery} config.$topSection Top section container
+ * @param {jQuery} config.$filtersContainer
+ * @param {jQuery} config.$changesListContainer
+ * @param {jQuery} config.$formContainer
+ * @param {boolean} [config.collapsed] Filter area is collapsed
+ * @param {jQuery} [config.$wrapper] A jQuery object for the wrapper of the general
+ *  system. If not given, falls back to this widget's $element
+ */
+MainWrapperWidget = function MwRcfiltersUiMainWrapperWidget(
+	controller, model, savedQueriesModel, changesListModel, config
+) {
+	config = $.extend( {}, config );
+
+	// Parent
+	MainWrapperWidget.super.call( this, config );
+
+	this.controller = controller;
+	this.model = model;
+	this.changesListModel = changesListModel;
+	this.$topSection = config.$topSection;
+	this.$filtersContainer = config.$filtersContainer;
+	this.$changesListContainer = config.$changesListContainer;
+	this.$formContainer = config.$formContainer;
+	this.$overlay = $( '&lt;div>' ).addClass( 'mw-rcfilters-ui-overlay' );
+	this.$wrapper = config.$wrapper || this.$element;
+
+	this.savedLinksListWidget = new SavedLinksListWidget(
+		controller, savedQueriesModel, { $overlay: this.$overlay }
+	);
+
+	this.filtersWidget = new FilterWrapperWidget(
+		controller,
+		model,
+		savedQueriesModel,
+		changesListModel,
+		{
+			$overlay: this.$overlay,
+			$wrapper: this.$wrapper,
+			collapsed: config.collapsed
+		}
+	);
+
+	this.changesListWidget = new ChangesListWrapperWidget(
+		model, changesListModel, controller, this.$changesListContainer );
+
+	/* Events */
+
+	// Toggle changes list overlay when filters menu opens/closes. We use overlay on changes list
+	// to prevent users from accidentally clicking on links in results, while menu is opened.
+	// Overlay on changes list is not the same as this.$overlay
+	this.filtersWidget.connect( this, { menuToggle: this.onFilterMenuToggle.bind( this ) } );
+
+	// Initialize
+	this.$filtersContainer.append( this.filtersWidget.$element );
+	$( document.body ).addClass( 'mw-rcfilters-ui-initialized' );
+	$( OO.ui.getTeleportTarget() ).append( this.$overlay );
+};
+
+/* Initialization */
+
+OO.inheritClass( MainWrapperWidget, OO.ui.Widget );
+
+/* Methods */
+
+/**
+ * Set the content of the top section, depending on the type of special page.
+ *
+ * @param {string} specialPage
+ */
+MainWrapperWidget.prototype.setTopSection = function ( specialPage ) {
+	var topSection;
+
+	if ( specialPage === 'Recentchanges' ) {
+		topSection = new RcTopSectionWidget(
+			this.savedLinksListWidget, this.$topSection
+		);
+		this.filtersWidget.setTopSection( topSection.$element );
+	}
+
+	if ( specialPage === 'Recentchangeslinked' ) {
+		topSection = new RclTopSectionWidget(
+			this.savedLinksListWidget, this.controller,
+			this.model.getGroup( 'toOrFrom' ).getItemByParamName( 'showlinkedto' ),
+			this.model.getGroup( 'page' ).getItemByParamName( 'target' )
+		);
+
+		this.filtersWidget.setTopSection( topSection.$element );
+	}
+
+	if ( specialPage === 'Watchlist' ) {
+		topSection = new WatchlistTopSectionWidget(
+			this.controller, this.changesListModel, this.savedLinksListWidget, this.$topSection
+		);
+
+		this.filtersWidget.setTopSection( topSection.$element );
+	}
+};
+
+/**
+ * Filter menu toggle event listener
+ *
+ * @param {boolean} isVisible
+ */
+MainWrapperWidget.prototype.onFilterMenuToggle = function ( isVisible ) {
+	this.changesListWidget.toggleOverlay( isVisible );
+};
+
+/**
+ * Initialize FormWrapperWidget
+ *
+ * @ignore
+ * @return {mw.rcfilters.ui.FormWrapperWidget} Form wrapper widget
+ */
+MainWrapperWidget.prototype.initFormWidget = function () {
+	return new FormWrapperWidget(
+		this.model, this.changesListModel, this.controller, this.$formContainer );
+};
+
+module.exports = MainWrapperWidget;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+				</main>
+			</div>
+		</div>
+	</div>
+	<footer id="footer" class="footer">
+		<div class="content-box">
+			<ul class="footer__list">
+				<li><a href="https://gerrit.wikimedia.org/g/mediawiki/core/">Contribute</a></li>
+			</ul>
+			<p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Mon Mar 25 2024 13:41:33 GMT-0700 (Pacific Daylight Time)</p>
+			<p><a href="https://wikimediafoundation.org/" class="lnk--wikimedia-project">A Wikimedia Foundation project</a></p>
+		</div>
+	</footer>
+
+<script src="scripts/redirect.js"></script>
+<script>
+var arr = function(aa) { return Array.prototype.slice.call(aa); };
+arr(document.querySelectorAll("nav > ol > li a:not([href])")).map(function(el) {
+  var li = el;
+  while (li && li.tagName !== 'LI') { li = li.parentNode; }
+  el.addEventListener('click', function(event) {
+    if (li.classList.contains('is-on')) {
+      li.classList.remove('is-on');
+      return;
+    }
+    arr(document.querySelectorAll("nav li.nav__item.is-on")).map(function(el2) {
+      el2.classList.remove('is-on');
+    });
+    li.classList.add('is-on');
+  });
+});
+</script>
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/open-member.js"> </script>
+</body>
+</html>

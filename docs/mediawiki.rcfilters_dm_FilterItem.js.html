@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]><html lang="en" class="js-off lte-ie8"><![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="js-off ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en" class="js-off">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Source: mediawiki.rcfilters/dm/FilterItem.js, MediaWiki frontend code, JSDoc</title>
+    <script>
+document.documentElement.className = document.documentElement.className.replace(/\bjs-off\b/,'js-on'); // no BEM notation thx to IE
+    </script>
+    <!--[if lt IE 9]>
+      <script>window.html5={'shivCSS':false};</script>
+      <script src="wmf/js/vendor/ie/html5shiv-3.7.3.min.js"></script>
+      <script src="wmf/js/vendor/ie/respond-1.4.2.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="styles/jsdoc-wmf-theme.css">
+    <script src="scripts/lib/prettify/prettify.js"> </script>
+    <script src="scripts/lib/prettify/lang-css.js"> </script>
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link rel="preload" href="wmf/fonts/Charter_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="wmf/fonts/Lato_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <script src="scripts/fonts-loader.js" async=""></script>
+</head>
+
+<body class="page--home">
+	<header id="header" class="header" role="banner">
+		<div class="content-box">
+			<a href="#content" class="is-aural is-focusable">Jump to content</a>
+			<a href="#nav--main" class="is-aural is-focusable">Jump to navigation</a>
+			<div class="header__title">
+				<span class="site-title"><a href="./"><span class="site-logo"></span>MediaWiki frontend code</a></span>
+				<label class="btn--nav-main" for="trigger--nav-main" aria-hidden="true" title="Show main menu">
+					<i></i> <span>Menu</span>
+				</label>
+			</div>
+     		<div id="search-container" class="search-container">
+  <input type="search" id="lunr-search" class="search-input" role="combobox" aria-autocomplete="list" aria-controls="search-results" aria-expanded="false" aria-activedescendant="selected-search-result" placeholder="Search">
+  <ul id="search-results" class="search-results role="listbox"></ul>
+</div>
+<script src="lunr-data.js"></script>
+<script src="scripts/lib/lunr.js"></script>
+<script src="scripts/lunrSearch.js"></script>
+
+		</div>
+	</header>
+	<div class="page">
+		<div class="content-box flex-cols">
+			<div class="flex-col flex-col--start">
+				<input type="checkbox" id="trigger--nav-main" class="trigger--nav-main">
+				<nav id="nav--main" class="nav nav--main" role="navigation">
+					<ol><li class="nav__item"><a href="index.html">Home</a></li><li class="nav__item"><a href="modules.html">Modules</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="module-mediawiki.ForeignApi.html">mediawiki.ForeignApi</a></li><li class="nav__sub-item"><a href="module-mediawiki.String.html">mediawiki.String</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.jpegmeta.html">mediawiki.libs.jpegmeta</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.pluralruleparser.html">mediawiki.libs.pluralruleparser</a></li><li class="nav__sub-item"><a href="module-mediawiki.notification.convertmessagebox.html">mediawiki.notification.convertmessagebox</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.preview.html">mediawiki.page.preview</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.ready.html">mediawiki.page.ready</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.watch.ajax.html">mediawiki.page.watch.ajax</a></li><li class="nav__sub-item"><a href="module-mediawiki.storage.html">mediawiki.storage</a></li><li class="nav__sub-item"><a href="module-mediawiki.util.html">mediawiki.util</a></li><li class="nav__sub-item"><a href="module-mediawiki.visibleTimeout.html">mediawiki.visibleTimeout</a></li><li class="nav__sub-item"><a href="module-mediawiki.watchstar.widgets.html">mediawiki.watchstar.widgets</a></li><li class="nav__sub-item"><a href="module-moment.html">moment</a></li></ul></li><li class="nav__item"><a href="namespaces.html">Frontend API</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="Hooks.html">Hooks</a></li><li class="nav__sub-item"><a href="jQueryPlugins.html">jQueryPlugins</a></li><li class="nav__sub-item"><a href="mw.html">mw</a></li><li class="nav__sub-item"><a href="window.html">window</a></li></ul></li><li class="nav__item"><a href="sitemap.html">Sitemap</a></li></ol>
+				</nav>
+			</div>
+			<div class="flex-col flex-col--end">
+				<main id="content" class="content" role="main">
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint sourcefile linenums"><code>var ItemModel = require( './ItemModel.js' ),
+	FilterItem;
+
+/**
+ * Filter item model.
+ *
+ * @class mw.rcfilters.dm.FilterItem
+ * @ignore
+ * @extends mw.rcfilters.dm.ItemModel
+ *
+ * @param {string} param Filter param name
+ * @param {mw.rcfilters.dm.FilterGroup} groupModel Filter group model
+ * @param {Object} config Configuration object
+ * @param {string[]} [config.excludes=[]] A list of filter names this filter, if
+ *  selected, makes inactive.
+ * @param {string[]} [config.subset] Defining the names of filters that are a subset of this filter
+ * @param {Object} [config.conflicts] Defines the conflicts for this filter
+ * @param {boolean} [config.visible=true] The visibility of the group
+ */
+FilterItem = function MwRcfiltersDmFilterItem( param, groupModel, config ) {
+	config = config || {};
+
+	this.groupModel = groupModel;
+
+	// Parent
+	FilterItem.super.call( this, param, $.extend( {
+		namePrefix: this.groupModel.getNamePrefix()
+	}, config ) );
+	// Mixin constructor
+	OO.EventEmitter.call( this );
+
+	// Interaction definitions
+	this.subset = config.subset || [];
+	this.conflicts = config.conflicts || {};
+	this.superset = [];
+	this.visible = config.visible === undefined ? true : !!config.visible;
+
+	// Interaction states
+	this.included = false;
+	this.conflicted = false;
+	this.fullyCovered = false;
+};
+
+/* Initialization */
+
+OO.inheritClass( FilterItem, ItemModel );
+
+/* Methods */
+
+/**
+ * Return the representation of the state of this item.
+ *
+ * @return {Object} State of the object
+ */
+FilterItem.prototype.getState = function () {
+	return {
+		selected: this.isSelected(),
+		included: this.isIncluded(),
+		conflicted: this.isConflicted(),
+		fullyCovered: this.isFullyCovered()
+	};
+};
+
+/**
+ * Get the message for the display area for the currently active conflict
+ *
+ * @return {string} Conflict result message key
+ */
+FilterItem.prototype.getCurrentConflictResultMessage = function () {
+	var details;
+
+	// First look in filter's own conflicts
+	details = this.getConflictDetails( this.getOwnConflicts(), 'globalDescription' );
+	if ( !details.message ) {
+		// Fall back onto conflicts in the group
+		details = this.getConflictDetails( this.getGroupModel().getConflicts(), 'globalDescription' );
+	}
+
+	return details.message;
+};
+
+/**
+ * Get the details of the active conflict on this filter
+ *
+ * @private
+ * @param {Object} conflicts Conflicts to examine
+ * @param {string} [key='contextDescription'] Message key
+ * @return {Object} Object with conflict message and conflict items
+ * @return {string} return.message Conflict message
+ * @return {string[]} return.names Conflicting item labels
+ */
+FilterItem.prototype.getConflictDetails = function ( conflicts, key ) {
+	var group,
+		conflictMessage = '',
+		itemLabels = [];
+
+	key = key || 'contextDescription';
+
+	// eslint-disable-next-line no-jquery/no-each-util
+	$.each( conflicts, function ( filterName, conflict ) {
+		if ( !conflict.item.isSelected() ) {
+			return;
+		}
+
+		if ( !conflictMessage ) {
+			conflictMessage = conflict[ key ];
+			group = conflict.group;
+		}
+
+		if ( group === conflict.group ) {
+			itemLabels.push( mw.msg( 'quotation-marks', conflict.item.getLabel() ) );
+		}
+	} );
+
+	return {
+		message: conflictMessage,
+		names: itemLabels
+	};
+
+};
+
+/**
+ * @inheritdoc
+ */
+FilterItem.prototype.getStateMessage = function () {
+	var messageKey, details, superset,
+		affectingItems = [];
+
+	if ( this.isSelected() ) {
+		if ( this.isConflicted() ) {
+			// First look in filter's own conflicts
+			details = this.getConflictDetails( this.getOwnConflicts() );
+			if ( !details.message ) {
+				// Fall back onto conflicts in the group
+				details = this.getConflictDetails( this.getGroupModel().getConflicts() );
+			}
+
+			messageKey = details.message;
+			affectingItems = details.names;
+		} else if ( this.isIncluded() &amp;&amp; !this.isHighlighted() ) {
+			// We only show the 'no effect' full-coverage message
+			// if the item is also not highlighted. See T161273
+			superset = this.getSuperset();
+			// For this message we need to collect the affecting superset
+			affectingItems = this.getGroupModel().findSelectedItems( this )
+				.filter( function ( item ) {
+					return superset.indexOf( item.getName() ) !== -1;
+				} )
+				.map( function ( item ) {
+					return mw.msg( 'quotation-marks', item.getLabel() );
+				} );
+
+			messageKey = 'rcfilters-state-message-subset';
+		} else if ( this.isFullyCovered() &amp;&amp; !this.isHighlighted() ) {
+			affectingItems = this.getGroupModel().findSelectedItems( this )
+				.map( function ( item ) {
+					return mw.msg( 'quotation-marks', item.getLabel() );
+				} );
+
+			messageKey = 'rcfilters-state-message-fullcoverage';
+		}
+	}
+
+	if ( messageKey ) {
+		// Build message
+		// The following messages are used here:
+		// * rcfilters-state-message-subset
+		// * rcfilters-state-message-fullcoverage
+		// * conflict.message values...
+		return mw.msg(
+			messageKey,
+			mw.language.listToText( affectingItems ),
+			affectingItems.length
+		);
+	}
+
+	// Display description
+	return this.getDescription();
+};
+
+/**
+ * Get the model of the group this filter belongs to
+ *
+ * @ignore
+ * @return {mw.rcfilters.dm.FilterGroup} Filter group model
+ */
+FilterItem.prototype.getGroupModel = function () {
+	return this.groupModel;
+};
+
+/**
+ * Get the group name this filter belongs to
+ *
+ * @return {string} Filter group name
+ */
+FilterItem.prototype.getGroupName = function () {
+	return this.groupModel.getName();
+};
+
+/**
+ * Get filter subset
+ * This is a list of filter names that are defined to be included
+ * when this filter is selected.
+ *
+ * @return {string[]} Filter subset
+ */
+FilterItem.prototype.getSubset = function () {
+	return this.subset;
+};
+
+/**
+ * Get filter superset
+ * This is a generated list of filters that define this filter
+ * to be included when either of them is selected.
+ *
+ * @return {string[]} Filter superset
+ */
+FilterItem.prototype.getSuperset = function () {
+	return this.superset;
+};
+
+/**
+ * Check whether the filter is currently in a conflict state
+ *
+ * @return {boolean} Filter is in conflict state
+ */
+FilterItem.prototype.isConflicted = function () {
+	return this.conflicted;
+};
+
+/**
+ * Check whether the filter is currently in an already included subset
+ *
+ * @return {boolean} Filter is in an already-included subset
+ */
+FilterItem.prototype.isIncluded = function () {
+	return this.included;
+};
+
+/**
+ * Check whether the filter is currently fully covered
+ *
+ * @return {boolean} Filter is in fully-covered state
+ */
+FilterItem.prototype.isFullyCovered = function () {
+	return this.fullyCovered;
+};
+
+/**
+ * Get all conflicts associated with this filter or its group
+ *
+ * Conflict object is set up by filter name keys and conflict
+ * definition. For example:
+ *
+ *  {
+ *      filterName: {
+ *          filter: filterName,
+ *          group: group1,
+ *          label: itemLabel,
+ *          item: itemModel
+ *      }
+ *      filterName2: {
+ *          filter: filterName2,
+ *          group: group2
+ *          label: itemLabel2,
+ *          item: itemModel2
+ *      }
+ *  }
+ *
+ * @return {Object} Filter conflicts
+ */
+FilterItem.prototype.getConflicts = function () {
+	return $.extend( {}, this.conflicts, this.getGroupModel().getConflicts() );
+};
+
+/**
+ * Get the conflicts associated with this filter
+ *
+ * @return {Object} Filter conflicts
+ */
+FilterItem.prototype.getOwnConflicts = function () {
+	return this.conflicts;
+};
+
+/**
+ * Set conflicts for this filter. See #getConflicts for the expected
+ * structure of the definition.
+ *
+ * @param {Object} conflicts Conflicts for this filter
+ */
+FilterItem.prototype.setConflicts = function ( conflicts ) {
+	this.conflicts = conflicts || {};
+};
+
+/**
+ * Set filter superset
+ *
+ * @param {string[]} superset Filter superset
+ */
+FilterItem.prototype.setSuperset = function ( superset ) {
+	this.superset = superset || [];
+};
+
+/**
+ * Set filter subset
+ *
+ * @param {string[]} subset Filter subset
+ */
+FilterItem.prototype.setSubset = function ( subset ) {
+	this.subset = subset || [];
+};
+
+/**
+ * Check whether a filter exists in the subset list for this filter
+ *
+ * @param {string} filterName Filter name
+ * @return {boolean} Filter name is in the subset list
+ */
+FilterItem.prototype.existsInSubset = function ( filterName ) {
+	return this.subset.indexOf( filterName ) > -1;
+};
+
+/**
+ * Check whether this item has a potential conflict with the given item
+ *
+ * This checks whether the given item is in the list of conflicts of
+ * the current item, but makes no judgment about whether the conflict
+ * is currently at play (either one of the items may not be selected)
+ *
+ * @param {mw.rcfilters.dm.FilterItem} filterItem Filter item
+ * @return {boolean} This item has a conflict with the given item
+ */
+FilterItem.prototype.existsInConflicts = function ( filterItem ) {
+	return Object.prototype.hasOwnProperty.call( this.getConflicts(), filterItem.getName() );
+};
+
+/**
+ * Set the state of this filter as being conflicted
+ * (This means any filters in its conflicts are selected)
+ *
+ * @param {boolean} [conflicted] Filter is in conflict state
+ * @fires update
+ */
+FilterItem.prototype.toggleConflicted = function ( conflicted ) {
+	conflicted = conflicted === undefined ? !this.conflicted : conflicted;
+
+	if ( this.conflicted !== conflicted ) {
+		this.conflicted = conflicted;
+		this.emit( 'update' );
+	}
+};
+
+/**
+ * Set the state of this filter as being already included
+ * (This means any filters in its superset are selected)
+ *
+ * @param {boolean} [included] Filter is included as part of a subset
+ * @fires update
+ */
+FilterItem.prototype.toggleIncluded = function ( included ) {
+	included = included === undefined ? !this.included : included;
+
+	if ( this.included !== included ) {
+		this.included = included;
+		this.emit( 'update' );
+	}
+};
+
+/**
+ * Toggle the fully covered state of the item
+ *
+ * @param {boolean} [isFullyCovered] Filter is fully covered
+ * @fires update
+ */
+FilterItem.prototype.toggleFullyCovered = function ( isFullyCovered ) {
+	isFullyCovered = isFullyCovered === undefined ? !this.fullycovered : isFullyCovered;
+
+	if ( this.fullyCovered !== isFullyCovered ) {
+		this.fullyCovered = isFullyCovered;
+		this.emit( 'update' );
+	}
+};
+
+/**
+ * Toggle the visibility of this item
+ *
+ * @param {boolean} [isVisible] Item is visible
+ */
+FilterItem.prototype.toggleVisible = function ( isVisible ) {
+	isVisible = isVisible === undefined ? !this.visible : !!isVisible;
+
+	if ( this.visible !== isVisible ) {
+		this.visible = isVisible;
+		this.emit( 'update' );
+	}
+};
+
+/**
+ * Check whether the item is visible
+ *
+ * @return {boolean} Item is visible
+ */
+FilterItem.prototype.isVisible = function () {
+	return this.visible;
+};
+
+module.exports = FilterItem;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+				</main>
+			</div>
+		</div>
+	</div>
+	<footer id="footer" class="footer">
+		<div class="content-box">
+			<ul class="footer__list">
+				<li><a href="https://gerrit.wikimedia.org/g/mediawiki/core/">Contribute</a></li>
+			</ul>
+			<p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Mon Mar 25 2024 13:41:33 GMT-0700 (Pacific Daylight Time)</p>
+			<p><a href="https://wikimediafoundation.org/" class="lnk--wikimedia-project">A Wikimedia Foundation project</a></p>
+		</div>
+	</footer>
+
+<script src="scripts/redirect.js"></script>
+<script>
+var arr = function(aa) { return Array.prototype.slice.call(aa); };
+arr(document.querySelectorAll("nav > ol > li a:not([href])")).map(function(el) {
+  var li = el;
+  while (li && li.tagName !== 'LI') { li = li.parentNode; }
+  el.addEventListener('click', function(event) {
+    if (li.classList.contains('is-on')) {
+      li.classList.remove('is-on');
+      return;
+    }
+    arr(document.querySelectorAll("nav li.nav__item.is-on")).map(function(el2) {
+      el2.classList.remove('is-on');
+    });
+    li.classList.add('is-on');
+  });
+});
+</script>
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/open-member.js"> </script>
+</body>
+</html>

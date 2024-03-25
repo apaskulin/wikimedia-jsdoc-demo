@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]><html lang="en" class="js-off lte-ie8"><![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="js-off ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en" class="js-off">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Source: mediawiki.language/mediawiki.language.numbers.js, MediaWiki frontend code, JSDoc</title>
+    <script>
+document.documentElement.className = document.documentElement.className.replace(/\bjs-off\b/,'js-on'); // no BEM notation thx to IE
+    </script>
+    <!--[if lt IE 9]>
+      <script>window.html5={'shivCSS':false};</script>
+      <script src="wmf/js/vendor/ie/html5shiv-3.7.3.min.js"></script>
+      <script src="wmf/js/vendor/ie/respond-1.4.2.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="styles/jsdoc-wmf-theme.css">
+    <script src="scripts/lib/prettify/prettify.js"> </script>
+    <script src="scripts/lib/prettify/lang-css.js"> </script>
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link rel="preload" href="wmf/fonts/Charter_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="wmf/fonts/Lato_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <script src="scripts/fonts-loader.js" async=""></script>
+</head>
+
+<body class="page--home">
+	<header id="header" class="header" role="banner">
+		<div class="content-box">
+			<a href="#content" class="is-aural is-focusable">Jump to content</a>
+			<a href="#nav--main" class="is-aural is-focusable">Jump to navigation</a>
+			<div class="header__title">
+				<span class="site-title"><a href="./"><span class="site-logo"></span>MediaWiki frontend code</a></span>
+				<label class="btn--nav-main" for="trigger--nav-main" aria-hidden="true" title="Show main menu">
+					<i></i> <span>Menu</span>
+				</label>
+			</div>
+     		<div id="search-container" class="search-container">
+  <input type="search" id="lunr-search" class="search-input" role="combobox" aria-autocomplete="list" aria-controls="search-results" aria-expanded="false" aria-activedescendant="selected-search-result" placeholder="Search">
+  <ul id="search-results" class="search-results role="listbox"></ul>
+</div>
+<script src="lunr-data.js"></script>
+<script src="scripts/lib/lunr.js"></script>
+<script src="scripts/lunrSearch.js"></script>
+
+		</div>
+	</header>
+	<div class="page">
+		<div class="content-box flex-cols">
+			<div class="flex-col flex-col--start">
+				<input type="checkbox" id="trigger--nav-main" class="trigger--nav-main">
+				<nav id="nav--main" class="nav nav--main" role="navigation">
+					<ol><li class="nav__item"><a href="index.html">Home</a></li><li class="nav__item"><a href="modules.html">Modules</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="module-mediawiki.ForeignApi.html">mediawiki.ForeignApi</a></li><li class="nav__sub-item"><a href="module-mediawiki.String.html">mediawiki.String</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.jpegmeta.html">mediawiki.libs.jpegmeta</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.pluralruleparser.html">mediawiki.libs.pluralruleparser</a></li><li class="nav__sub-item"><a href="module-mediawiki.notification.convertmessagebox.html">mediawiki.notification.convertmessagebox</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.preview.html">mediawiki.page.preview</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.ready.html">mediawiki.page.ready</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.watch.ajax.html">mediawiki.page.watch.ajax</a></li><li class="nav__sub-item"><a href="module-mediawiki.storage.html">mediawiki.storage</a></li><li class="nav__sub-item"><a href="module-mediawiki.util.html">mediawiki.util</a></li><li class="nav__sub-item"><a href="module-mediawiki.visibleTimeout.html">mediawiki.visibleTimeout</a></li><li class="nav__sub-item"><a href="module-mediawiki.watchstar.widgets.html">mediawiki.watchstar.widgets</a></li><li class="nav__sub-item"><a href="module-moment.html">moment</a></li></ul></li><li class="nav__item"><a href="namespaces.html">Frontend API</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="Hooks.html">Hooks</a></li><li class="nav__sub-item"><a href="jQueryPlugins.html">jQueryPlugins</a></li><li class="nav__sub-item"><a href="mw.html">mw</a></li><li class="nav__sub-item"><a href="window.html">window</a></li></ul></li><li class="nav__item"><a href="sitemap.html">Sitemap</a></li></ol>
+				</nav>
+			</div>
+			<div class="flex-col flex-col--end">
+				<main id="content" class="content" role="main">
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint sourcefile linenums"><code>/*
+ * Number-related utilities for mediawiki.language.
+ */
+( function () {
+
+	/**
+	 * Pad a string to guarantee that it is at least `size` length by
+	 * filling with the character `ch` at either the start or end of the
+	 * string. Pads at the start, by default.
+	 *
+	 * Example: Fill the string to length 10 with '+' characters on the right.
+	 *
+	 *     pad( 'blah', 10, '+', true ); // => 'blah++++++'
+	 *
+	 * @private
+	 * @param {string} text The string to pad
+	 * @param {number} size The length to pad to
+	 * @param {string} [ch='0'] Character to pad with
+	 * @param {boolean} [end=false] Adds padding at the end if true, otherwise pads at start
+	 * @return {string}
+	 */
+	function pad( text, size, ch, end ) {
+		var out, padStr, count;
+
+		if ( !ch ) {
+			ch = '0';
+		}
+
+		out = String( text );
+		count = Math.ceil( ( size - out.length ) / ch.length );
+		padStr = ch.repeat( Math.max( 0, count ) );
+
+		return end ? out + padStr : padStr + out;
+	}
+
+	/**
+	 * Apply numeric pattern to absolute value using options. Gives no
+	 * consideration to local customs.
+	 *
+	 * Adapted from dojo/number library with thanks
+	 * &lt;http://dojotoolkit.org/reference-guide/1.8/dojo/number.html>
+	 *
+	 * @private
+	 * @param {number} value the number to be formatted, ignores sign
+	 * @param {string} pattern the number portion of a pattern (e.g. `#,##0.00`)
+	 * @param {Object} [options] If provided, all option keys must be present:
+	 * @param {string} options.decimal The decimal separator. Defaults to: `'.'`.
+	 * @param {string} options.group The group separator. Defaults to: `','`.
+	 * @param {number|null} options.minimumGroupingDigits
+	 * @return {string}
+	 */
+	function commafyNumber( value, pattern, options ) {
+		var padLength,
+			patternDigits,
+			index,
+			whole,
+			off,
+			remainder,
+			patternParts = pattern.split( '.' ),
+			maxPlaces = ( patternParts[ 1 ] || [] ).length,
+			valueParts = String( Math.abs( value ) ).split( '.' ),
+			fractional = valueParts[ 1 ] || '',
+			groupSize = 0,
+			groupSize2 = 0,
+			pieces = [];
+
+		options = options || {
+			group: ',',
+			decimal: '.'
+		};
+
+		if ( isNaN( value ) ) {
+			return value;
+		}
+
+		if ( patternParts[ 1 ] ) {
+			// Pad fractional with trailing zeros
+			padLength = ( patternParts[ 1 ] &amp;&amp; patternParts[ 1 ].lastIndexOf( '0' ) + 1 );
+
+			if ( padLength > fractional.length ) {
+				valueParts[ 1 ] = pad( fractional, padLength, '0', true );
+			}
+
+			// Truncate fractional
+			if ( maxPlaces &lt; fractional.length ) {
+				valueParts[ 1 ] = fractional.slice( 0, maxPlaces );
+			}
+		} else {
+			if ( valueParts[ 1 ] ) {
+				valueParts.pop();
+			}
+		}
+
+		// Pad whole with leading zeros
+		patternDigits = patternParts[ 0 ].replace( ',', '' );
+
+		padLength = patternDigits.indexOf( '0' );
+
+		if ( padLength !== -1 ) {
+			padLength = patternDigits.length - padLength;
+
+			if ( padLength > valueParts[ 0 ].length ) {
+				valueParts[ 0 ] = pad( valueParts[ 0 ], padLength );
+			}
+
+			// Truncate whole
+			if ( patternDigits.indexOf( '#' ) === -1 ) {
+				valueParts[ 0 ] = valueParts[ 0 ].slice( valueParts[ 0 ].length - padLength );
+			}
+		}
+
+		// Add group separators
+		index = patternParts[ 0 ].lastIndexOf( ',' );
+
+		if ( index !== -1 ) {
+			groupSize = patternParts[ 0 ].length - index - 1;
+			remainder = patternParts[ 0 ].slice( 0, index );
+			index = remainder.lastIndexOf( ',' );
+			if ( index !== -1 ) {
+				groupSize2 = remainder.length - index - 1;
+			}
+		}
+
+		if (
+			options.minimumGroupingDigits === null ||
+			valueParts[ 0 ].length >= groupSize + options.minimumGroupingDigits
+		) {
+			for ( whole = valueParts[ 0 ]; whole; ) {
+				off = groupSize ? whole.length - groupSize : 0;
+				pieces.push( ( off > 0 ) ? whole.slice( off ) : whole );
+				whole = ( off > 0 ) ? whole.slice( 0, off ) : '';
+
+				if ( groupSize2 ) {
+					groupSize = groupSize2;
+					groupSize2 = null;
+				}
+			}
+			valueParts[ 0 ] = pieces.reverse().join( options.group );
+		}
+
+		return valueParts.join( options.decimal );
+	}
+
+	/**
+	 * Apply pattern to format value as a string.
+	 *
+	 * Using patterns from [Unicode TR35](https://www.unicode.org/reports/tr35/#Number_Format_Patterns).
+	 *
+	 * @param {number} value
+	 * @param {string} pattern Pattern string as described by Unicode TR35
+	 * @param {number|null} [minimumGroupingDigits=null]
+	 * @throws {Error} If unable to find a number expression in `pattern`.
+	 * @return {string}
+	 * @private
+	 */
+	function commafyInternal( value, pattern, minimumGroupingDigits ) {
+		var numberPattern,
+			transformTable = mw.language.getSeparatorTransformTable(),
+			group = transformTable[ ',' ] || ',',
+			// eslint-disable-next-line security/detect-unsafe-regex
+			numberPatternRE = /[#0,]*[#0](?:\.0*#*)?/, // not precise, but good enough
+			decimal = transformTable[ '.' ] || '.',
+			patternList = pattern.split( ';' ),
+			positivePattern = patternList[ 0 ];
+
+		pattern = patternList[ ( value &lt; 0 ) ? 1 : 0 ] || ( '-' + positivePattern );
+		numberPattern = positivePattern.match( numberPatternRE );
+
+		minimumGroupingDigits = minimumGroupingDigits !== undefined ? minimumGroupingDigits : null;
+
+		if ( !numberPattern ) {
+			throw new Error( 'unable to find a number expression in pattern: ' + pattern );
+		}
+
+		return pattern.replace( numberPatternRE, commafyNumber( value, numberPattern[ 0 ], {
+			minimumGroupingDigits: minimumGroupingDigits,
+			decimal: decimal,
+			group: group
+		} ) );
+	}
+
+	/**
+	 * Helper function to flip transformation tables.
+	 *
+	 * @param {...Object} Transformation tables
+	 * @return {Object}
+	 */
+	function flipTransform() {
+		var i, key, table, flipped = {};
+
+		// Ensure we strip thousand separators. This might be overwritten.
+		flipped[ ',' ] = '';
+
+		for ( i = 0; i &lt; arguments.length; i++ ) {
+			table = arguments[ i ];
+			for ( key in table ) {
+				// The thousand separator should be deleted
+				flipped[ table[ key ] ] = key === ',' ? '' : key;
+			}
+		}
+
+		return flipped;
+	}
+
+	Object.assign( mw.language, {
+
+		/**
+		 * Converts a number using #getDigitTransformTable.
+		 *
+		 * @memberof mw.language
+		 * @param {number} num Value to be converted
+		 * @param {boolean} [integer=false] Whether to convert the return value to an integer
+		 * @return {number|string} Formatted number
+		 */
+		convertNumber: function ( num, integer ) {
+			var transformTable, digitTransformTable, separatorTransformTable,
+				i, numberString, convertedNumber, pattern, minimumGroupingDigits;
+
+			// Quick shortcut for plain numbers
+			if ( integer &amp;&amp; parseInt( num, 10 ) === num ) {
+				return num;
+			}
+
+			// Load the transformation tables (can be empty)
+			digitTransformTable = mw.language.getDigitTransformTable();
+			separatorTransformTable = mw.language.getSeparatorTransformTable();
+
+			if ( integer ) {
+				// Reverse the digit transformation tables if we are doing unformatting
+				transformTable = flipTransform( separatorTransformTable, digitTransformTable );
+				numberString = String( num );
+			} else {
+				// This check being here means that digits can still be unformatted
+				// even if we do not produce them.
+				if ( mw.config.get( 'wgTranslateNumerals' ) ) {
+					transformTable = digitTransformTable;
+				}
+
+				// Commaying is more complex, so we handle it here separately.
+				// When unformatting, we just use separatorTransformTable.
+				pattern = mw.language.getData( mw.config.get( 'wgUserLanguage' ),
+					'digitGroupingPattern' ) || '#,##0.###';
+				minimumGroupingDigits = mw.language.getData( mw.config.get( 'wgUserLanguage' ),
+					'minimumGroupingDigits' ) || null;
+				numberString = commafyInternal( num, pattern, minimumGroupingDigits );
+			}
+
+			if ( transformTable ) {
+				convertedNumber = '';
+				for ( i = 0; i &lt; numberString.length; i++ ) {
+					if ( Object.prototype.hasOwnProperty.call( transformTable, numberString[ i ] ) ) {
+						convertedNumber += transformTable[ numberString[ i ] ];
+					} else {
+						convertedNumber += numberString[ i ];
+					}
+				}
+			} else {
+				convertedNumber = numberString;
+			}
+
+			if ( integer ) {
+				// Parse string to integer. This loses decimals!
+				convertedNumber = parseInt( convertedNumber, 10 );
+			}
+
+			return convertedNumber;
+		},
+
+		/**
+		 * Get the digit transform table for current UI language.
+		 *
+		 * @ignore
+		 * @return {Object|Array}
+		 */
+		getDigitTransformTable: function () {
+			return mw.language.getData( mw.config.get( 'wgUserLanguage' ),
+				'digitTransformTable' ) || [];
+		},
+
+		/**
+		 * Get the separator transform table for current UI language.
+		 *
+		 * @ignore
+		 * @return {Object|Array}
+		 */
+		getSeparatorTransformTable: function () {
+			return mw.language.getData( mw.config.get( 'wgUserLanguage' ),
+				'separatorTransformTable' ) || [];
+		}
+
+	} );
+
+}() );
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+				</main>
+			</div>
+		</div>
+	</div>
+	<footer id="footer" class="footer">
+		<div class="content-box">
+			<ul class="footer__list">
+				<li><a href="https://gerrit.wikimedia.org/g/mediawiki/core/">Contribute</a></li>
+			</ul>
+			<p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Mon Mar 25 2024 13:41:33 GMT-0700 (Pacific Daylight Time)</p>
+			<p><a href="https://wikimediafoundation.org/" class="lnk--wikimedia-project">A Wikimedia Foundation project</a></p>
+		</div>
+	</footer>
+
+<script src="scripts/redirect.js"></script>
+<script>
+var arr = function(aa) { return Array.prototype.slice.call(aa); };
+arr(document.querySelectorAll("nav > ol > li a:not([href])")).map(function(el) {
+  var li = el;
+  while (li && li.tagName !== 'LI') { li = li.parentNode; }
+  el.addEventListener('click', function(event) {
+    if (li.classList.contains('is-on')) {
+      li.classList.remove('is-on');
+      return;
+    }
+    arr(document.querySelectorAll("nav li.nav__item.is-on")).map(function(el2) {
+      el2.classList.remove('is-on');
+    });
+    li.classList.add('is-on');
+  });
+});
+</script>
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/open-member.js"> </script>
+</body>
+</html>

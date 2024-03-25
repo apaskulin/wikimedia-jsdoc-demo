@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]><html lang="en" class="js-off lte-ie8"><![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="js-off ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en" class="js-off">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Source: jquery.spinner/spinner.js, MediaWiki frontend code, JSDoc</title>
+    <script>
+document.documentElement.className = document.documentElement.className.replace(/\bjs-off\b/,'js-on'); // no BEM notation thx to IE
+    </script>
+    <!--[if lt IE 9]>
+      <script>window.html5={'shivCSS':false};</script>
+      <script src="wmf/js/vendor/ie/html5shiv-3.7.3.min.js"></script>
+      <script src="wmf/js/vendor/ie/respond-1.4.2.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="styles/jsdoc-wmf-theme.css">
+    <script src="scripts/lib/prettify/prettify.js"> </script>
+    <script src="scripts/lib/prettify/lang-css.js"> </script>
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link rel="preload" href="wmf/fonts/Charter_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="wmf/fonts/Lato_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <script src="scripts/fonts-loader.js" async=""></script>
+</head>
+
+<body class="page--home">
+	<header id="header" class="header" role="banner">
+		<div class="content-box">
+			<a href="#content" class="is-aural is-focusable">Jump to content</a>
+			<a href="#nav--main" class="is-aural is-focusable">Jump to navigation</a>
+			<div class="header__title">
+				<span class="site-title"><a href="./"><span class="site-logo"></span>MediaWiki frontend code</a></span>
+				<label class="btn--nav-main" for="trigger--nav-main" aria-hidden="true" title="Show main menu">
+					<i></i> <span>Menu</span>
+				</label>
+			</div>
+     		<div id="search-container" class="search-container">
+  <input type="search" id="lunr-search" class="search-input" role="combobox" aria-autocomplete="list" aria-controls="search-results" aria-expanded="false" aria-activedescendant="selected-search-result" placeholder="Search">
+  <ul id="search-results" class="search-results role="listbox"></ul>
+</div>
+<script src="lunr-data.js"></script>
+<script src="scripts/lib/lunr.js"></script>
+<script src="scripts/lunrSearch.js"></script>
+
+		</div>
+	</header>
+	<div class="page">
+		<div class="content-box flex-cols">
+			<div class="flex-col flex-col--start">
+				<input type="checkbox" id="trigger--nav-main" class="trigger--nav-main">
+				<nav id="nav--main" class="nav nav--main" role="navigation">
+					<ol><li class="nav__item"><a href="index.html">Home</a></li><li class="nav__item"><a href="modules.html">Modules</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="module-mediawiki.ForeignApi.html">mediawiki.ForeignApi</a></li><li class="nav__sub-item"><a href="module-mediawiki.String.html">mediawiki.String</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.jpegmeta.html">mediawiki.libs.jpegmeta</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.pluralruleparser.html">mediawiki.libs.pluralruleparser</a></li><li class="nav__sub-item"><a href="module-mediawiki.notification.convertmessagebox.html">mediawiki.notification.convertmessagebox</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.preview.html">mediawiki.page.preview</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.ready.html">mediawiki.page.ready</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.watch.ajax.html">mediawiki.page.watch.ajax</a></li><li class="nav__sub-item"><a href="module-mediawiki.storage.html">mediawiki.storage</a></li><li class="nav__sub-item"><a href="module-mediawiki.util.html">mediawiki.util</a></li><li class="nav__sub-item"><a href="module-mediawiki.visibleTimeout.html">mediawiki.visibleTimeout</a></li><li class="nav__sub-item"><a href="module-mediawiki.watchstar.widgets.html">mediawiki.watchstar.widgets</a></li><li class="nav__sub-item"><a href="module-moment.html">moment</a></li></ul></li><li class="nav__item"><a href="namespaces.html">Frontend API</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="Hooks.html">Hooks</a></li><li class="nav__sub-item"><a href="jQueryPlugins.html">jQueryPlugins</a></li><li class="nav__sub-item"><a href="mw.html">mw</a></li><li class="nav__sub-item"><a href="window.html">window</a></li></ul></li><li class="nav__item"><a href="sitemap.html">Sitemap</a></li></ol>
+				</nav>
+			</div>
+			<div class="flex-col flex-col--end">
+				<main id="content" class="content" role="main">
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint sourcefile linenums"><code>/**
+ * jQuery Spinner
+ *
+ * Simple jQuery plugin to create, inject and remove spinners.
+ */
+( function () {
+
+	// Default options for new spinners,
+	// stored outside the function to share between calls.
+	var defaults = {
+		id: undefined,
+		size: 'small',
+		type: 'inline'
+	};
+
+	$.extend( {
+		/**
+		 * Create a spinner element
+		 *
+		 * The argument is an object with options used to construct the spinner (see below).
+		 *
+		 * It is a good practice to keep a reference to the created spinner to be able to remove it
+		 * later. Alternatively, one can use the 'id' option and #removeSpinner (but make sure to choose
+		 * an id that's unlikely to cause conflicts, e.g. with extensions, gadgets or user scripts).
+		 *
+		 * CSS classes used:
+		 *
+		 * - .mw-spinner for every spinner
+		 * - .mw-spinner-small / .mw-spinner-large for size
+		 * - .mw-spinner-block / .mw-spinner-inline for display types
+		 *
+		 * Example:
+		 *
+		 *     // Create a large spinner reserving all available horizontal space.
+		 *     var $spinner = $.createSpinner( { size: 'large', type: 'block' } );
+		 *     // Insert above page content.
+		 *     $( '#mw-content-text' ).prepend( $spinner );
+		 *
+		 *     // Place a small inline spinner next to the "Save" button
+		 *     var $spinner = $.createSpinner( { size: 'small', type: 'inline' } );
+		 *     // Alternatively, just `$.createSpinner();` as these are the default options.
+		 *     $( '#wpSave' ).after( $spinner );
+		 *
+		 *     // The following two are equivalent:
+		 *     $.createSpinner( 'magic' );
+		 *     $.createSpinner( { id: 'magic' } );
+		 *
+		 * @ignore
+		 * @static
+		 * @inheritable
+		 * @param {Object|string} [opts] Options. If a string is given, it will be treated as the value
+		 *   of the `id` option. If an object is given, the possible option keys are:
+		 * @param {string} [opts.id] If given, spinner will be given an id of "mw-spinner-{id}".
+		 * @param {string} [opts.size='small'] 'small' or 'large' for a 20-pixel or 32-pixel spinner.
+		 * @param {string} [opts.type='inline'] 'inline' or 'block'. Inline creates an inline-block with
+		 *   width and height equal to spinner size. Block is a block-level element with width 100%,
+		 *   height equal to spinner size.
+		 * @return {jQuery}
+		 */
+		createSpinner: function ( opts ) {
+			var i, $spinner, $container;
+
+			if ( typeof opts === 'string' ) {
+				opts = {
+					id: opts
+				};
+			}
+
+			opts = $.extend( {}, defaults, opts );
+
+			$spinner = $( '&lt;div>' ).addClass( 'mw-spinner' );
+			if ( opts.id !== undefined ) {
+				$spinner.attr( 'id', 'mw-spinner-' + opts.id );
+			}
+
+			$spinner
+				.addClass( opts.size === 'large' ? 'mw-spinner-large' : 'mw-spinner-small' )
+				.addClass( opts.type === 'block' ? 'mw-spinner-block' : 'mw-spinner-inline' );
+
+			$container = $( '&lt;div>' ).addClass( 'mw-spinner-container' ).appendTo( $spinner );
+			for ( i = 0; i &lt; 12; i++ ) {
+				$container.append( $( '&lt;div>' ) );
+			}
+
+			return $spinner;
+		},
+
+		/**
+		 * Remove a spinner element
+		 *
+		 * @ignore
+		 * @inheritable
+		 * @param {string} id Id of the spinner, as passed to #createSpinner
+		 * @return {jQuery} The (now detached) spinner element
+		 */
+		removeSpinner: function ( id ) {
+			return $( '#mw-spinner-' + id ).remove();
+		}
+	} );
+
+	/**
+	 * Inject a spinner after each element in the collection.
+	 * Provided by the jquery.spinner ResourceLoader module.
+	 *
+	 * Inserts spinner as siblings (not children) of the target elements.
+	 * Collection contents remain unchanged.
+	 *
+	 * @example
+	 * mw.loader.using( 'jquery.spinner' ).then( () => {
+	 *       $( '#bodyContent' ).injectSpinner();
+	 * } );
+	 * @memberof jQueryPlugins
+	 * @method injectSpinner
+	 * @param {Object|string} [opts] See #createSpinner
+	 * @return {jQuery}
+	 */
+	$.fn.injectSpinner = function ( opts ) {
+		return this.after( $.createSpinner( opts ) );
+	};
+
+	/**
+	 * @class jQuery
+	 * @mixes jQuery.plugin.spinner
+	 */
+
+}() );
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+				</main>
+			</div>
+		</div>
+	</div>
+	<footer id="footer" class="footer">
+		<div class="content-box">
+			<ul class="footer__list">
+				<li><a href="https://gerrit.wikimedia.org/g/mediawiki/core/">Contribute</a></li>
+			</ul>
+			<p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Mon Mar 25 2024 13:41:33 GMT-0700 (Pacific Daylight Time)</p>
+			<p><a href="https://wikimediafoundation.org/" class="lnk--wikimedia-project">A Wikimedia Foundation project</a></p>
+		</div>
+	</footer>
+
+<script src="scripts/redirect.js"></script>
+<script>
+var arr = function(aa) { return Array.prototype.slice.call(aa); };
+arr(document.querySelectorAll("nav > ol > li a:not([href])")).map(function(el) {
+  var li = el;
+  while (li && li.tagName !== 'LI') { li = li.parentNode; }
+  el.addEventListener('click', function(event) {
+    if (li.classList.contains('is-on')) {
+      li.classList.remove('is-on');
+      return;
+    }
+    arr(document.querySelectorAll("nav li.nav__item.is-on")).map(function(el2) {
+      el2.classList.remove('is-on');
+    });
+    li.classList.add('is-on');
+  });
+});
+</script>
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/open-member.js"> </script>
+</body>
+</html>

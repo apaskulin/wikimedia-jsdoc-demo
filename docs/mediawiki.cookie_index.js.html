@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]><html lang="en" class="js-off lte-ie8"><![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="js-off ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en" class="js-off">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Source: mediawiki.cookie/index.js, MediaWiki frontend code, JSDoc</title>
+    <script>
+document.documentElement.className = document.documentElement.className.replace(/\bjs-off\b/,'js-on'); // no BEM notation thx to IE
+    </script>
+    <!--[if lt IE 9]>
+      <script>window.html5={'shivCSS':false};</script>
+      <script src="wmf/js/vendor/ie/html5shiv-3.7.3.min.js"></script>
+      <script src="wmf/js/vendor/ie/respond-1.4.2.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="styles/jsdoc-wmf-theme.css">
+    <script src="scripts/lib/prettify/prettify.js"> </script>
+    <script src="scripts/lib/prettify/lang-css.js"> </script>
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link rel="preload" href="wmf/fonts/Charter_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="wmf/fonts/Lato_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <script src="scripts/fonts-loader.js" async=""></script>
+</head>
+
+<body class="page--home">
+	<header id="header" class="header" role="banner">
+		<div class="content-box">
+			<a href="#content" class="is-aural is-focusable">Jump to content</a>
+			<a href="#nav--main" class="is-aural is-focusable">Jump to navigation</a>
+			<div class="header__title">
+				<span class="site-title"><a href="./"><span class="site-logo"></span>MediaWiki frontend code</a></span>
+				<label class="btn--nav-main" for="trigger--nav-main" aria-hidden="true" title="Show main menu">
+					<i></i> <span>Menu</span>
+				</label>
+			</div>
+     		<div id="search-container" class="search-container">
+  <input type="search" id="lunr-search" class="search-input" role="combobox" aria-autocomplete="list" aria-controls="search-results" aria-expanded="false" aria-activedescendant="selected-search-result" placeholder="Search">
+  <ul id="search-results" class="search-results role="listbox"></ul>
+</div>
+<script src="lunr-data.js"></script>
+<script src="scripts/lib/lunr.js"></script>
+<script src="scripts/lunrSearch.js"></script>
+
+		</div>
+	</header>
+	<div class="page">
+		<div class="content-box flex-cols">
+			<div class="flex-col flex-col--start">
+				<input type="checkbox" id="trigger--nav-main" class="trigger--nav-main">
+				<nav id="nav--main" class="nav nav--main" role="navigation">
+					<ol><li class="nav__item"><a href="index.html">Home</a></li><li class="nav__item"><a href="modules.html">Modules</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="module-mediawiki.ForeignApi.html">mediawiki.ForeignApi</a></li><li class="nav__sub-item"><a href="module-mediawiki.String.html">mediawiki.String</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.jpegmeta.html">mediawiki.libs.jpegmeta</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.pluralruleparser.html">mediawiki.libs.pluralruleparser</a></li><li class="nav__sub-item"><a href="module-mediawiki.notification.convertmessagebox.html">mediawiki.notification.convertmessagebox</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.preview.html">mediawiki.page.preview</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.ready.html">mediawiki.page.ready</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.watch.ajax.html">mediawiki.page.watch.ajax</a></li><li class="nav__sub-item"><a href="module-mediawiki.storage.html">mediawiki.storage</a></li><li class="nav__sub-item"><a href="module-mediawiki.util.html">mediawiki.util</a></li><li class="nav__sub-item"><a href="module-mediawiki.visibleTimeout.html">mediawiki.visibleTimeout</a></li><li class="nav__sub-item"><a href="module-mediawiki.watchstar.widgets.html">mediawiki.watchstar.widgets</a></li><li class="nav__sub-item"><a href="module-moment.html">moment</a></li></ul></li><li class="nav__item"><a href="namespaces.html">Frontend API</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="Hooks.html">Hooks</a></li><li class="nav__sub-item"><a href="jQueryPlugins.html">jQueryPlugins</a></li><li class="nav__sub-item"><a href="mw.html">mw</a></li><li class="nav__sub-item"><a href="window.html">window</a></li></ul></li><li class="nav__item"><a href="sitemap.html">Sitemap</a></li></ol>
+				</nav>
+			</div>
+			<div class="flex-col flex-col--end">
+				<main id="content" class="content" role="main">
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint sourcefile linenums"><code>'use strict';
+
+var config = require( './config.json' ),
+	defaults = {
+		prefix: config.prefix,
+		domain: config.domain,
+		path: config.path,
+		expires: config.expires,
+		secure: false,
+		sameSite: ''
+	},
+	jar = require( './jar.js' );
+
+// define jQuery Cookie methods
+require( './jquery.js' );
+
+/**
+ * Manage cookies in a way that is syntactically and functionally similar
+ * to the `WebRequest#getCookie` and `WebResponse#setcookie` methods in PHP.
+ * Provided by the mediawiki.cookie ResourceLoader module.
+ *
+ * @author Sam Smith &lt;samsmith@wikimedia.org>
+ * @author Matthew Flaschen &lt;mflaschen@wikimedia.org>
+ *
+ * @namespace mw.cookie
+ * @example
+ * mw.loader.using( 'mediawiki.cookie' ).then( () => {
+ *   mw.cookie.set('hello', 'world' );
+ * })
+ */
+mw.cookie = {
+	/**
+	 * Set or delete a cookie.
+	 *
+	 * **Note:** If explicitly passing `null` or `undefined` for an options key,
+	 * that will override the default. This is natural in JavaScript, but noted
+	 * here because it is contrary to MediaWiki's `WebResponse#setcookie()` method
+	 * in PHP.
+	 *
+	 * When using this for persistent storage of identifiers (e.g. for tracking
+	 * sessions), be aware that persistence may vary slightly across browsers and
+	 * browser versions, and can be affected by a number of factors such as
+	 * storage limits (cookie eviction) and session restore features.
+	 *
+	 * Without an expiry, this creates a session cookie. In a browser, session cookies persist
+	 * for the lifetime of the browser *process*. Including across tabs, page views, and windows,
+	 * until the browser itself is *fully* closed, or until the browser clears all storage for
+	 * a given website. An exception to this is if the user evokes a "restore previous
+	 * session" feature that some browsers have.
+	 *
+	 * @param {string} key
+	 * @param {string|null} value Value of cookie. If `value` is `null` then this method will
+	 *   instead remove a cookie by name of `key`.
+	 * @param {mw.cookie.CookieOptions|Date|number} [options] Options object, or expiry date
+	 */
+
+	set: function ( key, value, options ) {
+		var prefix, date;
+
+		// The 'options' parameter may be a shortcut for the expiry.
+		if ( arguments.length > 2 &amp;&amp; ( !options || options instanceof Date || typeof options === 'number' ) ) {
+			options = { expires: options };
+		}
+		// Apply defaults
+		options = Object.assign( {}, defaults, options );
+
+		// Don't pass invalid option to jar.cookie
+		prefix = options.prefix;
+		delete options.prefix;
+
+		if ( !options.expires ) {
+			// Session cookie (null or zero)
+			// Normalize to absent (undefined) for jar.cookie.
+			delete options.expires;
+		} else if ( typeof options.expires === 'number' ) {
+			// Lifetime in seconds
+			date = new Date();
+			date.setTime( Number( date ) + ( options.expires * 1000 ) );
+			options.expires = date;
+		}
+
+		// Ignore sameSiteLegacy (T344791)
+		delete options.sameSiteLegacy;
+
+		if ( value !== null ) {
+			value = String( value );
+		}
+
+		jar.cookie( prefix + key, value, options );
+	},
+
+	/**
+	 * Get the value of a cookie.
+	 *
+	 * @param {string} key
+	 * @param {string} [prefix=wgCookiePrefix] The prefix of the key. If `prefix` is
+	 *   `undefined` or `null`, then `wgCookiePrefix` is used
+	 * @param {null|string} [defaultValue] defaults to null
+	 * @return {string|null} If the cookie exists, then the value of the
+	 *   cookie, otherwise `defaultValue`
+	 */
+	get: function ( key, prefix, defaultValue ) {
+		var result;
+
+		if ( prefix === undefined || prefix === null ) {
+			prefix = defaults.prefix;
+		}
+
+		// Was defaultValue omitted?
+		if ( arguments.length &lt; 3 ) {
+			defaultValue = null;
+		}
+
+		result = jar.cookie( prefix + key );
+
+		return result !== null ? result : defaultValue;
+	},
+
+	/**
+	 * Get the value of a SameSite=None cookie, using the legacy ss0- cookie if needed.
+	 *
+	 * @param {string} key
+	 * @param {string} [prefix=wgCookiePrefix] The prefix of the key. If `prefix` is
+	 *   `undefined` or `null`, then `wgCookiePrefix` is used
+	 * @param {null|string} [defaultValue]
+	 * @return {string|null} If the cookie exists, then the value of the
+	 *   cookie, otherwise `defaultValue`
+	 */
+	getCrossSite: function ( key, prefix, defaultValue ) {
+		var value;
+
+		value = this.get( key, prefix, null );
+		if ( value === null ) {
+			value = this.get( 'ss0-' + key, prefix, null );
+		}
+		if ( value === null ) {
+			value = defaultValue;
+		}
+		return value;
+	}
+};
+
+if ( window.QUnit ) {
+	module.exports = {
+		jar,
+		setDefaults: function ( value ) {
+			var prev = defaults;
+			defaults = value;
+			return prev;
+		}
+	};
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+				</main>
+			</div>
+		</div>
+	</div>
+	<footer id="footer" class="footer">
+		<div class="content-box">
+			<ul class="footer__list">
+				<li><a href="https://gerrit.wikimedia.org/g/mediawiki/core/">Contribute</a></li>
+			</ul>
+			<p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Mon Mar 25 2024 13:41:33 GMT-0700 (Pacific Daylight Time)</p>
+			<p><a href="https://wikimediafoundation.org/" class="lnk--wikimedia-project">A Wikimedia Foundation project</a></p>
+		</div>
+	</footer>
+
+<script src="scripts/redirect.js"></script>
+<script>
+var arr = function(aa) { return Array.prototype.slice.call(aa); };
+arr(document.querySelectorAll("nav > ol > li a:not([href])")).map(function(el) {
+  var li = el;
+  while (li && li.tagName !== 'LI') { li = li.parentNode; }
+  el.addEventListener('click', function(event) {
+    if (li.classList.contains('is-on')) {
+      li.classList.remove('is-on');
+      return;
+    }
+    arr(document.querySelectorAll("nav li.nav__item.is-on")).map(function(el2) {
+      el2.classList.remove('is-on');
+    });
+    li.classList.add('is-on');
+  });
+});
+</script>
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/open-member.js"> </script>
+</body>
+</html>

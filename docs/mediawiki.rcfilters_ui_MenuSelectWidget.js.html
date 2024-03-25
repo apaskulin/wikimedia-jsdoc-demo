@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]><html lang="en" class="js-off lte-ie8"><![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="js-off ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en" class="js-off">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Source: mediawiki.rcfilters/ui/MenuSelectWidget.js, MediaWiki frontend code, JSDoc</title>
+    <script>
+document.documentElement.className = document.documentElement.className.replace(/\bjs-off\b/,'js-on'); // no BEM notation thx to IE
+    </script>
+    <!--[if lt IE 9]>
+      <script>window.html5={'shivCSS':false};</script>
+      <script src="wmf/js/vendor/ie/html5shiv-3.7.3.min.js"></script>
+      <script src="wmf/js/vendor/ie/respond-1.4.2.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="styles/jsdoc-wmf-theme.css">
+    <script src="scripts/lib/prettify/prettify.js"> </script>
+    <script src="scripts/lib/prettify/lang-css.js"> </script>
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link rel="preload" href="wmf/fonts/Charter_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="wmf/fonts/Lato_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <script src="scripts/fonts-loader.js" async=""></script>
+</head>
+
+<body class="page--home">
+	<header id="header" class="header" role="banner">
+		<div class="content-box">
+			<a href="#content" class="is-aural is-focusable">Jump to content</a>
+			<a href="#nav--main" class="is-aural is-focusable">Jump to navigation</a>
+			<div class="header__title">
+				<span class="site-title"><a href="./"><span class="site-logo"></span>MediaWiki frontend code</a></span>
+				<label class="btn--nav-main" for="trigger--nav-main" aria-hidden="true" title="Show main menu">
+					<i></i> <span>Menu</span>
+				</label>
+			</div>
+     		<div id="search-container" class="search-container">
+  <input type="search" id="lunr-search" class="search-input" role="combobox" aria-autocomplete="list" aria-controls="search-results" aria-expanded="false" aria-activedescendant="selected-search-result" placeholder="Search">
+  <ul id="search-results" class="search-results role="listbox"></ul>
+</div>
+<script src="lunr-data.js"></script>
+<script src="scripts/lib/lunr.js"></script>
+<script src="scripts/lunrSearch.js"></script>
+
+		</div>
+	</header>
+	<div class="page">
+		<div class="content-box flex-cols">
+			<div class="flex-col flex-col--start">
+				<input type="checkbox" id="trigger--nav-main" class="trigger--nav-main">
+				<nav id="nav--main" class="nav nav--main" role="navigation">
+					<ol><li class="nav__item"><a href="index.html">Home</a></li><li class="nav__item"><a href="modules.html">Modules</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="module-mediawiki.ForeignApi.html">mediawiki.ForeignApi</a></li><li class="nav__sub-item"><a href="module-mediawiki.String.html">mediawiki.String</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.jpegmeta.html">mediawiki.libs.jpegmeta</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.pluralruleparser.html">mediawiki.libs.pluralruleparser</a></li><li class="nav__sub-item"><a href="module-mediawiki.notification.convertmessagebox.html">mediawiki.notification.convertmessagebox</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.preview.html">mediawiki.page.preview</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.ready.html">mediawiki.page.ready</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.watch.ajax.html">mediawiki.page.watch.ajax</a></li><li class="nav__sub-item"><a href="module-mediawiki.storage.html">mediawiki.storage</a></li><li class="nav__sub-item"><a href="module-mediawiki.util.html">mediawiki.util</a></li><li class="nav__sub-item"><a href="module-mediawiki.visibleTimeout.html">mediawiki.visibleTimeout</a></li><li class="nav__sub-item"><a href="module-mediawiki.watchstar.widgets.html">mediawiki.watchstar.widgets</a></li><li class="nav__sub-item"><a href="module-moment.html">moment</a></li></ul></li><li class="nav__item"><a href="namespaces.html">Frontend API</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="Hooks.html">Hooks</a></li><li class="nav__sub-item"><a href="jQueryPlugins.html">jQueryPlugins</a></li><li class="nav__sub-item"><a href="mw.html">mw</a></li><li class="nav__sub-item"><a href="window.html">window</a></li></ul></li><li class="nav__item"><a href="sitemap.html">Sitemap</a></li></ol>
+				</nav>
+			</div>
+			<div class="flex-col flex-col--end">
+				<main id="content" class="content" role="main">
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint sourcefile linenums"><code>var FilterMenuHeaderWidget = require( './FilterMenuHeaderWidget.js' ),
+	HighlightPopupWidget = require( './HighlightPopupWidget.js' ),
+	FilterMenuSectionOptionWidget = require( './FilterMenuSectionOptionWidget.js' ),
+	FilterMenuOptionWidget = require( './FilterMenuOptionWidget.js' ),
+	MenuSelectWidget;
+
+/**
+ * A floating menu widget for the filter list.
+ *
+ * @class mw.rcfilters.ui.MenuSelectWidget
+ * @ignore
+ * @extends OO.ui.MenuSelectWidget
+ *
+ * @param {mw.rcfilters.Controller} controller Controller
+ * @param {mw.rcfilters.dm.FiltersViewModel} model View model
+ * @param {Object} [config] Configuration object
+ * @param {boolean} [config.isMobile] a boolean flag determining whether the menu
+ * should display a header or not (the header is omitted on mobile).
+ * @param {jQuery} [config.$overlay] A jQuery object serving as overlay for popups
+ * @param {Object[]} [config.footers] An array of objects defining the footers for
+ *  this menu, with a definition whether they appear per specific views.
+ *  The expected structure is:
+ *  [
+ *     {
+ *        name: {string} A unique name for the footer object
+ *        $element: {jQuery} A jQuery object for the content of the footer
+ *        views: {string[]} Optional. An array stating which views this footer is
+ *               active on. Use null or omit to display this on all views.
+ *     }
+ *  ]
+ */
+MenuSelectWidget = function MwRcfiltersUiMenuSelectWidget( controller, model, config ) {
+	var header;
+
+	config = config || {};
+
+	this.controller = controller;
+	this.model = model;
+	this.currentView = '';
+	this.views = {};
+	this.userSelecting = false;
+
+	this.menuInitialized = false;
+	this.$overlay = config.$overlay || this.$element;
+	this.$body = $( '&lt;div>' ).addClass( 'mw-rcfilters-ui-menuSelectWidget-body' );
+	this.footers = [];
+
+	// Parent
+	MenuSelectWidget.super.call( this, $.extend( config, {
+		$autoCloseIgnore: this.$overlay,
+		width: config.isMobile ? undefined : 650,
+		// Our filtering is done through the model
+		filterFromInput: false
+	} ) );
+	this.setGroupElement(
+		$( '&lt;div>' )
+			.addClass( 'mw-rcfilters-ui-menuSelectWidget-group' )
+	);
+
+	if ( !config.isMobile ) {
+		// When hiding the header (i.e. mobile mode) avoid problems
+		// with clippable and the menu's fixed width.
+		this.setClippableElement( this.$body );
+		this.setClippableContainer( this.$element );
+
+		header = new FilterMenuHeaderWidget(
+			this.controller,
+			this.model,
+			{
+				$overlay: this.$overlay
+			}
+		);
+	}
+
+	this.noResults = new OO.ui.LabelWidget( {
+		label: mw.msg( 'rcfilters-filterlist-noresults' ),
+		classes: [ 'mw-rcfilters-ui-menuSelectWidget-noresults' ]
+	} );
+
+	// Events
+	this.model.connect( this, {
+		initialize: 'onModelInitialize',
+		searchChange: 'onModelSearchChange'
+	} );
+
+	// Initialization
+	this.$element
+		.addClass( 'mw-rcfilters-ui-menuSelectWidget' )
+		.attr( 'aria-label', mw.msg( 'rcfilters-filterlist-title' ) )
+		.append( config.isMobile ? undefined : header.$element )
+		.append(
+			this.$body
+				.append( this.$group, this.noResults.$element )
+		);
+
+	// Append all footers; we will control their visibility
+	// based on view
+	config.footers = config.isMobile ? [] : config.footers || [];
+	config.footers.forEach( function ( footerData ) {
+		var isSticky = footerData.sticky === undefined ? true : !!footerData.sticky,
+			adjustedData = {
+				// Wrap the element with our own footer wrapper
+				// The following classes are used here:
+				// * mw-rcfilters-ui-menuSelectWidget-footer-viewSelect
+				// * and no others (currently)
+				$element: $( '&lt;div>' )
+					.addClass( 'mw-rcfilters-ui-menuSelectWidget-footer' )
+					.addClass( 'mw-rcfilters-ui-menuSelectWidget-footer-' + footerData.name )
+					.append( footerData.$element ),
+				views: footerData.views
+			};
+
+		if ( !footerData.disabled ) {
+			this.footers.push( adjustedData );
+
+			if ( isSticky ) {
+				this.$element.append( adjustedData.$element );
+			} else {
+				this.$body.append( adjustedData.$element );
+			}
+		}
+	}.bind( this ) );
+
+	// Switch to the correct view
+	this.updateView();
+};
+
+/* Initialize */
+
+OO.inheritClass( MenuSelectWidget, OO.ui.MenuSelectWidget );
+
+/* Events */
+
+/* Methods */
+MenuSelectWidget.prototype.onModelSearchChange = function () {
+	this.updateView();
+};
+
+/**
+ * @inheritdoc
+ */
+MenuSelectWidget.prototype.toggle = function ( show ) {
+	this.lazyMenuCreation();
+	MenuSelectWidget.super.prototype.toggle.call( this, show );
+	// Always open this menu downwards. FilterTagMultiselectWidget scrolls it into view.
+	this.setVerticalPosition( 'below' );
+};
+
+/**
+ * lazy creation of the menu
+ */
+MenuSelectWidget.prototype.lazyMenuCreation = function () {
+	var widget = this,
+		items = [],
+		viewGroupCount = {},
+		groups = this.model.getFilterGroups();
+
+	if ( this.menuInitialized ) {
+		return;
+	}
+
+	this.menuInitialized = true;
+
+	// Create shared popup for highlight buttons
+	this.highlightPopup = new HighlightPopupWidget( this.controller );
+	this.$overlay.append( this.highlightPopup.$element );
+
+	// Count groups per view
+	// eslint-disable-next-line no-jquery/no-each-util
+	$.each( groups, function ( groupName, groupModel ) {
+		if ( !groupModel.isHidden() ) {
+			viewGroupCount[ groupModel.getView() ] = viewGroupCount[ groupModel.getView() ] || 0;
+			viewGroupCount[ groupModel.getView() ]++;
+		}
+	} );
+
+	// eslint-disable-next-line no-jquery/no-each-util
+	$.each( groups, function ( groupName, groupModel ) {
+		var currentItems = [],
+			view = groupModel.getView();
+
+		if ( !groupModel.isHidden() ) {
+			if ( viewGroupCount[ view ] > 1 ) {
+				// Only add a section header if there is more than
+				// one group
+				currentItems.push(
+					// Group section
+					new FilterMenuSectionOptionWidget(
+						widget.controller,
+						groupModel,
+						{
+							$overlay: widget.$overlay
+						}
+					)
+				);
+			}
+
+			// Add items
+			widget.model.getGroupFilters( groupName ).forEach( function ( filterItem ) {
+				currentItems.push(
+					new FilterMenuOptionWidget(
+						widget.controller,
+						widget.model,
+						widget.model.getInvertModel( view ),
+						filterItem,
+						widget.highlightPopup,
+						{
+							$overlay: widget.$overlay
+						}
+					)
+				);
+			} );
+
+			// Cache the items per view, so we can switch between them
+			// without rebuilding the widgets each time
+			widget.views[ view ] = widget.views[ view ] || [];
+			widget.views[ view ] = widget.views[ view ].concat( currentItems );
+			items = items.concat( currentItems );
+		}
+	} );
+
+	this.addItems( items );
+	this.updateView();
+};
+
+/**
+ * Respond to model initialize event. Populate the menu from the model
+ */
+MenuSelectWidget.prototype.onModelInitialize = function () {
+	this.menuInitialized = false;
+	// Set timeout for the menu to lazy build.
+	setTimeout( this.lazyMenuCreation.bind( this ) );
+};
+
+/**
+ * Update view
+ */
+MenuSelectWidget.prototype.updateView = function () {
+	var viewName = this.model.getCurrentView();
+
+	if ( this.views[ viewName ] &amp;&amp; this.currentView !== viewName ) {
+		this.updateFooterVisibility( viewName );
+
+		// The following classes are used here:
+		// * mw-rcfilters-ui-menuSelectWidget-view-default
+		// * mw-rcfilters-ui-menuSelectWidget-view-namespaces
+		// * mw-rcfilters-ui-menuSelectWidget-view-tags
+		this.$element
+			.data( 'view', viewName )
+			.removeClass( 'mw-rcfilters-ui-menuSelectWidget-view-' + this.currentView )
+			.addClass( 'mw-rcfilters-ui-menuSelectWidget-view-' + viewName );
+
+		this.currentView = viewName;
+		this.scrollToTop();
+	}
+
+	this.postProcessItems();
+	this.clip();
+};
+
+/**
+ * Go over the available footers and decide which should be visible
+ * for this view
+ *
+ * @param {string} [currentView] Current view
+ */
+MenuSelectWidget.prototype.updateFooterVisibility = function ( currentView ) {
+	currentView = currentView || this.model.getCurrentView();
+
+	this.footers.forEach( function ( data ) {
+		data.$element.toggle(
+			// This footer should only be shown if it is configured
+			// for all views or for this specific view
+			!data.views || data.views.length === 0 || data.views.indexOf( currentView ) > -1
+		);
+	} );
+};
+
+/**
+ * Post-process items after the visibility changed. Make sure
+ * that we always have an item selected, and that the no-results
+ * widget appears if the menu is empty.
+ */
+MenuSelectWidget.prototype.postProcessItems = function () {
+	var i,
+		itemWasSelected = false,
+		items = this.getItems();
+
+	// If we are not already selecting an item, always make sure
+	// that the top item is selected
+	if ( !this.userSelecting ) {
+		// Select the first item in the list
+		for ( i = 0; i &lt; items.length; i++ ) {
+			if (
+				!( items[ i ] instanceof OO.ui.MenuSectionOptionWidget ) &amp;&amp;
+				items[ i ].isVisible()
+			) {
+				itemWasSelected = true;
+				this.selectItem( items[ i ] );
+				break;
+			}
+		}
+
+		if ( !itemWasSelected ) {
+			this.selectItem( null );
+		}
+	}
+
+	this.noResults.toggle( !this.getItems().some( function ( item ) {
+		return item.isVisible();
+	} ) );
+};
+
+/**
+ * Get the option widget that matches the model given
+ *
+ * @ignore
+ * @param {mw.rcfilters.dm.ItemModel} model Item model
+ * @return {mw.rcfilters.ui.ItemMenuOptionWidget} Option widget
+ */
+MenuSelectWidget.prototype.getItemFromModel = function ( model ) {
+	this.lazyMenuCreation();
+	return this.views[ model.getGroupModel().getView() ].filter( function ( item ) {
+		return item.getName() === model.getName();
+	} )[ 0 ];
+};
+
+/**
+ * @inheritdoc
+ */
+MenuSelectWidget.prototype.onDocumentKeyDown = function ( e ) {
+	var nextItem,
+		currentItem = this.findHighlightedItem() || this.findSelectedItem();
+
+	// Call parent
+	MenuSelectWidget.super.prototype.onDocumentKeyDown.call( this, e );
+
+	// We want to select the item on arrow movement
+	// rather than just highlight it, like the menu
+	// does by default
+	if ( !this.isDisabled() &amp;&amp; this.isVisible() ) {
+		switch ( e.keyCode ) {
+			case OO.ui.Keys.UP:
+			case OO.ui.Keys.LEFT:
+				// Get the next item
+				nextItem = this.findRelativeSelectableItem( currentItem, -1 );
+				break;
+			case OO.ui.Keys.DOWN:
+			case OO.ui.Keys.RIGHT:
+				// Get the next item
+				nextItem = this.findRelativeSelectableItem( currentItem, 1 );
+				break;
+		}
+
+		nextItem = nextItem &amp;&amp; nextItem.constructor.static.selectable ?
+			nextItem : null;
+
+		// Select the next item
+		this.selectItem( nextItem );
+	}
+};
+
+/**
+ * Scroll to the top of the menu
+ */
+MenuSelectWidget.prototype.scrollToTop = function () {
+	this.$body.scrollTop( 0 );
+};
+
+/**
+ * Set whether the user is currently selecting an item.
+ * This is important when the user selects an item that is in between
+ * different views, and makes sure we do not re-select a different
+ * item (like the item on top) when this is happening.
+ *
+ * @param {boolean} isSelecting User is selecting
+ */
+MenuSelectWidget.prototype.setUserSelecting = function ( isSelecting ) {
+	this.userSelecting = !!isSelecting;
+};
+
+module.exports = MenuSelectWidget;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+				</main>
+			</div>
+		</div>
+	</div>
+	<footer id="footer" class="footer">
+		<div class="content-box">
+			<ul class="footer__list">
+				<li><a href="https://gerrit.wikimedia.org/g/mediawiki/core/">Contribute</a></li>
+			</ul>
+			<p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Mon Mar 25 2024 13:41:33 GMT-0700 (Pacific Daylight Time)</p>
+			<p><a href="https://wikimediafoundation.org/" class="lnk--wikimedia-project">A Wikimedia Foundation project</a></p>
+		</div>
+	</footer>
+
+<script src="scripts/redirect.js"></script>
+<script>
+var arr = function(aa) { return Array.prototype.slice.call(aa); };
+arr(document.querySelectorAll("nav > ol > li a:not([href])")).map(function(el) {
+  var li = el;
+  while (li && li.tagName !== 'LI') { li = li.parentNode; }
+  el.addEventListener('click', function(event) {
+    if (li.classList.contains('is-on')) {
+      li.classList.remove('is-on');
+      return;
+    }
+    arr(document.querySelectorAll("nav li.nav__item.is-on")).map(function(el2) {
+      el2.classList.remove('is-on');
+    });
+    li.classList.add('is-on');
+  });
+});
+</script>
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/open-member.js"> </script>
+</body>
+</html>

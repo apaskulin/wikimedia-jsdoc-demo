@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]><html lang="en" class="js-off lte-ie8"><![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="js-off ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en" class="js-off">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Source: mediawiki.widgets/mw.widgets.CheckMatrixWidget.js, MediaWiki frontend code, JSDoc</title>
+    <script>
+document.documentElement.className = document.documentElement.className.replace(/\bjs-off\b/,'js-on'); // no BEM notation thx to IE
+    </script>
+    <!--[if lt IE 9]>
+      <script>window.html5={'shivCSS':false};</script>
+      <script src="wmf/js/vendor/ie/html5shiv-3.7.3.min.js"></script>
+      <script src="wmf/js/vendor/ie/respond-1.4.2.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="styles/jsdoc-wmf-theme.css">
+    <script src="scripts/lib/prettify/prettify.js"> </script>
+    <script src="scripts/lib/prettify/lang-css.js"> </script>
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link rel="preload" href="wmf/fonts/Charter_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="wmf/fonts/Lato_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <script src="scripts/fonts-loader.js" async=""></script>
+</head>
+
+<body class="page--home">
+	<header id="header" class="header" role="banner">
+		<div class="content-box">
+			<a href="#content" class="is-aural is-focusable">Jump to content</a>
+			<a href="#nav--main" class="is-aural is-focusable">Jump to navigation</a>
+			<div class="header__title">
+				<span class="site-title"><a href="./"><span class="site-logo"></span>MediaWiki frontend code</a></span>
+				<label class="btn--nav-main" for="trigger--nav-main" aria-hidden="true" title="Show main menu">
+					<i></i> <span>Menu</span>
+				</label>
+			</div>
+     		<div id="search-container" class="search-container">
+  <input type="search" id="lunr-search" class="search-input" role="combobox" aria-autocomplete="list" aria-controls="search-results" aria-expanded="false" aria-activedescendant="selected-search-result" placeholder="Search">
+  <ul id="search-results" class="search-results role="listbox"></ul>
+</div>
+<script src="lunr-data.js"></script>
+<script src="scripts/lib/lunr.js"></script>
+<script src="scripts/lunrSearch.js"></script>
+
+		</div>
+	</header>
+	<div class="page">
+		<div class="content-box flex-cols">
+			<div class="flex-col flex-col--start">
+				<input type="checkbox" id="trigger--nav-main" class="trigger--nav-main">
+				<nav id="nav--main" class="nav nav--main" role="navigation">
+					<ol><li class="nav__item"><a href="index.html">Home</a></li><li class="nav__item"><a href="modules.html">Modules</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="module-mediawiki.ForeignApi.html">mediawiki.ForeignApi</a></li><li class="nav__sub-item"><a href="module-mediawiki.String.html">mediawiki.String</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.jpegmeta.html">mediawiki.libs.jpegmeta</a></li><li class="nav__sub-item"><a href="module-mediawiki.libs.pluralruleparser.html">mediawiki.libs.pluralruleparser</a></li><li class="nav__sub-item"><a href="module-mediawiki.notification.convertmessagebox.html">mediawiki.notification.convertmessagebox</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.preview.html">mediawiki.page.preview</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.ready.html">mediawiki.page.ready</a></li><li class="nav__sub-item"><a href="module-mediawiki.page.watch.ajax.html">mediawiki.page.watch.ajax</a></li><li class="nav__sub-item"><a href="module-mediawiki.storage.html">mediawiki.storage</a></li><li class="nav__sub-item"><a href="module-mediawiki.util.html">mediawiki.util</a></li><li class="nav__sub-item"><a href="module-mediawiki.visibleTimeout.html">mediawiki.visibleTimeout</a></li><li class="nav__sub-item"><a href="module-mediawiki.watchstar.widgets.html">mediawiki.watchstar.widgets</a></li><li class="nav__sub-item"><a href="module-moment.html">moment</a></li></ul></li><li class="nav__item"><a href="namespaces.html">Frontend API</a><ul class="nav__sub-items"><li class="nav__sub-item"><a href="Hooks.html">Hooks</a></li><li class="nav__sub-item"><a href="jQueryPlugins.html">jQueryPlugins</a></li><li class="nav__sub-item"><a href="mw.html">mw</a></li><li class="nav__sub-item"><a href="window.html">window</a></li></ul></li><li class="nav__item"><a href="sitemap.html">Sitemap</a></li></ol>
+				</nav>
+			</div>
+			<div class="flex-col flex-col--end">
+				<main id="content" class="content" role="main">
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint sourcefile linenums"><code>( function () {
+	/**
+	 * A JavaScript version of CheckMatrixWidget.
+	 *
+	 * @class
+	 * @extends OO.ui.Widget
+	 *
+	 * @constructor
+	 * @param {Object} [config] Configuration options
+	 * @param {Object} config.columns Required object mapping column labels (as HTML) to
+	 *  their tags.
+	 * @param {Object} config.rows Required object mapping row labels (as HTML) to their
+	 *  tags.
+	 * @param {string[]} [config.forcedOn] Array of column-row tags to be displayed as
+	 *  enabled but unavailable to change.
+	 * @param {string[]} [config.forcedOff] Array of column-row tags to be displayed as
+	 *  disabled but unavailable to change.
+	 * @param {Object} [config.tooltips] Optional object mapping row labels to tooltips
+	 *  (as text, will be escaped).
+	 * @param {Object} [config.tooltipsHtml] Optional object mapping row labels to tooltips
+	 *  (as HTML). Takes precedence over text tooltips.
+	 */
+	mw.widgets.CheckMatrixWidget = function MWWCheckMatrixWidget( config ) {
+		var widget = this;
+		config = config || {};
+
+		// Parent constructor
+		mw.widgets.CheckMatrixWidget.super.call( this, config );
+		this.checkboxes = {};
+		this.name = config.name;
+		this.id = config.id;
+		this.rows = config.rows || {};
+		this.columns = config.columns || {};
+		this.tooltips = config.tooltips || [];
+		this.tooltipsHtml = config.tooltipsHtml || [];
+		this.values = config.values || [];
+		this.forcedOn = config.forcedOn || [];
+		this.forcedOff = config.forcedOff || [];
+
+		// Build header
+		var $headRow = $( '&lt;tr>' );
+		$headRow.append( $( '&lt;td>' ).text( '\u00A0' ) );
+
+		// Iterate over the columns object (ignore the value)
+		// eslint-disable-next-line no-jquery/no-each-util
+		$.each( this.columns, function ( columnLabel ) {
+			$headRow.append( $( '&lt;th>' ).html( columnLabel ) );
+		} );
+		var $thead = $( '&lt;thead>' );
+		$thead.append( $headRow );
+
+		var $tbody = $( '&lt;tbody>' );
+		// Build table
+		// eslint-disable-next-line no-jquery/no-each-util
+		$.each( this.rows, function ( rowLabel, rowTag ) {
+			var $row = $( '&lt;tr>' ),
+				labelField = new OO.ui.FieldLayout(
+					new OO.ui.Widget(), // Empty widget, since we don't have the checkboxes here
+					{
+						label: new OO.ui.HtmlSnippet( rowLabel ),
+						help: widget.tooltips[ rowLabel ] ||
+							widget.tooltipsHtml[ rowLabel ] &amp;&amp; new OO.ui.HtmlSnippet( widget.tooltipsHtml[ rowLabel ] ),
+						align: 'inline'
+					}
+				);
+
+			// Label
+			$row.append( $( '&lt;td>' ).append( labelField.$element ) );
+
+			// Columns
+			// eslint-disable-next-line no-jquery/no-each-util
+			$.each( widget.columns, function ( columnLabel, columnTag ) {
+				var thisTag = columnTag + '-' + rowTag,
+					checkbox = new OO.ui.CheckboxInputWidget( {
+						value: thisTag,
+						name: widget.name ? widget.name + '[]' : undefined,
+						id: widget.id ? widget.id + '-' + thisTag : undefined,
+						selected: widget.isTagSelected( thisTag ),
+						disabled: widget.isTagDisabled( thisTag )
+					} );
+
+				widget.checkboxes[ thisTag ] = checkbox;
+				$row.append( $( '&lt;td>' ).append( checkbox.$element ) );
+			} );
+
+			$tbody.append( $row );
+		} );
+		var $table = $( '&lt;table>' );
+		$table
+			.addClass( 'mw-htmlform-matrix mw-widget-checkMatrixWidget-matrix' )
+			.append( $thead, $tbody );
+
+		this.$element
+			.addClass( 'mw-widget-checkMatrixWidget' )
+			.append( $table );
+	};
+
+	/* Setup */
+
+	OO.inheritClass( mw.widgets.CheckMatrixWidget, OO.ui.Widget );
+
+	/* Methods */
+
+	/**
+	 * Check whether the given tag is selected.
+	 *
+	 * @param {string} tagName Tag name
+	 * @return {boolean} Tag is selected
+	 */
+	mw.widgets.CheckMatrixWidget.prototype.isTagSelected = function ( tagName ) {
+		return (
+			// If tag is not forced off
+			this.forcedOff.indexOf( tagName ) === -1 &amp;&amp;
+			(
+				// If tag is in values
+				this.values.indexOf( tagName ) > -1 ||
+				// If tag is forced on
+				this.forcedOn.indexOf( tagName ) > -1
+			)
+		);
+	};
+
+	/**
+	 * Check whether the given tag is disabled.
+	 *
+	 * @param {string} tagName Tag name
+	 * @return {boolean} Tag is disabled
+	 */
+	mw.widgets.CheckMatrixWidget.prototype.isTagDisabled = function ( tagName ) {
+		return (
+			// If the entire widget is disabled
+			this.isDisabled() ||
+			// If tag is forced off or forced on
+			this.forcedOff.indexOf( tagName ) > -1 ||
+			this.forcedOn.indexOf( tagName ) > -1
+		);
+	};
+	/**
+	 * @inheritdoc
+	 */
+	mw.widgets.CheckMatrixWidget.prototype.setDisabled = function ( isDisabled ) {
+		var widget = this;
+
+		// Parent method
+		mw.widgets.CheckMatrixWidget.super.prototype.setDisabled.call( this, isDisabled );
+
+		// setDisabled sometimes gets called before the widget is ready
+		if ( this.checkboxes ) {
+			// Propagate to all checkboxes and update their disabled state
+			// eslint-disable-next-line no-jquery/no-each-util
+			$.each( this.checkboxes, function ( name, checkbox ) {
+				checkbox.setDisabled( widget.isTagDisabled( name ) );
+			} );
+		}
+	};
+}() );
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+				</main>
+			</div>
+		</div>
+	</div>
+	<footer id="footer" class="footer">
+		<div class="content-box">
+			<ul class="footer__list">
+				<li><a href="https://gerrit.wikimedia.org/g/mediawiki/core/">Contribute</a></li>
+			</ul>
+			<p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Mon Mar 25 2024 13:41:33 GMT-0700 (Pacific Daylight Time)</p>
+			<p><a href="https://wikimediafoundation.org/" class="lnk--wikimedia-project">A Wikimedia Foundation project</a></p>
+		</div>
+	</footer>
+
+<script src="scripts/redirect.js"></script>
+<script>
+var arr = function(aa) { return Array.prototype.slice.call(aa); };
+arr(document.querySelectorAll("nav > ol > li a:not([href])")).map(function(el) {
+  var li = el;
+  while (li && li.tagName !== 'LI') { li = li.parentNode; }
+  el.addEventListener('click', function(event) {
+    if (li.classList.contains('is-on')) {
+      li.classList.remove('is-on');
+      return;
+    }
+    arr(document.querySelectorAll("nav li.nav__item.is-on")).map(function(el2) {
+      el2.classList.remove('is-on');
+    });
+    li.classList.add('is-on');
+  });
+});
+</script>
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/open-member.js"> </script>
+</body>
+</html>
